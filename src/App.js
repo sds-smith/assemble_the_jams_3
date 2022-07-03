@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react'
+import { generateRandomString } from './utils/random-state-generator';
 // import { createUserDocumentFromAuth, getAuthAccessToken, isNewUser, setName, createAuthDocumentFromSpotify } from './utils/firebase';
 
 import logo from './logo.svg';
 import './App.css';
 
 const scope = encodeURIComponent('user-read-private user-read-email')
-const SpotifyAuth = `https://accounts.spotify.com/authorize?response_type=token&client_id=${process.env.REACT_APP_CLIENT_ID}&scope=${scope}&redirect_uri=http://localhost:8888/`
+const state = generateRandomString()
+const SpotifyAuth = `https://accounts.spotify.com/authorize?response_type=code&client_id=${process.env.REACT_APP_CLIENT_ID}&scope=${scope}&state=${state}&code_challenge_method=S256&code_challenge=${process.env.REACT_APP_AUTH_CHALLENGE}&redirect_uri=http://localhost:8888/`
 
 const App = () => {
   const [hasAccessToken, setHasAccessToken] = useState(false)
@@ -17,16 +19,21 @@ const App = () => {
   const displayName = currentUser ? currentUser.display_name : ''
   const profilePic = currentUser ? currentUser.images[0].url : ''
 
-  const setAccessToken = async (session, accessToken) => {
-    console.log({hasAccessToken, authSession, session, accessToken})
-    // await createAuthDocumentFromSpotify(session, accessToken)
-    const response = await fetch('/.netlify/functions/create-auth-doc', {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({session, accessToken})
-    })
+  const createAuthDoc = async (session, authCode) => {
+    try {
+      const response = await fetch('/.netlify/functions/create-auth-doc', {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({session, authCode})
+      })
+      const {hasToken} = await response.json()
+      setHasAccessToken(hasToken)
+      
+    } catch(error) {
+      console.log(error)
+    }
   }
 
   const handleChange = (e) => {
@@ -37,33 +44,23 @@ const App = () => {
     // setName(currentUser, userName)
   // }
 
-  // const getUser = async () => {  
-    // const accessToken = await getAuthAccessToken(authSession)          
-    // const headers = { Authorization : `Bearer ${accessToken}` }
-    // const response = await fetch('https://api.spotify.com/v1/me',{headers : headers})
-    // const user = await response.json()
-    // return user
-  // }
-
   useEffect(() => {
-    const accessTokenMatch = window.location.href.match(/access_token=([^&]*)/)
-    if (accessTokenMatch) {
-        const session = accessTokenMatch[1].slice(0, 6)
-        const accessToken = accessTokenMatch[1]
+    const authCodeMatch = window.location.href.match(/code=([^&]*)/)
+    if (authCodeMatch) {
+        const session = authCodeMatch[1].slice(0, 6)
+        const authCode = authCodeMatch[1]
         setAuthSession(session)
-        setHasAccessToken(true)
-        setAccessToken(session, accessToken)
-    } else {
-      setHasAccessToken(false)
+        // setHasAccessToken(true)
+        createAuthDoc(session, authCode)
+    // } else {
+      // setHasAccessToken(false)
       // setAccessToken('')
     }
   }, [])
 
   useEffect(() => {
     if (hasAccessToken) {
-      console.log({authSession})
       const getUserProfile = async () => {
-        // const user = await getUser()
         const response = await fetch('/.netlify/functions/get-user', {
           method: 'post',
           headers: {
@@ -74,7 +71,6 @@ const App = () => {
         const user = await response.json()
         setCurrentUser(user)
 
-        // const userDocRef = await createUserDocumentFromAuth(user)
         // if (await isNewUser(userDocRef)) {
           // setInputDisabled(false)
         // } else {

@@ -95,15 +95,27 @@ const getAuthAccessToken = async (authSession) => {
     return authSnapshot.data()['accessToken']
 }
 
-const createAuthDocumentFromSpotify = async (authInstance, accessToken) => {
+const createAuthDocumentFromSpotify = async (authInstance, authCode) => {
     const authDocRef = getAuthDocRef(authInstance)
+    try {
+        await setDoc(authDocRef, {
+        authCode,
+        })
+    } catch(error) {
+        console.log('error creating document', error)
+    }
+    return authDocRef
+}
+
+const setAccessToken = async (authSession, accessToken) => {
+    const authDocRef = getAuthDocRef(authSession)
     try {
         await setDoc(authDocRef, {
         accessToken,
         },
-        // {
-            // merge: true
-        // }
+        {
+            merge: true
+        }
         )
     } catch(error) {
         console.log('error adding access token to document', error)
@@ -139,5 +151,6 @@ module.exports = {
     createUserDocumentFromAuth,
     getAuthDocRef,
     getAuthAccessToken,
-    createAuthDocumentFromSpotify
+    createAuthDocumentFromSpotify,
+    setAccessToken
 }

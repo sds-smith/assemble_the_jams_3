@@ -1,0 +1,35 @@
+require('dotenv').config()
+const axios = require('axios').default
+// const {getAuthAccessToken, createUserDocumentFromAuth} = require('../../src/utils/firebase')
+
+exports.handler = async (event) => {
+    try {
+        const {authCode} = JSON.parse(event.body)
+        console.log({authCode})
+        const authorization = encodeURIComponent(`${process.env.REACT_APP_CLIENT_ID}:${process.env.CLIENT_SECRET}`)
+        const headers = {
+            'Authorization' : authorization,
+            'Content-Type' : 'application/x-www-form-urlencoded'
+        }
+
+        const response = await axios.get(`https://accounts.spotify.com/api/token`,
+        {
+            headers : headers,
+            method : 'POST',
+            body : `grant_type=authorization_code&code=${authCode}&redirect_uri=http://localhost:8888/`
+        })
+        const accessToken = response.data.access_token
+        console.log({accessToken})
+        // await createUserDocumentFromAuth(user)
+        return {
+            statusCode: 200,
+            body: JSON.stringify(accessToken)
+        }
+    } catch(error) {
+        console.log('error getting access token',{ error })
+        return {
+            statusCode: 400,
+            body: JSON.stringify({error})
+        }
+    }
+}
