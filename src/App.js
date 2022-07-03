@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react'
-import { createUserDocumentFromAuth, getAuthAccessToken, isNewUser, setName, createAuthDocumentFromSpotify } from './utils/firebase';
+// import { createUserDocumentFromAuth, getAuthAccessToken, isNewUser, setName, createAuthDocumentFromSpotify } from './utils/firebase';
 
 import logo from './logo.svg';
 import './App.css';
 
 const scope = encodeURIComponent('user-read-private user-read-email')
-const clientId = '7a0fa8f646a34da694ef06f740d9f472'
-const SpotifyAuth = `https://accounts.spotify.com/authorize?response_type=token&client_id=${clientId}&scope=${scope}&redirect_uri=http://localhost:8888/`
+const SpotifyAuth = `https://accounts.spotify.com/authorize?response_type=token&client_id=${process.env.REACT_APP_CLIENT_ID}&scope=${scope}&redirect_uri=http://localhost:8888/`
 
 const App = () => {
   const [hasAccessToken, setHasAccessToken] = useState(false)
@@ -20,24 +19,31 @@ const App = () => {
 
   const setAccessToken = async (session, accessToken) => {
     console.log({hasAccessToken, authSession, session, accessToken})
-    await createAuthDocumentFromSpotify(session, accessToken)
+    // await createAuthDocumentFromSpotify(session, accessToken)
+    const response = await fetch('/.netlify/functions/create-auth-doc', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({session, accessToken})
+    })
   }
 
   const handleChange = (e) => {
     setUserName(e.target.value)
   }
 
-  const addUsername = () => {
-    setName(currentUser, userName)
-  }
+  // const addUsername = () => {
+    // setName(currentUser, userName)
+  // }
 
-  const getUser = async () => {  
-    const accessToken = await getAuthAccessToken(authSession)          
-    const headers = { Authorization : `Bearer ${accessToken}` }
-    const response = await fetch('https://api.spotify.com/v1/me',{headers : headers})
-    const user = await response.json()
-    return user
-  }
+  // const getUser = async () => {  
+    // const accessToken = await getAuthAccessToken(authSession)          
+    // const headers = { Authorization : `Bearer ${accessToken}` }
+    // const response = await fetch('https://api.spotify.com/v1/me',{headers : headers})
+    // const user = await response.json()
+    // return user
+  // }
 
   useEffect(() => {
     const accessTokenMatch = window.location.href.match(/access_token=([^&]*)/)
@@ -55,23 +61,25 @@ const App = () => {
 
   useEffect(() => {
     if (hasAccessToken) {
+      console.log({authSession})
       const getUserProfile = async () => {
         // const user = await getUser()
-        const {user} = await fetch('/.netlify/functions/get-user', {
+        const response = await fetch('/.netlify/functions/get-user', {
           method: 'post',
           headers: {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({authSession})
-        }).then((res) => res.json())
+        })
+        const user = await response.json()
         setCurrentUser(user)
 
-        const userDocRef = await createUserDocumentFromAuth(user)
-        if (await isNewUser(userDocRef)) {
-          setInputDisabled(false)
-        } else {
-          setInputDisabled(true)
-        }
+        // const userDocRef = await createUserDocumentFromAuth(user)
+        // if (await isNewUser(userDocRef)) {
+          // setInputDisabled(false)
+        // } else {
+          // setInputDisabled(true)
+        // }
       }
       getUserProfile()
     } 
@@ -86,8 +94,8 @@ const App = () => {
           <img src={currentUser ? profilePic : logo} className="App-logo" alt="logo" />
         </div>
         <h1>{currentUser ? displayName : 'Please Log In'}</h1>
-        {!inputDisabled && <input type='text' disabled={inputDisabled} onChange={handleChange} value={userName} placeholder='Enter First and Last Name' />}
-        {!inputDisabled && <button disabled={inputDisabled} onClick={addUsername} >REGISTER</button>}
+        {/* {!inputDisabled && <input type='text' disabled={inputDisabled} onChange={handleChange} value={userName} placeholder='Enter First and Last Name' />} */}
+        {/* {!inputDisabled && <button disabled={inputDisabled} onClick={addUsername} >REGISTER</button>} */}
         <a
           className="App-link"
           href={SpotifyAuth}

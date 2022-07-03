@@ -1,6 +1,6 @@
-import { initializeApp } from "firebase/app";
+const { initializeApp } = require("firebase/app");
 
-import {
+const {
     getFirestore,
     doc,
     getDoc,
@@ -9,7 +9,7 @@ import {
     writeBatch,
     query,
     getDocs
-} from 'firebase/firestore'
+} = require('firebase/firestore')
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -24,23 +24,23 @@ const firebaseConfig = {
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
 
-export const db = getFirestore()
+const db = getFirestore()
 
-export const getUserDocRef = (userAuth) => {
+const getUserDocRef = (userAuth) => {
     return doc(db, 'users', userAuth.id)
 }
 
-export const getUserSnapshot = async (userDocRef) => {
+const getUserSnapshot = async (userDocRef) => {
     const userSnapshot = await getDoc(userDocRef)
     return userSnapshot
 }
 
-export const isNewUser = async (userDocRef) => {
+const isNewUser = async (userDocRef) => {
     const userSnapshot = await getUserSnapshot(userDocRef)
     return userSnapshot.data().name === undefined
 }
 
-export const setName = async (user, name) => {
+const setName = async (user, name) => {
     const userDocRef = getUserDocRef(user)
     try {
         await setDoc(userDocRef, {
@@ -55,7 +55,7 @@ export const setName = async (user, name) => {
     return userDocRef
 }
 
-export const createUserDocumentFromAuth = async (userAuth) => {
+const createUserDocumentFromAuth = async (userAuth) => {
     const userDocRef = getUserDocRef(userAuth)
 
     const userSnapshot = await getUserSnapshot(userDocRef)
@@ -78,24 +78,24 @@ export const createUserDocumentFromAuth = async (userAuth) => {
     return userDocRef
 }
 
-export const getAuthDocRef = (authSession) => {
+const getAuthDocRef = (authSession) => {
     return doc(db, 'oAuth', authSession)
 }
 
-export const getAuthClientId = async () => {
+const getAuthClientId = async () => {
     const authDocRef =  getAuthDocRef()
     const authSnapshot = await getDoc(authDocRef)
     console.log(authSnapshot.data()['client-id'])
     return authSnapshot.data()['client-id']
 }
 
-export const getAuthAccessToken = async (authSession) => {
+const getAuthAccessToken = async (authSession) => {
     const authDocRef =  getAuthDocRef(authSession)
     const authSnapshot = await getDoc(authDocRef)
     return authSnapshot.data()['accessToken']
 }
 
-export const createAuthDocumentFromSpotify = async (authInstance, accessToken) => {
+const createAuthDocumentFromSpotify = async (authInstance, accessToken) => {
     const authDocRef = getAuthDocRef(authInstance)
     try {
         await setDoc(authDocRef, {
@@ -131,3 +131,13 @@ export const createAuthDocumentFromSpotify = async (authInstance, accessToken) =
     // return querySnapshot.docs.map((docSnapshot) => docSnapshot.data())
 // }
 
+module.exports = {
+    getUserDocRef,
+    getUserSnapshot,
+    setName,
+    isNewUser,
+    createUserDocumentFromAuth,
+    getAuthDocRef,
+    getAuthAccessToken,
+    createAuthDocumentFromSpotify
+}
