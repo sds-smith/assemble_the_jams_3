@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react'
+import { Route, Routes } from 'react-router-dom';
 import { generateRandomString } from './utils/random-state-generator';
-// import { createUserDocumentFromAuth, getAuthAccessToken, isNewUser, setName, createAuthDocumentFromSpotify } from './utils/firebase';
+import Navigation from './routes/navigation/navigation.component';
+import Home from './routes/home/home.component'
+import LogIn from './routes/log-in/log-in.component';
+import NewUser from './routes/new-user/new-user.component';
 
 import logo from './logo.svg';
 import './App.css';
@@ -14,7 +18,6 @@ const App = () => {
   const [authSession, setAuthSession] = useState('')
   const [currentUser, setCurrentUser] = useState(null)
   const [userName, setUserName] = useState('')
-  const [inputDisabled, setInputDisabled] = useState(true)
 
   const displayName = currentUser ? currentUser.display_name : ''
   const profilePic = currentUser ? currentUser.images[0].url : ''
@@ -40,21 +43,15 @@ const App = () => {
     setUserName(e.target.value)
   }
 
-  // const addUsername = () => {
-    // setName(currentUser, userName)
-  // }
-
   useEffect(() => {
     const authCodeMatch = window.location.href.match(/code=([^&]*)/)
     if (authCodeMatch) {
+      if (!hasAccessToken) {
         const session = authCodeMatch[1].slice(0, 6)
         const authCode = authCodeMatch[1]
         setAuthSession(session)
-        // setHasAccessToken(true)
         createAuthDoc(session, authCode)
-    // } else {
-      // setHasAccessToken(false)
-      // setAccessToken('')
+      }
     }
   }, [])
 
@@ -70,36 +67,29 @@ const App = () => {
         })
         const user = await response.json()
         setCurrentUser(user)
-
-        // if (await isNewUser(userDocRef)) {
-          // setInputDisabled(false)
-        // } else {
-          // setInputDisabled(true)
-        // }
       }
       getUserProfile()
     } 
-  }, [hasAccessToken, userName])
+  }, [hasAccessToken])
 
 
   return (
 
-    <div className="App">
-      <header className="App-header">
-        <div className='img-container'>
-          <img src={currentUser ? profilePic : logo} className="App-logo" alt="logo" />
-        </div>
-        <h1>{currentUser ? displayName : 'Please Log In'}</h1>
-        {/* {!inputDisabled && <input type='text' disabled={inputDisabled} onChange={handleChange} value={userName} placeholder='Enter First and Last Name' />} */}
-        {/* {!inputDisabled && <button disabled={inputDisabled} onClick={addUsername} >REGISTER</button>} */}
-        <a
-          className="App-link"
-          href={SpotifyAuth}
-        >
-          Sign in with Spotify
-        </a>
-      </header>
-    </div>
+    <Routes >
+      <Route path='/' element={ <Navigation authSession={authSession} /> } >
+        <Route index element={ <Home 
+                      currentUser={currentUser}
+                      profilePic={profilePic}
+                      logo={logo}
+                      SpotifyAuth={SpotifyAuth}
+                      displayName={displayName}
+                    /> } 
+        />
+        <Route path='log-in' element={ <LogIn SpotifyAuth={SpotifyAuth} /> } />
+        <Route path='new-user' element={ <NewUser /> } />
+      </Route>
+    </Routes>
+
   );
 }
 

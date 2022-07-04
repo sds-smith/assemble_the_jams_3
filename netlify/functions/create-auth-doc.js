@@ -14,31 +14,13 @@ exports.handler = async (event) => {
             'Authorization' : `Basic ${authorization}`,
             'Content-Type' : 'application/x-www-form-urlencoded'
         }
-        console.log({headers})
-        console.log(process.env.AUTH_VERIFIER)
         const data = `grant_type=authorization_code&code=${authCode}&redirect_uri=http://localhost:8888/&client_id=${process.env.REACT_APP_CLIENT_ID}&code_verifier=${process.env.AUTH_VERIFIER}`
-        // const data = encodeURIComponent({
-            // 'grant_type': 'authorization_code',
-            // 'code': authCode,
-            // 'redirect_uri': 'http://localhost:8888/',
-            // 'client_id': process.env.REACT_APP_CLIENT_ID,
-            // 'code_verifier': process.env.AUTH_VERIFIER
-        // })
-        // const data = qs.stringify({
-            // 'grant_type': 'authorization_code',
-            // 'code': authCode,
-            // 'redirect_uri': 'http://localhost:8888/',
-            // 'client_id': process.env.REACT_APP_CLIENT_ID,
-            // 'code_verifier': process.env.AUTH_VERIFIER
-        // })
-        console.log({data})
         const response = await axios.post(`https://accounts.spotify.com/api/token`,
             data,
         {
             headers : headers,
         })
         const accessToken = response.data.access_token
-        console.log({accessToken})
         await setAccessToken(session, accessToken)
         return {
             statusCode: 200,
