@@ -7,8 +7,7 @@ import AddBtn from '../../../assets/icons/add_black24.png'
 import Like from '../../../assets/icons/like24.png'
 import Unlike from '../../../assets/icons/unlike24.png'
 
-import { WebPlayerContainer, Player, NowPlayingCover, NowPlayingLabel, TrackControls, ProgressContainer, ProgressBar, ProgressFill } from "./web-player.styles"
-import { SpotifyAttributor, SpotifyLogo } from '../../../routes/navigation/navigation.styles'
+import { WebPlayerContainer, Player, SpotifyAttributor, SpotifyLogo, NowPlayingCover, NowPlayingLabel, TrackControls, ProgressContainer, ProgressBar, ProgressFill } from "./web-player.styles"
 
 const WebPlayer = () => {
 
@@ -30,6 +29,7 @@ const WebPlayer = () => {
     let durationMins = '5'
     let durationSec = '0'
     let progress = '50'
+    
     return (
         <WebPlayerContainer>
             <Player >

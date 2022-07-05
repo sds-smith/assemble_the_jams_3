@@ -22,27 +22,29 @@ export const Player = styled.div`
     background-color: rgba(255, 255, 255, .6);
     padding: 20px;
     box-shadow: 2px;
+        
+`
 
-    .progress-container {
-        width: 100%;
-        height: 1rem;
-        font-size: .75rem;
-        display: flex;
-        justify-content: space-evenly;
-        align-items: center;
+export const SpotifyAttributor = styled.a`
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    text-decoration: none;
+
+    &:hover {
+        opacity: 0.5;
+    }
+    
+    p {
+        font-size: 10px;
         color: black;
+        margin: 0px;
       }
-    
-      .progress-bar {
-        width: 60%;
-        height: 25%;
-        border: 1px solid black;
-      }
-    
-      .progress-fill {
-        height: 100%;
-        background-color: black;
-      }
+`
+
+export const SpotifyLogo = styled.img`
+    width: auto;
+    height: 20px;
 `
 
 export const NowPlayingCover = styled.img`
