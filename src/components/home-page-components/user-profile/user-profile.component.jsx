@@ -11,7 +11,7 @@ const UserProfile = ({currentUser}) => {
 
     useEffect(() => {
         if (currentUser) {
-          setProfilePic(currentUser.images[0].url)
+          currentUser.images.length && setProfilePic(currentUser.images[0].url)
           setDisplayName(currentUser.display_name)
         }
       },[currentUser])

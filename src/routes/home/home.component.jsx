@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom"
 import SearchBar from "../../components/home-page-components/search-bar/search-bar.component"
 import UserProfile from "../../components/home-page-components/user-profile/user-profile.component"
 import WebPlayer from "../../components/home-page-components/web-player/web-player.component"
+import SearchResults from "../../components/home-page-components/search-results/search-results.component"
 
 import { HomeContainer, HomeHero, ResultsContainer } from "./home.styles"
 
@@ -25,7 +26,11 @@ const Home = ({ authSession, currentUser }) => {
           <SearchBar />
           <WebPlayer />
         </HomeHero>
-        <ResultsContainer>I am the Results Container</ResultsContainer>
+        <ResultsContainer>
+          <SearchResults />
+          <SearchResults />
+          <SearchResults />
+        </ResultsContainer>
       </HomeContainer>
     )
 }
