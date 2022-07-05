@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const Header = styled.div`
     background-color: black;
     border: 1px solid black;
+    height: 100px;
 
     h1 {
         padding: .77rem 0;
