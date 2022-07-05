@@ -2,6 +2,8 @@ import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import SearchBar from "../../components/home-page-components/search-bar/search-bar.component"
 import UserProfile from "../../components/home-page-components/user-profile/user-profile.component"
+import WebPlayer from "../../components/home-page-components/web-player/web-player.component"
+
 import { HomeContainer, HomeHero, ResultsContainer } from "./home.styles"
 
 const Home = ({ authSession, currentUser }) => {
@@ -21,6 +23,7 @@ const Home = ({ authSession, currentUser }) => {
         <HomeHero>
           <UserProfile currentUser={currentUser} />
           <SearchBar />
+          <WebPlayer />
         </HomeHero>
         <ResultsContainer>I am the Results Container</ResultsContainer>
       </HomeContainer>
