@@ -13,14 +13,6 @@ const App = () => {
   const [hasAccessToken, setHasAccessToken] = useState(false)
   const [authSession, setAuthSession] = useState('')
   const [currentUser, setCurrentUser] = useState(null)
-  const [userName, setUserName] = useState('')
-
-  const displayName = currentUser ? currentUser.display_name : ''
-  const profilePic = currentUser ? currentUser.images[0].url : ''
-
-  const handleChange = (e) => {
-    setUserName(e.target.value)
-  }
 
   useEffect(() => {
     if (hasAccessToken) {
@@ -47,9 +39,6 @@ const App = () => {
         <Route index element={ <Home 
                       authSession={authSession}
                       currentUser={currentUser}
-                      profilePic={profilePic}
-                      logo={logo}
-                      displayName={displayName}
                     /> } 
         />
         <Route path='log-in' element={ <LogIn /> } />
