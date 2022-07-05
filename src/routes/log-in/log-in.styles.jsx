@@ -4,7 +4,6 @@ export const LogInContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     background-color: green;
     height: calc(100vh - 100px);
 `
@@ -16,6 +15,7 @@ export const FormContainer = styled.div`
     align-items: center;
     width: 60%;
     padding: 20px 40px;
+    margin-top: 33px;
     color:#fff;
     background-color: hsla(0, 0%, 0%, 40%);
 
