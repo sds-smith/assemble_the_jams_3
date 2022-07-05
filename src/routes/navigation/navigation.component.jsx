@@ -1,7 +1,7 @@
 import { Fragment } from "react"
 import { Outlet } from "react-router-dom"
 import SpotifyLogoWhite from '../../assets/icons/Spotify_Logo_RGB_White.png'
-import JamsLogo from "../../components/jams-logo/jams-logo.component"
+import JamsLogo from "../../components/reusable-components/jams-logo/jams-logo.component"
 import { Header, SpotifyAttributor, SpotifyLogo } from "./navigation.styles"
 
 const Navigation = () => {

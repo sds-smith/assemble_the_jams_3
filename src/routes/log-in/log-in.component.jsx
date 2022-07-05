@@ -2,8 +2,8 @@ import { useNavigate } from "react-router-dom"
 import { LogInMessage } from "../../data/login-message"
 import { generateRandomString } from '../../utils/random-state-generator';
 import { LogInContainer, FormContainer, Rollup, ButtonsContainer, ButtonContainer } from "./log-in.styles"
-import Button from '../../components/button/button.component'
-import JamsLogo from "../../components/jams-logo/jams-logo.component"
+import Button from '../../components/reusable-components/button/button.component'
+import JamsLogo from "../../components/reusable-components/jams-logo/jams-logo.component"
 
 const scope = encodeURIComponent('user-read-private user-read-email')
 const state = generateRandomString()

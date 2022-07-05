@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
-import Button from "../../components/button/button.component"
-import JamsLogo from "../../components/jams-logo/jams-logo.component"
+import Button from "../../components/reusable-components/button/button.component"
+import JamsLogo from "../../components/reusable-components/jams-logo/jams-logo.component"
 import { RegistrationContainer, FormContainer  } from './new-user.styles'
 
 const NewUser = () => {
