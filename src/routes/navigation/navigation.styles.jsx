@@ -18,7 +18,7 @@ export const Header = styled.div`
       
 `
 
-export const SpotifyAttributor = styled.div`
+export const SpotifyAttributor = styled.a`
     position: absolute;
     top: 5px;
     left: 5px;
