@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
-import ProfilePic from '../../assets/icons/default_profile96.png'
+import UserProfile from "../../components/home-page-components/user-profile/user-profile.component"
+import { HomeContainer, HomeHero, ResultsContainer } from "./home.styles"
 
 const Home = ({ authSession, currentUser }) => {
 
-    const [profilePic, setProfilePic] = useState(ProfilePic)
-    const [displayName, setDisplayName] = useState('')
+
 
     const navigate = useNavigate()
     
@@ -15,25 +15,13 @@ const Home = ({ authSession, currentUser }) => {
       }
     }, [authSession])
 
-    useEffect(() => {
-      if (currentUser) {
-        setProfilePic(currentUser.images[0].url)
-        setDisplayName(currentUser.display_name)
-      }
-    })
-
     return (
-
-        <div className="App">
-          <header className="App-header">
-            <div className='img-container'>
-              <img src={profilePic} className="App-logo" alt="logo" />
-            </div>
-            <h1>{currentUser ? displayName : 'Please Log In'}</h1>
-          </header>
-        </div>
-
-
+      <HomeContainer gradientAngle='45' >
+        <HomeHero>
+          <UserProfile currentUser={currentUser} />
+        </HomeHero>
+        <ResultsContainer>I am the Results Container</ResultsContainer>
+      </HomeContainer>
     )
 }
 
