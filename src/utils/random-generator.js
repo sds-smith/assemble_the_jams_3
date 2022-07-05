@@ -2,7 +2,7 @@ const CryptoJS = require('crypto-js')
 
 function generateRandomString() {
   var array = new Uint32Array(56/2);
-  crypto.getRandomValues(array);
+  CryptoJS.getRandomValues(array);
   return Array.from(array, dec2hex).join('');
 }
 
@@ -13,7 +13,7 @@ function dec2hex(dec) {
 function sha256(plain) { // returns promise ArrayBuffer
   const encoder = new TextEncoder();
   const data = encoder.encode(plain);
-  return crypto.subtle.digest('SHA-256', data);
+  return CryptoJS.subtle.digest('SHA-256', data);
 }
 
 function base64urlencode(a) {

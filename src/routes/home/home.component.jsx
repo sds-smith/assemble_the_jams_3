@@ -1,6 +1,15 @@
+import { useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 
+const Home = ({ authSession, currentUser, profilePic, logo, displayName, SpotifyAuth }) => {
 
-const Home = ({ currentUser, profilePic, logo, displayName, SpotifyAuth }) => {
+    const navigate = useNavigate()
+    
+    useEffect(() => {
+      if (!authSession) {
+          navigate('/log-in')
+      }
+    }, [authSession])
 
     return (
 

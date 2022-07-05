@@ -1,15 +1,6 @@
-import { useEffect } from "react"
-import { Outlet, useNavigate } from "react-router-dom"
+import { Outlet } from "react-router-dom"
 
-const Navigation = ({ authSession }) => {
-
-    const navigate = useNavigate()
-
-    useEffect(() => {
-        if (!authSession) {
-            navigate('/log-in')
-        }
-    }, [authSession])
+const Navigation = () => {
 
     return (
         <div>

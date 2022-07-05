@@ -7,6 +7,7 @@ const {createAuthDocumentFromSpotify, setAccessToken} = require('../../src/utils
 exports.handler = async (event) => {
     try {
         const {session, authCode} = JSON.parse(event.body)
+        console.log({authCode})
         await createAuthDocumentFromSpotify(session, authCode)
 
         const authorization = base64urlencode(`${process.env.REACT_APP_CLIENT_ID}:${process.env.CLIENT_SECRET}`)
@@ -14,7 +15,7 @@ exports.handler = async (event) => {
             'Authorization' : `Basic ${authorization}`,
             'Content-Type' : 'application/x-www-form-urlencoded'
         }
-        const data = `grant_type=authorization_code&code=${authCode}&redirect_uri=http://localhost:8888/&client_id=${process.env.REACT_APP_CLIENT_ID}&code_verifier=${process.env.AUTH_VERIFIER}`
+        const data = `grant_type=authorization_code&code=${authCode}&redirect_uri=http://localhost:8888/callback&client_id=${process.env.REACT_APP_CLIENT_ID}&code_verifier=${process.env.AUTH_VERIFIER}`
         const response = await axios.post(`https://accounts.spotify.com/api/token`,
             data,
         {
@@ -22,6 +23,7 @@ exports.handler = async (event) => {
         })
         const accessToken = response.data.access_token
         await setAccessToken(session, accessToken)
+        console.log({accessToken})
         return {
             statusCode: 200,
             body: JSON.stringify({ hasToken: true })
