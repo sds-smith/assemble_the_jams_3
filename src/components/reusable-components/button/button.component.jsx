@@ -1,8 +1,8 @@
 import { CustomButton } from "./button.styles"
 
-const Button = ({onClick, children}) => {
+const Button = ( {onClick, children, ...otherProps}) => {
     return (
-        <CustomButton onClick={onClick}  >{children}</CustomButton>
+        <CustomButton onClick={onClick} {...otherProps}  >{children}</CustomButton>
     )
 }
 

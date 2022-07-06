@@ -5,10 +5,11 @@ import UserProfile from "../../components/home-page-components/user-profile/user
 import WebPlayer from "../../components/home-page-components/web-player/web-player.component"
 import SearchResults from "../../components/home-page-components/search-results/search-results.component"
 import Recommendations from "../../components/home-page-components/recommendations/recommendations.component"
+import Playlist from "../../components/home-page-components/playlist/playlist.component"
 
 import { HomeContainer, HomeHero, ResultsContainer } from "./home.styles"
 
-const Home = ({ authSession, currentUser, tracks }) => {
+const Home = ({ authSession, currentUser, tracks, playlistTracks, playlistName }) => {
 
     const navigate = useNavigate()
     
@@ -27,7 +28,7 @@ const Home = ({ authSession, currentUser, tracks }) => {
         </HomeHero>
         <ResultsContainer>
           <SearchResults tracks={tracks} />
-          <SearchResults tracks={tracks} />
+          <Playlist playlistTracks={playlistTracks} playlistName={playlistName} />
           <Recommendations tracks={tracks} />
         </ResultsContainer>
       </HomeContainer>

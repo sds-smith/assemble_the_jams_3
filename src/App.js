@@ -15,7 +15,8 @@ const App = () => {
   const [authSession, setAuthSession] = useState('')
   const [currentUser, setCurrentUser] = useState(null)
   const [tracks, setTracks] = useState([])
-
+  const [playlistTracks, setPlaylistTracks] = useState([])
+  const [playlistName, setPlaylistName] = useState("Enter New Playlist Name")
 
 
 
@@ -32,6 +33,8 @@ const App = () => {
         const user = await response.json()
         setCurrentUser(user)
         setTracks(tracksList)
+        setPlaylistTracks(tracksList)
+
       }
       getUserProfile()
     } 
@@ -46,6 +49,8 @@ const App = () => {
                       authSession={authSession}
                       currentUser={currentUser}
                       tracks={tracks}
+                      playlistTracks={playlistTracks}
+                      playlistName={playlistName}
                     /> } 
         />
         <Route path='log-in' element={ <LogIn /> } />
