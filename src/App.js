@@ -6,60 +6,77 @@ import LogIn from './routes/log-in/log-in.component';
 import NewUser from './routes/new-user/new-user.component';
 import Auth from './components/auth/auth.component';
 
-import { tracksList } from '../src/data/tracks'
-import logo from './logo.svg';
+import { Spotify } from './utils/spotify';
+
 import './App.css';
 
 const App = () => {
   const [hasAccessToken, setHasAccessToken] = useState(false)
   const [authSession, setAuthSession] = useState('')
   const [currentUser, setCurrentUser] = useState(null)
-  const [tracks, setTracks] = useState([])
+  const [searchResults, setSearchResults] = useState([])
   const [playlistTracks, setPlaylistTracks] = useState([])
+  const [recommendations, setRecommendations] = useState([])
   const [playlistName, setPlaylistName] = useState("Enter New Playlist Name")
 
+  const addToPlaylist = (track) => {
+    let tracks = playlistTracks
+    if (tracks.find(savedTrack => savedTrack.id === track.id)) {
+      return
+    }
+    tracks.push(track)
+    setPlaylistTracks(tracks => [...tracks])
+  }
 
+  const removeFromPlaylist = (track) => {
+    let newTracks = playlistTracks.filter(savedTrack => savedTrack.id !== track.id)
+    setPlaylistTracks(newTracks)
+  }
 
-  useEffect(() => {
+  const savePlaylist = async () => {
+    const trackURIs = playlistTracks.map(track => track.uri)
+    try {
+      const response = await Spotify.savePlaylist(authSession, currentUser, playlistName, trackURIs)
+      setPlaylistName(response.playlistName)
+      setPlaylistTracks(response.playlistTracks)
+    } catch(error) {
+      console.log(error)
+    }
+  }
+
+  useEffect( () => {
     if (hasAccessToken) {
       const getUserProfile = async () => {
-        const response = await fetch('/.netlify/functions/get-user', {
-          method: 'post',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({authSession})
-        })
-        const user = await response.json()
+        const user = await Spotify.getUserProfile(authSession)
         setCurrentUser(user)
-        setTracks(tracksList)
-        setPlaylistTracks(tracksList)
-
       }
       getUserProfile()
-    } 
+    }
   }, [hasAccessToken])
 
-
   return (
-
     <Routes >
       <Route path='/' element={ <Navigation authSession={authSession} /> } >
         <Route index element={ <Home 
                       authSession={authSession}
                       currentUser={currentUser}
-                      tracks={tracks}
+                      searchResults={searchResults}
                       playlistTracks={playlistTracks}
+                      recommendations={recommendations}
                       playlistName={playlistName}
+                      setPlaylistName={setPlaylistName}
+                      setSearchResults={setSearchResults}
+                      setRecommendations={setRecommendations}
+                      onAdd={addToPlaylist}
+                      onRemove={removeFromPlaylist}
+                      onSave={savePlaylist}
                     /> } 
         />
         <Route path='log-in' element={ <LogIn /> } />
         <Route path='new-user' element={ <NewUser /> } />
         <Route path='/callback' element={<Auth setAuthSession={setAuthSession} setHasAccessToken={setHasAccessToken} />} />
       </Route>
-
     </Routes>
-
   );
 }
 

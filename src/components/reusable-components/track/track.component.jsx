@@ -6,14 +6,14 @@ import AddBtn from '../../../assets/icons/add_white24.png'
 import ClearBtn from '../../../assets/icons/clear_white24.png'
 import { TrackContainer, TrackInformation, TrackActionContainer, ReverseTrackContainer, ReverseTrackInformation } from './track.styles'
 
-const Track = ({track, trackType}) => {
+const Track = ({track, trackType, onAdd, onRemove, onPlay}) => {
 
   const addTrack = () => {
-    console.log('addTrack')
+    onAdd(track)
   }
 
   const removeTrack = () => {
-    console.log('removeTrack')
+    onRemove(track)
   }
 
   const playTrack = () => {

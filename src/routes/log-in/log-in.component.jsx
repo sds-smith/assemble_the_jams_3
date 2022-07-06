@@ -1,24 +1,18 @@
 import { useNavigate } from "react-router-dom"
 import { LogInMessage } from "../../data/login-message"
-import { generateRandomString } from '../../utils/random-state-generator';
+import { Spotify } from "../../utils/spotify"
 import { LogInContainer, FormContainer, Rollup, ButtonsContainer, ButtonContainer } from "./log-in.styles"
 import Button from '../../components/reusable-components/button/button.component'
 import JamsLogo from "../../components/reusable-components/jams-logo/jams-logo.component"
 
-const scope = encodeURIComponent('user-read-private user-read-email')
-const state = generateRandomString()
-const SpotifyAuth = `https://accounts.spotify.com/authorize?response_type=code&client_id=${process.env.REACT_APP_CLIENT_ID}&scope=${scope}&state=${state}&code_challenge_method=S256&code_challenge=${process.env.REACT_APP_AUTH_CHALLENGE}&redirect_uri=http://localhost:8888/callback`
 
 const LogIn = () => {
-
     const navigate = useNavigate()
-
     const register = () => {
         navigate('/new-user')
     }
-
     const signIn = () => {
-        window.location.replace(SpotifyAuth)
+        Spotify.auth()
     }
 
     return (

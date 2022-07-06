@@ -5,13 +5,14 @@ import Spinner from '../../reusable-components/spinner/spinner.component'
 
 import { RecommendationsContainer } from './recommendations.styles'
 
-const Recommendations = ({tracks}) => {
+const Recommendations = ({tracks, onAdd}) => {
         return (
             <RecommendationsContainer>
               <h2>Recommendations</h2>
               <Spinner />
               <TrackList 
                  tracks={tracks} 
+                 onAdd={onAdd}
                  trackType={'recommendations'}/> 
             </RecommendationsContainer>
         )

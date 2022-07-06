@@ -1,20 +1,27 @@
+import { useState } from "react"
 
+import { Spotify } from "../../../utils/spotify"
 import Button from "../../reusable-components/button/button.component"
 import { SearchBarContainer, SearchBarInput } from "./search-bar.styles"
 
-const SearchBar = () => {
+const SearchBar = ({authSession, setSearchResults, setRecommendations}) => {
 
-    const search = () => {
-        console.log('searching so hard')
+    const [searchTerm, setSearchTerm] = useState('')
+
+    const search = async () => {
+        const {searchResultsArray, recommendationsArray} = await Spotify.search(authSession, searchTerm)
+        setSearchTerm('')
+        setSearchResults(searchResultsArray)
+        setRecommendations(recommendationsArray)
     }
 
-    const handleTermChange = () => {
-        console.log('handling it')
+    const handleTermChange = (e) => {
+        setSearchTerm(e.target.value)
     }
 
     return (
         <SearchBarContainer onKeyPress={(e) => e.key === 'Enter' && search()}>
-            <SearchBarInput placeholder="Enter A Song, Album, or Artist"  className='searchbar_input' id='search_input'onChange={handleTermChange}/>
+            <SearchBarInput placeholder="Enter A Song, Album, or Artist" onChange={handleTermChange} value={searchTerm}/>
             <Button onClick={search}>SEARCH</Button>
         </SearchBarContainer>
     )

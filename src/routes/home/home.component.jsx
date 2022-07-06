@@ -9,7 +9,9 @@ import Playlist from "../../components/home-page-components/playlist/playlist.co
 
 import { HomeContainer, HomeHero, ResultsContainer } from "./home.styles"
 
-const Home = ({ authSession, currentUser, tracks, playlistTracks, playlistName }) => {
+const Home = ({ authSession, currentUser, searchResults, playlistTracks, recommendations, playlistName, setPlaylistName, setSearchResults, setRecommendations, onAdd, onRemove, onSave }) => {
+
+    const [gradientAngle, setGradientAngle] = useState(135)
 
     const navigate = useNavigate()
     
@@ -20,16 +22,16 @@ const Home = ({ authSession, currentUser, tracks, playlistTracks, playlistName }
     }, [authSession])
 
     return (
-      <HomeContainer gradientAngle='45' >
+      <HomeContainer gradientAngle={gradientAngle} >
         <HomeHero>
           <UserProfile currentUser={currentUser} />
-          <SearchBar />
+          <SearchBar authSession={authSession} setSearchResults={setSearchResults} setRecommendations={setRecommendations} />
           <WebPlayer />
         </HomeHero>
         <ResultsContainer>
-          <SearchResults tracks={tracks} />
-          <Playlist playlistTracks={playlistTracks} playlistName={playlistName} />
-          <Recommendations tracks={tracks} />
+          <SearchResults tracks={searchResults} onAdd={onAdd} />
+          <Playlist tracks={playlistTracks} playlistName={playlistName} setPlaylistName={setPlaylistName} onRemove={onRemove} onSave={onSave} />
+          <Recommendations tracks={recommendations} onAdd={onAdd} />
         </ResultsContainer>
       </HomeContainer>
     )

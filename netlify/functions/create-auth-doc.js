@@ -7,7 +7,6 @@ const {createAuthDocumentFromSpotify, setAccessToken} = require('../../src/utils
 exports.handler = async (event) => {
     try {
         const {session, authCode} = JSON.parse(event.body)
-        console.log({authCode})
         await createAuthDocumentFromSpotify(session, authCode)
 
         const authorization = base64urlencode(`${process.env.REACT_APP_CLIENT_ID}:${process.env.CLIENT_SECRET}`)
@@ -22,11 +21,14 @@ exports.handler = async (event) => {
             headers : headers,
         })
         const accessToken = response.data.access_token
+        const expiresIn = response.data.expires_in
         await setAccessToken(session, accessToken)
-        console.log({accessToken})
         return {
             statusCode: 200,
-            body: JSON.stringify({ hasToken: true })
+            body: JSON.stringify({ 
+                hasToken: true,
+                expiresIn
+            })
         }
     } catch(error) {
         console.log( error.response.data )
