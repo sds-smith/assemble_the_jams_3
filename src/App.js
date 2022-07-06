@@ -6,6 +6,7 @@ import LogIn from './routes/log-in/log-in.component';
 import NewUser from './routes/new-user/new-user.component';
 import Auth from './components/auth/auth.component';
 
+import { tracksList } from '../src/data/tracks'
 import logo from './logo.svg';
 import './App.css';
 
@@ -13,6 +14,10 @@ const App = () => {
   const [hasAccessToken, setHasAccessToken] = useState(false)
   const [authSession, setAuthSession] = useState('')
   const [currentUser, setCurrentUser] = useState(null)
+  const [tracks, setTracks] = useState([])
+
+
+
 
   useEffect(() => {
     if (hasAccessToken) {
@@ -26,6 +31,7 @@ const App = () => {
         })
         const user = await response.json()
         setCurrentUser(user)
+        setTracks(tracksList)
       }
       getUserProfile()
     } 
@@ -39,6 +45,7 @@ const App = () => {
         <Route index element={ <Home 
                       authSession={authSession}
                       currentUser={currentUser}
+                      tracks={tracks}
                     /> } 
         />
         <Route path='log-in' element={ <LogIn /> } />

@@ -7,7 +7,7 @@ import SearchResults from "../../components/home-page-components/search-results/
 
 import { HomeContainer, HomeHero, ResultsContainer } from "./home.styles"
 
-const Home = ({ authSession, currentUser }) => {
+const Home = ({ authSession, currentUser, tracks }) => {
 
 
 
@@ -27,9 +27,9 @@ const Home = ({ authSession, currentUser }) => {
           <WebPlayer />
         </HomeHero>
         <ResultsContainer>
-          <SearchResults />
-          <SearchResults />
-          <SearchResults />
+          <SearchResults tracks={tracks} />
+          <SearchResults tracks={tracks} />
+          <SearchResults tracks={tracks} />
         </ResultsContainer>
       </HomeContainer>
     )
