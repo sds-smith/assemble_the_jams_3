@@ -11,7 +11,7 @@ import { Spotify } from './utils/spotify';
 import './App.css';
 
 const App = () => {
-  const [hasAccessToken, setHasAccessToken] = useState(false)
+  const [accessToken, setAccessToken] = useState('')
   const [authSession, setAuthSession] = useState('')
   const [currentUser, setCurrentUser] = useState(null)
   const [searchResults, setSearchResults] = useState([])
@@ -19,6 +19,7 @@ const App = () => {
   const [recommendations, setRecommendations] = useState([])
   const [playlistName, setPlaylistName] = useState("Enter New Playlist Name")
   const [searchLoading, setSearchLoading] = useState(false)
+  const [gradientAngle, setGradientAngle] = useState(135)
 
   const addToPlaylist = (track) => {
     let tracks = playlistTracks
@@ -46,14 +47,14 @@ const App = () => {
   }
 
   useEffect( () => {
-    if (hasAccessToken) {
+    if (accessToken) {
       const getUserProfile = async () => {
         const user = await Spotify.getUserProfile(authSession)
         setCurrentUser(user)
       }
       getUserProfile()
     }
-  }, [hasAccessToken])
+  }, [accessToken])
 
   return (
     <Routes >
@@ -73,11 +74,14 @@ const App = () => {
                       onSave={savePlaylist}
                       searchLoading={searchLoading}
                       setSearchLoading={setSearchLoading}
+                      gradientAngle={gradientAngle}
+                      setGradientAngle={setGradientAngle}
+                      accessToken={accessToken}
                     /> } 
         />
         <Route path='log-in' element={ <LogIn /> } />
         <Route path='new-user' element={ <NewUser /> } />
-        <Route path='/callback' element={<Auth setAuthSession={setAuthSession} setHasAccessToken={setHasAccessToken} />} />
+        <Route path='/callback' element={<Auth setAuthSession={setAuthSession} setAccessToken={setAccessToken} />} />
       </Route>
     </Routes>
   );

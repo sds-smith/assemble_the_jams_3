@@ -10,6 +10,8 @@ const SearchBar = ({authSession, setSearchResults, setRecommendations, searchLoa
 
     const search = async () => {
         setSearchLoading(searchLoading => !searchLoading)
+        setSearchResults([])
+        setRecommendations([])
         const {searchResultsArray, recommendationsArray} = await Spotify.search(authSession, searchTerm)
         setSearchTerm('')
         setSearchResults(searchResultsArray)
