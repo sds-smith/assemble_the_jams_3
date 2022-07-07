@@ -13,7 +13,7 @@ export const WebPlayerContainer = styled.div`
 
 export const Player = styled.div`
     position: relative;
-    display: flex;
+    display: ${props => props.active ? 'flex' : 'none'};
     width: 80%;
     height: 80%;
     flex-direction: column;

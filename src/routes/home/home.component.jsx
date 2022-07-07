@@ -9,7 +9,7 @@ import Playlist from "../../components/home-page-components/playlist/playlist.co
 
 import { HomeContainer, HomeHero, ResultsContainer } from "./home.styles"
 
-const Home = ({ accessToken, authSession, currentUser, searchResults, playlistTracks, recommendations, playlistName, setPlaylistName, setSearchResults, setRecommendations, searchLoading, setSearchLoading, onAdd, onRemove, onSave, gradientAngle, setGradientAngle }) => {
+const Home = ({ accessToken, authSession, currentUser, searchResults, playlistTracks, recommendations, playlistName, setPlaylistName, setSearchResults, setRecommendations, searchLoading, setSearchLoading, onAdd, onRemove, onPlay, onSave, gradientAngle, setGradientAngle, deviceID, setDeviceId, playerInstance, setPlayerInstance, nowPlaying, setNowPlaying }) => {
 
     const navigate = useNavigate()
     
@@ -24,12 +24,17 @@ const Home = ({ accessToken, authSession, currentUser, searchResults, playlistTr
         <HomeHero>
           <UserProfile currentUser={currentUser} />
           <SearchBar authSession={authSession} setSearchResults={setSearchResults} setRecommendations={setRecommendations} searchLoading={searchLoading} setSearchLoading={setSearchLoading} />
-          <WebPlayer accessToken={accessToken} authSession={authSession} gradientAngle={gradientAngle} setGradientAngle={setGradientAngle} />
+          <WebPlayer accessToken={accessToken} authSession={authSession} gradientAngle={gradientAngle} setGradientAngle={setGradientAngle}                       deviceID={deviceID}
+                      setDeviceId={setDeviceId}
+                      playerInstance={playerInstance}
+                      setPlayerInstance={setPlayerInstance}
+                      nowPlaying={nowPlaying}
+                      setNowPlaying={setNowPlaying} />
         </HomeHero>
         <ResultsContainer>
-          <SearchResults tracks={searchResults} onAdd={onAdd} searchLoading={searchLoading} />
+          <SearchResults tracks={searchResults} onAdd={onAdd} onPlay={onPlay} searchLoading={searchLoading} />
           <Playlist tracks={playlistTracks} playlistName={playlistName} setPlaylistName={setPlaylistName} onRemove={onRemove} onSave={onSave} />
-          <Recommendations tracks={recommendations} onAdd={onAdd} searchLoading={searchLoading} />
+          <Recommendations tracks={recommendations} onAdd={onAdd} onPlay={onPlay} searchLoading={searchLoading} />
         </ResultsContainer>
       </HomeContainer>
     )

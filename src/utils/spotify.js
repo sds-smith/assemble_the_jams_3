@@ -44,7 +44,6 @@ export const Spotify = {
       }
   },
 
-    
     async search(authSession, searchTerm) {
         try {
             const response = await fetch('/.netlify/functions/search', {
@@ -70,6 +69,42 @@ export const Spotify = {
                 uri : track.uri
               }))
               return {searchResultsArray, recommendationsArray}
+        } catch(error) {
+            window.alert({error})
+        }
+    },
+
+    play(id, {
+      spotify_uri,
+      playerInstance:  {
+          _options: {
+            getOAuthToken
+          }
+      }
+    }) {
+      getOAuthToken(access_token => {
+        fetch(`https://api.spotify.com/v1/me/player/play?device_id=${id}`, {
+          method: 'PUT',
+          body: JSON.stringify({ uris: [spotify_uri] }),
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${access_token}`
+          },
+        });
+      });
+    },
+
+    async getLikeStatus(authSession, trackId) {
+        try {
+            const response = await fetch('/.netlify/functions/get-user', {
+                method: 'post',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({authSession, trackId})
+              })
+              const status = await response.json()
+              return status
         } catch(error) {
             window.alert({error})
         }

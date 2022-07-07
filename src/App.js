@@ -19,7 +19,25 @@ const App = () => {
   const [recommendations, setRecommendations] = useState([])
   const [playlistName, setPlaylistName] = useState("Enter New Playlist Name")
   const [searchLoading, setSearchLoading] = useState(false)
+  const [deviceID, setDeviceId] = useState('')
+  const [playerInstance, setPlayerInstance] = useState(undefined)
+  const [nowPlaying, setNowPlaying] = useState({
+    trackId : '',
+    isLike : null
+  })
   const [gradientAngle, setGradientAngle] = useState(135)
+
+
+  const playTrack = async (track) => {
+    const likeStatus = await Spotify.getLikeStatus(authSession, track.id)
+    setNowPlaying(track => ({trackId: track.id, isLike: likeStatus}))
+    const uri = `spotify:track:${track.id}`
+    Spotify.play(deviceID, {
+      playerInstance : playerInstance,
+      spotify_uri : uri,
+    })
+  }
+  
 
   const addToPlaylist = (track) => {
     let tracks = playlistTracks
@@ -71,12 +89,19 @@ const App = () => {
                       setRecommendations={setRecommendations}
                       onAdd={addToPlaylist}
                       onRemove={removeFromPlaylist}
+                      onPlay={playTrack}
                       onSave={savePlaylist}
                       searchLoading={searchLoading}
                       setSearchLoading={setSearchLoading}
                       gradientAngle={gradientAngle}
                       setGradientAngle={setGradientAngle}
                       accessToken={accessToken}
+                      deviceID={deviceID}
+                      setDeviceId={setDeviceId}
+                      playerInstance={playerInstance}
+                      setPlayerInstance={setPlayerInstance}
+                      nowPlaying={nowPlaying}
+                      setNowPlaying={setNowPlaying}
                     /> } 
         />
         <Route path='log-in' element={ <LogIn /> } />

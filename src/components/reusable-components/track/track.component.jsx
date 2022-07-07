@@ -17,7 +17,7 @@ const Track = ({track, trackType, onAdd, onRemove, onPlay}) => {
   }
 
   const playTrack = () => {
-    console.log('playTrack')
+    onPlay(track)
   }
 
   let trackActions 
