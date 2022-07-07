@@ -18,6 +18,7 @@ const App = () => {
   const [playlistTracks, setPlaylistTracks] = useState([])
   const [recommendations, setRecommendations] = useState([])
   const [playlistName, setPlaylistName] = useState("Enter New Playlist Name")
+  const [searchLoading, setSearchLoading] = useState(false)
 
   const addToPlaylist = (track) => {
     let tracks = playlistTracks
@@ -70,6 +71,8 @@ const App = () => {
                       onAdd={addToPlaylist}
                       onRemove={removeFromPlaylist}
                       onSave={savePlaylist}
+                      searchLoading={searchLoading}
+                      setSearchLoading={setSearchLoading}
                     /> } 
         />
         <Route path='log-in' element={ <LogIn /> } />

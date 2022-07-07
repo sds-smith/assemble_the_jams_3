@@ -5,11 +5,11 @@ import Spinner from '../../reusable-components/spinner/spinner.component'
 
 import { RecommendationsContainer } from './recommendations.styles'
 
-const Recommendations = ({tracks, onAdd}) => {
+const Recommendations = ({tracks, onAdd, searchLoading}) => {
         return (
             <RecommendationsContainer>
               <h2>Recommendations</h2>
-              <Spinner />
+              <Spinner searchLoading={searchLoading} />
               <TrackList 
                  tracks={tracks} 
                  onAdd={onAdd}

@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 
 import TrackActionButton from '../../reusable-components/track-action-button/track-action-button.component'
 
@@ -9,7 +10,9 @@ import Unlike from '../../../assets/icons/unlike24.png'
 
 import { WebPlayerContainer, Player, SpotifyAttributor, SpotifyLogo, NowPlayingCover, NowPlayingLabel, TrackControls, ProgressContainer, ProgressBar, ProgressFill } from "./web-player.styles"
 
-const WebPlayer = () => {
+const WebPlayer = ({authSession, hasAccessToken}) => {
+
+    const [player, setPlayer] = useState(undefined);
 
     const togglePlay = () => {
         console.log('toggle play')
@@ -29,6 +32,58 @@ const WebPlayer = () => {
     let durationMins = '5'
     let durationSec = '0'
     let progress = '50'
+    
+    useEffect(() => {
+        if ( hasAccessToken ) {
+            const getToken = async (authSession) => {
+                try {
+                    const response = await fetch('/.netlify/functions/token', {
+                        method: 'post',
+                        headers: {
+                          'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({authSession})
+                      })
+                      const {token} = await response.json()
+                      return token
+                } catch(error) {
+                    window.alert({error})
+                }
+            }
+        
+            const token = getToken()
+        
+            const script = document.createElement("script");
+            script.src = "https://sdk.scdn.co/spotify-player.js";
+            script.async = true;
+        
+            document.body.appendChild(script);
+        
+            window.onSpotifyWebPlaybackSDKReady = () => {
+                
+                const player = new window.Spotify.Player({
+                    name: 'Assemble the Jams',
+                    getOAuthToken: cb => { cb(token); },
+                    volume: 0.5
+                });
+            
+                setPlayer(player);
+            
+                player.addListener('ready', ({ device_id }) => {
+                    console.log('Ready with Device ID', device_id);
+                });
+            
+                player.addListener('not_ready', ({ device_id }) => {
+                    console.log('Device ID has gone offline', device_id);
+                });
+            
+            
+                player.connect();
+            
+        }
+
+        };
+    }, [hasAccessToken]);
     
     return (
         <WebPlayerContainer>

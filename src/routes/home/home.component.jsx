@@ -9,7 +9,7 @@ import Playlist from "../../components/home-page-components/playlist/playlist.co
 
 import { HomeContainer, HomeHero, ResultsContainer } from "./home.styles"
 
-const Home = ({ authSession, currentUser, searchResults, playlistTracks, recommendations, playlistName, setPlaylistName, setSearchResults, setRecommendations, onAdd, onRemove, onSave }) => {
+const Home = ({ hasAccessToken, authSession, currentUser, searchResults, playlistTracks, recommendations, playlistName, setPlaylistName, setSearchResults, setRecommendations, searchLoading, setSearchLoading, onAdd, onRemove, onSave }) => {
 
     const [gradientAngle, setGradientAngle] = useState(135)
 
@@ -25,13 +25,13 @@ const Home = ({ authSession, currentUser, searchResults, playlistTracks, recomme
       <HomeContainer gradientAngle={gradientAngle} >
         <HomeHero>
           <UserProfile currentUser={currentUser} />
-          <SearchBar authSession={authSession} setSearchResults={setSearchResults} setRecommendations={setRecommendations} />
-          <WebPlayer />
+          <SearchBar authSession={authSession} setSearchResults={setSearchResults} setRecommendations={setRecommendations} searchLoading={searchLoading} setSearchLoading={setSearchLoading} />
+          <WebPlayer hasAccessToken={hasAccessToken} authSession={authSession} />
         </HomeHero>
         <ResultsContainer>
-          <SearchResults tracks={searchResults} onAdd={onAdd} />
+          <SearchResults tracks={searchResults} onAdd={onAdd} searchLoading={searchLoading} />
           <Playlist tracks={playlistTracks} playlistName={playlistName} setPlaylistName={setPlaylistName} onRemove={onRemove} onSave={onSave} />
-          <Recommendations tracks={recommendations} onAdd={onAdd} />
+          <Recommendations tracks={recommendations} onAdd={onAdd} searchLoading={searchLoading} />
         </ResultsContainer>
       </HomeContainer>
     )
