@@ -29,7 +29,9 @@ const Home = ({ accessToken, authSession, currentUser, searchResults, playlistTr
                       playerInstance={playerInstance}
                       setPlayerInstance={setPlayerInstance}
                       nowPlaying={nowPlaying}
-                      setNowPlaying={setNowPlaying} />
+                      setNowPlaying={setNowPlaying}
+                      onAdd={onAdd}
+                     />
         </HomeHero>
         <ResultsContainer>
           <SearchResults tracks={searchResults} onAdd={onAdd} onPlay={onPlay} searchLoading={searchLoading} />

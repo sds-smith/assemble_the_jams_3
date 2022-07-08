@@ -24,7 +24,7 @@ const track = {
     ]
 }
 
-const WebPlayer = ({authSession, accessToken, gradientAngle, setGradientAngle, deviceID, setDeviceId, playerInstance, setPlayerInstance, nowPlaying, setNowPlaying }) => {
+const WebPlayer = ({authSession, accessToken, gradientAngle, setGradientAngle, deviceID, setDeviceId, playerInstance, setPlayerInstance, nowPlaying, setNowPlaying, onAdd }) => {
 
     const [currentTrack, setCurrentTrack] = useState(track)
     const [playerPosition, setPlayerPosition] = useState(null)
@@ -32,22 +32,25 @@ const WebPlayer = ({authSession, accessToken, gradientAngle, setGradientAngle, d
     const [active, setActive] = useState(false)
 
     const togglePlay = () => {
+        console.log('togglePlay')
         playerInstance.togglePlay()
     }
 
     const nowPlayingInterval = (player) => {
-        console.log({player})
         const interval =  setInterval( () => {
             setGradientAngle(gradientAngle => gradientAngle - 2 )
-            player.getCurrentState().then( ({position}) => {
-                console.log(position)
-                setPlayerPosition(position => (position))
+            player.getCurrentState().then( (state) => {
+                console.log(state)
+                setPlayerPosition(state.position)     
+
+                if (state.position === 0) {
+                    clearInterval(interval)
+                    setActive(false)
+                    setNowPlaying('', null)
+                    console.log('end')
+                    interval = null
+                }     
             })
-            if (playerPosition === 0) {
-                clearInterval(interval)
-                setActive(false)
-                setNowPlaying('', null)
-            }
         }, 1000);
     }
 
@@ -69,7 +72,7 @@ const WebPlayer = ({authSession, accessToken, gradientAngle, setGradientAngle, d
     }
 
     const addTrack = () => {
-        console.log('add track yo')
+        onAdd(nowPlaying)
     }
 
     useEffect(() => {
@@ -112,9 +115,9 @@ const WebPlayer = ({authSession, accessToken, gradientAngle, setGradientAngle, d
                     player.getCurrentState().then( currentState => {
                         (!currentState) ? setActive(false) : setActive(true)
                     })
-                    
+                    nowPlayingInterval(player)
+
                 }));
-                nowPlayingInterval(player)
                 player.connect();
             };
 
