@@ -29,10 +29,13 @@ const Auth = ({setAuthSession, setAccessToken}) => {
         }
 
         if (authCodeMatch) {
+          if (!accessToken) {
             const session = authCodeMatch[1].slice(0, 6)
             const authCode = authCodeMatch[1]
             setAuthSession(session)
             getAccessToken( authCode)
+          }
+
         }
     }, [navigate, setAccessToken, setAuthSession])
 
