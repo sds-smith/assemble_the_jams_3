@@ -4,7 +4,6 @@ export const HomeContainer = styled.div`
     min-height: calc(100vh - 100px);
     position: relative;
     padding: 0 5% 10% 5%;
-    background-image: linear-gradient(${props => props.gradientAngle}deg, green, black);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -24,3 +23,5 @@ export const ResultsContainer = styled.div`
     justify-content: space-between;
     width: 100%;
 `
+
+// background-image: linear-gradient(${props => props.gradientAngle}deg, green, black);

@@ -4,7 +4,7 @@ import { Spotify } from "../../../utils/spotify"
 import Button from "../../reusable-components/button/button.component"
 import { SearchBarContainer, SearchBarInput } from "./search-bar.styles"
 
-const SearchBar = ({authSession, setSearchResults, setRecommendations, searchLoading, setSearchLoading}) => {
+const SearchBar = ({accessToken, setSearchResults, setRecommendations, searchLoading, setSearchLoading}) => {
 
     const [searchTerm, setSearchTerm] = useState('')
 
@@ -12,7 +12,7 @@ const SearchBar = ({authSession, setSearchResults, setRecommendations, searchLoa
         setSearchLoading(searchLoading => !searchLoading)
         setSearchResults([])
         setRecommendations([])
-        const {searchResultsArray, recommendationsArray} = await Spotify.search(authSession, searchTerm)
+        const {searchResultsArray, recommendationsArray} = await Spotify.search(accessToken, searchTerm)
         setSearchTerm('')
         setSearchResults(searchResultsArray)
         setRecommendations(recommendationsArray)

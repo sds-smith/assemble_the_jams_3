@@ -24,7 +24,7 @@ const track = {
     ]
 }
 
-const WebPlayer = ({authSession, accessToken, gradientAngle, setGradientAngle, deviceID, setDeviceId, playerInstance, setPlayerInstance, nowPlaying, setNowPlaying, onAdd }) => {
+const WebPlayer = ({ accessToken, gradientAngle, setGradientAngle, deviceID, setDeviceId, playerInstance, setPlayerInstance, nowPlaying, setNowPlaying, onAdd }) => {
 
     const [currentTrack, setCurrentTrack] = useState(track)
     const [playerPosition, setPlayerPosition] = useState(null)
@@ -36,35 +36,17 @@ const WebPlayer = ({authSession, accessToken, gradientAngle, setGradientAngle, d
         playerInstance.togglePlay()
     }
 
-    const nowPlayingInterval = (player) => {
-        const interval =  setInterval( () => {
-            setGradientAngle(gradientAngle => gradientAngle - 2 )
-            player.getCurrentState().then( (state) => {
-                console.log(state)
-                setPlayerPosition(state.position)     
-
-                if (state.position === 0) {
-                    clearInterval(interval)
-                    setActive(false)
-                    setNowPlaying('', null)
-                    console.log('end')
-                    interval = null
-                }     
-            })
-        }, 1000);
-    }
-
     const toggleLike = () => {
-        if (!nowPlaying.trackId.length) {
+        if (!nowPlaying.track.id) {
             return
           }
           if (nowPlaying.isLike) {
-            Spotify.deleteLike(nowPlaying.trackId)
+            Spotify.deleteLike(accessToken, nowPlaying.track.id)
             setNowPlaying(nowPlaying => ({...nowPlaying, isLike: false}))
             // document.getElementById('likesMessage').innerHTML = 'Removed from Liked Songs'
             // setTimeout(() => document.getElementById('likesMessage').innerHTML = '', 3000);
           } else {
-            Spotify.addLike(nowPlaying.trackId)
+            Spotify.addLike(accessToken, nowPlaying.track.id)
             setNowPlaying(nowPlaying => ({...nowPlaying, isLike: true}))
             // document.getElementById('likesMessage').innerHTML = 'Added to Liked Songs'
             // setTimeout(() => document.getElementById('likesMessage').innerHTML = '', 3000);
@@ -72,7 +54,7 @@ const WebPlayer = ({authSession, accessToken, gradientAngle, setGradientAngle, d
     }
 
     const addTrack = () => {
-        onAdd(nowPlaying)
+        onAdd(nowPlaying.track)
     }
 
     useEffect(() => {
@@ -82,6 +64,21 @@ const WebPlayer = ({authSession, accessToken, gradientAngle, setGradientAngle, d
             script.async = true;
         
             document.body.appendChild(script);
+
+            const nowPlayingInterval = (player) => {
+                const interval =  setInterval( () => {
+                    setGradientAngle(gradientAngle - 2 )
+                    player.getCurrentState().then( (state) => {
+                        setPlayerPosition(state.position)     
+        
+                        if (state.position === 0) {
+                            clearInterval(interval)
+                            setActive(false)
+                            setNowPlaying('', null)
+                        }     
+                    })
+                }, 1000);
+            }
         
             window.onSpotifyWebPlaybackSDKReady = () => {
             
@@ -91,11 +88,11 @@ const WebPlayer = ({authSession, accessToken, gradientAngle, setGradientAngle, d
                     volume: 0.5
                 });
             
-            
+                setPlayerInstance(player)
+
                 player.addListener('ready', ({ device_id }) => {
                     console.log('Ready with Device ID', device_id);
                     setDeviceId(device_id);
-                    setPlayerInstance(player)
                 });
             
                 player.addListener('not_ready', ({ device_id }) => {
@@ -103,19 +100,23 @@ const WebPlayer = ({authSession, accessToken, gradientAngle, setGradientAngle, d
                 });
             
                 player.addListener('player_state_changed', ( state => {
-                    console.log('player_state_changed', state)
+                    console.log('player state changed', state)
                     if (!state) {
                         return;
                     }
                 
                     setCurrentTrack(state.track_window.current_track)
-                    setPlayerPosition(state.position)
+                    // setPlayerPosition(state.position)
                     setDuration(state.duration)
                 
                     player.getCurrentState().then( currentState => {
-                        (!currentState) ? setActive(false) : setActive(true)
+                        if (currentState) {
+                            setActive(true)
+                            nowPlayingInterval(player)
+                        } else {
+                            setActive(false)
+                        }
                     })
-                    nowPlayingInterval(player)
 
                 }));
                 player.connect();

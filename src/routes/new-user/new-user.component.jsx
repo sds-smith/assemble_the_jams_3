@@ -13,11 +13,11 @@ const NewUser = () => {
     const registrationMessage = `Thank you. Your request has been submitted. You will be notified at ${email} when your registration has been processed.`
 
 
-    const encode = (data) => {
-        return Object.keys(data)
-            .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
-            .join("&");
-      }
+    // const encode = (data) => {
+        // return Object.keys(data)
+            // .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+            // .join("&");
+      // }
   
 
     const handleSubmit = (e) => {

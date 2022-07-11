@@ -22,15 +22,15 @@ const App = () => {
   const [deviceID, setDeviceId] = useState('')
   const [playerInstance, setPlayerInstance] = useState(undefined)
   const [nowPlaying, setNowPlaying] = useState({
-    trackId : '',
+    track : {},
     isLike : null
   })
   const [gradientAngle, setGradientAngle] = useState(135)
 
 
   const playTrack = async (track) => {
-    const likeStatus = await Spotify.getLikeStatus(authSession, track.id)
-    setNowPlaying(track => ({trackId: track.id, isLike: likeStatus}))
+    const isLike = await Spotify.getLikeStatus(accessToken, track.id)
+    setNowPlaying({track, isLike})
     const uri = `spotify:track:${track.id}`
     Spotify.play(deviceID, {
       playerInstance : playerInstance,
@@ -56,7 +56,7 @@ const App = () => {
   const savePlaylist = async () => {
     const trackURIs = playlistTracks.map(track => track.uri)
     try {
-      const response = await Spotify.savePlaylist(authSession, currentUser, playlistName, trackURIs)
+      const response = await Spotify.savePlaylist(accessToken, currentUser, playlistName, trackURIs)
       setPlaylistName(response.playlistName)
       setPlaylistTracks(response.playlistTracks)
     } catch(error) {
@@ -67,7 +67,7 @@ const App = () => {
   useEffect( () => {
     if (accessToken) {
       const getUserProfile = async () => {
-        const user = await Spotify.getUserProfile(authSession)
+        const user = await Spotify.getUserProfile(accessToken)
         setCurrentUser(user)
       }
       getUserProfile()

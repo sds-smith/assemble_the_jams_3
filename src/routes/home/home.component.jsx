@@ -20,10 +20,10 @@ const Home = ({ accessToken, authSession, currentUser, searchResults, playlistTr
     }, [authSession])
 
     return (
-      <HomeContainer gradientAngle={gradientAngle} >
+      <HomeContainer style={{backgroundImage: `linear-gradient(${gradientAngle}deg, green, black)`}} >
         <HomeHero>
           <UserProfile currentUser={currentUser} />
-          <SearchBar authSession={authSession} setSearchResults={setSearchResults} setRecommendations={setRecommendations} searchLoading={searchLoading} setSearchLoading={setSearchLoading} />
+          <SearchBar accessToken={accessToken} setSearchResults={setSearchResults} setRecommendations={setRecommendations} searchLoading={searchLoading} setSearchLoading={setSearchLoading} />
           <WebPlayer accessToken={accessToken} authSession={authSession} gradientAngle={gradientAngle} setGradientAngle={setGradientAngle}                       deviceID={deviceID}
                       setDeviceId={setDeviceId}
                       playerInstance={playerInstance}

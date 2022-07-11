@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import { LogInMessage } from "../../data/login-message"
 import { Spotify } from "../../utils/spotify"
-import { LogInContainer, FormContainer, Rollup, ButtonsContainer, ButtonContainer } from "./log-in.styles"
+import { LogInContainer, FormContainer, ButtonsContainer, ButtonContainer } from "./log-in.styles"
 import Button from '../../components/reusable-components/button/button.component'
 import JamsLogo from "../../components/reusable-components/jams-logo/jams-logo.component"
 
