@@ -37,7 +37,7 @@ const Auth = ({setAuthSession, setAccessToken, accessToken}) => {
           }
 
         }
-    }, [navigate, setAccessToken, setAuthSession])
+    }, [navigate, setAccessToken, setAuthSession, accessToken])
 
     return (
         <div></div>
