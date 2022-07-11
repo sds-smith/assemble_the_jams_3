@@ -29,7 +29,7 @@ exports.handler = async (event) => {
     } catch(error) {
         // console.log( error.response.data )
         return {
-            status: 400,
+            statusCode: 400,
             body: JSON.stringify({error})
         }
     }
