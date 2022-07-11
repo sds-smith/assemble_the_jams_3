@@ -28,9 +28,13 @@ const App = () => {
   })
   const [gradientAngle, setGradientAngle] = useState(135)
 
+  const togglePlayLoading = () => {
+    setPlayLoading(!playLoading)
+  }
+
 
   const playTrack = async (track) => {
-    setPlayLoading(true)
+    togglePlayLoading()
     const isLike = await Spotify.getLikeStatus(accessToken, track.id)
     setNowPlaying({track, isLike})
     const uri = `spotify:track:${track.id}`
@@ -38,7 +42,7 @@ const App = () => {
       playerInstance : playerInstance,
       spotify_uri : uri,
     })
-    setPlayLoading(false)
+    togglePlayLoading()
   }
   
 

@@ -122,7 +122,7 @@ const WebPlayer = ({ accessToken, gradientAngle, setGradientAngle, deviceID, set
                 player.connect();
             };
 
-    },[])
+    },[accessToken, gradientAngle, setDeviceId, setGradientAngle, setNowPlaying, setPlayerInstance])
 
     let LikeOrUnlike = nowPlaying.isLike ? Like : Unlike
 

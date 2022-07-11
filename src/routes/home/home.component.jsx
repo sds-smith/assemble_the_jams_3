@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import SearchBar from "../../components/home-page-components/search-bar/search-bar.component"
 import UserProfile from "../../components/home-page-components/user-profile/user-profile.component"
@@ -17,7 +17,7 @@ const Home = ({ accessToken, authSession, currentUser, searchResults, playlistTr
       if (!authSession) {
           navigate('/log-in')
       }
-    }, [authSession])
+    }, [authSession, navigate])
 
     return (
       <HomeContainer style={{backgroundImage: `linear-gradient(${gradientAngle}deg, green, black)`}} >

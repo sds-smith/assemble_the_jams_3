@@ -1,6 +1,5 @@
 import { Fragment } from 'react'
 import TrackActionButton from '../track-action-button/track-action-button.component'
-import Spinner from '../spinner/spinner.component'
 
 import PlayBtn from '../../../assets/icons/play_white24.png'
 import AddBtn from '../../../assets/icons/add_white24.png'
