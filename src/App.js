@@ -19,6 +19,7 @@ const App = () => {
   const [recommendations, setRecommendations] = useState([])
   const [playlistName, setPlaylistName] = useState("Enter New Playlist Name")
   const [searchLoading, setSearchLoading] = useState(false)
+  const [playLoading, setPlayLoading] = useState(false)
   const [deviceID, setDeviceId] = useState('')
   const [playerInstance, setPlayerInstance] = useState(undefined)
   const [nowPlaying, setNowPlaying] = useState({
@@ -29,6 +30,7 @@ const App = () => {
 
 
   const playTrack = async (track) => {
+    setPlayLoading(true)
     const isLike = await Spotify.getLikeStatus(accessToken, track.id)
     setNowPlaying({track, isLike})
     const uri = `spotify:track:${track.id}`
@@ -36,6 +38,7 @@ const App = () => {
       playerInstance : playerInstance,
       spotify_uri : uri,
     })
+    setPlayLoading(false)
   }
   
 

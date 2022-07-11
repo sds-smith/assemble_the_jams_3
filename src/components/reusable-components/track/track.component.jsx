@@ -1,12 +1,13 @@
 import { Fragment } from 'react'
 import TrackActionButton from '../track-action-button/track-action-button.component'
+import Spinner from '../spinner/spinner.component'
 
 import PlayBtn from '../../../assets/icons/play_white24.png'
 import AddBtn from '../../../assets/icons/add_white24.png'
 import ClearBtn from '../../../assets/icons/clear_white24.png'
 import { TrackContainer, TrackInformation, TrackActionContainer, ReverseTrackContainer, ReverseTrackInformation } from './track.styles'
 
-const Track = ({track, trackType, onAdd, onRemove, onPlay}) => {
+const Track = ({track, trackType, onAdd, onRemove, onPlay }) => {
 
   const addTrack = () => {
     onAdd(track)
@@ -38,7 +39,7 @@ const Track = ({track, trackType, onAdd, onRemove, onPlay}) => {
       trackActions = (
                 <Fragment>
                   <TrackActionButton onClick={addTrack} src={AddBtn} alt='button to add track to playlist'/>
-                  <TrackActionButton onClick={playTrack} src={PlayBtn} alt='button to play track'/>                
+                  <TrackActionButton onClick={playTrack} src={PlayBtn} alt='button to play track'/>     
                 </Fragment>
 
       )  

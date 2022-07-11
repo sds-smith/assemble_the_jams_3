@@ -2,11 +2,11 @@ import spinner from '../../../assets/icons/spinner_white48.png'
 
 import { SpinnerContainer, SpinnerImg } from './spinner.styles'
 
-const Spinner = ({searchLoading}) => {
+const Spinner = ({loading}) => {
 
     return (
-        <SpinnerContainer searchLoading={searchLoading} >
-            <SpinnerImg src={spinner} searchLoading={searchLoading} alt='spinner'/>
+        <SpinnerContainer loading={loading} >
+            <SpinnerImg src={spinner} loading={loading} alt='spinner'/>
              Loading . . .
         </SpinnerContainer>
     )
