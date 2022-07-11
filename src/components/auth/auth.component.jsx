@@ -18,7 +18,9 @@ const Auth = ({setAuthSession, setAccessToken, accessToken}) => {
               body: JSON.stringify({ authCode })
             })
             const {accessToken, expiresIn} = await response.json()
-            setAccessToken(accessToken)
+            if (accessToken) {
+              setAccessToken(accessToken)
+            }
             window.setTimeout(() => {
               setAccessToken('')
             }, expiresIn * 1000)
