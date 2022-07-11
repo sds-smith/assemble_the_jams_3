@@ -12,6 +12,12 @@
 /build
 .env
 
+generate-code-challenge.js
+get-like-status.js
+get-user.js
+save-playlist.js
+search.js
+
 # misc
 .DS_Store
 .env.local
