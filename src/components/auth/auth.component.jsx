@@ -17,13 +17,14 @@ const Auth = ({setAuthSession, setAccessToken, accessToken}) => {
               },
               body: JSON.stringify({ authCode })
             })
-            const {accessToken, expiresIn} = await response.json()
-            if (accessToken) {
-              setAccessToken(accessToken)
+            const {token, expiresIn} = await response.json()
+            if (token) {
+              setAccessToken(token)
+              window.setTimeout(() => {
+                setAccessToken('')
+              }, expiresIn * 1000)
             }
-            window.setTimeout(() => {
-              setAccessToken('')
-            }, expiresIn * 1000)
+
             navigate('/')
           } catch(error) {
             console.log(error)
@@ -35,7 +36,7 @@ const Auth = ({setAuthSession, setAccessToken, accessToken}) => {
             const session = authCodeMatch[1].slice(0, 6)
             const authCode = authCodeMatch[1]
             setAuthSession(session)
-            getAccessToken( authCode)
+            getAccessToken(authCode)
           }
 
         }

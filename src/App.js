@@ -113,8 +113,8 @@ const App = () => {
         />
         <Route path='log-in' element={ <LogIn /> } />
         <Route path='new-user' element={ <NewUser /> } />
-        <Route path='/callback' element={<Auth setAuthSession={setAuthSession} setAccessToken={setAccessToken} accessToken={accessToken} />} />
       </Route>
+      <Route path='/callback' element={<Auth setAuthSession={setAuthSession} setAccessToken={setAccessToken} accessToken={accessToken} />} />
     </Routes>
   );
 }

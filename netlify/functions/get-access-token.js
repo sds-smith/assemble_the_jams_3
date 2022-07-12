@@ -17,12 +17,12 @@ exports.handler = async (event) => {
         {
             headers : headers,
         })
-        const accessToken = response.data.access_token
+        const token = response.data.access_token
         const expiresIn = response.data.expires_in
         return {
             statusCode: 200,
             body: JSON.stringify({ 
-                accessToken,
+                token,
                 expiresIn
             })
         }
