@@ -9,7 +9,7 @@ import Playlist from "../../components/home-page-components/playlist/playlist.co
 
 import { HomeContainer, HomeHero, ResultsContainer } from "./home.styles"
 
-const Home = ({ accessToken, authSession, currentUser, searchResults, playlistTracks, recommendations, playlistName, setPlaylistName, setSearchResults, setRecommendations, searchLoading, setSearchLoading, onAdd, onRemove, onPlay, onSave, gradientAngle, setGradientAngle, deviceID, setDeviceId, playerInstance, setPlayerInstance, nowPlaying, setNowPlaying }) => {
+const Home = ({ accessToken, authSession, currentUser, searchResults, playlistTracks, recommendations, playlistName, setPlaylistName, setSearchResults, setRecommendations, searchLoading, setSearchLoading, onAdd, onRemove, onPlay, onSave, gradientAngle, setGradientAngle, deviceID, setDeviceId, player, setPlayer, nowPlaying, setNowPlaying }) => {
 
     const navigate = useNavigate()
     
@@ -23,11 +23,11 @@ const Home = ({ accessToken, authSession, currentUser, searchResults, playlistTr
       <HomeContainer style={{backgroundImage: `linear-gradient(${gradientAngle}deg, green, black)`}} >
         <HomeHero>
           <UserProfile currentUser={currentUser} />
-          <SearchBar accessToken={accessToken} setSearchResults={setSearchResults} setRecommendations={setRecommendations} searchLoading={searchLoading} setSearchLoading={setSearchLoading} />
+          <SearchBar accessToken={accessToken} setSearchResults={setSearchResults} setRecommendations={setRecommendations} setSearchLoading={setSearchLoading} />
           <WebPlayer accessToken={accessToken} authSession={authSession} gradientAngle={gradientAngle} setGradientAngle={setGradientAngle}                       deviceID={deviceID}
                       setDeviceId={setDeviceId}
-                      playerInstance={playerInstance}
-                      setPlayerInstance={setPlayerInstance}
+                      player={player}
+                      setPlayer={setPlayer}
                       nowPlaying={nowPlaying}
                       setNowPlaying={setNowPlaying}
                       onAdd={onAdd}

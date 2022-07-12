@@ -21,7 +21,7 @@ const App = () => {
   const [searchLoading, setSearchLoading] = useState(false)
   const [playLoading, setPlayLoading] = useState(false)
   const [deviceID, setDeviceId] = useState('')
-  const [playerInstance, setPlayerInstance] = useState(undefined)
+  const [player, setPlayer] = useState(undefined)
   const [nowPlaying, setNowPlaying] = useState({
     track : {},
     isLike : null
@@ -39,7 +39,7 @@ const App = () => {
     setNowPlaying({track, isLike})
     const uri = `spotify:track:${track.id}`
     Spotify.play(deviceID, {
-      playerInstance : playerInstance,
+      playerInstance : player,
       spotify_uri : uri,
     })
     togglePlayLoading()
@@ -105,8 +105,8 @@ const App = () => {
                       accessToken={accessToken}
                       deviceID={deviceID}
                       setDeviceId={setDeviceId}
-                      playerInstance={playerInstance}
-                      setPlayerInstance={setPlayerInstance}
+                      player={player}
+                      setPlayer={setPlayer}
                       nowPlaying={nowPlaying}
                       setNowPlaying={setNowPlaying}
                     /> } 

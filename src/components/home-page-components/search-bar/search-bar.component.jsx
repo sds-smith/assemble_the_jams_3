@@ -4,19 +4,19 @@ import { Spotify } from "../../../utils/spotify"
 import Button from "../../reusable-components/button/button.component"
 import { SearchBarContainer, SearchBarInput } from "./search-bar.styles"
 
-const SearchBar = ({accessToken, setSearchResults, setRecommendations, searchLoading, setSearchLoading}) => {
+const SearchBar = ({accessToken, setSearchResults, setRecommendations, setSearchLoading}) => {
 
     const [searchTerm, setSearchTerm] = useState('')
 
     const search = async () => {
-        setSearchLoading(searchLoading => !searchLoading)
+        setSearchLoading(true)
         setSearchResults([])
         setRecommendations([])
         const {searchResultsArray, recommendationsArray} = await Spotify.search(accessToken, searchTerm)
         setSearchTerm('')
         setSearchResults(searchResultsArray)
         setRecommendations(recommendationsArray)
-        setSearchLoading(searchLoading => !searchLoading)
+        setSearchLoading(false)
     }
 
     const handleTermChange = (e) => {

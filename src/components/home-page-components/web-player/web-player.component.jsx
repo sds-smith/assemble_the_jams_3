@@ -24,7 +24,7 @@ const track = {
     ]
 }
 
-const WebPlayer = ({ accessToken, gradientAngle, setGradientAngle, deviceID, setDeviceId, playerInstance, setPlayerInstance, nowPlaying, setNowPlaying, onAdd }) => {
+const WebPlayer = ({ accessToken, gradientAngle, setGradientAngle, deviceID, setDeviceId, player, setPlayer, nowPlaying, setNowPlaying, onAdd }) => {
 
     const [currentTrack, setCurrentTrack] = useState(track)
     const [playerPosition, setPlayerPosition] = useState(null)
@@ -34,7 +34,7 @@ const WebPlayer = ({ accessToken, gradientAngle, setGradientAngle, deviceID, set
 
     const togglePlay = () => {
         console.log('togglePlay')
-        playerInstance.togglePlay()
+        player.togglePlay()
     }
 
     const toggleLike = () => {
@@ -89,7 +89,7 @@ const WebPlayer = ({ accessToken, gradientAngle, setGradientAngle, deviceID, set
                     volume: 0.5
                 });
             
-                setPlayerInstance(player)
+                setPlayer(player)
 
                 player.addListener('ready', ({ device_id }) => {
                     console.log('Ready with Device ID', device_id);
@@ -122,7 +122,7 @@ const WebPlayer = ({ accessToken, gradientAngle, setGradientAngle, deviceID, set
                 player.connect();
             };
 
-    },[accessToken, gradientAngle, setDeviceId, setGradientAngle, setNowPlaying, setPlayerInstance])
+    },[accessToken, gradientAngle, setDeviceId, setGradientAngle, setNowPlaying, setPlayer])
 
     let LikeOrUnlike = nowPlaying.isLike ? Like : Unlike
 
