@@ -10,7 +10,7 @@ import Unlike from '../../../assets/icons/unlike24.png'
 
 import { Spotify } from '../../../utils/spotify'
 
-import { WebPlayerContainer, Player, SpotifyAttributor, SpotifyLogo, NowPlayingCover, NowPlayingLabel, TrackControls, ProgressContainer, ProgressBar, ProgressFill } from "./web-player.styles"
+import { WebPlayerContainer, Player, SpotifyAttributor, SpotifyLogo, NowPlayingCover, NowPlayingLabel, TrackControls, ProgressContainer, ProgressBar, ProgressFill, LikesMessage } from "./web-player.styles"
 
 const track = {
     name: "",
@@ -30,6 +30,7 @@ const WebPlayer = ({ accessToken, gradientAngle, setGradientAngle, deviceID, set
     const [playerPosition, setPlayerPosition] = useState(null)
     const [duration, setDuration] = useState(0)
     const [active, setActive] = useState(false)
+    const [likesMessage, setLikesMessage] = useState('')
 
     const togglePlay = () => {
         console.log('togglePlay')
@@ -43,13 +44,13 @@ const WebPlayer = ({ accessToken, gradientAngle, setGradientAngle, deviceID, set
           if (nowPlaying.isLike) {
             Spotify.deleteLike(accessToken, nowPlaying.track.id)
             setNowPlaying(nowPlaying => ({...nowPlaying, isLike: false}))
-            // document.getElementById('likesMessage').innerHTML = 'Removed from Liked Songs'
-            // setTimeout(() => document.getElementById('likesMessage').innerHTML = '', 3000);
+            setLikesMessage('Removed from Liked Songs')
+            setTimeout(() => setLikesMessage(''), 3000);
           } else {
             Spotify.addLike(accessToken, nowPlaying.track.id)
             setNowPlaying(nowPlaying => ({...nowPlaying, isLike: true}))
-            // document.getElementById('likesMessage').innerHTML = 'Added to Liked Songs'
-            // setTimeout(() => document.getElementById('likesMessage').innerHTML = '', 3000);
+            setLikesMessage('Added to Liked Songs')
+            setTimeout(() => setLikesMessage(''), 3000);
           }
     }
 
@@ -100,7 +101,6 @@ const WebPlayer = ({ accessToken, gradientAngle, setGradientAngle, deviceID, set
                 });
             
                 player.addListener('player_state_changed', ( state => {
-                    console.log('player state changed', state)
                     if (!state) {
                         return;
                     }
@@ -158,7 +158,7 @@ const WebPlayer = ({ accessToken, gradientAngle, setGradientAngle, deviceID, set
                      <TrackActionButton onClick={addTrack} src={AddBtn} alt='button to add track to playlist'/>
                      <TrackActionButton onClick={toggleLike} src={LikeOrUnlike} alt='button to add/remove song from liked songs' />
                 </TrackControls>   
-                {/* <p id='likesMessage'></p> */}
+                <LikesMessage>{likesMessage}</LikesMessage>
                 <ProgressContainer>
                     <p>{`${positionMins}:${positionSec}`}</p>
                     <ProgressBar>
