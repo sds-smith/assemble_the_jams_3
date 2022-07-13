@@ -12,7 +12,7 @@ import { WebPlayerContainer } from "./web-player.styles"
 const WebPlayer = ({ accessToken, setGradientAngle, deviceID, setDeviceId, currentPlayer, setCurrentPlayer, nowPlaying, setNowPlaying, onAdd }) => {
 
     // const [playerPosition, setPlayerPosition] = useState(0)
-    const [active, setActive] = useState(false)
+    // const [active, setActive] = useState(false)
     const [likesMessage, setLikesMessage] = useState('')
 
     let interval
@@ -20,7 +20,7 @@ const WebPlayer = ({ accessToken, setGradientAngle, deviceID, setDeviceId, curre
     const closeNowPlaying = (interval) => {
         Spotify.stopPlayback(deviceID, accessToken)
         clearInterval(interval)
-        setActive(false)
+        // setActive(false)
         setNowPlaying({hasTrack: false, track: {}, isLike: null})
     }
 
@@ -89,13 +89,13 @@ const WebPlayer = ({ accessToken, setGradientAngle, deviceID, setDeviceId, curre
                 
                     // setPlayerPosition(state.position)
                 
-                    player.getCurrentState().then( state => {
-                        if (!state) {
-                            setActive(false)
-                        } else {
-                            setActive(true)
-                        }
-                    })
+                    // player.getCurrentState().then( state => {
+                        // if (!state) {
+                            // setActive(false)
+                        // } else {
+                            // setActive(true)
+                        // }
+                    // })
                 }));
                 player.connect();
             };
