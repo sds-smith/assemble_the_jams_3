@@ -22,7 +22,8 @@ const NowPlayingCard = ({ nowPlaying, nowPlayingInterval, currentPlayer, closeNo
 
     useEffect(() => {
         nowPlayingInterval(currentPlayer)
-    }, [nowPlayingInterval, currentPlayer])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     return (
         <Player >

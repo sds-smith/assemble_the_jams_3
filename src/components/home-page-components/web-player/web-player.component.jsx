@@ -99,7 +99,8 @@ const WebPlayer = ({ accessToken, setGradientAngle, deviceID, setDeviceId, curre
                 }));
                 player.connect();
             };
-    },[accessToken, setDeviceId, setCurrentPlayer])
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[])
 
     let LikeOrUnlike = nowPlaying.isLike ? Like : Unlike
     
