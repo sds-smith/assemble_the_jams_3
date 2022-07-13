@@ -106,7 +106,7 @@ const WebPlayer = ({ accessToken, setGradientAngle, deviceID, setDeviceId, curre
     
     return (
         <WebPlayerContainer  >        
-            { active &&
+            { nowPlaying.hasTrack &&
                 <NowPlayingCard nowPlaying={nowPlaying} nowPlayingInterval={nowPlayingInterval} currentPlayer={currentPlayer} closeNowPlaying={closeNowPlaying} interval={interval} addTrack={addTrack} toggleLike={toggleLike} likesMessage={likesMessage} LikeOrUnlike={LikeOrUnlike} />
             }
         </WebPlayerContainer>
