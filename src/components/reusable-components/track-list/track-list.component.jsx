@@ -2,7 +2,7 @@
 import Track from "../track/track.component"
 import { TrackListContainer } from "./track-list.styles"
 
-const TrackList = ({tracks, onPlay, onAdd, onRemove, trackType}) => {
+const TrackList = ({tracks, onPlay, onAdd, onRemove, trackType, nowPlaying}) => {
 
         return (
             <TrackListContainer>
@@ -12,6 +12,7 @@ const TrackList = ({tracks, onPlay, onAdd, onRemove, trackType}) => {
                             onPlay={onPlay}
                             onAdd={onAdd}
                             onRemove={onRemove}
+                            nowPlaying={nowPlaying}
                             trackType={trackType}/> 
                     ))
                 }

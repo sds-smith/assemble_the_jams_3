@@ -21,8 +21,9 @@ const App = () => {
   const [searchLoading, setSearchLoading] = useState(false)
   const [playLoading, setPlayLoading] = useState(false)
   const [deviceID, setDeviceId] = useState('')
-  const [player, setPlayer] = useState(undefined)
+  const [currentPlayer, setCurrentPlayer] = useState(undefined)
   const [nowPlaying, setNowPlaying] = useState({
+    hasTrack: false,
     track : {},
     isLike : null
   })
@@ -35,17 +36,17 @@ const App = () => {
 
   const playTrack = async (track) => {
     togglePlayLoading()
+    const hasTrack = true
     const isLike = await Spotify.getLikeStatus(accessToken, track.id)
-    setNowPlaying({track, isLike})
+    setNowPlaying({hasTrack, track, isLike})
     const uri = `spotify:track:${track.id}`
     Spotify.play(deviceID, {
-      playerInstance : player,
+      playerInstance : currentPlayer,
       spotify_uri : uri,
     })
     togglePlayLoading()
   }
   
-
   const addToPlaylist = (track) => {
     let tracks = playlistTracks
     if (tracks.find(savedTrack => savedTrack.id === track.id)) {
@@ -105,8 +106,8 @@ const App = () => {
                       accessToken={accessToken}
                       deviceID={deviceID}
                       setDeviceId={setDeviceId}
-                      player={player}
-                      setPlayer={setPlayer}
+                      currentPlayer={currentPlayer}
+                      setCurrentPlayer={setCurrentPlayer}
                       nowPlaying={nowPlaying}
                       setNowPlaying={setNowPlaying}
                     /> } 

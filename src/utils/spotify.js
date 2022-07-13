@@ -28,7 +28,7 @@ export const Spotify = {
             const headers =  { Authorization : `Bearer ${accessToken}` }
             const response = await axios.get(`https://api.spotify.com/v1/search?type=track&q=${searchTerm}`,{headers : headers})
             const searchResults = response.data
-          
+            console.log(searchResults)
             const seeds = searchResults.tracks.items.slice(0, 5).map(track => track.id)
           
             const recommendationsResponse = await axios.get(`https://api.spotify.com/v1/recommendations?seed_tracks=${seeds}`,{headers : headers})
@@ -38,6 +38,7 @@ export const Spotify = {
               name : track.name,
               artist : track.artists[0].name,
               album : track.album.name,
+              cover : track.album.images[0].url,
               uri : track.uri
             }))
             const searchResultsArray = searchResults.tracks.items.map(track => ({
@@ -45,6 +46,7 @@ export const Spotify = {
               name : track.name,
               artist : track.artists[0].name,
               album : track.album.name,
+              cover : track.album.images[0].url,
               uri : track.uri
             }))
             return {searchResultsArray, recommendationsArray}
@@ -64,13 +66,25 @@ export const Spotify = {
       getOAuthToken(access_token => {
         fetch(`https://api.spotify.com/v1/me/player/play?device_id=${id}`, {
           method: 'PUT',
-          body: JSON.stringify({ uris: [spotify_uri] }),
+          body: JSON.stringify({ uris: [spotify_uri], position_ms: 30000 }),
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${access_token}`
           },
         });
       });
+    },
+
+    stopPlayback(id, access_token) {
+      fetch(`https://api.spotify.com/v1/me/player/pause?device_id=${id}`, {
+        method: 'PUT',
+        // body: JSON.stringify({ uris: [spotify_uri] }),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${access_token}`
+        },
+      }).then(response => {console.log(response.ok)}
+      ).catch(error => {console.log(error)});
     },
 
     async getLikeStatus(accessToken, trackId) {

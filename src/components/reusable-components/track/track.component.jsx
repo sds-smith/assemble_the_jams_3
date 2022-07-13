@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import { useState, useEffect, Fragment } from 'react'
 import TrackActionButton from '../track-action-button/track-action-button.component'
 
 import PlayBtn from '../../../assets/icons/play_white24.png'
@@ -6,7 +6,8 @@ import AddBtn from '../../../assets/icons/add_white24.png'
 import ClearBtn from '../../../assets/icons/clear_white24.png'
 import { TrackContainer, TrackInformation, TrackActionContainer, ReverseTrackContainer, ReverseTrackInformation } from './track.styles'
 
-const Track = ({track, trackType, onAdd, onRemove, onPlay }) => {
+const Track = ({track, trackType, onAdd, onRemove, onPlay, nowPlaying }) => {
+  const [playDisabled, setPlayDisabled] = useState(false)
 
   const addTrack = () => {
     onAdd(track)
@@ -28,7 +29,7 @@ const Track = ({track, trackType, onAdd, onRemove, onPlay }) => {
     case 'search-results' :
       trackActions = (
                 <Fragment>
-                  <TrackActionButton onClick={playTrack} src={PlayBtn} alt='button to play track'/>
+                  <TrackActionButton onClick={playTrack} src={PlayBtn} disabled={playDisabled} alt='button to play track'/>
                   <TrackActionButton onClick={addTrack} src={AddBtn} alt='button to add track to playlist'/>
                 </Fragment>
 
@@ -38,7 +39,7 @@ const Track = ({track, trackType, onAdd, onRemove, onPlay }) => {
       trackActions = (
                 <Fragment>
                   <TrackActionButton onClick={addTrack} src={AddBtn} alt='button to add track to playlist'/>
-                  <TrackActionButton onClick={playTrack} src={PlayBtn} alt='button to play track'/>     
+                  <TrackActionButton onClick={playTrack} src={PlayBtn} disabled={playDisabled} alt='button to play track'/>     
                 </Fragment>
 
       )  
@@ -46,7 +47,15 @@ const Track = ({track, trackType, onAdd, onRemove, onPlay }) => {
     default : 
       trackActions = <div></div>
   }
-  
+
+    useEffect(() => {
+      if (nowPlaying.hasTrack) {
+        setPlayDisabled(true)
+      } else {
+        setPlayDisabled(false)
+      }
+    })
+
     return (
        trackType === 'recommendations' ? (
         <ReverseTrackContainer >

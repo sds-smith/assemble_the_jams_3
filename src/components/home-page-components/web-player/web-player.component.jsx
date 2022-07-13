@@ -1,40 +1,27 @@
 import { useEffect, useState } from 'react'
 
-import TrackActionButton from '../../reusable-components/track-action-button/track-action-button.component'
+import NowPlayingCard from '../now-playing-card/now-playing-card.component'
 
-import SpotifyIcon from '../../../assets/icons/Spotify_Icon_RGB_Black.png'
-import PlayBtn from '../../../assets/icons/play_black24.png'
-import AddBtn from '../../../assets/icons/add_black24.png'
 import Like from '../../../assets/icons/like24.png'
 import Unlike from '../../../assets/icons/unlike24.png'
 
 import { Spotify } from '../../../utils/spotify'
 
-import { WebPlayerContainer, Player, SpotifyAttributor, SpotifyLogo, NowPlayingCover, NowPlayingLabel, TrackControls, ProgressContainer, ProgressBar, ProgressFill, LikesMessage } from "./web-player.styles"
+import { WebPlayerContainer } from "./web-player.styles"
 
-const track = {
-    name: "",
-    album: {
-        images: [
-            { url: "" }
-        ]
-    },
-    artists: [
-        { name: "" }
-    ]
-}
+const WebPlayer = ({ accessToken, gradientAngle, setGradientAngle, deviceID, setDeviceId, currentPlayer, setCurrentPlayer, nowPlaying, setNowPlaying, onAdd }) => {
 
-const WebPlayer = ({ accessToken, gradientAngle, setGradientAngle, deviceID, setDeviceId, player, setPlayer, nowPlaying, setNowPlaying, onAdd }) => {
-
-    const [currentTrack, setCurrentTrack] = useState(track)
-    const [playerPosition, setPlayerPosition] = useState(null)
-    const [duration, setDuration] = useState(0)
+    const [playerPosition, setPlayerPosition] = useState(0)
     const [active, setActive] = useState(false)
     const [likesMessage, setLikesMessage] = useState('')
 
-    const togglePlay = () => {
-        console.log('togglePlay')
-        player.togglePlay()
+    let interval
+
+    const closeNowPlaying = (interval) => {
+        Spotify.stopPlayback(deviceID, accessToken)
+        clearInterval(interval)
+        setActive(false)
+        setNowPlaying({hasTrack: false, track: {}, isLike: null})
     }
 
     const toggleLike = () => {
@@ -58,6 +45,15 @@ const WebPlayer = ({ accessToken, gradientAngle, setGradientAngle, deviceID, set
         onAdd(nowPlaying.track)
     }
 
+    const nowPlayingInterval = () => {
+        setTimeout(() => {
+            closeNowPlaying(interval)
+        }, 30000)
+        interval = setInterval( () => {
+            setGradientAngle(gradientAngle => (gradientAngle - 2))
+        }, 1000)
+    }
+
     useEffect(() => {
 
             const script = document.createElement("script");
@@ -65,21 +61,6 @@ const WebPlayer = ({ accessToken, gradientAngle, setGradientAngle, deviceID, set
             script.async = true;
         
             document.body.appendChild(script);
-
-            const nowPlayingInterval = (player) => {
-                const interval =  setInterval( () => {
-                    setGradientAngle(gradientAngle - 2 )
-                    player.getCurrentState().then( (state) => {
-                        setPlayerPosition(state.position)     
-        
-                        if (state.position === 0) {
-                            clearInterval(interval)
-                            setActive(false)
-                            setNowPlaying('', null)
-                        }     
-                    })
-                }, 1000);
-            }
         
             window.onSpotifyWebPlaybackSDKReady = () => {
             
@@ -89,10 +70,10 @@ const WebPlayer = ({ accessToken, gradientAngle, setGradientAngle, deviceID, set
                     volume: 0.5
                 });
             
-                setPlayer(player)
+                setCurrentPlayer(player)
 
                 player.addListener('ready', ({ device_id }) => {
-                    console.log('Ready with Device ID', device_id);
+                    console.log('Ready with Device ID', device_id, player);
                     setDeviceId(device_id);
                 });
             
@@ -101,72 +82,32 @@ const WebPlayer = ({ accessToken, gradientAngle, setGradientAngle, deviceID, set
                 });
             
                 player.addListener('player_state_changed', ( state => {
+                    console.log('player state changed', state)
                     if (!state) {
                         return;
                     }
                 
-                    setCurrentTrack(state.track_window.current_track)
                     // setPlayerPosition(state.position)
-                    setDuration(state.duration)
                 
-                    player.getCurrentState().then( currentState => {
-                        if (currentState) {
-                            setActive(true)
-                            nowPlayingInterval(player)
-                        } else {
+                    player.getCurrentState().then( state => {
+                        if (!state) {
                             setActive(false)
+                        } else {
+                            setActive(true)
                         }
                     })
-
                 }));
                 player.connect();
             };
-
-    },[accessToken, gradientAngle, setDeviceId, setGradientAngle, setNowPlaying, setPlayer])
+    },[])
 
     let LikeOrUnlike = nowPlaying.isLike ? Like : Unlike
-
-    let currentPosition = playerPosition / 1000
-    let positionMins = Math.floor(currentPosition / 60).toString()
-    let positionSec = (currentPosition % 60).toFixed(0).toString()
-    positionSec = positionSec.length < 2 ? '0' + positionSec : positionSec
-
-    let currentDuration = duration / 1000
-    let durationMins = Math.floor(currentDuration / 60).toString()
-    let durationSec = (currentDuration % 60).toFixed(0).toString()
-    durationSec = durationSec.length < 2 ? '0' + durationSec : durationSec
-
-    const progress = (playerPosition/duration)*100
     
     return (
-        <WebPlayerContainer>
-            <Player active={active} >
-                <SpotifyAttributor className='listen-on' href='https://open.spotify.com/' target='_blank' rel="noreferrer">
-                        <SpotifyLogo src={SpotifyIcon} id='spotify-icon' alt='spotify icon'/>
-                        <p>Listen on Spotify</p>
-                </SpotifyAttributor>
-
-                <NowPlayingCover  src={currentTrack.album.images[0].url} 
-                     alt="" 
-                />
-                <NowPlayingLabel>
-                    <div >{currentTrack.name}</div>
-                    <div >{currentTrack.artists[0].name}</div>
-                </NowPlayingLabel>
-                <TrackControls>
-                     <TrackActionButton onClick={togglePlay} src={PlayBtn} alt='play or pause button'/>
-                     <TrackActionButton onClick={addTrack} src={AddBtn} alt='button to add track to playlist'/>
-                     <TrackActionButton onClick={toggleLike} src={LikeOrUnlike} alt='button to add/remove song from liked songs' />
-                </TrackControls>   
-                <LikesMessage>{likesMessage}</LikesMessage>
-                <ProgressContainer>
-                    <p>{`${positionMins}:${positionSec}`}</p>
-                    <ProgressBar>
-                        <ProgressFill width={`${progress}%`} />
-                    </ProgressBar>
-                    <p>{`${durationMins}:${durationSec}`}</p>
-                </ProgressContainer>
-            </Player>
+        <WebPlayerContainer  >        
+            { nowPlaying.hasTrack &&
+                <NowPlayingCard nowPlaying={nowPlaying} nowPlayingInterval={nowPlayingInterval} currentPlayer={currentPlayer} closeNowPlaying={closeNowPlaying} interval={interval} addTrack={addTrack} toggleLike={toggleLike} likesMessage={likesMessage} playerPosition={playerPosition} LikeOrUnlike={LikeOrUnlike} />
+            }
         </WebPlayerContainer>
     )
 }
