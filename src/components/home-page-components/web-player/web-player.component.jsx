@@ -9,9 +9,9 @@ import { Spotify } from '../../../utils/spotify'
 
 import { WebPlayerContainer } from "./web-player.styles"
 
-const WebPlayer = ({ accessToken, gradientAngle, setGradientAngle, deviceID, setDeviceId, currentPlayer, setCurrentPlayer, nowPlaying, setNowPlaying, onAdd }) => {
+const WebPlayer = ({ accessToken, setGradientAngle, deviceID, setDeviceId, currentPlayer, setCurrentPlayer, nowPlaying, setNowPlaying, onAdd }) => {
 
-    const [playerPosition, setPlayerPosition] = useState(0)
+    // const [playerPosition, setPlayerPosition] = useState(0)
     const [active, setActive] = useState(false)
     const [likesMessage, setLikesMessage] = useState('')
 
@@ -99,14 +99,14 @@ const WebPlayer = ({ accessToken, gradientAngle, setGradientAngle, deviceID, set
                 }));
                 player.connect();
             };
-    },[])
+    },[accessToken, setDeviceId, setCurrentPlayer])
 
     let LikeOrUnlike = nowPlaying.isLike ? Like : Unlike
     
     return (
         <WebPlayerContainer  >        
-            { nowPlaying.hasTrack &&
-                <NowPlayingCard nowPlaying={nowPlaying} nowPlayingInterval={nowPlayingInterval} currentPlayer={currentPlayer} closeNowPlaying={closeNowPlaying} interval={interval} addTrack={addTrack} toggleLike={toggleLike} likesMessage={likesMessage} playerPosition={playerPosition} LikeOrUnlike={LikeOrUnlike} />
+            { active &&
+                <NowPlayingCard nowPlaying={nowPlaying} nowPlayingInterval={nowPlayingInterval} currentPlayer={currentPlayer} closeNowPlaying={closeNowPlaying} interval={interval} addTrack={addTrack} toggleLike={toggleLike} likesMessage={likesMessage} LikeOrUnlike={LikeOrUnlike} />
             }
         </WebPlayerContainer>
     )

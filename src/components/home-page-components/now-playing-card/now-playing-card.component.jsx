@@ -5,24 +5,24 @@ import SpotifyIcon from '../../../assets/icons/Spotify_Icon_RGB_Black.png'
 import StopBtn from '../../../assets/icons/stop_black24.png'
 import AddBtn from '../../../assets/icons/add_black24.png'
 
-import {Player, SpotifyAttributor, SpotifyLogo, NowPlayingCover, NowPlayingLabel, TrackControls, LikesMessage, ProgressContainer, ProgressBar, ProgressFill} from './now-playing-card.styles'
+import {Player, SpotifyAttributor, SpotifyLogo, NowPlayingCover, NowPlayingLabel, TrackControls, LikesMessage, ProgressContainer} from './now-playing-card.styles'
 import { useEffect } from 'react'
 
-const NowPlayingCard = ({ nowPlaying, nowPlayingInterval, currentPlayer, closeNowPlaying, interval, addTrack, toggleLike, likesMessage, playerPosition, LikeOrUnlike}) => {
+const NowPlayingCard = ({ nowPlaying, nowPlayingInterval, currentPlayer, closeNowPlaying, interval, addTrack, toggleLike, likesMessage, LikeOrUnlike}) => {
 
-    let currentPosition = playerPosition / 1000
-    let positionMins = Math.floor(currentPosition / 60).toString()
-    let positionSec = (currentPosition % 60).toFixed(0).toString()
-    positionSec = positionSec.length < 2 ? '0' + positionSec : positionSec
+    // let currentPosition = playerPosition / 1000
+    // let positionMins = Math.floor(currentPosition / 60).toString()
+    // let positionSec = (currentPosition % 60).toFixed(0).toString()
+    // positionSec = positionSec.length < 2 ? '0' + positionSec : positionSec
 
-    let remainingSec = (30 - positionSec).toFixed(0).toString()
-    remainingSec = remainingSec.length < 2 ? '0' + remainingSec : remainingSec
+    // let remainingSec = (30 - positionSec).toFixed(0).toString()
+    // remainingSec = remainingSec.length < 2 ? '0' + remainingSec : remainingSec
 
     // const progress = (playerPosition/3000)*100
 
     useEffect(() => {
         nowPlayingInterval(currentPlayer)
-    }, [])
+    }, [nowPlayingInterval, currentPlayer])
 
     return (
         <Player >
