@@ -1,4 +1,4 @@
-import { useState, useEffect, Fragment } from 'react'
+import { Fragment } from 'react'
 import TrackActionButton from '../track-action-button/track-action-button.component'
 
 import PlayBtn from '../../../assets/icons/play_white24.png'
