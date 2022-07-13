@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Player = styled.div`
+export const NowPlayingContainer = styled.div`
     position: relative;
     display: flex;
     width: 80%;
@@ -71,13 +71,12 @@ export const TrackControls = styled.div`
 `
 
 export const ProgressContainer = styled.div`
+    height: 100%;
     width: 100%;
-    height: 1rem;
-    font-size: .75rem;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    color: black;
+    background-color: rgba(255, 255, 255, .4);
+    border: 5px solid black;
+    transform-origin: left;
+    transition: transform 30s;
 `
 
 export const ProgressBar = styled.div`
