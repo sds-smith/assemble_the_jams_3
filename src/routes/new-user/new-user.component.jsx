@@ -13,26 +13,25 @@ const NewUser = () => {
     const registrationMessage = `Thank you. Your request has been submitted. You will be notified at ${email} when your registration has been processed.`
 
 
-    // const encode = (data) => {
-        // return Object.keys(data)
-            // .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
-            // .join("&");
-      // }
+    const encode = (data) => {
+        return Object.keys(data)
+            .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+            .join("&");
+    }
   
 
     const handleSubmit = (e) => {
         e.preventDefault()
         setFormSubmitted(true)
-        // fetch('/', {
-        //   method: 'POST',
-        //   headers: {"Content-Type": "application/x-www-form-urlencoded"},
-        //   body: encode({ "form-name": "registration", name, email })
-        // })
-        //   .then(() => {
-        //     const userEmail = e.target.email.value
-        //     this.props.setUserEmail(userEmail)
-        //   })
-        //   .catch(error => alert(error))
+        fetch('/', {
+          method: 'POST',
+          headers: {"Content-Type": "application/x-www-form-urlencoded"},
+          body: encode({ "form-name": "registration", name, email })
+        })
+          .then(() => {
+            console.log('submitted')
+          })
+          .catch(error => alert(error))
       }
     
     const handleChange = (e) => {
@@ -59,10 +58,7 @@ const NewUser = () => {
                   </form>
                 )
                 }
-              
-
             </FormContainer>
-
         </RegistrationContainer>
     )
 }
