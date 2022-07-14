@@ -17,9 +17,9 @@ const WebPlayer = ({ accessToken, setGradientAngle, deviceID, setDeviceId, curre
 
     let interval
 
-    const closeNowPlaying = (interval) => {
+    const closeNowPlaying = () => {
         Spotify.stopPlayback(deviceID, accessToken)
-        clearInterval(interval)
+        // clearInterval(interval)
         // setActive(false)
         setNowPlaying({hasTrack: false, track: {}, isLike: null})
     }
@@ -47,11 +47,11 @@ const WebPlayer = ({ accessToken, setGradientAngle, deviceID, setDeviceId, curre
 
     const nowPlayingInterval = () => {
         setTimeout(() => {
-            closeNowPlaying(interval)
+            closeNowPlaying()
         }, 30000)
-        interval = setInterval( () => {
-            setGradientAngle(gradientAngle => (gradientAngle - 2))
-        }, 1000)
+        // interval = setInterval( () => {
+            // setGradientAngle(gradientAngle => (gradientAngle - 2))
+        // }, 1000)
     }
 
     useEffect(() => {
@@ -107,7 +107,7 @@ const WebPlayer = ({ accessToken, setGradientAngle, deviceID, setDeviceId, curre
     return (
         <WebPlayerContainer  >        
             { nowPlaying.hasTrack &&
-                <NowPlayingCard nowPlaying={nowPlaying} nowPlayingInterval={nowPlayingInterval} currentPlayer={currentPlayer} closeNowPlaying={closeNowPlaying} interval={interval} addTrack={addTrack} toggleLike={toggleLike} likesMessage={likesMessage} LikeOrUnlike={LikeOrUnlike} />
+                <NowPlayingCard nowPlaying={nowPlaying} nowPlayingInterval={nowPlayingInterval} currentPlayer={currentPlayer} closeNowPlaying={closeNowPlaying} addTrack={addTrack} toggleLike={toggleLike} likesMessage={likesMessage} LikeOrUnlike={LikeOrUnlike} />
             }
         </WebPlayerContainer>
     )

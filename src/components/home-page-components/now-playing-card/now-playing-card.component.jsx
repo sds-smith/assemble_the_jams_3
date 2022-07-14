@@ -8,7 +8,7 @@ import AddBtn from '../../../assets/icons/add_black24.png'
 import {NowPlayingContainer, SpotifyAttributor, SpotifyLogo, NowPlayingCover, NowPlayingLabel, TrackControls, LikesMessage, ProgressContainer} from './now-playing-card.styles'
 import { useState, useEffect } from 'react'
 
-const NowPlayingCard = ({ nowPlaying, nowPlayingInterval, currentPlayer, closeNowPlaying, interval, addTrack, toggleLike, likesMessage, LikeOrUnlike}) => {
+const NowPlayingCard = ({ nowPlaying, nowPlayingInterval, currentPlayer, closeNowPlaying, addTrack, toggleLike, likesMessage, LikeOrUnlike}) => {
 
     const [transform, setTransform] = useState('scaleX(0)')
 
@@ -34,7 +34,7 @@ const NowPlayingCard = ({ nowPlaying, nowPlayingInterval, currentPlayer, closeNo
             <TrackControls>
                  <TrackActionButton onClick={addTrack} src={AddBtn} alt='button to add track to playlist'/>
                  <TrackActionButton onClick={toggleLike} src={LikeOrUnlike} alt='button to add/remove song from liked songs' />
-                 <TrackActionButton onClick={()=>closeNowPlaying(interval)} src={StopBtn} alt='play or pause button'/>
+                 <TrackActionButton onClick={closeNowPlaying} src={StopBtn} alt='play or pause button'/>
             </TrackControls>   
             <LikesMessage>{likesMessage}</LikesMessage>
             <ProgressContainer style={{transform : transform}} />

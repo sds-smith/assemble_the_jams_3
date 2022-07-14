@@ -18,6 +18,7 @@ export const SpotifyAttributor = styled.a`
     top: 5px;
     left: 10px;
     text-decoration: none;
+    z-index: 10;
 
     &:hover {
         opacity: 0.5;
@@ -68,15 +69,18 @@ export const NowPlayingLabel = styled.div`
 export const TrackControls = styled.div`
     background-color: rgba(255, 255, 255, 0);
     display: flex;
+    z-index: 10;
 `
 
 export const ProgressContainer = styled.div`
+    position: absolute;
+    top: 0;
+    left: 0;
     height: 100%;
     width: 100%;
-    background-color: rgba(255, 255, 255, .4);
-    border: 5px solid black;
+    background-color: rgba(0, 0, 0, .1);
     transform-origin: left;
-    transition: transform 30s;
+    transition: transform 30s linear;
 `
 
 export const ProgressBar = styled.div`
