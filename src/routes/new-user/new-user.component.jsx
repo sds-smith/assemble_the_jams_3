@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, Fragment } from "react"
 import Button from "../../components/reusable-components/button/button.component"
 import JamsLogo from "../../components/reusable-components/jams-logo/jams-logo.component"
 import close from '../../assets/icons/close_white.png'
@@ -56,7 +56,11 @@ const NewUser = () => {
             <h2 className='loginMessage' ><JamsLogo /> works with your Spotify Premium account.</h2>
               <CloseButton src={close} onClick={handleClick} alt='close button'/>
               {formSubmitted ? (
+                <>
                   <h2 >{registrationMessage}</h2>
+                  <Button onClick={handleClick} >RETURN</Button>
+                  <p>Return to Sign-In</p>                
+                </>
                 ) : (
                   <form className='registration'  onSubmit={handleSubmit}>
                     <input type="hidden" name="form-name" value="registration" />
