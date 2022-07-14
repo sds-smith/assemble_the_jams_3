@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from 'react'
+import { useEffect, useContext } from 'react'
 import { Route, Routes } from 'react-router-dom';
 import Navigation from './routes/navigation/navigation.component';
 import Home from './routes/home/home.component'
@@ -7,6 +7,7 @@ import NewUser from './routes/new-user/new-user.component';
 import Auth from './components/auth/auth.component';
 
 import { UserContext } from './contexts/user.context';
+import { TrackContext } from './contexts/track.context';
 import { PlayerContext } from './contexts/player.context';
 
 import { Spotify } from './utils/spotify';
@@ -14,13 +15,9 @@ import { Spotify } from './utils/spotify';
 import './App.css';
 
 const App = () => {
-  const [searchResults, setSearchResults] = useState([])
-  const [playlistTracks, setPlaylistTracks] = useState([])
-  const [recommendations, setRecommendations] = useState([])
-  const [playlistName, setPlaylistName] = useState("Enter New Playlist Name")
-  const [searchLoading, setSearchLoading] = useState(false)
 
   const { accessToken, currentUser, setCurrentUser } = useContext(UserContext)
+  const { playlistTracks, setPlaylistTracks, playlistName, setPlaylistName } = useContext(TrackContext)
   const { currentPlayer, deviceID, setNowPlaying } = useContext(PlayerContext)
 
   const playTrack = async (track) => {
@@ -73,19 +70,10 @@ const App = () => {
     <Routes >
       <Route path='/' element={ <Navigation /> } >
         <Route index element={ <Home 
-                      searchResults={searchResults}
-                      playlistTracks={playlistTracks}
-                      recommendations={recommendations}
-                      playlistName={playlistName}
-                      setPlaylistName={setPlaylistName}
-                      setSearchResults={setSearchResults}
-                      setRecommendations={setRecommendations}
                       onAdd={addToPlaylist}
                       onRemove={removeFromPlaylist}
                       onPlay={playTrack}
                       onSave={savePlaylist}
-                      searchLoading={searchLoading}
-                      setSearchLoading={setSearchLoading}
                     /> } 
         />
         <Route path='log-in' element={ <LogIn /> } />

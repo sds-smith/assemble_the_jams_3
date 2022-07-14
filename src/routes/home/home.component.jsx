@@ -11,7 +11,7 @@ import Playlist from "../../components/home-page-components/playlist/playlist.co
 import { UserContext } from "../../contexts/user.context"
 import { HomeContainer, HomeHero, ResultsContainer } from "./home.styles"
 
-const Home = ({ searchResults, playlistTracks, recommendations, playlistName, setPlaylistName, setSearchResults, setRecommendations, searchLoading, setSearchLoading, onAdd, onRemove, onPlay, onSave  }) => {
+const Home = ({  onAdd, onRemove, onPlay, onSave  }) => {
  
     const { authSession } = useContext(UserContext)
 
@@ -25,16 +25,16 @@ const Home = ({ searchResults, playlistTracks, recommendations, playlistName, se
     }, [authSession])
 
     return (
-      <HomeContainer style={{backgroundImage: `linear-gradient(135deg, green, black)`}} >
+      <HomeContainer >
         <HomeHero>
           <UserProfile />
-          <SearchBar setSearchResults={setSearchResults} setRecommendations={setRecommendations} setSearchLoading={setSearchLoading} />
+          <SearchBar />
           <WebPlayer onAdd={onAdd} />
         </HomeHero>
         <ResultsContainer>
-          <SearchResults tracks={searchResults} onAdd={onAdd} onPlay={onPlay} searchLoading={searchLoading} />
-          <Playlist tracks={playlistTracks} playlistName={playlistName} setPlaylistName={setPlaylistName} onRemove={onRemove} onSave={onSave}  />
-          <Recommendations tracks={recommendations} onAdd={onAdd} onPlay={onPlay} searchLoading={searchLoading} />
+          <SearchResults onAdd={onAdd} onPlay={onPlay} />
+          <Playlist onRemove={onRemove} onSave={onSave}  />
+          <Recommendations onAdd={onAdd} onPlay={onPlay} />
         </ResultsContainer>
       </HomeContainer>
     )
