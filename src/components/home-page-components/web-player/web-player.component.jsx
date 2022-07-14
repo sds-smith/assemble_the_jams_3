@@ -93,7 +93,7 @@ const WebPlayer = ({ accessToken, deviceID, setDeviceId, currentPlayer, setCurre
     return (
         <WebPlayerContainer  >        
             { nowPlaying.hasTrack &&
-                <NowPlayingCard nowPlaying={nowPlaying} nowPlayingInterval={nowPlayingInterval} currentPlayer={currentPlayer} closeNowPlaying={closeNowPlaying} addTrack={addTrack} toggleLike={toggleLike} likesMessage={likesMessage} LikeOrUnlike={LikeOrUnlike} />
+                <NowPlayingCard nowPlaying={nowPlaying} setNowPlaying={setNowPlaying} deviceID={deviceID} accessToken={accessToken} addTrack={addTrack} toggleLike={toggleLike} likesMessage={likesMessage} LikeOrUnlike={LikeOrUnlike} />
             }
         </WebPlayerContainer>
     )
