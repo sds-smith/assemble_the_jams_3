@@ -17,12 +17,6 @@ const WebPlayer = ({ accessToken, deviceID, setDeviceId, currentPlayer, setCurre
 
     // let interval
 
-    const closeNowPlaying = () => {
-        Spotify.stopPlayback(deviceID, accessToken)
-        // clearInterval(interval)
-        // setActive(false)
-        setNowPlaying({hasTrack: false, track: {}, isLike: null})
-    }
 
     const toggleLike = () => {
         if (!nowPlaying.track.id) {
@@ -45,14 +39,6 @@ const WebPlayer = ({ accessToken, deviceID, setDeviceId, currentPlayer, setCurre
         onAdd(nowPlaying.track)
     }
 
-    const nowPlayingInterval = () => {
-        setTimeout(() => {
-            closeNowPlaying()
-        }, 30000)
-        // interval = setInterval( () => {
-            // setGradientAngle(gradientAngle => (gradientAngle - 2))
-        // }, 1000)
-    }
 
     useEffect(() => {
 

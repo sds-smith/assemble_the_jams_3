@@ -7,14 +7,32 @@ import AddBtn from '../../../assets/icons/add_black24.png'
 
 import {NowPlayingContainer, SpotifyAttributor, SpotifyLogo, NowPlayingCover, NowPlayingLabel, TrackControls, LikesMessage, ProgressContainer} from './now-playing-card.styles'
 import { useState, useEffect } from 'react'
+import { Spotify } from '../../../utils/spotify'
 
-const NowPlayingCard = ({ nowPlaying, nowPlayingInterval, currentPlayer, closeNowPlaying, addTrack, toggleLike, likesMessage, LikeOrUnlike}) => {
+const NowPlayingCard = ({ nowPlaying, setNowPlaying, deviceID, accessToken, addTrack, toggleLike, likesMessage, LikeOrUnlike}) => {
 
     const [transform, setTransform] = useState('scaleX(0)')
 
-    useEffect(() => {
-        nowPlayingInterval(currentPlayer)
+    const closeNowPlaying = () => {
+        Spotify.stopPlayback(deviceID, accessToken)
+        // clearInterval(interval)
+        // setActive(false)
+        setTransform('scaleX(0)')
+        setNowPlaying({hasTrack: false, track: {}, isLike: null})
+    }
+
+    const nowPlayingInterval = () => {
         setTransform('scaleX(1)')
+        setTimeout(() => {
+            closeNowPlaying()
+        }, 30000)
+        // interval = setInterval( () => {
+            // setGradientAngle(gradientAngle => (gradientAngle - 2))
+        // }, 1000)
+    }
+
+    useEffect(() => {
+        nowPlayingInterval()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
