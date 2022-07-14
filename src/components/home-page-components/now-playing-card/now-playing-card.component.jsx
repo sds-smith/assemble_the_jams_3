@@ -38,7 +38,7 @@ const NowPlayingCard = ({ nowPlaying, setNowPlaying, deviceID, accessToken, addT
 
     return (
         <NowPlayingContainer >
-            <SpotifyAttributor className='listen-on' href='https://open.spotify.com/' target='_blank' rel="noreferrer">
+            <SpotifyAttributor className='listen-on' href={`https://open.spotify.com/track/${nowPlaying.track.id}`} target='_blank' rel="noreferrer">
                     <SpotifyLogo src={SpotifyIcon} id='spotify-icon' alt='spotify icon'/>
                     <p>Listen on Spotify</p>
             </SpotifyAttributor>
