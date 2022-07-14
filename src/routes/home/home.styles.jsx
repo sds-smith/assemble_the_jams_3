@@ -4,6 +4,7 @@ export const HomeContainer = styled.div`
     min-height: calc(100vh - 100px);
     position: relative;
     padding: 0 5% 10% 5%;
+    background-image: linear-gradient(135deg, green, black);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

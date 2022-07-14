@@ -1,8 +1,13 @@
+import { useContext } from "react"
 
 import TrackList from "../../reusable-components/track-list/track-list.component"
+
+import { TrackContext } from "../../../contexts/track.context"
 import { PlaylistContainer, SaveToSpotifyButton } from './playlist.styles'
 
-const Playlist = ({tracks, playlistName, setPlaylistName, onRemove, onSave }) => {
+const Playlist = ({ onRemove, onSave }) => {
+
+    const { playlistTracks, playlistName, setPlaylistName } = useContext(TrackContext)
 
     const clearInput = () => {
       setPlaylistName('')
@@ -22,7 +27,7 @@ const Playlist = ({tracks, playlistName, setPlaylistName, onRemove, onSave }) =>
             onChange={handleNameChange}
           />
           <TrackList 
-            tracks={tracks}
+            tracks={playlistTracks}
             onRemove={onRemove}
             trackType={'playlist'}/>
           <SaveToSpotifyButton onClick={onSave} >SAVE TO SPOTIFY</SaveToSpotifyButton>

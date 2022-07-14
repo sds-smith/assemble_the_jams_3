@@ -4,14 +4,16 @@ import Button from "../../reusable-components/button/button.component"
 
 import { Spotify } from "../../../utils/spotify"
 import { UserContext } from "../../../contexts/user.context"
+import { TrackContext } from "../../../contexts/track.context"
 import { SearchBarContainer, SearchBarInput } from "./search-bar.styles"
 
-const SearchBar = ({ setSearchResults, setRecommendations, setSearchLoading}) => {
+const SearchBar = () => {
 
     const [searchTerm, setSearchTerm] = useState('')
 
     const { accessToken } = useContext(UserContext)
-
+    const { setSearchResults, setRecommendations, setSearchLoading } = useContext(TrackContext)
+    
     const search = async () => {
         setSearchLoading(true)
         setSearchResults([])
