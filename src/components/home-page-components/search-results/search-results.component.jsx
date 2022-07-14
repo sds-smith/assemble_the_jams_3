@@ -5,7 +5,6 @@ import Spinner from "../../reusable-components/spinner/spinner.component"
 
 import { TrackContext } from "../../../contexts/track.context"
 import { SearchResultsContainer } from "./search-results.styles"
-import Track from "../../reusable-components/track/track.component"
 
 const SearchResults = ({ onAdd, onPlay }) => {
     const { searchResults, searchLoading } = useContext(TrackContext)
