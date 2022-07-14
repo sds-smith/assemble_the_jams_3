@@ -1,7 +1,11 @@
-import { useEffect } from "react"
+import { useEffect, useContext } from "react"
 import { useNavigate } from "react-router-dom"
 
-const Auth = ({setAuthSession, setAccessToken, accessToken}) => {
+import { UserContext } from "../../contexts/user.context"
+
+const Auth = () => {
+
+    const {setAuthSession, setAccessToken, accessToken} = useContext(UserContext)
 
     const navigate = useNavigate()
 
@@ -39,7 +43,8 @@ const Auth = ({setAuthSession, setAccessToken, accessToken}) => {
             getAccessToken(authCode)
           }
         }
-    }, [navigate, setAccessToken, setAuthSession, accessToken])
+         // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     return (
         <div></div>

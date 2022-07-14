@@ -79,19 +79,9 @@ export const ProgressContainer = styled.div`
     height: 100%;
     width: 100%;
     background-color: rgba(0, 0, 0, .1);
+    transform: ${props => props.transform};
     transform-origin: left;
     transition: transform 30s linear;
-`
-
-export const ProgressBar = styled.div`
-    width: 60%;
-    height: 25%;
-    border: 1px solid black;
-`
-export const ProgressFill = styled.div`
-    height: 100%;
-    background-color: black;
-    width: ${props => props.width};
 `
 
 export const LikesMessage = styled.p`

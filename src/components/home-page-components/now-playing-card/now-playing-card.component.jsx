@@ -1,22 +1,48 @@
+import { useState, useEffect, useContext } from 'react'
 
 import TrackActionButton from '../../reusable-components/track-action-button/track-action-button.component'
 
 import SpotifyIcon from '../../../assets/icons/Spotify_Icon_RGB_Black.png'
 import StopBtn from '../../../assets/icons/stop_black24.png'
 import AddBtn from '../../../assets/icons/add_black24.png'
+import Like from '../../../assets/icons/like24.png'
+import Unlike from '../../../assets/icons/unlike24.png'
 
-import {NowPlayingContainer, SpotifyAttributor, SpotifyLogo, NowPlayingCover, NowPlayingLabel, TrackControls, LikesMessage, ProgressContainer} from './now-playing-card.styles'
-import { useState, useEffect } from 'react'
+import { UserContext } from '../../../contexts/user.context'
+import { PlayerContext } from '../../../contexts/player.context'
 import { Spotify } from '../../../utils/spotify'
+import {NowPlayingContainer, SpotifyAttributor, SpotifyLogo, NowPlayingCover, NowPlayingLabel, TrackControls, LikesMessage, ProgressContainer} from './now-playing-card.styles'
 
-const NowPlayingCard = ({ nowPlaying, setNowPlaying, deviceID, accessToken, addTrack, toggleLike, likesMessage, LikeOrUnlike}) => {
-
+const NowPlayingCard = ({ onAdd }) => {
     const [transform, setTransform] = useState('scaleX(0)')
+    const [likesMessage, setLikesMessage] = useState('')
+
+    const { accessToken } = useContext(UserContext)
+    const { deviceID, nowPlaying, setNowPlaying } = useContext(PlayerContext)
+
+    const toggleLike = () => {
+        if (!nowPlaying.track.id) {
+            return
+          }
+          if (nowPlaying.isLike) {
+            Spotify.deleteLike(accessToken, nowPlaying.track.id)
+            setNowPlaying(nowPlaying => ({...nowPlaying, isLike: false}))
+            setLikesMessage('Removed from Liked Songs')
+            setTimeout(() => setLikesMessage(''), 3000);
+          } else {
+            Spotify.addLike(accessToken, nowPlaying.track.id)
+            setNowPlaying(nowPlaying => ({...nowPlaying, isLike: true}))
+            setLikesMessage('Added to Liked Songs')
+            setTimeout(() => setLikesMessage(''), 3000);
+          }
+    }
+
+    const addTrack = () => {
+        onAdd(nowPlaying.track)
+    }
 
     const closeNowPlaying = () => {
         Spotify.stopPlayback(deviceID, accessToken)
-        // clearInterval(interval)
-        // setActive(false)
         setTransform('scaleX(0)')
         setNowPlaying({hasTrack: false, track: {}, isLike: null})
     }
@@ -26,9 +52,6 @@ const NowPlayingCard = ({ nowPlaying, setNowPlaying, deviceID, accessToken, addT
         setTimeout(() => {
             closeNowPlaying()
         }, 30000)
-        // interval = setInterval( () => {
-            // setGradientAngle(gradientAngle => (gradientAngle - 2))
-        // }, 1000)
     }
 
     useEffect(() => {
@@ -36,13 +59,16 @@ const NowPlayingCard = ({ nowPlaying, setNowPlaying, deviceID, accessToken, addT
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+    let LikeOrUnlike = nowPlaying.isLike ? Like : Unlike
+
     return (
         <NowPlayingContainer >
-            <SpotifyAttributor className='listen-on' href={`https://open.spotify.com/track/${nowPlaying.track.id}?play`} target='_blank' rel="noreferrer">
+            <SpotifyAttributor href={`https://open.spotify.com/track/${nowPlaying.track.id}?play`} target='_blank' rel="noreferrer">
                     <SpotifyLogo src={SpotifyIcon} id='spotify-icon' alt='spotify icon'/>
                     <p>Listen on Spotify</p>
             </SpotifyAttributor>
-            <NowPlayingCover  src={nowPlaying.track.cover} 
+            <NowPlayingCover  
+                src={nowPlaying.track.cover} 
                  alt="now playing cover art" 
             />
             <NowPlayingLabel>
@@ -55,7 +81,7 @@ const NowPlayingCard = ({ nowPlaying, setNowPlaying, deviceID, accessToken, addT
                  <TrackActionButton onClick={closeNowPlaying} src={StopBtn} alt='play or pause button'/>
             </TrackControls>   
             <LikesMessage>{likesMessage}</LikesMessage>
-            <ProgressContainer style={{transform : transform}} />
+            <ProgressContainer transform={transform} />
         </NowPlayingContainer>
     )
 }

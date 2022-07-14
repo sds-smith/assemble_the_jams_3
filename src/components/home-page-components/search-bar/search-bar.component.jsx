@@ -1,12 +1,16 @@
-import { useState } from "react"
+import { useState, useContext } from "react"
+
+import Button from "../../reusable-components/button/button.component"
 
 import { Spotify } from "../../../utils/spotify"
-import Button from "../../reusable-components/button/button.component"
+import { UserContext } from "../../../contexts/user.context"
 import { SearchBarContainer, SearchBarInput } from "./search-bar.styles"
 
-const SearchBar = ({accessToken, setSearchResults, setRecommendations, setSearchLoading}) => {
+const SearchBar = ({ setSearchResults, setRecommendations, setSearchLoading}) => {
 
     const [searchTerm, setSearchTerm] = useState('')
+
+    const { accessToken } = useContext(UserContext)
 
     const search = async () => {
         setSearchLoading(true)

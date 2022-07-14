@@ -1,13 +1,15 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 
 import ProfilePic from '../../../assets/icons/default_profile96.png'
-
+import { UserContext } from '../../../contexts/user.context';
 import { ProfileLink, ProfileImg } from "./user-profile.styles";
 
-const UserProfile = ({currentUser}) => {
+const UserProfile = () => {
 
     const [profilePic, setProfilePic] = useState(ProfilePic)
     const [displayName, setDisplayName] = useState('')
+
+    const { currentUser } = useContext(UserContext)
 
     useEffect(() => {
         if (currentUser) {

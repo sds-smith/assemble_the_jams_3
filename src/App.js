@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { Route, Routes } from 'react-router-dom';
 import Navigation from './routes/navigation/navigation.component';
 import Home from './routes/home/home.component'
@@ -6,36 +6,24 @@ import LogIn from './routes/log-in/log-in.component';
 import NewUser from './routes/new-user/new-user.component';
 import Auth from './components/auth/auth.component';
 
+import { UserContext } from './contexts/user.context';
+import { PlayerContext } from './contexts/player.context';
+
 import { Spotify } from './utils/spotify';
 
 import './App.css';
 
 const App = () => {
-  const [accessToken, setAccessToken] = useState('')
-  const [authSession, setAuthSession] = useState('')
-  const [currentUser, setCurrentUser] = useState(null)
   const [searchResults, setSearchResults] = useState([])
   const [playlistTracks, setPlaylistTracks] = useState([])
   const [recommendations, setRecommendations] = useState([])
   const [playlistName, setPlaylistName] = useState("Enter New Playlist Name")
   const [searchLoading, setSearchLoading] = useState(false)
-  const [playLoading, setPlayLoading] = useState(false)
-  const [deviceID, setDeviceId] = useState('')
-  const [currentPlayer, setCurrentPlayer] = useState(undefined)
-  const [nowPlaying, setNowPlaying] = useState({
-    hasTrack: false,
-    track : {},
-    isLike : null
-  })
-  const [gradientAngle, setGradientAngle] = useState(135)
 
-  const togglePlayLoading = () => {
-    setPlayLoading(!playLoading)
-  }
-
+  const { accessToken, currentUser, setCurrentUser } = useContext(UserContext)
+  const { currentPlayer, deviceID, setNowPlaying } = useContext(PlayerContext)
 
   const playTrack = async (track) => {
-    togglePlayLoading()
     const hasTrack = true
     const isLike = await Spotify.getLikeStatus(accessToken, track.id)
     setNowPlaying({hasTrack, track, isLike})
@@ -44,7 +32,6 @@ const App = () => {
       playerInstance : currentPlayer,
       spotify_uri : uri,
     })
-    togglePlayLoading()
   }
   
   const addToPlaylist = (track) => {
@@ -84,10 +71,8 @@ const App = () => {
 
   return (
     <Routes >
-      <Route path='/' element={ <Navigation authSession={authSession} /> } >
+      <Route path='/' element={ <Navigation /> } >
         <Route index element={ <Home 
-                      authSession={authSession}
-                      currentUser={currentUser}
                       searchResults={searchResults}
                       playlistTracks={playlistTracks}
                       recommendations={recommendations}
@@ -101,21 +86,12 @@ const App = () => {
                       onSave={savePlaylist}
                       searchLoading={searchLoading}
                       setSearchLoading={setSearchLoading}
-                      gradientAngle={gradientAngle}
-                      setGradientAngle={setGradientAngle}
-                      accessToken={accessToken}
-                      deviceID={deviceID}
-                      setDeviceId={setDeviceId}
-                      currentPlayer={currentPlayer}
-                      setCurrentPlayer={setCurrentPlayer}
-                      nowPlaying={nowPlaying}
-                      setNowPlaying={setNowPlaying}
                     /> } 
         />
         <Route path='log-in' element={ <LogIn /> } />
         <Route path='new-user' element={ <NewUser /> } />
       </Route>
-      <Route path='/callback' element={<Auth setAuthSession={setAuthSession} setAccessToken={setAccessToken} accessToken={accessToken} />} />
+      <Route path='/callback' element={<Auth />} />
     </Routes>
   );
 }
