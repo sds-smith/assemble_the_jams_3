@@ -67,6 +67,7 @@ const App = () => {
       }
       getUserProfile()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accessToken])
 
   return (
