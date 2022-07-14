@@ -9,13 +9,13 @@ import { Spotify } from '../../../utils/spotify'
 
 import { WebPlayerContainer } from "./web-player.styles"
 
-const WebPlayer = ({ accessToken, setGradientAngle, deviceID, setDeviceId, currentPlayer, setCurrentPlayer, nowPlaying, setNowPlaying, onAdd }) => {
+const WebPlayer = ({ accessToken, deviceID, setDeviceId, currentPlayer, setCurrentPlayer, nowPlaying, setNowPlaying, onAdd }) => {
 
     // const [playerPosition, setPlayerPosition] = useState(0)
     // const [active, setActive] = useState(false)
     const [likesMessage, setLikesMessage] = useState('')
 
-    let interval
+    // let interval
 
     const closeNowPlaying = () => {
         Spotify.stopPlayback(deviceID, accessToken)
