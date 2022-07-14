@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react"
 import Button from "../../components/reusable-components/button/button.component"
 import JamsLogo from "../../components/reusable-components/jams-logo/jams-logo.component"
-import { RegistrationContainer, FormContainer  } from './new-user.styles'
+import close from '../../assets/icons/close_white.png'
+import { RegistrationContainer, FormContainer, CloseButton  } from './new-user.styles'
+import { useNavigate } from "react-router-dom"
 
 const NewUser = () => {
 
@@ -9,6 +11,8 @@ const NewUser = () => {
     const [email, setEmail] = useState('')
     const [transform, setTransform] = useState('scaleY(0)')
     const [formSubmitted, setFormSubmitted] = useState(false)
+
+    const navigate = useNavigate()
 
     const registrationMessage = `Thank you. Your request has been submitted. You will be notified at ${email} when your registration has been processed.`
 
@@ -38,6 +42,10 @@ const NewUser = () => {
         e.target.name === 'name' ? setName(e.target.value) : setEmail(e.target.value)
       } 
 
+    const handleClick = () => {
+      navigate('/')
+    }
+
     useEffect(() => {
         setTransform('scaleY(1)')
     },[])
@@ -46,7 +54,7 @@ const NewUser = () => {
         <RegistrationContainer >
             <FormContainer style={{transform : transform}} >
             <h2 className='loginMessage' ><JamsLogo /> works with your Spotify Premium account.</h2>
-              {/* <img src={close} className="close" onClick={this.handleClick} alt='close button'/> */}
+              <CloseButton src={close} onClick={handleClick} alt='close button'/>
               {formSubmitted ? (
                   <h2 >{registrationMessage}</h2>
                 ) : (

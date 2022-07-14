@@ -8,6 +8,14 @@ export const RegistrationContainer = styled.div`
     background-image: linear-gradient(135deg, green, black);
 `
 
+export const CloseButton = styled.img`
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 24px;
+    height: auto;
+`
+
 export const FormContainer = styled.div`
     display: flex;
     flex-direction: column;
