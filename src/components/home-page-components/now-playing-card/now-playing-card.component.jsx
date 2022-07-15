@@ -51,7 +51,6 @@ const NowPlayingCard = () => {
     const closeNowPlaying = () => {
         Spotify.stopPlayback(deviceID, accessToken)
         setNowPlaying({hasTrack: false, track: {}, isLike: null})
-        setTransform('scaleX(0)')
     }
 
     useEffect(() => {
@@ -59,7 +58,6 @@ const NowPlayingCard = () => {
         const timer = setTimeout(() => closeNowPlaying(), 30000)
         return () => {
             clearTimeout(timer)
-            setTransform('scaleX(0)')
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
