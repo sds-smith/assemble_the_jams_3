@@ -54,15 +54,10 @@ const NowPlayingCard = () => {
         setNowPlaying({hasTrack: false, track: {}, isLike: null})
     }
 
-    const nowPlayingInterval = () => {
-        setTransform('scaleX(1)')
-        setTimeout(() => {
-            closeNowPlaying()
-        }, 30000)
-    }
-
     useEffect(() => {
-        nowPlayingInterval()
+        setTransform('scaleX(1)')
+        const timer = setTimeout(() => closeNowPlaying(), 30000)
+        return () => clearTimeout(timer)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
