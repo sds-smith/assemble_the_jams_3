@@ -2,12 +2,14 @@ import { useContext } from "react"
 
 import TrackList from "../../reusable-components/track-list/track-list.component"
 
+import { UserContext } from "../../../contexts/user.context"
 import { TrackContext } from "../../../contexts/track.context"
+import { Spotify } from "../../../utils/spotify"
 import { PlaylistContainer, SaveToSpotifyButton } from './playlist.styles'
 
-const Playlist = ({ onSave }) => {
-
-    const { playlistTracks, playlistName, setPlaylistName } = useContext(TrackContext)
+const Playlist = () => {
+    const { accessToken, currentUser } = useContext(UserContext)
+    const { playlistTracks, setPlaylistTracks, playlistName, setPlaylistName } = useContext(TrackContext)
 
     const clearInput = () => {
       setPlaylistName('')
@@ -17,8 +19,19 @@ const Playlist = ({ onSave }) => {
       setPlaylistName(e.target.value)
     }
 
+    const savePlaylist = async () => {
+      const trackURIs = playlistTracks.map(track => track.uri)
+      try {
+        const response = await Spotify.savePlaylist(accessToken, currentUser, playlistName, trackURIs)
+        setPlaylistName(response.playlistName)
+        setPlaylistTracks(response.playlistTracks)
+      } catch(error) {
+        console.log(error)
+      }
+    }
+
     return (
-        <PlaylistContainer onKeyPress={(e) => e.key === 'Enter' && onSave()}>
+        <PlaylistContainer onKeyPress={(e) => e.key === 'Enter' && savePlaylist()}>
           <input 
             id='playlist_name_input'
             placeholder={"Enter New Playlist Name"}
@@ -29,7 +42,7 @@ const Playlist = ({ onSave }) => {
           <TrackList 
             tracks={playlistTracks}
             trackType={'playlist'}/>
-          <SaveToSpotifyButton onClick={onSave} >SAVE TO SPOTIFY</SaveToSpotifyButton>
+          <SaveToSpotifyButton onClick={savePlaylist} >SAVE TO SPOTIFY</SaveToSpotifyButton>
         </PlaylistContainer>            
     )
 }

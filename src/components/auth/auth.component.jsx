@@ -11,8 +11,8 @@ const Auth = () => {
         const authCodeMatch = window.location.href.match(/code=([^&]*)/)
 
         const getAccessToken = async ( authCode ) => {
+          navigate('/')
           try {
-            navigate('/')
             const response = await fetch('/.netlify/functions/get-access-token', {
               method: 'post',
               headers: {
@@ -39,6 +39,8 @@ const Auth = () => {
             setAuthSession(session)
             getAccessToken(authCode)
           }
+        } else {
+          navigate('/')
         }
          // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])

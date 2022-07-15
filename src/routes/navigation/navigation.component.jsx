@@ -5,7 +5,6 @@ import JamsLogo from "../../components/reusable-components/jams-logo/jams-logo.c
 import { Header, SpotifyAttributor, SpotifyLogo } from "./navigation.styles"
 
 const Navigation = () => {
-
     return (
         <Fragment>
             <Header>
@@ -17,9 +16,7 @@ const Navigation = () => {
             </Header>  
             <Outlet />
         </Fragment>
-
     )
 }
-
 
 export default Navigation

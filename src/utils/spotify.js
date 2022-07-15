@@ -15,7 +15,7 @@ export const Spotify = {
           const headers = { Authorization : `Bearer ${accessToken}` }
           const response = await axios.get('https://api.spotify.com/v1/me',{headers : headers})
           const user = response.data
-              return user
+          return user
         } catch(error) {
             console.log('error getting user profile', error)
         }

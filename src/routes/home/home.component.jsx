@@ -11,10 +11,8 @@ import Playlist from "../../components/home-page-components/playlist/playlist.co
 import { UserContext } from "../../contexts/user.context"
 import { HomeContainer, HomeHero, ResultsContainer } from "./home.styles"
 
-const Home = ({ onSave  }) => {
- 
+const Home = () => { 
     const { authSession } = useContext(UserContext)
-
     const navigate = useNavigate()
     
     useEffect(() => {
@@ -33,7 +31,7 @@ const Home = ({ onSave  }) => {
         </HomeHero>
         <ResultsContainer>
           <SearchResults />
-          <Playlist onSave={onSave}  />
+          <Playlist />
           <Recommendations />
         </ResultsContainer>
       </HomeContainer>

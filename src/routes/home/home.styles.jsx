@@ -24,5 +24,3 @@ export const ResultsContainer = styled.div`
     justify-content: space-between;
     width: 100%;
 `
-
-// background-image: linear-gradient(${props => props.gradientAngle}deg, green, black);

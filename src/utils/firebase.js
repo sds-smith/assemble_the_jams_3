@@ -78,51 +78,6 @@ const createUserDocumentFromAuth = async (userAuth) => {
     return userDocRef
 }
 
-const getAuthDocRef = (authSession) => {
-    return doc(db, 'oAuth', authSession)
-}
-
-const getAuthClientId = async () => {
-    const authDocRef =  getAuthDocRef()
-    const authSnapshot = await getDoc(authDocRef)
-    console.log(authSnapshot.data()['client-id'])
-    return authSnapshot.data()['client-id']
-}
-
-const getAuthAccessToken = async (authSession) => {
-    const authDocRef =  getAuthDocRef(authSession)
-    const authSnapshot = await getDoc(authDocRef)
-    return authSnapshot.data()['accessToken']
-}
-
-const createAuthDocumentFromSpotify = async (authInstance, authCode) => {
-    const authDocRef = getAuthDocRef(authInstance)
-    try {
-        await setDoc(authDocRef, {
-        authCode,
-        })
-    } catch(error) {
-        console.log('error creating document', error)
-    }
-    return authDocRef
-}
-
-const setAccessToken = async (authSession, accessToken) => {
-    const authDocRef = getAuthDocRef(authSession)
-    try {
-        await setDoc(authDocRef, {
-        accessToken,
-        },
-        {
-            merge: true
-        }
-        )
-    } catch(error) {
-        console.log('error adding access token to document', error)
-    }
-    return authDocRef
-}
-
 // export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
     // const collectionRef = collection(db, collectionKey)
     // const batch = writeBatch(db)
@@ -149,8 +104,4 @@ module.exports = {
     setName,
     isNewUser,
     createUserDocumentFromAuth,
-    getAuthDocRef,
-    getAuthAccessToken,
-    createAuthDocumentFromSpotify,
-    setAccessToken
 }

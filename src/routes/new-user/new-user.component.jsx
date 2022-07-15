@@ -54,13 +54,14 @@ const NewUser = () => {
         <RegistrationContainer >
             <FormContainer style={{transform : transform}} >
             <h2 className='loginMessage' ><JamsLogo /> works with your Spotify Premium account.</h2>
+            <h2 className='loginMessage' >Please complete the information below to register with <JamsLogo /></h2>
               <CloseButton src={close} onClick={handleClick} alt='close button'/>
               {formSubmitted ? (
-                <>
+                <Fragment>
                   <h2 >{registrationMessage}</h2>
                   <Button onClick={handleClick} >RETURN</Button>
                   <p>Return to Sign-In</p>                
-                </>
+                </Fragment>
                 ) : (
                   <form className='registration'  onSubmit={handleSubmit}>
                     <input type="hidden" name="form-name" value="registration" />
@@ -68,8 +69,7 @@ const NewUser = () => {
                     <input type='email' name='email' id='email' value={email} placeholder='Your Spotify email' onChange={handleChange}/>
                     <Button className='RegButton'type='submit' name='submit' id='emailSubmit' >REGISTER</Button>
                   </form>
-                )
-                }
+                )}
             </FormContainer>
         </RegistrationContainer>
     )

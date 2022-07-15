@@ -6,9 +6,7 @@ export const LogInContainer = styled.div`
     align-items: center;
     height: calc(100vh - 100px);
     background-image: linear-gradient(135deg, green, black);
-
 `
-
 
 export const FormContainer = styled.div`
     display: flex;
@@ -52,7 +50,3 @@ export const ButtonContainer = styled.div`
     align-items: center;
     color: white;
 `
-
-// export const LogInContainer = styled.div`
-// 
-// `
