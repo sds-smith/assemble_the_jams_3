@@ -12,12 +12,12 @@ import { TrackContext } from '../../../contexts/track.context'
 import { PlayerContext } from '../../../contexts/player.context'
 
 import { TrackContainer, TrackInformation, TrackActionContainer, ReverseTrackContainer, ReverseTrackInformation } from './track.styles'
-// import { ProgressContainer } from '../../home-page-components/now-playing-card/now-playing-card.styles'
+import { ProgressContainer } from '../../home-page-components/now-playing-card/now-playing-card.styles'
 
 const Track = ({track, trackType }) => {
   const { accessToken } = useContext(UserContext)
   const { playlistTracks, setPlaylistTracks } = useContext(TrackContext)
-  const { nowPlaying, setNowPlaying, deviceID, currentPlayer } = useContext(PlayerContext)
+  const { nowPlaying, setNowPlaying, deviceID, currentPlayer, active } = useContext(PlayerContext)
 
   const addTrack = () => {
     let tracks = playlistTracks
@@ -81,6 +81,12 @@ const Track = ({track, trackType }) => {
               <p >{track.artist} | {track.album}</p>
             </ReverseTrackInformation>
             {trackActions}
+            { nowPlaying.track.id === track.id && 
+              <ProgressContainer 
+                transform={ active ? 'scaleX(1)' : 'scaleX(0)' }
+                transition={ active ? 'transform 30s linear' : 'transform 0s linear' } 
+                backgroundColor='rgba(255, 255, 255, .2)'
+              />}
         </ReverseTrackContainer>   
       ) : (
         <TrackContainer >
@@ -91,6 +97,12 @@ const Track = ({track, trackType }) => {
             <TrackActionContainer>
               {trackActions}
             </TrackActionContainer>
+            { nowPlaying.track.id === track.id && 
+              <ProgressContainer 
+                transform={ active ? 'scaleX(1)' : 'scaleX(0)' }
+                transition={ active ? 'transform 30s linear' : 'transform 0s linear' } 
+                backgroundColor='rgba(255, 255, 255, .2)'
+              />}
         </TrackContainer>    
       )
     )

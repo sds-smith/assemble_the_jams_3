@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const NowPlayingContainer = styled.div`
     position: relative;
-    display: flex;
+    display: ${props => props.isMobile ? 'none' : 'flex'};
     width: 80%;
     height: 80%;
     flex-direction: column;
@@ -28,23 +28,6 @@ export const SpotifyAttributor = styled.a`
         font-size: 10px;
         color: black;
         margin: 0px;
-      }
-`
-
-export const CloseButton = styled.button`
-      position: absolute;
-      top: 5px;
-      right: 10px;
-      background-color: rgba(0,0,0,0);
-      border: none;
-
-      &:hover {
-        opacity: 0.5;
-      }
-
-      img {
-        height: 17px;
-        width: auto;
       }
 `
 
@@ -78,10 +61,10 @@ export const ProgressContainer = styled.div`
     left: 0;
     height: 100%;
     width: 100%;
-    background-color: rgba(0, 0, 0, .1);
+    background-color: ${props => props.backgroundColor};
     transform: ${props => props.transform};
     transform-origin: left;
-    transition: transform 30s linear;
+    transition: ${props => props.transition};
 `
 
 export const LikesMessage = styled.p`

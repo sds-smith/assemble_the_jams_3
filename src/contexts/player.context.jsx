@@ -7,6 +7,8 @@ export const PlayerContext = createContext({
     setDeviceId : () => null,
     nowPlaying : null,
     setNowPlaying : () => null,
+    active : null,
+    setActive : () => null
 })
 
 export const PlayerProvider = ({children}) => {
@@ -17,13 +19,16 @@ export const PlayerProvider = ({children}) => {
       track : {},
       isLike : null
     })
+    const [active, setActive] = useState(false)
     
     const value = { currentPlayer, 
                     setCurrentPlayer,
                     deviceID,
                     setDeviceId,
                     nowPlaying,
-                    setNowPlaying 
+                    setNowPlaying,
+                    active,
+                    setActive 
                 }
 
     return <PlayerContext.Provider value={value} >{children}</PlayerContext.Provider>

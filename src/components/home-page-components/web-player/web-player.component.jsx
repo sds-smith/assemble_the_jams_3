@@ -51,7 +51,7 @@ const WebPlayer = ({ onAdd }) => {
 
     return (
         <WebPlayerContainer isMobile={isMobile} >        
-            { nowPlaying.hasTrack && !isMobile &&
+            { nowPlaying.hasTrack && 
                 <NowPlayingCard onAdd={onAdd} />
             }    
         </WebPlayerContainer>

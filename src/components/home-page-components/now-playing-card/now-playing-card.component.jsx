@@ -11,17 +11,17 @@ import Unlike from '../../../assets/icons/unlike24.png'
 import { UserContext } from '../../../contexts/user.context'
 import { TrackContext } from '../../../contexts/track.context'
 import { PlayerContext } from '../../../contexts/player.context'
+import { useMediaQuery } from '../../../utils/customHooks'
 import { Spotify } from '../../../utils/spotify'
 import {NowPlayingContainer, SpotifyAttributor, SpotifyLogo, NowPlayingCover, NowPlayingLabel, TrackControls, LikesMessage, ProgressContainer} from './now-playing-card.styles'
 
 const NowPlayingCard = () => {
-    const [transform, setTransform] = useState('scaleX(0)')
     const [likesMessage, setLikesMessage] = useState('')
 
     const { accessToken } = useContext(UserContext)
     const { playlistTracks, setPlaylistTracks } = useContext(TrackContext)
-    const { deviceID, nowPlaying, setNowPlaying } = useContext(PlayerContext)
-
+    const { deviceID, nowPlaying, setNowPlaying, active, setActive } = useContext(PlayerContext)
+    const isMobile = useMediaQuery('(max-width: 1020px)')
 
     const addTrack = () => {
         let tracks = playlistTracks
@@ -55,10 +55,11 @@ const NowPlayingCard = () => {
     }
 
     useEffect(() => {
-        setTransform('scaleX(1)')
+        setActive(true)
         const timer = setTimeout(() => closeNowPlaying(), 30000)
         return () => {
             clearTimeout(timer)
+            setActive(false)
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
@@ -66,7 +67,7 @@ const NowPlayingCard = () => {
     let LikeOrUnlike = nowPlaying.isLike ? Like : Unlike
 
     return (
-        <NowPlayingContainer >
+        <NowPlayingContainer isMobile={isMobile} >
             <SpotifyAttributor href={`https://open.spotify.com/track/${nowPlaying.track.id}?play`} target='_blank' rel="noreferrer">
                     <SpotifyLogo src={SpotifyIcon} id='spotify-icon' alt='spotify icon'/>
                     <p>Listen on Spotify</p>
@@ -85,7 +86,11 @@ const NowPlayingCard = () => {
                  <TrackActionButton onClick={closeNowPlaying} src={StopBtn} alt='play or pause button'/>
             </TrackControls>   
             <LikesMessage>{likesMessage}</LikesMessage>
-            <ProgressContainer transform={transform} />
+            <ProgressContainer 
+                transform={ active ? 'scaleX(1)' : 'scaleX(0)' }
+                transition={ active ? 'transform 30s linear' : 'transform 0s linear' } 
+                backgroundColor='rgba(0, 0, 0, .1)'
+            />
         </NowPlayingContainer>
     )
 }
