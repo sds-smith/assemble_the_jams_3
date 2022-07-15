@@ -12,7 +12,7 @@ import { TrackContext } from '../../../contexts/track.context'
 import { PlayerContext } from '../../../contexts/player.context'
 
 import { TrackContainer, TrackInformation, TrackActionContainer, ReverseTrackContainer, ReverseTrackInformation } from './track.styles'
-import { ProgressContainer } from '../../home-page-components/now-playing-card/now-playing-card.styles'
+// import { ProgressContainer } from '../../home-page-components/now-playing-card/now-playing-card.styles'
 
 const Track = ({track, trackType }) => {
   const { accessToken } = useContext(UserContext)
