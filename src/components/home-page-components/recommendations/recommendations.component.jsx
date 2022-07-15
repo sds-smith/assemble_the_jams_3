@@ -6,7 +6,7 @@ import Spinner from '../../reusable-components/spinner/spinner.component'
 import { TrackContext } from '../../../contexts/track.context'
 import { RecommendationsContainer } from './recommendations.styles'
 
-const Recommendations = ({ onAdd, onPlay }) => {
+const Recommendations = () => {
         const { recommendations, searchLoading } = useContext(TrackContext)
 
         return (
@@ -15,8 +15,6 @@ const Recommendations = ({ onAdd, onPlay }) => {
               <Spinner loading={searchLoading} />
               <TrackList 
                  tracks={recommendations} 
-                 onAdd={onAdd}
-                 onPlay={onPlay}
                  trackType={'recommendations'}/> 
             </RecommendationsContainer>
         )

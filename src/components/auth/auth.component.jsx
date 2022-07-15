@@ -4,9 +4,7 @@ import { useNavigate } from "react-router-dom"
 import { UserContext } from "../../contexts/user.context"
 
 const Auth = () => {
-
-    const {setAuthSession, setAccessToken, accessToken} = useContext(UserContext)
-
+    const {authSession, setAuthSession, setAccessToken} = useContext(UserContext)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -14,6 +12,7 @@ const Auth = () => {
 
         const getAccessToken = async ( authCode ) => {
           try {
+            navigate('/')
             const response = await fetch('/.netlify/functions/get-access-token', {
               method: 'post',
               headers: {
@@ -28,15 +27,13 @@ const Auth = () => {
                 setAccessToken('')
               }, expiresIn * 1000)
             }
-
-            navigate('/')
           } catch(error) {
             console.log(error)
           }
         }
 
         if (authCodeMatch) {
-          if (!accessToken) {
+          if (!authSession) {
             const session = authCodeMatch[1].slice(0, 6)
             const authCode = authCodeMatch[1]
             setAuthSession(session)

@@ -9,16 +9,27 @@ import Like from '../../../assets/icons/like24.png'
 import Unlike from '../../../assets/icons/unlike24.png'
 
 import { UserContext } from '../../../contexts/user.context'
+import { TrackContext } from '../../../contexts/track.context'
 import { PlayerContext } from '../../../contexts/player.context'
 import { Spotify } from '../../../utils/spotify'
 import {NowPlayingContainer, SpotifyAttributor, SpotifyLogo, NowPlayingCover, NowPlayingLabel, TrackControls, LikesMessage, ProgressContainer} from './now-playing-card.styles'
 
-const NowPlayingCard = ({ onAdd }) => {
+const NowPlayingCard = () => {
     const [transform, setTransform] = useState('scaleX(0)')
     const [likesMessage, setLikesMessage] = useState('')
 
     const { accessToken } = useContext(UserContext)
+    const { playlistTracks, setPlaylistTracks } = useContext(TrackContext)
     const { deviceID, nowPlaying, setNowPlaying } = useContext(PlayerContext)
+
+    const addTrack = () => {
+        let tracks = playlistTracks
+        if (tracks.find(savedTrack => savedTrack.id === nowPlaying.track.id)) {
+          return
+        }
+        tracks.push(nowPlaying.track)
+        setPlaylistTracks(tracks => [...tracks])
+      }
 
     const toggleLike = () => {
         if (!nowPlaying.track.id) {
@@ -35,10 +46,6 @@ const NowPlayingCard = ({ onAdd }) => {
             setLikesMessage('Added to Liked Songs')
             setTimeout(() => setLikesMessage(''), 3000);
           }
-    }
-
-    const addTrack = () => {
-        onAdd(nowPlaying.track)
     }
 
     const closeNowPlaying = () => {

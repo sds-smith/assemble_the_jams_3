@@ -5,8 +5,8 @@ import { SpinnerContainer, SpinnerImg } from './spinner.styles'
 const Spinner = ({loading}) => {
 
     return (
-        <SpinnerContainer loading={loading} >
-            <SpinnerImg src={spinner} loading={loading} alt='spinner'/>
+        <SpinnerContainer display={loading ? 'block' : 'none'} >
+            <SpinnerImg src={spinner} play={loading ? 'running' : 'paused'} alt='spinner'/>
              Loading . . .
         </SpinnerContainer>
     )

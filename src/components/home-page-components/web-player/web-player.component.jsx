@@ -45,10 +45,10 @@ const WebPlayer = ({ onAdd }) => {
                 player.connect();
             };
             // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[])
+    },[accessToken])
 
     return (
-        <WebPlayerContainer  >        
+        <WebPlayerContainer >        
             { nowPlaying.hasTrack &&
                 <NowPlayingCard onAdd={onAdd} />
             }

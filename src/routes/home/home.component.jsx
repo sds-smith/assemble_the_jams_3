@@ -11,7 +11,7 @@ import Playlist from "../../components/home-page-components/playlist/playlist.co
 import { UserContext } from "../../contexts/user.context"
 import { HomeContainer, HomeHero, ResultsContainer } from "./home.styles"
 
-const Home = ({  onAdd, onRemove, onPlay, onSave  }) => {
+const Home = ({ onSave  }) => {
  
     const { authSession } = useContext(UserContext)
 
@@ -29,12 +29,12 @@ const Home = ({  onAdd, onRemove, onPlay, onSave  }) => {
         <HomeHero>
           <UserProfile />
           <SearchBar />
-          <WebPlayer onAdd={onAdd} />
+          <WebPlayer />
         </HomeHero>
         <ResultsContainer>
-          <SearchResults onAdd={onAdd} onPlay={onPlay} />
-          <Playlist onRemove={onRemove} onSave={onSave}  />
-          <Recommendations onAdd={onAdd} onPlay={onPlay} />
+          <SearchResults />
+          <Playlist onSave={onSave}  />
+          <Recommendations />
         </ResultsContainer>
       </HomeContainer>
     )

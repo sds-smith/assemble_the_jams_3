@@ -5,9 +5,7 @@ const scope = encodeURIComponent('user-read-private user-read-email playlist-mod
 const state = generateRandomString()
 const SpotifyAuth = `https://accounts.spotify.com/authorize?response_type=code&client_id=${process.env.REACT_APP_CLIENT_ID}&scope=${scope}&state=${state}&code_challenge_method=S256&code_challenge=${process.env.REACT_APP_AUTH_CHALLENGE}&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}`
 
-
 export const Spotify = {
-
     auth() {
         window.location.replace(SpotifyAuth)
     },
@@ -28,7 +26,6 @@ export const Spotify = {
             const headers =  { Authorization : `Bearer ${accessToken}` }
             const response = await axios.get(`https://api.spotify.com/v1/search?type=track&q=${searchTerm}`,{headers : headers})
             const searchResults = response.data
-            console.log(searchResults)
             const seeds = searchResults.tracks.items.slice(0, 5).map(track => track.id)
           
             const recommendationsResponse = await axios.get(`https://api.spotify.com/v1/recommendations?seed_tracks=${seeds}`,{headers : headers})

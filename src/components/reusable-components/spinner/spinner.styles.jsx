@@ -7,12 +7,12 @@ const rotate = keyframes`
 `
 
 export const SpinnerContainer = styled.h3`
-    display: ${props => props.loading ? 'block' : 'none'};
+    display: ${props => props.display};
 `
 
 export const SpinnerImg = styled.img`
     width: 24px;
     height: auto;
     animation: ${rotate} 4s linear infinite;
-    animation-play-state: ${props => props.loading ? 'running' : 'paused'};
+    animation-play-state: ${props => props.play};
 `
