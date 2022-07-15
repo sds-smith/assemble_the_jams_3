@@ -58,6 +58,7 @@ const NowPlayingCard = () => {
         let timeout
         if (timeout) {
             clearTimeout(timeout)
+            setTransform('scaleX(0')
         } 
         setTransform('scaleX(1)')
         timeout = setTimeout(() => {
