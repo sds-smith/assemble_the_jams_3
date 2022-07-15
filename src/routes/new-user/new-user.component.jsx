@@ -1,19 +1,23 @@
-import { useEffect, useState, Fragment } from "react"
+import { useEffect, useState, useContext, Fragment } from "react"
+import { useNavigate } from "react-router-dom"
+
 import Button from "../../components/reusable-components/button/button.component"
 import JamsLogo from "../../components/reusable-components/jams-logo/jams-logo.component"
 import close from '../../assets/icons/close_white.png'
+
+import { UserContext } from "../../contexts/user.context"
 import { RegistrationContainer, FormContainer, CloseButton  } from './new-user.styles'
-import { useNavigate } from "react-router-dom"
 
 const NewUser = () => {
 
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
+    const [emailDisabled, setEmailDisabled] = useState(false)
     const [transform, setTransform] = useState('scaleY(0)')
     const [formSubmitted, setFormSubmitted] = useState(false)
 
     const navigate = useNavigate()
-
+    const { currentUser } = useContext(UserContext)
     const registrationMessage = `Thank you. Your request has been submitted. You will be notified at ${email} when your registration has been processed.`
 
 
@@ -43,18 +47,21 @@ const NewUser = () => {
       } 
 
     const handleClick = () => {
-      navigate('/')
+      navigate('/log-in')
     }
 
     useEffect(() => {
         setTransform('scaleY(1)')
-    },[])
+        if (currentUser) {
+          setEmailDisabled(true)
+          setEmail(currentUser.email)
+        }
+    },[currentUser])
 
     return (
         <RegistrationContainer >
             <FormContainer style={{transform : transform}} >
             <h2 className='loginMessage' ><JamsLogo /> works with your Spotify Premium account.</h2>
-            <h2 className='loginMessage' >Please complete the information below to register with <JamsLogo /></h2>
               <CloseButton src={close} onClick={handleClick} alt='close button'/>
               {formSubmitted ? (
                 <Fragment>
@@ -63,12 +70,15 @@ const NewUser = () => {
                   <p>Return to Sign-In</p>                
                 </Fragment>
                 ) : (
-                  <form className='registration'  onSubmit={handleSubmit}>
-                    <input type="hidden" name="form-name" value="registration" />
-                    <input type='text' name='name' id='name' value={name} placeholder='Your First and Last Name' onChange={handleChange}/>
-                    <input type='email' name='email' id='email' value={email} placeholder='Your Spotify email' onChange={handleChange}/>
-                    <Button className='RegButton'type='submit' name='submit' id='emailSubmit' >REGISTER</Button>
-                  </form>
+                  <Fragment>
+                    <p className='loginMessage' >Please complete the information below to register your account with <JamsLogo /></p>
+                    <form className='registration'  onSubmit={handleSubmit}>
+                      <input type="hidden" name="form-name" value="registration" />
+                      <input type='text' name='name' id='name' value={name} placeholder='Your First and Last Name' onChange={handleChange}/>
+                      <input type='email' name='email' id='email' value={email} placeholder='Your Spotify email'  disabled={emailDisabled} onChange={handleChange}/>
+                      <Button className='RegButton'type='submit' name='submit' id='emailSubmit' >REGISTER</Button>
+                    </form>
+                  </Fragment>
                 )}
             </FormContainer>
         </RegistrationContainer>

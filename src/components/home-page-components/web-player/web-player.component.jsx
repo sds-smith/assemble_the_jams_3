@@ -9,7 +9,7 @@ import { WebPlayerContainer } from "./web-player.styles"
 
 const WebPlayer = ({ onAdd }) => {
 
-    const { accessToken } = useContext(UserContext)
+    const { currentUser, accessToken } = useContext(UserContext)
     const { setCurrentPlayer, setDeviceId, nowPlaying } = useContext(PlayerContext)
 
     useEffect(() => {
@@ -45,7 +45,7 @@ const WebPlayer = ({ onAdd }) => {
                 player.connect();
             };
             // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[accessToken])
+    },[currentUser])
 
     return (
         <WebPlayerContainer >        

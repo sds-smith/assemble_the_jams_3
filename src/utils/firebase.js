@@ -1,15 +1,15 @@
-const { initializeApp } = require("firebase/app");
+import { initializeApp } from 'firebase/app'
 
-const {
-    getFirestore,
-    doc,
-    getDoc,
+import { 
+    getFirestore, 
+    doc, 
+    getDoc, 
     setDoc,
     collection,
     writeBatch,
     query,
     getDocs
-} = require('firebase/firestore')
+} from 'firebase/firestore'
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -26,21 +26,21 @@ const firebaseApp = initializeApp(firebaseConfig);
 
 const db = getFirestore()
 
-const getUserDocRef = (userAuth) => {
-    return doc(db, 'users', userAuth.id)
+export const getUserDocRef = (user) => {
+    return doc(db, 'users', user.id)
 }
 
-const getUserSnapshot = async (userDocRef) => {
+export const getUserSnapshot = async (userDocRef) => {
     const userSnapshot = await getDoc(userDocRef)
     return userSnapshot
 }
 
-const isNewUser = async (userDocRef) => {
+export const isUnregisteredUser = async (userDocRef) => {
     const userSnapshot = await getUserSnapshot(userDocRef)
     return userSnapshot.data().name === undefined
 }
 
-const setName = async (user, name) => {
+export const setName = async (user, name) => {
     const userDocRef = getUserDocRef(user)
     try {
         await setDoc(userDocRef, {
@@ -55,7 +55,7 @@ const setName = async (user, name) => {
     return userDocRef
 }
 
-const createUserDocumentFromAuth = async (userAuth) => {
+export const createUserDocumentFromAuth = async (userAuth) => {
     const userDocRef = getUserDocRef(userAuth)
 
     const userSnapshot = await getUserSnapshot(userDocRef)
@@ -97,11 +97,3 @@ const createUserDocumentFromAuth = async (userAuth) => {
     // const querySnapshot = await getDocs(q)
     // return querySnapshot.docs.map((docSnapshot) => docSnapshot.data())
 // }
-
-module.exports = {
-    getUserDocRef,
-    getUserSnapshot,
-    setName,
-    isNewUser,
-    createUserDocumentFromAuth,
-}
