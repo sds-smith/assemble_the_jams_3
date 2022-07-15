@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from 'react'
 
 import ProfilePic from '../../../assets/icons/default_profile96.png'
 import { UserContext } from '../../../contexts/user.context';
+import { useMediaQuery } from '../../../utils/customHooks'
 import { ProfileLink, ProfileImg } from "./user-profile.styles";
 
 const UserProfile = () => {
@@ -10,6 +11,7 @@ const UserProfile = () => {
     const [displayName, setDisplayName] = useState('')
 
     const { currentUser } = useContext(UserContext)
+    const isMobile = useMediaQuery('(max-width: 1020px)')
 
     useEffect(() => {
         if (currentUser) {
@@ -19,8 +21,8 @@ const UserProfile = () => {
       },[currentUser])
 
     return (
-        <ProfileLink href={`https://open.spotify.com/user/${displayName}`} target='_blank' rel="noreferrer" >
-            <ProfileImg src={profilePic} />
+        <ProfileLink isMobile={isMobile} href={`https://open.spotify.com/user/${displayName}`} target='_blank' rel="noreferrer" >
+            <ProfileImg isMobile={isMobile} src={profilePic} />
             <h2>{displayName}</h2>
         </ProfileLink>
     )

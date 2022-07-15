@@ -6,7 +6,7 @@ export const PlaylistContainer = styled.div`
     flex-direction: column;
     align-items: center;
     overflow-y: scroll;
-    width: 30%;
+    width: ${props => props.isMobile ? '95%' : '30%'};
     max-height: 950px;
     padding: 0.88rem 1.16rem;
 

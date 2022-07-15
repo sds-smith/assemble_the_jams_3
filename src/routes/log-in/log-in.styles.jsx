@@ -4,7 +4,7 @@ export const LogInContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: calc(100vh - 100px);
+    min-height: calc(100vh - 100px);
     background-image: linear-gradient(135deg, green, black);
 `
 
@@ -35,6 +35,7 @@ export const FormContainer = styled.div`
 
 export const ButtonsContainer = styled.div`
     display: flex;
+    flex-direction: ${props => props.isMobile ? 'column' : 'unset'};
     width: 90%;
     justify-content: space-evenly;
     align-items: center;

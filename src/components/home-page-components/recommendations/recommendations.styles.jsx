@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const RecommendationsContainer = styled.div`
-    width: 30%;
+    width: ${props => props.isMobile ? '95%' : '30%'};
     min-height: 350px;
     max-height: 90vh;
     overflow-y: scroll;

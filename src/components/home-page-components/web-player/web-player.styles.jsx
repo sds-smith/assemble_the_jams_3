@@ -2,9 +2,8 @@ import styled from "styled-components";
 
 export const WebPlayerContainer = styled.div`
     display: flex;
-    display: flex;
     width: 30%;
-    height: 300px;
+    height: ${props => props.isMobile ? '0px' : '300px'};
     align-items: center;
     justify-content: center;
     padding: 1rem 0;

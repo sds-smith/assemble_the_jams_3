@@ -22,6 +22,7 @@ const NowPlayingCard = () => {
     const { playlistTracks, setPlaylistTracks } = useContext(TrackContext)
     const { deviceID, nowPlaying, setNowPlaying } = useContext(PlayerContext)
 
+
     const addTrack = () => {
         let tracks = playlistTracks
         if (tracks.find(savedTrack => savedTrack.id === nowPlaying.track.id)) {

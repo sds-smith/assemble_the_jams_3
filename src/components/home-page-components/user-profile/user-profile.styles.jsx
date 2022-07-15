@@ -5,7 +5,7 @@ export const ProfileLink = styled.a`
     min-height: 100%;
     height:inherit;
     display: flex;
-    flex-direction: column;
+    flex-direction: ${props => props.isMobile ? 'unset' : 'column'};
     align-items: center;
     justify-content: center;
     text-decoration: none;
@@ -13,8 +13,9 @@ export const ProfileLink = styled.a`
 `
 
 export const ProfileImg = styled.img`
-    height: 10rem;
+    height: ${props => props.isMobile ? '50px' : '180px'};
     width: auto;
     border-radius: 50%;
-    margin-bottom: 5px;
+    margin-bottom: ${props => props.isMobile ? 'unset' : '5px'};
+    margin-right: ${props => props.isMobile ? '5px' : 'unset'};
 `

@@ -9,11 +9,13 @@ import Recommendations from "../../components/home-page-components/recommendatio
 import Playlist from "../../components/home-page-components/playlist/playlist.component"
 
 import { UserContext } from "../../contexts/user.context"
+import { useMediaQuery } from '../../utils/customHooks'
 import { HomeContainer, HomeHero, ResultsContainer } from "./home.styles"
 
 const Home = () => { 
     const { authSession } = useContext(UserContext)
     const navigate = useNavigate()
+    const isMobile = useMediaQuery('(max-width: 1020px)')
     
     useEffect(() => {
       if (!authSession) {
@@ -24,12 +26,12 @@ const Home = () => {
 
     return (
       <HomeContainer >
-        <HomeHero>
+        <HomeHero isMobile={isMobile} >
           <UserProfile />
           <SearchBar />
           <WebPlayer />
         </HomeHero>
-        <ResultsContainer>
+        <ResultsContainer isMobile={isMobile} >
           <SearchResults />
           <Playlist />
           <Recommendations />

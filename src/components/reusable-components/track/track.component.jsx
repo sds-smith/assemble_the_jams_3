@@ -12,9 +12,9 @@ import { TrackContext } from '../../../contexts/track.context'
 import { PlayerContext } from '../../../contexts/player.context'
 
 import { TrackContainer, TrackInformation, TrackActionContainer, ReverseTrackContainer, ReverseTrackInformation } from './track.styles'
+import { ProgressContainer } from '../../home-page-components/now-playing-card/now-playing-card.styles'
 
 const Track = ({track, trackType }) => {
-
   const { accessToken } = useContext(UserContext)
   const { playlistTracks, setPlaylistTracks } = useContext(TrackContext)
   const { nowPlaying, setNowPlaying, deviceID, currentPlayer } = useContext(PlayerContext)
@@ -76,22 +76,21 @@ const Track = ({track, trackType }) => {
     return (
        trackType === 'recommendations' ? (
         <ReverseTrackContainer >
-          <ReverseTrackInformation >
-            <h3 >{track.name}</h3>
-            <p >{track.artist} | {track.album}</p>
-          </ReverseTrackInformation>
-          {trackActions}
+            <ReverseTrackInformation >
+              <h3 >{track.name}</h3>
+              <p >{track.artist} | {track.album}</p>
+            </ReverseTrackInformation>
+            {trackActions}
         </ReverseTrackContainer>   
       ) : (
         <TrackContainer >
-          <TrackInformation >
-            <h3 >{track.name}</h3>
-            <p >{track.artist} | {track.album}</p>
-          </TrackInformation>
-          <TrackActionContainer>
-            {trackActions}
-          </TrackActionContainer>
-          
+            <TrackInformation >
+              <h3 >{track.name}</h3>
+              <p >{track.artist} | {track.album}</p>
+            </TrackInformation>
+            <TrackActionContainer>
+              {trackActions}
+            </TrackActionContainer>
         </TrackContainer>    
       )
     )

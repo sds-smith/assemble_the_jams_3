@@ -19,9 +19,10 @@ export const TrackInformation = styled.div`
     flex-direction: column;
     justify-content: center;
     height: 72px;
+    overflow: visible;
 
     h3 {
-        margin-bottom: .22rem;
+        margin-bottom: 4px;
       }
 
     p {

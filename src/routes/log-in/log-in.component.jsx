@@ -4,11 +4,14 @@ import Button from '../../components/reusable-components/button/button.component
 import JamsLogo from "../../components/reusable-components/jams-logo/jams-logo.component"
 
 import { LogInMessage } from "../../data/login-message"
+import { useMediaQuery } from '../../utils/customHooks'
 import { Spotify } from "../../utils/spotify"
 import { LogInContainer, FormContainer, ButtonsContainer, ButtonContainer } from "./log-in.styles"
 
 const LogIn = () => {
     const navigate = useNavigate()
+    const isMobile = useMediaQuery('(max-width: 1020px)')
+
     const register = () => {
         navigate('/new-user')
     }
@@ -20,7 +23,7 @@ const LogIn = () => {
         <LogInContainer>
             <FormContainer>
                 <h2 className='loginMessage' ><JamsLogo /> works with your Spotify Premium account.</h2>
-                    <ButtonsContainer>
+                    <ButtonsContainer isMobile={isMobile} >
                         <ButtonContainer >
                             <h3>New Users</h3>
                             <Button onClick={register} >REGISTER</Button>

@@ -23,12 +23,13 @@ export const SpotifyAttributor = styled.a`
     position: absolute;
     top: 5px;
     left: 5px;
+    display: ${props => props.isMobile ? 'flex' : 'unset'};
     
     p {
-        font-size: 10px;
+        font-size: ${props => props.isMobile ? '8px' : '10px'};
         color: white;
-        padding-top: 2px;
-        padding-left: 21px;
+        padding-top: ${props => props.isMobile ? '0px' : '2px'};
+        padding-left: ${props => props.isMobile ? '0px' : '21px'};
       }
 `
 

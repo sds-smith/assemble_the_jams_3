@@ -4,13 +4,14 @@ import TrackList from "../../reusable-components/track-list/track-list.component
 
 import { UserContext } from "../../../contexts/user.context"
 import { TrackContext } from "../../../contexts/track.context"
+import { useMediaQuery } from '../../../utils/customHooks'
 import { Spotify } from "../../../utils/spotify"
 import { PlaylistContainer, SaveToSpotifyButton } from './playlist.styles'
 
 const Playlist = () => {
     const { accessToken, currentUser } = useContext(UserContext)
     const { playlistTracks, setPlaylistTracks, playlistName, setPlaylistName } = useContext(TrackContext)
-
+    const isMobile = useMediaQuery('(max-width: 1020px)')
     const clearInput = () => {
       setPlaylistName('')
     }
@@ -31,7 +32,7 @@ const Playlist = () => {
     }
 
     return (
-        <PlaylistContainer onKeyPress={(e) => e.key === 'Enter' && savePlaylist()}>
+        <PlaylistContainer isMobile={isMobile} onKeyPress={(e) => e.key === 'Enter' && savePlaylist()}>
           <input 
             id='playlist_name_input'
             placeholder={"Enter New Playlist Name"}

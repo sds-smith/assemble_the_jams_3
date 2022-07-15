@@ -30,6 +30,14 @@ export const FormContainer = styled.div`
     transform-origin: top;
     transition: transform 1s;
 
+    h2 {
+        line-height: 40px;
+    }
+    p {
+        text-align: center;
+        line-height: 30px;
+    }
+
     .registration {
         display : flex;
         flex-direction: column;
