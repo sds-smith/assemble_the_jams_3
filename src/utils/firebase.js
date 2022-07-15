@@ -5,10 +5,10 @@ import {
     doc, 
     getDoc, 
     setDoc,
-    collection,
-    writeBatch,
-    query,
-    getDocs
+    // collection,
+    // writeBatch,
+    // query,
+    // getDocs
 } from 'firebase/firestore'
 
 // Your web app's Firebase configuration
@@ -22,7 +22,7 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const firebaseApp = initializeApp(firebaseConfig);
+// const firebaseApp = initializeApp(firebaseConfig);
 
 const db = getFirestore()
 
