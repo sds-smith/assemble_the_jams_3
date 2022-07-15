@@ -13,11 +13,11 @@ import { PlayerContext } from '../../../contexts/player.context'
 
 import { TrackContainer, TrackInformation, TrackActionContainer, ReverseTrackContainer, ReverseTrackInformation } from './track.styles'
 
-const Track = ({track, trackType, onAdd, onRemove }) => {
+const Track = ({track, trackType }) => {
 
   const { accessToken } = useContext(UserContext)
   const { playlistTracks, setPlaylistTracks } = useContext(TrackContext)
-  const { setNowPlaying, deviceID, currentPlayer } = useContext(PlayerContext)
+  const { nowPlaying, setNowPlaying, deviceID, currentPlayer } = useContext(PlayerContext)
 
   const addTrack = () => {
     let tracks = playlistTracks
@@ -34,6 +34,7 @@ const Track = ({track, trackType, onAdd, onRemove }) => {
   }
 
   const playTrack = async () => {
+    nowPlaying.hasTrack && setNowPlaying({hasTrack: false, track: {}, isLike: null})
     const hasTrack = true
     const isLike = await Spotify.getLikeStatus(accessToken, track.id)
     setNowPlaying({hasTrack, track, isLike})

@@ -29,7 +29,7 @@ const NowPlayingCard = () => {
         }
         tracks.push(nowPlaying.track)
         setPlaylistTracks(tracks => [...tracks])
-      }
+    }
 
     const toggleLike = () => {
         if (!nowPlaying.track.id) {
@@ -55,8 +55,12 @@ const NowPlayingCard = () => {
     }
 
     const nowPlayingInterval = () => {
+        let timeout
+        if (timeout) {
+            clearTimeout(timeout)
+        } 
         setTransform('scaleX(1)')
-        setTimeout(() => {
+        timeout = setTimeout(() => {
             closeNowPlaying()
         }, 30000)
     }
