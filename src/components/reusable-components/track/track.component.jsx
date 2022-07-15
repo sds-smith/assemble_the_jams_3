@@ -34,15 +34,16 @@ const Track = ({track, trackType }) => {
   }
 
   const playTrack = async () => {
-    nowPlaying.hasTrack && setNowPlaying({hasTrack: false, track: {}, isLike: null})
-    const hasTrack = true
-    const isLike = await Spotify.getLikeStatus(accessToken, track.id)
-    setNowPlaying({hasTrack, track, isLike})
-    const uri = `spotify:track:${track.id}`
-    Spotify.play(deviceID, {
-      playerInstance : currentPlayer,
-      spotify_uri : uri,
-    })
+    if (!nowPlaying.hasTrack) {
+      const hasTrack = true
+      const isLike = await Spotify.getLikeStatus(accessToken, track.id)
+      setNowPlaying({hasTrack, track, isLike})
+      const uri = `spotify:track:${track.id}`
+      Spotify.play(deviceID, {
+        playerInstance : currentPlayer,
+        spotify_uri : uri,
+      })
+    }
   }
 
   let trackActions 

@@ -55,13 +55,8 @@ const NowPlayingCard = () => {
     }
 
     const nowPlayingInterval = () => {
-        let timeout
-        if (timeout) {
-            clearTimeout(timeout)
-            setTransform('scaleX(0')
-        } 
         setTransform('scaleX(1)')
-        timeout = setTimeout(() => {
+        setTimeout(() => {
             closeNowPlaying()
         }, 30000)
     }
