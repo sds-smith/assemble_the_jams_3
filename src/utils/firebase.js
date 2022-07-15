@@ -1,4 +1,4 @@
-import { initializeApp } from 'firebase/app'
+// import { initializeApp } from 'firebase/app'
 
 import { 
     getFirestore, 
@@ -12,14 +12,14 @@ import {
 } from 'firebase/firestore'
 
 // Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyA6DyFmuQFs__IHI76tsrLQvdDsDgCziRs",
-  authDomain: "spotify-auth-90412.firebaseapp.com",
-  projectId: "spotify-auth-90412",
-  storageBucket: "spotify-auth-90412.appspot.com",
-  messagingSenderId: "898491969892",
-  appId: "1:898491969892:web:d6c02746041c03b4808a71"
-};
+// const firebaseConfig = {
+//   apiKey: "AIzaSyA6DyFmuQFs__IHI76tsrLQvdDsDgCziRs",
+//   authDomain: "spotify-auth-90412.firebaseapp.com",
+//   projectId: "spotify-auth-90412",
+//   storageBucket: "spotify-auth-90412.appspot.com",
+//   messagingSenderId: "898491969892",
+//   appId: "1:898491969892:web:d6c02746041c03b4808a71"
+// };
 
 // Initialize Firebase
 // const firebaseApp = initializeApp(firebaseConfig);
