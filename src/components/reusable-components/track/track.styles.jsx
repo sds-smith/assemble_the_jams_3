@@ -10,10 +10,6 @@ export const TrackContainer = styled.div`
     padding-bottom: .5rem;
 `
 
-export const ReverseTrackContainer = styled(TrackContainer)`
-    flex-direction: row-reverse;
-`
-
 export const TrackInformation = styled.div`
     flex-grow: 1;
     display: flex;
@@ -31,11 +27,6 @@ export const TrackInformation = styled.div`
       margin: 0px;
       color: rgba(256, 256, 256, 0.8);
     }
-`
-
-export const ReverseTrackInformation = styled(TrackInformation)`
-    align-items: flex-end;
-    text-align: right;
 `
 
 export const TrackActionContainer = styled.div`

@@ -19,16 +19,20 @@ export const PlaylistContainer = styled.div`
     }
 
     input {
-        width: 100%;
-        border: 0;
-        outline: 0;
-        text-align: center;
-        padding: 0;
-        height: 1.7rem;
-        background: transparent;
-        font-family: 'Poppins', sans-serif;
-        font-size: 1.55rem;
-        color: #fff;
+      display: block;
+      font-size: 1.5em;
+      margin: 0.83em 0em;
+      font-weight: bold;
+
+      width: 100%;
+      border: 0;
+      outline: 0;
+      text-align: center;
+      padding: 0;
+      height: 1.7rem;
+      background: transparent;
+      font-family: 'Poppins', sans-serif;
+      color: #fff;
       }
 `
 

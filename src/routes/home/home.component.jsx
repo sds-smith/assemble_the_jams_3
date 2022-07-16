@@ -32,8 +32,8 @@ const Home = () => {
           <WebPlayer />
         </HomeHero>
         <ResultsContainer isMobile={isMobile} >
-          <SearchResults />
           <Playlist />
+          <SearchResults />
           <Recommendations />
         </ResultsContainer>
       </HomeContainer>

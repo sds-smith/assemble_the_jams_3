@@ -11,7 +11,7 @@ import { UserContext } from '../../../contexts/user.context'
 import { TrackContext } from '../../../contexts/track.context'
 import { PlayerContext } from '../../../contexts/player.context'
 
-import { TrackContainer, TrackInformation, TrackActionContainer, ReverseTrackContainer, ReverseTrackInformation } from './track.styles'
+import { TrackContainer, TrackInformation, TrackActionContainer } from './track.styles'
 import { ProgressContainer } from '../../home-page-components/now-playing-card/now-playing-card.styles'
 
 const Track = ({track, trackType }) => {
@@ -51,44 +51,16 @@ const Track = ({track, trackType }) => {
     case 'playlist' :
       trackActions =  <TrackActionButton onClick={removeTrack} src={ClearBtn} alt='button to remove track from playlist'/>
       break
-    case 'search-results' :
+    default :
       trackActions = (
                 <Fragment>
                   <TrackActionButton onClick={playTrack} src={PlayBtn} alt='button to play track'/>
                   <TrackActionButton onClick={addTrack} src={AddBtn} alt='button to add track to playlist'/>
                 </Fragment>
-
       )  
-      break
-    case 'recommendations' :
-      trackActions = (
-                <Fragment>
-                  <TrackActionButton onClick={addTrack} src={AddBtn} alt='button to add track to playlist'/>
-                  <TrackActionButton onClick={playTrack} src={PlayBtn} alt='button to play track'/>     
-                </Fragment>
-
-      )  
-      break
-    default : 
-      trackActions = <div></div>
   }
 
     return (
-       trackType === 'recommendations' ? (
-        <ReverseTrackContainer >
-            <ReverseTrackInformation >
-              <h3 >{track.name}</h3>
-              <p >{track.artist} | {track.album}</p>
-            </ReverseTrackInformation>
-            {trackActions}
-            { nowPlaying.track.id === track.id && trackType !== 'playlist' &&
-              <ProgressContainer 
-                transform={ active ? 'scaleX(1)' : 'scaleX(0)' }
-                transition={ active ? 'transform 30s linear' : 'transform 0s linear' } 
-                backgroundColor='rgba(255, 255, 255, .2)'
-              />}
-        </ReverseTrackContainer>   
-      ) : (
         <TrackContainer >
             <TrackInformation >
               <h3 >{track.name}</h3>
@@ -104,7 +76,6 @@ const Track = ({track, trackType }) => {
                 backgroundColor='rgba(255, 255, 255, .2)'
               />}
         </TrackContainer>    
-      )
     )
 }
 
