@@ -19,6 +19,7 @@ export const HomeHero = styled.div`
     align-items: ${props => props.isMobile ? 'center' : 'unset'};
     justify-content: ${props => props.isMobile ? 'flex-start' : 'space-between'};
     width: 100%;
+    border: solid purple;
 `
 
 export const ResultsContainer = styled.div`
@@ -32,7 +33,7 @@ export const ResultsContainer = styled.div`
 export const TabContainer = styled.div`
     display: flex;
     width: calc(100% + .88rem);
-    margin: 25px 0px 0px -2px;
+    margin: 25px 0px 0px 20px;
     justify-content: flex-start;
 
 `

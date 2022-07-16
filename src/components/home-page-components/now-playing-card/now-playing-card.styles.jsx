@@ -11,6 +11,7 @@ export const NowPlayingContainer = styled.div`
     background-color: rgba(255, 255, 255, .6);
     padding: 20px;
     box-shadow: 2px;
+    border: solid yellow;
 `
 
 export const SpotifyAttributor = styled.a`
