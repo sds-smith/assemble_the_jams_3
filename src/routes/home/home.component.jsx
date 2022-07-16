@@ -7,6 +7,7 @@ import WebPlayer from "../../components/home-page-components/web-player/web-play
 import SearchResults from "../../components/home-page-components/search-results/search-results.component"
 import Recommendations from "../../components/home-page-components/recommendations/recommendations.component"
 import Playlist from "../../components/home-page-components/playlist/playlist.component"
+import Footer from "../../components/home-page-components/footer/footer.component"
 
 import { UserContext } from "../../contexts/user.context"
 import { useMediaQuery } from '../../utils/customHooks'
@@ -14,6 +15,7 @@ import { HomeContainer, HomeHero, ResultsContainer, TabContainer, Tab } from "./
 
 const Home = () => { 
     const [activeTab, setActiveTab] = useState({
+      'playlist' : true,
       'search_results' : true,
       'recommendations' : true
     })
@@ -27,7 +29,7 @@ const Home = () => {
       }
       const setResponsiveTabs = () => {
         if (isMobile) {
-          setActiveTab({...activeTab, 'recommendations' : false})
+          setActiveTab({...activeTab, 'playlist' : false, 'recommendations' : false})
         }
       }
       setResponsiveTabs()
@@ -42,8 +44,8 @@ const Home = () => {
           <WebPlayer />
         </HomeHero>
         <ResultsContainer isMobile={isMobile} >
-          <Playlist />
-          {isMobile &&
+          {activeTab.playlist && <Playlist />}
+          {/* {isMobile &&
             <TabContainer>
               <Tab 
                 onClick={()=>setActiveTab({'search_results' : true, 'recommendations' : false})} 
@@ -56,10 +58,11 @@ const Home = () => {
                 Recommendations
               </Tab>            
             </TabContainer>
-          } 
+          }  */}
           { activeTab.search_results && <SearchResults />}
           { activeTab.recommendations && <Recommendations />}
         </ResultsContainer>
+        {isMobile && <Footer activeTab={activeTab} setActiveTab={setActiveTab} />}
       </HomeContainer>
     )
 }
