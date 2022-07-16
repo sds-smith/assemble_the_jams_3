@@ -8,5 +8,4 @@ export const WebPlayerContainer = styled.div`
     justify-content: center;
     padding: 1rem 0;
     margin-bottom: 1rem;
-    border: solid salmon;
 `

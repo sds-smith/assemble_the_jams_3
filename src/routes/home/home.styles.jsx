@@ -19,7 +19,6 @@ export const HomeHero = styled.div`
     align-items: ${props => props.isMobile ? 'center' : 'unset'};
     justify-content: ${props => props.isMobile ? 'flex-start' : 'space-between'};
     width: 100%;
-    border: solid purple;
 `
 
 export const ResultsContainer = styled.div`
@@ -45,14 +44,14 @@ export const Tab = styled.button`
     height: 30px;
     width: 40%;
     margin: 0px;
-    background-color: rgba(0, 0, 0, 0.4) ;
+    background-color: ${props => props.active ? 'rgba(0, 0, 0, 0.4)' : 'rgba(0, 0, 0, 0.2)'} ;
     font-weight: ${props => props.active ? 'bold' : 'unset'};
     color: ${props => props.active ? 'white' : 'rgba(255, 255, 255, 0.5)'};
     // box-shadow: ${props => props.active ? '0 0 0 2px #000000' : '0 4px 2px 2px #000000'};
     ${props => props.active ? (
         'border-left: 2px solid black; border-top: 2px solid black; border-right: 2px solid black'
         ) : (
-        'border-left: 2px solid black; border-bottom: 4px solid black'
+         'border-bottom: 2px solid black'
         )};
     
 
