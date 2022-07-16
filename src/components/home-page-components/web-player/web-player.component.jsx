@@ -12,7 +12,7 @@ const WebPlayer = ({ onAdd }) => {
 
     const { currentUser, accessToken } = useContext(UserContext)
     const { setCurrentPlayer, setDeviceId, nowPlaying } = useContext(PlayerContext)
-    const isMobile = useMediaQuery('(max-width: 1020px')
+    const isMobile = useMediaQuery('(max-width: 1020px)')
 
     useEffect(() => {
             const script = document.createElement("script");
