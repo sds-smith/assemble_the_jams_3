@@ -22,7 +22,7 @@ const LogIn = () => {
     return (
         <LogInContainer>
             <FormContainer>
-                <h2 className='loginMessage' ><JamsLogo /> works with your Spotify Premium account.</h2>
+                <h2 className='loginMessage' ><JamsLogo /> Playlist Creator works with your Spotify Premium account.</h2>
                     <ButtonsContainer isMobile={isMobile} >
                         <ButtonContainer >
                             <h3>New Users</h3>
