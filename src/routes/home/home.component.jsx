@@ -1,4 +1,4 @@
-import { useEffect, useContext } from "react"
+import { useState, useEffect, useContext } from "react"
 import { useNavigate } from "react-router-dom"
 
 import SearchBar from "../../components/home-page-components/search-bar/search-bar.component"
@@ -10,19 +10,29 @@ import Playlist from "../../components/home-page-components/playlist/playlist.co
 
 import { UserContext } from "../../contexts/user.context"
 import { useMediaQuery } from '../../utils/customHooks'
-import { HomeContainer, HomeHero, ResultsContainer } from "./home.styles"
+import { HomeContainer, HomeHero, ResultsContainer, TabContainer, Tab, SearchResultsTab, RecommendationsTab } from "./home.styles"
 
 const Home = () => { 
+    const [activeTab, setActiveTab] = useState({
+      'search_results' : true,
+      'recommendations' : true
+    })
     const { authSession } = useContext(UserContext)
     const navigate = useNavigate()
     const isMobile = useMediaQuery('(max-width: 1020px)')
-    
+
     useEffect(() => {
       if (!authSession) {
           navigate('/log-in')
       }
+      const setResponsiveTabs = () => {
+        if (isMobile) {
+          setActiveTab({...activeTab, 'recommendations' : false})
+        }
+      }
+      setResponsiveTabs()
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [authSession])
+    }, [authSession, isMobile])
 
     return (
       <HomeContainer >
@@ -33,8 +43,22 @@ const Home = () => {
         </HomeHero>
         <ResultsContainer isMobile={isMobile} >
           <Playlist />
-          <SearchResults />
-          <Recommendations />
+          {isMobile &&
+            <TabContainer>
+              <Tab 
+                onClick={()=>setActiveTab({'search_results' : true, 'recommendations' : false})} 
+                active={activeTab.search_results}>
+                Search Results
+              </Tab>
+              <Tab 
+                onClick={()=>setActiveTab({'search_results' : false, 'recommendations' : true})} 
+                active={activeTab.recommendations } >
+                Recommendations
+              </Tab>            
+            </TabContainer>
+          } 
+          { activeTab.search_results && <SearchResults />}
+          { activeTab.recommendations && <Recommendations />}
         </ResultsContainer>
       </HomeContainer>
     )
