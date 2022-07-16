@@ -11,7 +11,7 @@ import Footer from "../../components/home-page-components/footer/footer.componen
 
 import { UserContext } from "../../contexts/user.context"
 import { useMediaQuery } from '../../utils/customHooks'
-import { HomeContainer, HomeHero, ResultsContainer, TabContainer, Tab } from "./home.styles"
+import { HomeContainer, HomeHero, ResultsContainer  } from "./home.styles"
 
 const Home = () => { 
     const [activeTab, setActiveTab] = useState({
