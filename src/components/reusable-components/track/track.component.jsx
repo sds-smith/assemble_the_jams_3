@@ -97,7 +97,7 @@ const Track = ({track, trackType }) => {
             <TrackActionContainer>
               {trackActions}
             </TrackActionContainer>
-            { nowPlaying.track.id === track.id && 
+            { nowPlaying.track.id === track.id && trackType !== 'playlist' &&
               <ProgressContainer 
                 transform={ active ? 'scaleX(1)' : 'scaleX(0)' }
                 transition={ active ? 'transform 30s linear' : 'transform 0s linear' } 
