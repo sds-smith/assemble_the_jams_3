@@ -10,7 +10,7 @@ import Playlist from "../../components/home-page-components/playlist/playlist.co
 
 import { UserContext } from "../../contexts/user.context"
 import { useMediaQuery } from '../../utils/customHooks'
-import { HomeContainer, HomeHero, ResultsContainer, TabContainer, Tab, SearchResultsTab, RecommendationsTab } from "./home.styles"
+import { HomeContainer, HomeHero, ResultsContainer, TabContainer, Tab } from "./home.styles"
 
 const Home = () => { 
     const [activeTab, setActiveTab] = useState({
