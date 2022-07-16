@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
-import * as serviceWorker from './service-worker'
+import * as serviceWorker from './serviceWorkerRegistration'
 import './index.css';
 import App from './App';
 import { UserProvider } from './contexts/user.context';
