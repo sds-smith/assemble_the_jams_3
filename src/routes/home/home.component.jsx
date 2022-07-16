@@ -9,6 +9,9 @@ import Recommendations from "../../components/home-page-components/recommendatio
 import Playlist from "../../components/home-page-components/playlist/playlist.component"
 import Footer from "../../components/home-page-components/footer/footer.component"
 
+import add from '../../assets/icons/add_white24.png'
+import play from '../../assets/icons/play_white24.png'
+
 import { UserContext } from "../../contexts/user.context"
 import { useMediaQuery } from '../../utils/customHooks'
 import { HomeContainer, HomeHero, ResultsContainer  } from "./home.styles"
@@ -45,20 +48,6 @@ const Home = () => {
         </HomeHero>
         <ResultsContainer isMobile={isMobile} >
           {activeTab.playlist && <Playlist />}
-          {/* {isMobile &&
-            <TabContainer>
-              <Tab 
-                onClick={()=>setActiveTab({'search_results' : true, 'recommendations' : false})} 
-                active={activeTab.search_results}>
-                Search Results
-              </Tab>
-              <Tab 
-                onClick={()=>setActiveTab({'search_results' : false, 'recommendations' : true})} 
-                active={activeTab.recommendations } >
-                Recommendations
-              </Tab>            
-            </TabContainer>
-          }  */}
           { activeTab.search_results && <SearchResults />}
           { activeTab.recommendations && <Recommendations />}
         </ResultsContainer>

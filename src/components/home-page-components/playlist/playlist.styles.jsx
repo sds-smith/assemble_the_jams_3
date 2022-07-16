@@ -18,13 +18,21 @@ export const PlaylistContainer = styled.div`
       background: transparent;
     }
 
+
+`
+
+export const TitleContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    width: 100%;
+
     input {
       display: block;
       font-size: 1.5em;
       margin: 0.83em 0em;
       font-weight: bold;
 
-      width: 100%;
+      width: 80%;
       border: 0;
       outline: 0;
       text-align: center;
@@ -33,6 +41,13 @@ export const PlaylistContainer = styled.div`
       background: transparent;
       font-family: 'Poppins', sans-serif;
       color: #fff;
+      }
+
+      img {
+        height: 25%;
+        width: auto;
+        margin-top: 20px;
+        margin-right: -20px;
       }
 `
 

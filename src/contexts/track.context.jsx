@@ -17,7 +17,7 @@ export const TrackProvider = ({children}) => {
     const [searchResults, setSearchResults] = useState([])
     const [playlistTracks, setPlaylistTracks] = useState([])
     const [recommendations, setRecommendations] = useState([])
-    const [playlistName, setPlaylistName] = useState("Enter New Playlist Name")
+    const [playlistName, setPlaylistName] = useState("Name Your New Playlist")
     const [searchLoading, setSearchLoading] = useState(false)
     
     const value = {

@@ -11,6 +11,7 @@ export const HomeContainer = styled.div`
     font-family: 'Work Sans', sans-serif;
     font-weight: 500;
     color: #ffffff;
+
 `
 
 export const HomeHero = styled.div`
