@@ -81,7 +81,7 @@ const Track = ({track, trackType }) => {
               <p >{track.artist} | {track.album}</p>
             </ReverseTrackInformation>
             {trackActions}
-            { nowPlaying.track.id === track.id && 
+            { nowPlaying.track.id === track.id && trackType !== 'playlist' &&
               <ProgressContainer 
                 transform={ active ? 'scaleX(1)' : 'scaleX(0)' }
                 transition={ active ? 'transform 30s linear' : 'transform 0s linear' } 
