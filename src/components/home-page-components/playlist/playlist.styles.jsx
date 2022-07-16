@@ -13,6 +13,11 @@ export const PlaylistContainer = styled.div`
     background-color: rgba(0, 0, 0, 0.4);
     box-shadow: 0 4px 2px 2px #000000;
 
+    &::-webkit-scrollbar {
+      width: 0px;
+      background: transparent;
+    }
+
     input {
         width: 100%;
         border: 0;

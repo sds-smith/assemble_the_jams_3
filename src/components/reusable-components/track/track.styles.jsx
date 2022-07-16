@@ -19,16 +19,16 @@ export const TrackInformation = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: 72px;
-    overflow: visible;
+    min-height: 72px;
 
     h3 {
-        margin-bottom: 4px;
+        margin: 0px;
       }
 
     p {
       font-size: .83rem;
       font-weight: 300;
+      margin: 0px;
       color: rgba(256, 256, 256, 0.8);
     }
 `
