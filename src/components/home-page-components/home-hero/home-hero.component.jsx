@@ -2,8 +2,8 @@
 import PlaylistNameInput from '../playlist-name-input/playlist-name-input.component'
 import SearchBar from '../search-bar/search-bar.component'
 
-import plus from '../../../assets/icons/add_white24.png'
-import play from '../../../assets/icons/play_white24.png'
+// import plus from '../../../assets/icons/add_white24.png'
+// import play from '../../../assets/icons/play_white24.png'
 
 import { useMediaQuery } from '../../../utils/customHooks'
 
