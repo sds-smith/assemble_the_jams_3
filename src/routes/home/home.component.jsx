@@ -1,7 +1,8 @@
 import { useState, useEffect, useContext } from "react"
 import { useNavigate } from "react-router-dom"
 
-import SearchBar from "../../components/home-page-components/search-bar/search-bar.component"
+import HomeHero from "../../components/home-page-components/home-hero/home-hero.component"
+// import SearchBar from "../../components/home-page-components/search-bar/search-bar.component"
 import UserProfile from "../../components/home-page-components/user-profile/user-profile.component"
 import WebPlayer from "../../components/home-page-components/web-player/web-player.component"
 import SearchResults from "../../components/home-page-components/search-results/search-results.component"
@@ -11,7 +12,7 @@ import Footer from "../../components/home-page-components/footer/footer.componen
 
 import { UserContext } from "../../contexts/user.context"
 import { useMediaQuery } from '../../utils/customHooks'
-import { HomeContainer, HomeHero, ResultsContainer  } from "./home.styles"
+import { HomeContainer, InputContainer, ResultsContainer  } from "./home.styles"
 
 const Home = () => { 
     const [activeTab, setActiveTab] = useState({
@@ -38,11 +39,11 @@ const Home = () => {
 
     return (
       <HomeContainer >
-        <HomeHero isMobile={isMobile} >
+        <InputContainer isMobile={isMobile} >
           <UserProfile />
-          <SearchBar />
+          <HomeHero />
           <WebPlayer />
-        </HomeHero>
+        </InputContainer>
         <ResultsContainer isMobile={isMobile} >
           {activeTab.playlist && <Playlist />}
           { activeTab.search_results && <SearchResults />}

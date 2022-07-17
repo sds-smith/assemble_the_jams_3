@@ -37,12 +37,12 @@ const Playlist = () => {
         <PlaylistContainer isMobile={isMobile} onKeyPress={(e) => e.key === 'Enter' && savePlaylist()}>
           <TitleContainer>
             <img src={editIcon} alt='edit playlist name' />
-              <input 
-                id='playlist_name_input'
-                placeholder={"Name Your New Playlist"}
-                value={playlistName}
-                onClick={clearInput}
-                onChange={handleNameChange}
+            <input 
+              id='playlist_name_input'
+              placeholder={"Name Your New Playlist"}
+              value={playlistName}
+              onClick={clearInput}
+              onChange={handleNameChange}
             />
           </TitleContainer>
 

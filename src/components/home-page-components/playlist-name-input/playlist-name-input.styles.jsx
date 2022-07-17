@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const SearchBarContainer = styled.div`
+export const PlaylistNameContainer = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -9,7 +9,7 @@ export const SearchBarContainer = styled.div`
     margin-bottom: 1rem;
 `
 
-export const SearchBarInput = styled.input`
+export const NameInput = styled.input`
     width: 287px;
     padding: .88rem 0;
     border: 1px solid #fff;

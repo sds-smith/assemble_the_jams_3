@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const ProfileLink = styled.a`
-    width: 30%;
+    width: ${props => props.isMobile ? '100%' : '30%'};
     min-height: 100%;
     height:inherit;
     display: flex;

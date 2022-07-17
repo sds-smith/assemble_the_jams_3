@@ -14,7 +14,7 @@ export const HomeContainer = styled.div`
 
 `
 
-export const HomeHero = styled.div`
+export const InputContainer = styled.div`
     display: flex;
     flex-direction: ${props => props.isMobile ? 'column' : 'unset'};
     align-items: ${props => props.isMobile ? 'center' : 'unset'};
