@@ -11,7 +11,6 @@ const Auth = () => {
         const authCodeMatch = window.location.href.match(/code=([^&]*)/)
 
         const getAccessToken = async ( authCode ) => {
-          navigate('/')
           try {
             const response = await fetch('/.netlify/functions/get-access-token', {
               method: 'post',
@@ -26,9 +25,15 @@ const Auth = () => {
               window.setTimeout(() => {
                 setAccessToken('')
               }, expiresIn * 1000)
+              navigate('/')
+            // } else {
+              // console.log('nope')
+              // navigate('/log-in')
             }
           } catch(error) {
-            console.log(error)
+            console.log('nope ', error)
+            window.alert('error with log-in, please contact app support.')
+            navigate('/log-in')
           }
         }
 
@@ -40,6 +45,7 @@ const Auth = () => {
             getAccessToken(authCode)
           }
         } else {
+          console.log('nope')
           navigate('/log-in')
         }
          // eslint-disable-next-line react-hooks/exhaustive-deps
