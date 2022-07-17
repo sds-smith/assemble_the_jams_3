@@ -24,6 +24,7 @@ const App = () => {
           const user = await Spotify.getUserProfile(accessToken)
           setCurrentUser(user)
           setUserLoading(false)
+          navigate('/')
         } catch(error) {
           setUserLoading(false)
           window.alert('Please complete registration process and wait for verification email.')

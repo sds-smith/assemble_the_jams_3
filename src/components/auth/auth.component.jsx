@@ -25,7 +25,7 @@ const Auth = () => {
               window.setTimeout(() => {
                 setAccessToken('')
               }, expiresIn * 1000)
-              navigate('/')
+              // navigate('/')
             // } else {
               // console.log('nope')
               // navigate('/log-in')
