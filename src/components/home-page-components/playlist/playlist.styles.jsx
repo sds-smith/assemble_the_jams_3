@@ -32,7 +32,7 @@ export const TitleContainer = styled.div`
       margin: 0.83em 0em;
       font-weight: bold;
 
-      width: 80%;
+      // width: 80%;
       border: 0;
       outline: 0;
       text-align: center;
@@ -47,7 +47,7 @@ export const TitleContainer = styled.div`
         height: 25%;
         width: auto;
         margin-top: 20px;
-        margin-right: -20px;
+        margin-right: 0px;
       }
 `
 

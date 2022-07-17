@@ -14,17 +14,19 @@ import { createUserDocumentFromAuth, isUnregisteredUser } from './utils/firebase
 import './App.css';
 
 const App = () => {
-  const { accessToken, setCurrentUser } = useContext(UserContext)
+  const { accessToken, setUserLoading, setCurrentUser } = useContext(UserContext)
   const navigate = useNavigate()
 
   useEffect( () => {
     if (accessToken) {
+      setUserLoading(true)
       const getUserProfile = async () => {
         const user = await Spotify.getUserProfile(accessToken)
         try {
           const userDocRef = await createUserDocumentFromAuth(user)
           const userNotRegistered = await isUnregisteredUser(userDocRef)
           setCurrentUser(user)
+          setUserLoading(false)
           if (userNotRegistered) {
             navigate('/new-user')
           }

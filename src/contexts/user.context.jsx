@@ -5,6 +5,8 @@ export const UserContext = createContext({
     setAuthSession : () => null,
     accessToken : null,
     setAccessToken : () => null,
+    userLoading : null,
+    setUserLoading : () => null,
     currentUser : null,
     setCurrentUser : () => null,
 })
@@ -12,6 +14,7 @@ export const UserContext = createContext({
 export const UserProvider = ({children}) => {
     const [authSession, setAuthSession] = useState('')
     const [accessToken, setAccessToken] = useState('')
+    const [userLoading, setUserLoading] = useState(false)
     const [currentUser, setCurrentUser] = useState(null)
 
     const value = { 
@@ -19,6 +22,8 @@ export const UserProvider = ({children}) => {
                     setAuthSession,
                     accessToken,
                     setAccessToken,
+                    userLoading,
+                    setUserLoading,
                     currentUser, 
                     setCurrentUser 
                 }
