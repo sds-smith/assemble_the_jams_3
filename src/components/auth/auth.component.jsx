@@ -40,7 +40,7 @@ const Auth = () => {
             getAccessToken(authCode)
           }
         } else {
-          navigate('/')
+          navigate('/log-in')
         }
          // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
