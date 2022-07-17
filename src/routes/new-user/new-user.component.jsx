@@ -27,23 +27,20 @@ const NewUser = () => {
             .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
             .join("&");
     }
-  
-    const postToFireBase = async () => {
-      await createUserDocumentFromReg({name, email})
-    }
 
-    const postToNetlify = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
         setFormSubmitted(true)
-        fetch('/', {
-          method: 'POST',
-          headers: {"Content-Type": "application/x-www-form-urlencoded"},
-          body: encode({ "form-name": "registration", name, email })
-        })
-          .then(() => {
-            postToFireBase()
+        try {
+          await createUserDocumentFromReg({name, email})
+          await fetch('/', {
+            method: 'POST',
+            headers: {"Content-Type": "application/x-www-form-urlencoded"},
+            body: encode({ "form-name": "registration", name, email })
           })
-          .catch(error => alert(error))
+        } catch (error) {
+          console.log(error)
+        } 
       }
     
     const handleChange = (e) => {
@@ -76,7 +73,7 @@ const NewUser = () => {
                 ) : (
                   <Fragment>
                     <p className='loginMessage' >Please complete the information below to register your account with <JamsLogo /></p>
-                    <form className='registration'  onSubmit={postToNetlify}>
+                    <form className='registration'  onSubmit={handleSubmit}>
                       <input type="hidden" name="form-name" value="registration" />
                       <input type='text' name='name' id='name' value={name} placeholder='Your First and Last Name' onChange={handleChange}/>
                       <input type='email' name='email' id='email' value={email} placeholder='Your Spotify email'  disabled={emailDisabled} onChange={handleChange}/>
