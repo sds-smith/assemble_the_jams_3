@@ -21,17 +21,14 @@ const App = () => {
     if (accessToken) {
       setUserLoading(true)
       const getUserProfile = async () => {
-        const user = await Spotify.getUserProfile(accessToken)
         try {
-          const userDocRef = await createUserDocumentFromAuth(user)
-          const userNotRegistered = await isUnregisteredUser(userDocRef)
+          const user = await Spotify.getUserProfile(accessToken)
           setCurrentUser(user)
           setUserLoading(false)
-          if (userNotRegistered) {
-            navigate('/new-user')
-          }
         } catch(error) {
-          console.log('error getting UserDocRef', error)
+          setUserLoading(false)
+          window.alert('Please complete registration process and wait for verification email.')
+          navigate('/login')
         }
       }
       getUserProfile()

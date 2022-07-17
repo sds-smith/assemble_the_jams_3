@@ -1,5 +1,6 @@
 import { useContext } from "react"
 
+import PlaylistNameInput from '../playlist-name-input/playlist-name-input.component'
 import TrackList from "../../reusable-components/track-list/track-list.component"
 
 import editIcon from '../../../assets/icons/edit_white24.png'
@@ -14,13 +15,6 @@ const Playlist = () => {
     const { accessToken, currentUser } = useContext(UserContext)
     const { playlistTracks, setPlaylistTracks, playlistName, setPlaylistName } = useContext(TrackContext)
     const isMobile = useMediaQuery('(max-width: 1020px)')
-    const clearInput = () => {
-      setPlaylistName('')
-    }
-
-    const handleNameChange = (e) => {
-      setPlaylistName(e.target.value)
-    }
 
     const savePlaylist = async () => {
       const trackURIs = playlistTracks.map(track => track.uri)
@@ -37,15 +31,8 @@ const Playlist = () => {
         <PlaylistContainer isMobile={isMobile} onKeyPress={(e) => e.key === 'Enter' && savePlaylist()}>
           <TitleContainer>
             <img src={editIcon} alt='edit playlist name' />
-            <input 
-              id='playlist_name_input'
-              placeholder={"Name Your New Playlist"}
-              value={playlistName}
-              onClick={clearInput}
-              onChange={handleNameChange}
-            />
+            <PlaylistNameInput width='unset' />
           </TitleContainer>
-
           <TrackList 
             tracks={playlistTracks}
             trackType={'playlist'}/>

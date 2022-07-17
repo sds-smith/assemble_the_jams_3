@@ -7,6 +7,7 @@ import close from '../../assets/icons/close_white.png'
 
 import { UserContext } from "../../contexts/user.context"
 import { RegistrationContainer, FormContainer, CloseButton  } from './new-user.styles'
+import { createUserDocumentFromReg } from "../../utils/firebase"
 
 const NewUser = () => {
 
@@ -27,8 +28,11 @@ const NewUser = () => {
             .join("&");
     }
   
+    const postToFireBase = async () => {
+      await createUserDocumentFromReg({name, email})
+    }
 
-    const handleSubmit = (e) => {
+    const postToNetlify = (e) => {
         e.preventDefault()
         setFormSubmitted(true)
         fetch('/', {
@@ -37,7 +41,7 @@ const NewUser = () => {
           body: encode({ "form-name": "registration", name, email })
         })
           .then(() => {
-            console.log('submitted')
+            postToFireBase()
           })
           .catch(error => alert(error))
       }
@@ -52,10 +56,10 @@ const NewUser = () => {
 
     useEffect(() => {
         setTransform('scaleY(1)')
-        if (currentUser) {
-          setEmailDisabled(true)
-          setEmail(currentUser.email)
-        }
+        // if (currentUser) {
+          // setEmailDisabled(true)
+          // setEmail(currentUser.email)
+        // }
     },[currentUser])
 
     return (
@@ -72,7 +76,7 @@ const NewUser = () => {
                 ) : (
                   <Fragment>
                     <p className='loginMessage' >Please complete the information below to register your account with <JamsLogo /></p>
-                    <form className='registration'  onSubmit={handleSubmit}>
+                    <form className='registration'  onSubmit={postToNetlify}>
                       <input type="hidden" name="form-name" value="registration" />
                       <input type='text' name='name' id='name' value={name} placeholder='Your First and Last Name' onChange={handleChange}/>
                       <input type='email' name='email' id='email' value={email} placeholder='Your Spotify email'  disabled={emailDisabled} onChange={handleChange}/>

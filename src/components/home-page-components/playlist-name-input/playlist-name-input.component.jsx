@@ -3,7 +3,7 @@ import { useContext } from "react"
 import { TrackContext } from "../../../contexts/track.context"
 import { PlaylistNameContainer, NameInput } from "./playlist-name-input.styles"
 
-const PlaylistNameInput = () => {
+const PlaylistNameInput = ({ width }) => {
 
     const { playlistName, setPlaylistName } = useContext(TrackContext)
     
@@ -22,6 +22,7 @@ const PlaylistNameInput = () => {
               value={playlistName}
               onClick={clearInput}
               onChange={handleNameChange}
+              width={width}
             />
         </PlaylistNameContainer>
     )

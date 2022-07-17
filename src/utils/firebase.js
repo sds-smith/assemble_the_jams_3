@@ -28,7 +28,7 @@ initializeApp(firebaseConfig);
 const db = getFirestore()
 
 export const getUserDocRef = (user) => {
-    return doc(db, 'users', user.id)
+    return doc(db, 'users', user.name)
 }
 
 export const getUserSnapshot = async (userDocRef) => {
@@ -38,7 +38,7 @@ export const getUserSnapshot = async (userDocRef) => {
 
 export const isUnregisteredUser = async (userDocRef) => {
     const userSnapshot = await getUserSnapshot(userDocRef)
-    return userSnapshot.data().name === undefined
+    return userSnapshot.data().isRegistered === undefined
 }
 
 export const setName = async (user, name) => {
@@ -56,18 +56,18 @@ export const setName = async (user, name) => {
     return userDocRef
 }
 
-export const createUserDocumentFromAuth = async (userAuth) => {
-    const userDocRef = getUserDocRef(userAuth)
+export const createUserDocumentFromReg = async (userReg) => {
+    const userDocRef = getUserDocRef(userReg)
 
     const userSnapshot = await getUserSnapshot(userDocRef)
 
     if (!userSnapshot.exists()) {
-        const { display_name, email } = userAuth
+        const { name, email } = userReg
         const createdAt = new Date()
 
         try {
             await setDoc(userDocRef, {
-                displayName: display_name, 
+                name, 
                 email,
                 createdAt
             })

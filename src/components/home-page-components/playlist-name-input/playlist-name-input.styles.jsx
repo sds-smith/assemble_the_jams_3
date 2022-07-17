@@ -10,7 +10,7 @@ export const PlaylistNameContainer = styled.div`
 `
 
 export const NameInput = styled.input`
-    width: 287px;
+    width: ${props => props.width || '287px'};
     padding: .88rem 0;
     border: 1px solid #fff;
     border-radius: 3px;
