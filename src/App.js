@@ -17,7 +17,7 @@ const App = () => {
   const navigate = useNavigate()
 
   const unregisteredMessage = () => {
-    navigate('/login')
+    navigate('/log-in')
     setTimeout(() => {
       window.alert('Please complete registration process and wait for verification email.')
     }, 2000)
