@@ -1,7 +1,5 @@
 import { useContext } from "react"
 
-import { UserContext } from "../../../contexts/user.context"
-import { PlayerContext } from "../../../contexts/player.context"
 import { TrackContext } from "../../../contexts/track.context"
 import { PlaylistNameContainer, NameInput } from "./playlist-name-input.styles"
 
