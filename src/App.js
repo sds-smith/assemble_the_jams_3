@@ -16,6 +16,13 @@ const App = () => {
   const { accessToken, setUserLoading, setCurrentUser } = useContext(UserContext)
   const navigate = useNavigate()
 
+  const unregisteredMessage = () => {
+    navigate('/login')
+    setTimeout(() => {
+      window.alert('Please complete registration process and wait for verification email.')
+    }, 2000)
+  }
+
   useEffect( () => {
     if (accessToken) {
       setUserLoading(true)
@@ -28,14 +35,12 @@ const App = () => {
             navigate('/')            
           } else {
             setUserLoading(false)
-            navigate('/login')
-            window.alert('Please complete registration process and wait for verification email.')
+            unregisteredMessage()
           }
 
         } catch(error) {
           setUserLoading(false)
-          navigate('/login')
-          window.alert('Please complete registration process and wait for verification email.')
+          unregisteredMessage()
         }
       }
       getUserProfile()
