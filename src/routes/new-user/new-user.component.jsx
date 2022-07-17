@@ -56,10 +56,10 @@ const NewUser = () => {
 
     useEffect(() => {
         setTransform('scaleY(1)')
-        // if (currentUser) {
-          // setEmailDisabled(true)
-          // setEmail(currentUser.email)
-        // }
+        if (currentUser) {
+          setEmailDisabled(true)
+          setEmail(currentUser.email)
+        }
     },[currentUser])
 
     return (

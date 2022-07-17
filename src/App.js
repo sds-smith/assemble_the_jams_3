@@ -9,7 +9,6 @@ import Auth from './components/auth/auth.component';
 
 import { UserContext } from './contexts/user.context';
 import { Spotify } from './utils/spotify';
-import { createUserDocumentFromAuth, isUnregisteredUser } from './utils/firebase';
 
 import './App.css';
 
