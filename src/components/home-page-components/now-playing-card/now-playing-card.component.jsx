@@ -51,6 +51,7 @@ const NowPlayingCard = () => {
 
     const closeNowPlaying = () => {
         Spotify.stopPlayback(deviceID, accessToken)
+        setActive(false)
         setNowPlaying({hasTrack: false, track: {}, isLike: null})
     }
 
