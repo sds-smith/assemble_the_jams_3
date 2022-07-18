@@ -60,7 +60,7 @@ const NowPlayingCard = () => {
         const timer = setTimeout(() => closeNowPlaying(), 30000)
         return () => {
             clearTimeout(timer)
-            setActive(false)
+            closeNowPlaying()
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
