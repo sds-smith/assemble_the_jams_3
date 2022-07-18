@@ -31,6 +31,8 @@ const Home = () => {
       const setResponsiveTabs = () => {
         if (isMobile) {
           setActiveTab({...activeTab, 'playlist' : false, 'recommendations' : false})
+        } else {
+          setActiveTab({'playlist' : true, 'search_results' : true, 'recommendations' : true})
         }
       }
       setResponsiveTabs()
