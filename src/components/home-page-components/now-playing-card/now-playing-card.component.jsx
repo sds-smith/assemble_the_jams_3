@@ -60,7 +60,6 @@ const NowPlayingCard = () => {
         const timer = setTimeout(() => closeNowPlaying(), 30000)
         return () => {
             clearTimeout(timer)
-            closeNowPlaying()
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
@@ -88,8 +87,8 @@ const NowPlayingCard = () => {
             </TrackControls>   
             <LikesMessage>{likesMessage}</LikesMessage>
             <ProgressContainer 
-                transform={ active ? 'scaleX(1)' : 'scaleX(0)' }
                 transition={ active ? 'transform 30s linear' : 'transform 0s linear' } 
+                transform={ active ? 'scaleX(1)' : 'scaleX(0)' }
                 backgroundColor='rgba(0, 0, 0, .1)'
             />
         </NowPlayingContainer>

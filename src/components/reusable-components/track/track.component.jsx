@@ -37,8 +37,8 @@ const Track = ({track, trackType }) => {
     if (!nowPlaying.hasTrack) {
       const hasTrack = true
       const isLike = await Spotify.getLikeStatus(accessToken, track.id)
-      setNowPlaying({hasTrack, track, isLike})
       const uri = `spotify:track:${track.id}`
+      setNowPlaying({hasTrack, track, isLike})
       Spotify.play(deviceID, {
         playerInstance : currentPlayer,
         spotify_uri : uri,
