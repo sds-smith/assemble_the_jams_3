@@ -32,6 +32,7 @@ export const FormContainer = styled.div`
 
     h2 {
         line-height: 40px;
+        width: inherit;
     }
     p {
         text-align: center;

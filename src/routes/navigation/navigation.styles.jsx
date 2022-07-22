@@ -4,6 +4,7 @@ export const Header = styled.div`
     background-color: black;
     border: 1px solid black;
     height: 100px;
+    border-bottom: .5px solid white;
 
     h1 {
         padding: .77rem 0;

@@ -9,7 +9,7 @@ export const FooterContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 80px;
-
+    height: 10vh;
+    border-top: .5px solid white;
 `
 
