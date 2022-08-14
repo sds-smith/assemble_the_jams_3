@@ -2,7 +2,7 @@ import { useEffect, useContext } from 'react'
 
 import NowPlayingCard from '../now-playing-card/now-playing-card.component'
 
-import { UserContext } from '../../../contexts/user.context'
+import { AuthContext } from '../../../contexts/auth.context'
 import { PlayerContext } from '../../../contexts/player.context'
 import { useMediaQuery } from '../../../utils/customHooks'
 
@@ -10,7 +10,7 @@ import { WebPlayerContainer } from "./web-player.styles"
 
 const WebPlayer = ({ onAdd }) => {
 
-    const { currentUser, accessToken } = useContext(UserContext)
+    const { currentUser, accessToken } = useContext(AuthContext)
     const { setCurrentPlayer, setDeviceId, nowPlaying } = useContext(PlayerContext)
     const isMobile = useMediaQuery('(max-width: 1020px)')
 

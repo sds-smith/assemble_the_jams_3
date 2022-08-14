@@ -4,7 +4,7 @@ import Spinner from '../../reusable-components/spinner/spinner.component';
 
 import ProfilePic from '../../../assets/icons/default_profile96.png'
 
-import { UserContext } from '../../../contexts/user.context';
+import { AuthContext } from '../../../contexts/auth.context';
 import { useMediaQuery } from '../../../utils/customHooks'
 import { ProfileLink, ProfileImg } from "./user-profile.styles";
 
@@ -13,7 +13,7 @@ const UserProfile = () => {
     const [profilePic, setProfilePic] = useState(ProfilePic)
     const [displayName, setDisplayName] = useState('')
 
-    const { userLoading, currentUser } = useContext(UserContext)
+    const { userLoading, currentUser } = useContext(AuthContext)
     const isMobile = useMediaQuery('(max-width: 1020px)')
 
     useEffect(() => {

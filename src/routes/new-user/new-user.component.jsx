@@ -5,7 +5,7 @@ import Button from "../../components/reusable-components/button/button.component
 import JamsLogo from "../../components/reusable-components/jams-logo/jams-logo.component"
 import close from '../../assets/icons/close_white.png'
 
-import { UserContext } from "../../contexts/user.context"
+import { AuthContext } from "../../contexts/auth.context"
 import { RegistrationContainer, FormContainer, CloseButton  } from './new-user.styles'
 import { createUserDocumentFromReg } from "../../utils/firebase"
 
@@ -18,7 +18,7 @@ const NewUser = () => {
     const [formSubmitted, setFormSubmitted] = useState(false)
 
     const navigate = useNavigate()
-    const { currentUser } = useContext(UserContext)
+    const { currentUser } = useContext(AuthContext)
     const registrationMessage = `Thank you. Your request has been submitted. You will be notified at ${email} when your registration has been processed.`
 
 

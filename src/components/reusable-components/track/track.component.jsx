@@ -7,7 +7,7 @@ import AddBtn from '../../../assets/icons/add_white24.png'
 import ClearBtn from '../../../assets/icons/clear_white24.png'
 
 import { Spotify } from '../../../utils/spotify'
-import { UserContext } from '../../../contexts/user.context'
+import { AuthContext } from '../../../contexts/auth.context'
 import { TrackContext } from '../../../contexts/track.context'
 import { PlayerContext } from '../../../contexts/player.context'
 
@@ -15,7 +15,7 @@ import { TrackContainer, TrackInformation, TrackActionContainer } from './track.
 import { ProgressContainer } from '../../home-page-components/now-playing-card/now-playing-card.styles'
 
 const Track = ({track, trackType }) => {
-  const { accessToken } = useContext(UserContext)
+  const { accessToken } = useContext(AuthContext)
   const { playlistTracks, setPlaylistTracks } = useContext(TrackContext)
   const { nowPlaying, setNowPlaying, deviceID, currentPlayer, active } = useContext(PlayerContext)
 

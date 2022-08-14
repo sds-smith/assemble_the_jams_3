@@ -10,7 +10,7 @@ import Recommendations from "../../components/home-page-components/recommendatio
 import Playlist from "../../components/home-page-components/playlist/playlist.component"
 import Footer from "../../components/home-page-components/footer/footer.component"
 
-import { UserContext } from "../../contexts/user.context"
+import { AuthContext } from "../../contexts/auth.context"
 import { useMediaQuery } from '../../utils/customHooks'
 import { HomeContainer, InputContainer, ResultsContainer  } from "./home.styles"
 
@@ -20,7 +20,7 @@ const Home = () => {
       'search_results' : true,
       'recommendations' : true
     })
-    const { authSession } = useContext(UserContext)
+    const { authSession } = useContext(AuthContext)
     const navigate = useNavigate()
     const isMobile = useMediaQuery('(max-width: 1020px)')
 

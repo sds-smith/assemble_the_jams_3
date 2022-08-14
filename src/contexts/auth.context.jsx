@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
 
-export const UserContext = createContext({
+export const AuthContext = createContext({
     authSession : null,
     setAuthSession : () => null,
     accessToken : null,
@@ -11,7 +11,7 @@ export const UserContext = createContext({
     setCurrentUser : () => null,
 })
 
-export const UserProvider = ({children}) => {
+export const AuthProvider = ({children}) => {
     const [authSession, setAuthSession] = useState('')
     const [accessToken, setAccessToken] = useState('')
     const [userLoading, setUserLoading] = useState(false)
@@ -28,5 +28,5 @@ export const UserProvider = ({children}) => {
                     setCurrentUser 
                 }
 
-    return <UserContext.Provider value={value} >{children}</UserContext.Provider>
+    return <AuthContext.Provider value={value} >{children}</AuthContext.Provider>
 }

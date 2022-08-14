@@ -8,7 +8,7 @@ import AddBtn from '../../../assets/icons/add_black24.png'
 import Like from '../../../assets/icons/like24.png'
 import Unlike from '../../../assets/icons/unlike24.png'
 
-import { UserContext } from '../../../contexts/user.context'
+import { AuthContext } from '../../../contexts/auth.context'
 import { TrackContext } from '../../../contexts/track.context'
 import { PlayerContext } from '../../../contexts/player.context'
 import { useMediaQuery } from '../../../utils/customHooks'
@@ -18,7 +18,7 @@ import {NowPlayingContainer, SpotifyAttributor, SpotifyLogo, NowPlayingCover, No
 const NowPlayingCard = () => {
     const [likesMessage, setLikesMessage] = useState('')
 
-    const { accessToken } = useContext(UserContext)
+    const { accessToken } = useContext(AuthContext)
     const { playlistTracks, setPlaylistTracks } = useContext(TrackContext)
     const { deviceID, nowPlaying, setNowPlaying, active, setActive } = useContext(PlayerContext)
     const isMobile = useMediaQuery('(max-width: 1020px)')

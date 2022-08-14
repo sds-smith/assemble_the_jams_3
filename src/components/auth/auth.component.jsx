@@ -1,10 +1,10 @@
 import { useEffect, useContext } from "react"
 import { useNavigate } from "react-router-dom"
 
-import { UserContext } from "../../contexts/user.context"
+import { AuthContext } from "../../contexts/auth.context"
 
 const Auth = () => {
-    const {authSession, setAuthSession, setAccessToken} = useContext(UserContext)
+    const {authSession, setAuthSession, setAccessToken} = useContext(AuthContext)
     const navigate = useNavigate()
 
     useEffect(() => {
