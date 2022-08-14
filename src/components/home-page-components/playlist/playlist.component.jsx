@@ -6,13 +6,16 @@ import TrackList from "../../reusable-components/track-list/track-list.component
 import editIcon from '../../../assets/icons/edit_white24.png'
 
 import { AuthContext } from "../../../contexts/auth.context"
+import { UserContext } from "../../../contexts/user.context"
 import { TrackContext } from "../../../contexts/track.context"
 import { useMediaQuery } from '../../../utils/customHooks'
 import { Spotify } from "../../../utils/spotify"
 import { PlaylistContainer, TitleContainer,  SaveToSpotifyButton } from './playlist.styles'
 
 const Playlist = () => {
-    const { accessToken, currentUser } = useContext(AuthContext)
+    const { accessToken } = useContext(AuthContext)
+    const { currentUser } = useContext(UserContext)
+
     const { playlistTracks, setPlaylistTracks, playlistName, setPlaylistName } = useContext(TrackContext)
     const isMobile = useMediaQuery('(max-width: 1020px)')
 

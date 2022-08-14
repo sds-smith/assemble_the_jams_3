@@ -5,6 +5,7 @@ import * as serviceWorker from './serviceWorkerRegistration'
 import './index.css';
 import App from './App';
 import { AuthProvider } from './contexts/auth.context';
+import { UserProvider } from './contexts/user.context';
 import { PlayerProvider } from './contexts/player.context';
 import { TrackProvider } from './contexts/track.context';
 
@@ -13,11 +14,13 @@ root.render(
   <React.StrictMode>
     <BrowserRouter >
       <AuthProvider>
-        <TrackProvider>
-          <PlayerProvider>
-            <App />
-          </PlayerProvider>        
-        </TrackProvider>
+        <UserProvider>
+          <TrackProvider>
+            <PlayerProvider>
+              <App />
+            </PlayerProvider>        
+          </TrackProvider>
+        </UserProvider>  
       </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>

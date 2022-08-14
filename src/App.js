@@ -8,12 +8,14 @@ import NewUser from './routes/new-user/new-user.component';
 import Auth from './components/auth/auth.component';
 
 import { AuthContext } from './contexts/auth.context';
+import { UserContext } from './contexts/user.context';
 import { Spotify } from './utils/spotify';
 
 import './App.css';
 
 const App = () => {
-  const { accessToken, setUserLoading, setCurrentUser } = useContext(AuthContext)
+  const { accessToken } = useContext(AuthContext)
+  const { setUserLoading, setCurrentUser } = useContext(UserContext)
   const navigate = useNavigate()
 
   const unregisteredMessage = () => {
