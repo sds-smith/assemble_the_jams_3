@@ -1,5 +1,6 @@
 import { useEffect, useContext } from 'react'
 import { Route, Routes, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import Navigation from './routes/navigation/navigation.component';
 import Home from './routes/home/home.component'
@@ -7,14 +8,14 @@ import LogIn from './routes/log-in/log-in.component';
 import NewUser from './routes/new-user/new-user.component';
 import Auth from './components/auth/auth.component';
 
-import { AuthContext } from './contexts/auth.context';
+import { selectAccessToken } from './store/auth/auth.selector';
 import { UserContext } from './contexts/user.context';
 import { Spotify } from './utils/spotify';
 
 import './App.css';
 
 const App = () => {
-  const { accessToken } = useContext(AuthContext)
+  const accessToken = useSelector(selectAccessToken)
   const { setUserLoading, setCurrentUser } = useContext(UserContext)
   const navigate = useNavigate()
 

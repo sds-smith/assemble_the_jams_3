@@ -1,4 +1,5 @@
 import { useContext, Fragment } from 'react'
+import { useSelector } from 'react-redux'
 
 import TrackActionButton from '../track-action-button/track-action-button.component'
 
@@ -7,7 +8,7 @@ import AddBtn from '../../../assets/icons/add_white24.png'
 import ClearBtn from '../../../assets/icons/clear_white24.png'
 
 import { Spotify } from '../../../utils/spotify'
-import { AuthContext } from '../../../contexts/auth.context'
+import { selectAccessToken } from '../../../store/auth/auth.selector'
 import { TrackContext } from '../../../contexts/track.context'
 import { PlayerContext } from '../../../contexts/player.context'
 
@@ -15,7 +16,7 @@ import { TrackContainer, TrackInformation, TrackActionContainer } from './track.
 import { ProgressContainer } from '../../home-page-components/now-playing-card/now-playing-card.styles'
 
 const Track = ({track, trackType }) => {
-  const { accessToken } = useContext(AuthContext)
+  const accessToken = useSelector(selectAccessToken)
   const { playlistTracks, setPlaylistTracks } = useContext(TrackContext)
   const { nowPlaying, setNowPlaying, deviceID, currentPlayer, active } = useContext(PlayerContext)
 

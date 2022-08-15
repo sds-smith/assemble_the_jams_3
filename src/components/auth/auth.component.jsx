@@ -1,11 +1,15 @@
-import { useEffect, useContext } from "react"
+import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux"
 
-import { AuthContext } from "../../contexts/auth.context"
+import { setAuthSession, setAccessToken } from "../../store/auth/auth.action"
+import { selectAuthSession } from "../../store/auth/auth.selector"
 
 const Auth = () => {
-    const {authSession, setAuthSession, setAccessToken} = useContext(AuthContext)
+    const dispatch = useDispatch()
     const navigate = useNavigate()
+
+    const authSession = useSelector(selectAuthSession)
 
     useEffect(() => {
         const authCodeMatch = window.location.href.match(/code=([^&]*)/)
@@ -21,14 +25,10 @@ const Auth = () => {
             })
             const {token, expiresIn} = await response.json()
             if (token) {
-              setAccessToken(token)
+              dispatch(setAccessToken(token))
               window.setTimeout(() => {
-                setAccessToken('')
+                dispatch(setAccessToken(''))
               }, expiresIn * 1000)
-              // navigate('/')
-            // } else {
-              // console.log('nope')
-              // navigate('/log-in')
             }
           } catch(error) {
             console.log('nope ', error)
@@ -41,7 +41,7 @@ const Auth = () => {
           if (!authSession) {
             const session = authCodeMatch[1].slice(0, 6)
             const authCode = authCodeMatch[1]
-            setAuthSession(session)
+            dispatch(setAuthSession(session))
             getAccessToken(authCode)
           }
         } else {

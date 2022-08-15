@@ -3,17 +3,20 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import * as serviceWorker from './serviceWorkerRegistration'
 import './index.css';
+
+import { Provider } from 'react-redux';
+
 import App from './App';
-import { AuthProvider } from './contexts/auth.context';
 import { UserProvider } from './contexts/user.context';
 import { PlayerProvider } from './contexts/player.context';
 import { TrackProvider } from './contexts/track.context';
+import { store } from './store/store';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <BrowserRouter >
-      <AuthProvider>
+    <Provider store={store} >
+      <BrowserRouter >
         <UserProvider>
           <TrackProvider>
             <PlayerProvider>
@@ -21,8 +24,8 @@ root.render(
             </PlayerProvider>        
           </TrackProvider>
         </UserProvider>  
-      </AuthProvider>
-    </BrowserRouter>
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>
 );
 

@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from 'react'
+import { useSelector } from 'react-redux'
 
 import TrackActionButton from '../../reusable-components/track-action-button/track-action-button.component'
 
@@ -8,7 +9,7 @@ import AddBtn from '../../../assets/icons/add_black24.png'
 import Like from '../../../assets/icons/like24.png'
 import Unlike from '../../../assets/icons/unlike24.png'
 
-import { AuthContext } from '../../../contexts/auth.context'
+import { selectAccessToken } from '../../../store/auth/auth.selector'
 import { TrackContext } from '../../../contexts/track.context'
 import { PlayerContext } from '../../../contexts/player.context'
 import { useMediaQuery } from '../../../utils/customHooks'
@@ -18,7 +19,7 @@ import {NowPlayingContainer, SpotifyAttributor, SpotifyLogo, NowPlayingCover, No
 const NowPlayingCard = () => {
     const [likesMessage, setLikesMessage] = useState('')
 
-    const { accessToken } = useContext(AuthContext)
+    const accessToken = useSelector(selectAccessToken)
     const { playlistTracks, setPlaylistTracks } = useContext(TrackContext)
     const { deviceID, nowPlaying, setNowPlaying, active, setActive } = useContext(PlayerContext)
     const isMobile = useMediaQuery('(max-width: 1020px)')

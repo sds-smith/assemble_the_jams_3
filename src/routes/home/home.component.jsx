@@ -1,5 +1,6 @@
-import { useState, useEffect, useContext } from "react"
+import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
+import { useSelector } from "react-redux"
 
 import HomeHero from "../../components/home-page-components/home-hero/home-hero.component"
 // import SearchBar from "../../components/home-page-components/search-bar/search-bar.component"
@@ -10,9 +11,9 @@ import Recommendations from "../../components/home-page-components/recommendatio
 import Playlist from "../../components/home-page-components/playlist/playlist.component"
 import Footer from "../../components/home-page-components/footer/footer.component"
 
-import { AuthContext } from "../../contexts/auth.context"
 import { useMediaQuery } from '../../utils/customHooks'
 import { HomeContainer, InputContainer, ResultsContainer  } from "./home.styles"
+import { selectAuthSession } from "../../store/auth/auth.selector"
 
 const Home = () => { 
     const [activeTab, setActiveTab] = useState({
@@ -20,7 +21,7 @@ const Home = () => {
       'search_results' : true,
       'recommendations' : true
     })
-    const { authSession } = useContext(AuthContext)
+    const authSession = useSelector(selectAuthSession)
     const navigate = useNavigate()
     const isMobile = useMediaQuery('(max-width: 1020px)')
 
