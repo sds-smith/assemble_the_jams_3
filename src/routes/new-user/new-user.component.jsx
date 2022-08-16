@@ -32,7 +32,16 @@ const NewUser = () => {
         e.preventDefault()
         setFormSubmitted(true)
         try {
-          await createUserDocumentFromReg({name, email})
+          const response = await fetch('/.netlify/functions/create-user-doc', {
+            method: 'post',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ name, email })
+          })
+          const {userDocRef} = await response.json()
+          console.log(userDocRef, 'successfully created')
+          // await createUserDocumentFromReg({name, email})
           await fetch('/', {
             method: 'POST',
             headers: {"Content-Type": "application/x-www-form-urlencoded"},

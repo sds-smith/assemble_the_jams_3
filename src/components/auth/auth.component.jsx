@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 
-import { setAuthSession, setAccessToken } from "../../store/auth/auth.action"
+import { setAccessToken } from "../../store/auth/auth.action"
 import { selectAuthSession } from "../../store/auth/auth.selector"
 
 const Auth = () => {
@@ -38,12 +38,8 @@ const Auth = () => {
         }
 
         if (authCodeMatch) {
-          if (!authSession) {
-            const session = authCodeMatch[1].slice(0, 6)
             const authCode = authCodeMatch[1]
-            dispatch(setAuthSession(session))
             getAccessToken(authCode)
-          }
         } else {
           console.log('nope')
           navigate('/log-in')

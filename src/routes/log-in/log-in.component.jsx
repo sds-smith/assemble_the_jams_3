@@ -1,14 +1,20 @@
 import { useNavigate } from "react-router-dom"
+import { useDispatch } from "react-redux"
+
+import { setAuthSession } from "../../store/auth/auth.action"
 
 import Button from '../../components/reusable-components/button/button.component'
 import JamsLogo from "../../components/reusable-components/jams-logo/jams-logo.component"
 
 import { LogInMessage } from "../../data/login-message"
 import { useMediaQuery } from '../../utils/customHooks'
+import { generateRandomString } from '../../utils/random-state-generator';
+
 import { Spotify } from "../../utils/spotify"
 import { LogInContainer, FormContainer, ButtonsContainer, ButtonContainer } from "./log-in.styles"
 
 const LogIn = () => {
+    const dispatch = useDispatch()
     const navigate = useNavigate()
     const isMobile = useMediaQuery('(max-width: 1020px)')
 
@@ -16,6 +22,8 @@ const LogIn = () => {
         navigate('/new-user')
     }
     const signIn = () => {
+        const session = generateRandomString()
+        dispatch(setAuthSession(session))
         Spotify.auth()
     }
 
