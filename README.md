@@ -6,9 +6,9 @@ This project is a Progressive Web App created with React 18 and React Router 6, 
 
 Assemble the Jams 2.0 is a complete scratch rewrite of my Spotify playlist app ([read about version 1.0 here](https://github.com/sds-smith/assemble-the-jams/blob/main/README.md)).  After completing "The Complete React Developer 2022" from Zero to Mastery Academy, I wanted to implement the advanced React concepts that I had learned - as well as some of the other tools in the React ecosystem - and saw an opportunity to improve Assemble the Jams. The high-level improvements in version 2.0 are:
 
-    * Enterprise-level scalability through file structure, separation of concerns, and the use of reusable material components (ie buttons, logos, spinners, etc).
-    * Better human-readability through file structure, naming conventions (files, functions, variables), and the use of Styled Components.
-    * A more secure auth flow - creating a serverless backend with Redux-persist, Netlify (AWS Lambda) functions, and Firebase allowed for a proper auth code flow with PKCE that is kept entirely out of the browser.
+* Enterprise-level scalability through file structure, separation of concerns, and the use of reusable material components (ie buttons, logos, spinners, etc).
+* Better human-readability through file structure, naming conventions (files, functions, variables), and the use of Styled Components.
+* A more secure auth flow - creating a serverless backend with Redux-persist, Netlify (AWS Lambda) functions, and Firebase allowed for a proper auth code flow with PKCE that is kept entirely out of the browser.
 
 The app in its version 2.0 iteration can be viewed in [this video](https://youtu.be/yn0o9YVAzNY).
 
