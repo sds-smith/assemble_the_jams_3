@@ -2,12 +2,21 @@ import { Fragment } from "react"
 import { Outlet } from "react-router-dom"
 import SpotifyLogoWhite from '../../assets/icons/Spotify_Logo_RGB_White.png'
 import JamsLogo from "../../components/reusable-components/jams-logo/jams-logo.component"
+import Button from "../../components/reusable-components/button/button.component"
 import { useMediaQuery } from '../../utils/customHooks'
 import { Header, SpotifyAttributor, SpotifyLogo } from "./navigation.styles"
 
-const Navigation = () => {
+import { setAccessToken, setAuthSession } from "../../store/auth/auth.action"
+import { useDispatch } from "react-redux"
 
+const Navigation = () => {
+    const dispatch = useDispatch()
     const isMobile = useMediaQuery('(max-width: 1020px)')
+
+    const logout = () => {
+        dispatch(setAccessToken(''))
+        dispatch(setAuthSession(''))
+    }
 
     return (
         <Fragment>
@@ -17,6 +26,7 @@ const Navigation = () => {
                   <p>Works with Spotify Premium</p> 
                 </SpotifyAttributor>        
                 <h1><JamsLogo /></h1>
+                <Button onClick={logout} >Log Out</Button>
             </Header>  
             <Outlet />
         </Fragment>

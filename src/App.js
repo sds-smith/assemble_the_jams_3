@@ -1,6 +1,6 @@
 import { useEffect, useContext } from 'react'
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Navigation from './routes/navigation/navigation.component';
 import Home from './routes/home/home.component'
@@ -9,12 +9,14 @@ import NewUser from './routes/new-user/new-user.component';
 import Auth from './components/auth/auth.component';
 
 import { selectAccessToken } from './store/auth/auth.selector';
+import { setAuthSession, setAccessToken } from './store/auth/auth.action';
 import { UserContext } from './contexts/user.context';
 import { Spotify } from './utils/spotify';
 
 import './App.css';
 
 const App = () => {
+  const dispatch = useDispatch()
   const accessToken = useSelector(selectAccessToken)
   const { setUserLoading, setCurrentUser } = useContext(UserContext)
   const navigate = useNavigate()
@@ -40,10 +42,10 @@ const App = () => {
             setUserLoading(false)
             unregisteredMessage()
           }
-
         } catch(error) {
           setUserLoading(false)
-          unregisteredMessage()
+          dispatch(setAuthSession(''))
+          dispatch(setAccessToken(''))
         }
       }
       getUserProfile()

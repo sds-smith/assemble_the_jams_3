@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 
-import { setAccessToken } from "../../store/auth/auth.action"
+import { setAccessToken, setAuthSession } from "../../store/auth/auth.action"
 import { selectAuthSession } from "../../store/auth/auth.selector"
 
 const Auth = () => {
@@ -21,13 +21,14 @@ const Auth = () => {
               headers: {
                 'Content-Type': 'application/json'
               },
-              body: JSON.stringify({ authCode })
+              body: JSON.stringify({ authCode, authSession })
             })
             const {token, expiresIn} = await response.json()
             if (token) {
               dispatch(setAccessToken(token))
               window.setTimeout(() => {
                 dispatch(setAccessToken(''))
+                dispatch(setAuthSession(''))
               }, expiresIn * 1000)
             }
           } catch(error) {

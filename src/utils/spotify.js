@@ -1,13 +1,12 @@
 import axios from 'axios';
-import { generateRandomString } from './random-state-generator';
 
 const scope = encodeURIComponent('user-read-private user-read-email playlist-modify-public streaming user-library-read user-library-modify')
-const state = generateRandomString()
-const SpotifyAuth = `https://accounts.spotify.com/authorize?response_type=code&client_id=${process.env.REACT_APP_CLIENT_ID}&scope=${scope}&state=${state}&code_challenge_method=S256&code_challenge=${process.env.REACT_APP_AUTH_CHALLENGE}&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}`
 
 export const Spotify = {
-    auth() {
-        window.location.replace(SpotifyAuth)
+    auth(codeChallenge, state) {
+      const SpotifyAuth = `https://accounts.spotify.com/authorize?response_type=code&client_id=${process.env.REACT_APP_CLIENT_ID}&scope=${scope}&state=${state}&code_challenge_method=S256&code_challenge=${codeChallenge}&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}`
+
+      window.location.replace(SpotifyAuth)
     },
 
     async getUserProfile(accessToken) {

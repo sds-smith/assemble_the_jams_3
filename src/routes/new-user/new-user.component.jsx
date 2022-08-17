@@ -29,28 +29,28 @@ const NewUser = () => {
     }
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
-        setFormSubmitted(true)
-        try {
-          const response = await fetch('/.netlify/functions/create-user-doc', {
-            method: 'post',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ name, email })
-          })
-          const {userDocRef} = await response.json()
-          console.log(userDocRef, 'successfully created')
-          // await createUserDocumentFromReg({name, email})
-          await fetch('/', {
-            method: 'POST',
-            headers: {"Content-Type": "application/x-www-form-urlencoded"},
-            body: encode({ "form-name": "registration", name, email })
-          })
-        } catch (error) {
-          console.log(error)
-        } 
-      }
+      e.preventDefault()
+      setFormSubmitted(true)
+      try {
+        const response = await fetch('/.netlify/functions/create-user-doc', {
+          method: 'post',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ name, email })
+        })
+        const {userDocRef} = await response.json()
+        console.log(userDocRef, 'successfully created')
+        // await createUserDocumentFromReg({name, email})
+        await fetch('/', {
+          method: 'POST',
+          headers: {"Content-Type": "application/x-www-form-urlencoded"},
+          body: encode({ "form-name": "registration", name, email })
+        })
+      } catch (error) {
+        console.log(error)
+      } 
+    }
     
     const handleChange = (e) => {
         e.target.name === 'name' ? setName(e.target.value) : setEmail(e.target.value)

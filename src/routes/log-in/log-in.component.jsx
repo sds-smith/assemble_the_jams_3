@@ -21,10 +21,22 @@ const LogIn = () => {
     const register = () => {
         navigate('/new-user')
     }
-    const signIn = () => {
+    const signIn = async () => {
         const session = generateRandomString()
         dispatch(setAuthSession(session))
-        Spotify.auth()
+        try {
+            const response = await fetch('/.netlify/functions/create-auth-doc', {
+              method: 'post',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ session })
+            })
+            const { codeChallenge, state} = await response.json()
+            Spotify.auth(codeChallenge, state)
+        } catch (error) {
+          console.log(error)
+        } 
     }
 
     return (

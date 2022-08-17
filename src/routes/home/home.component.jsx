@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 
 import HomeHero from "../../components/home-page-components/home-hero/home-hero.component"
 // import SearchBar from "../../components/home-page-components/search-bar/search-bar.component"
@@ -14,6 +14,7 @@ import Footer from "../../components/home-page-components/footer/footer.componen
 import { useMediaQuery } from '../../utils/customHooks'
 import { HomeContainer, InputContainer, ResultsContainer  } from "./home.styles"
 import { selectAccessToken } from "../../store/auth/auth.selector"
+import { setAuthSession, setAccessToken } from "../../store/auth/auth.action"
 
 const Home = () => { 
     const [activeTab, setActiveTab] = useState({
@@ -21,6 +22,7 @@ const Home = () => {
       'search_results' : true,
       'recommendations' : true
     })
+    const dispatch = useDispatch()
     const accessToken = useSelector(selectAccessToken)
     const navigate = useNavigate()
     const isMobile = useMediaQuery('(max-width: 1020px)')

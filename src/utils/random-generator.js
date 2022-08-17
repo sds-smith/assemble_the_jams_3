@@ -1,8 +1,7 @@
-const CryptoJS = require('crypto-js')
+const crypto = require('crypto')
 
 function generateRandomString() {
-  var array = new Uint32Array(56/2);
-  CryptoJS.getRandomValues(array);
+  const array = crypto.randomBytes(32);
   return Array.from(array, dec2hex).join('');
 }
 
@@ -13,7 +12,7 @@ function dec2hex(dec) {
 function sha256(plain) { // returns promise ArrayBuffer
   const encoder = new TextEncoder();
   const data = encoder.encode(plain);
-  return CryptoJS.subtle.digest('SHA-256', data);
+  return crypto.subtle.digest('SHA-256', data);
 }
 
 function base64urlencode(a) {
@@ -26,18 +25,18 @@ function base64urlencode(a) {
 }
 
 async function pkce_challenge_from_verifier(v) {
-  hashed = await sha256(v);
-  base64encoded = base64urlencode(hashed);
+  const hashed = await sha256(v);
+  const base64encoded = base64urlencode(hashed);
   return base64encoded;
 }
 
   function generateCodeChallenge(code_verifier) {
-    const code_challenge = base64URL(CryptoJS.SHA256(code_verifier))
-    return code_challenge
+    const code_challenge = crypto.createHash('sha256').update(code_verifier).digest('base64')
+    return code_challenge.toString().replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_')
   }
 
   function base64URL(string) {
-    return string.toString(CryptoJS.enc.Base64).replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_')
+    return string.toString(Crypto.enc.Base64).replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_')
   }
 
   module.exports = { generateRandomString, base64urlencode, generateCodeChallenge, base64URL, pkce_challenge_from_verifier }

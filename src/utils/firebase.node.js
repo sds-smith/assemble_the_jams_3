@@ -4,10 +4,10 @@ const {
     doc, 
     getDoc, 
     setDoc,
-    // collection,
+    collection,
     // writeBatch,
-    // query,
-    // getDocs
+    query,
+    getDocs
 } = require('firebase/firestore');
 
 // Your web app's Firebase configuration
@@ -79,17 +79,17 @@ const createUserDocumentFromReg = async (userReg) => {
 }
 
 const createAuthDocumentFromSession = async (sessionData) => {
-    const authDocRef = doc(db, 'auth', sessionData.authSession)
+    const authDocRef = doc(db, 'auth', sessionData.session)
 
     const authSnapshot = await getDoc(authDocRef)
 
     if (!authSnapshot.exists()) {
-        const { authSession, state, codeVerifier } = sessionData
+        const { session, state, codeVerifier } = sessionData
         const createdAt = new Date()
 
         try {
             await setDoc(authDocRef, {
-                authSession,
+                authSession : session,
                 state, 
                 codeVerifier,
                 createdAt
@@ -111,12 +111,13 @@ const createAuthDocumentFromSession = async (sessionData) => {
     // console.log('done')
 // }
 // 
-// const getCategoriesAndDocuments = async () => {
-    // const collectionRef = collection(db, 'categories')
-    // const q = query(collectionRef)
-// 
-    // const querySnapshot = await getDocs(q)
-    // return querySnapshot.docs.map((docSnapshot) => docSnapshot.data())
-// }
+const getAuthDoc = async (authSession) => {
+    const collectionRef = collection(db, 'auth')
+    const q = query(collectionRef)
 
-module.exports = { createUserDocumentFromReg, createAuthDocumentFromSession }
+    const querySnapshot = await getDocs(q)
+    const snapshotDocs = querySnapshot.docs.map((doc) => doc.data()).filter((doc) => doc.authSession === authSession)
+    return snapshotDocs[0]
+}
+
+module.exports = { createUserDocumentFromReg, createAuthDocumentFromSession, getAuthDoc }
