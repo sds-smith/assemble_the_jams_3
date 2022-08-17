@@ -7,7 +7,6 @@ import close from '../../assets/icons/close_white.png'
 
 import { UserContext } from "../../contexts/user.context"
 import { RegistrationContainer, FormContainer, CloseButton  } from './new-user.styles'
-import { createUserDocumentFromReg } from "../../utils/firebase"
 
 const NewUser = () => {
 
