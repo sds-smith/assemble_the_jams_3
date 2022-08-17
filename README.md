@@ -1,70 +1,28 @@
-# Getting Started with Create React App
+# Assemble the Jams 2.0
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a Progressive Web App created with React 18 and React Router 6, employing React functional components, hooks (including a custom hook), and Context API.  It utilizes css-in-js via Styled Components, and incorporates Redux, Firebase, and AWS Lambda functions.
 
-## Available Scripts
+## Project overview
 
-In the project directory, you can run:
+Assemble the Jams 2.0 is a complete scratch rewrite of my Spotify playlist app ([read about version 1.0 here](https://github.com/sds-smith/assemble-the-jams/blob/main/README.md)).  After completing "The Complete React Developer 2022" from Zero to Mastery Academy, I wanted to implement the advanced React concepts that I had learned - as well as some of the other tools in the React ecosystem - and saw an opportunity to improve Assemble the Jams. The high-level improvements in version 2.0 are:
 
-### `npm start`
+    - Enterprise-level scalability through file structure, separation of concerns, and the use of reusable material components (ie buttons, logos, spinners, etc).
+    - Better human-readability through file structure, naming conventions (files, functions, variables), and the use of Styled Components.
+    - A more secure auth flow - creating a serverless backend with Redux-persist, Netlify (AWS Lambda) functions, and Firebase allowed for a proper auth code flow with PKCE that is kept entirely out of the browser.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+The app in its version 2.0 iteration can be viewed in [this video](https://youtu.be/yn0o9YVAzNY).
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### TRY IT OUT
 
-### `npm test`
+You can try out the app at https://assemblethejams.netlify.app
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Version 3.0 (coming soon)
 
-### `npm run build`
+Version 3.0 is already on the drawing board, with UI/UX enhancements based on user feedback.  These enhancements will include:
+    - No-auth search functionality and no-auth track preview capability.
+      * Based on user feedback, being faced with a sign-in page requesting personal info at the very beginning is a big turn-off, but this is unavoidable in the current configuration since both the Spotify search function and the playback sdk require authentication first. But...
+      * Similar search results can be achieved using the Last.fm api without authentication
+      * Spotify offers a preview url for most tracks which does not require authentication
+    - Automatic playlist population - all the user has to do is click 'save to Spotify' button.
+      * Users did not find version 2.0 to be incredibly intuitive, and were confused about having to create their own playlist from recommendations. They just wanted to save the recommendations as a playlist. So, in version 3.0, that is how it will work.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
