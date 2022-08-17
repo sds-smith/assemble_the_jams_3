@@ -1,4 +1,7 @@
 import { useState, useEffect } from 'react';
+// import { useDispatch } from 'react-redux';
+// import { setAccessToken, setAuthSession } from "../store/auth/auth.action"
+
 
 export function useMediaQuery(query) {
   const [matches, setMatches] = useState(false);
@@ -17,3 +20,19 @@ export function useMediaQuery(query) {
 
   return matches;
 }
+
+// export const useSignOut = async (session) => {
+  // const dispatch = useDispatch()
+// 
+  // if (session) {
+    // await fetch('/.netlify/functions/delete-auth-doc', {
+      // method: 'post',
+      // headers: {
+        // 'Content-Type': 'application/json'
+      // },
+      // body: JSON.stringify({ session })
+  // })
+  // }
+  // dispatch(setAuthSession(''))
+  // dispatch(setAccessToken(''))
+// }

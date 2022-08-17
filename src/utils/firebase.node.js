@@ -99,6 +99,11 @@ const createAuthDocumentFromSession = async (sessionData) => {
         }
     }
 }
+
+const deleteAuthDocumentFromSession = async (session) => {
+    await db.collection('auth').doc(session).delete()
+    
+}
 // const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
     // const collectionRef = collection(db, collectionKey)
     // const batch = writeBatch(db)
@@ -120,4 +125,4 @@ const getAuthDoc = async (authSession) => {
     return snapshotDocs[0]
 }
 
-module.exports = { createUserDocumentFromReg, createAuthDocumentFromSession, getAuthDoc }
+module.exports = { createUserDocumentFromReg, createAuthDocumentFromSession, getAuthDoc, deleteAuthDocumentFromSession }

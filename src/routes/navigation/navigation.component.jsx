@@ -14,8 +14,8 @@ const Navigation = () => {
     const isMobile = useMediaQuery('(max-width: 1020px)')
 
     const logout = () => {
-        dispatch(setAccessToken(''))
         dispatch(setAuthSession(''))
+        dispatch(setAccessToken(''))
     }
 
     return (
@@ -26,7 +26,7 @@ const Navigation = () => {
                   <p>Works with Spotify Premium</p> 
                 </SpotifyAttributor>        
                 <h1><JamsLogo /></h1>
-                <Button onClick={logout} >LOG OUT</Button>
+                <Button onClick={logout} >SIGN OUT</Button>
             </Header>  
             <Outlet />
         </Fragment>
