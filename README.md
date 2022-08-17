@@ -20,10 +20,10 @@ You can try out the app at https://assemblethejams.netlify.app
 
 Version 3.0 is already on the drawing board, with UI/UX enhancements based on user feedback.  These enhancements will include:
 
-    * No-auth search functionality and no-auth track preview capability.
-      * Based on user feedback, being faced with a sign-in page requesting personal info at the very beginning is a big turn-off, but this is unavoidable in the current configuration since both the Spotify search function and the playback sdk require authentication first. But...
-      * Similar search results can be achieved using the Last.fm api without authentication
-      * Spotify offers a preview url for most tracks which does not require authentication
-    * Automatic playlist population - all the user has to do is click 'save to Spotify' button.
-      * Users did not find version 2.0 to be incredibly intuitive, and were confused about having to create their own playlist from recommendations. They just wanted to save the recommendations as a playlist. So, in version 3.0, that is how it will work.
+* No-auth search functionality and no-auth track preview capability.
+  * Based on user feedback, being faced with a sign-in page requesting personal info at the very beginning is a big turn-off, but this is unavoidable in the current configuration since both the Spotify search function and the playback sdk require authentication first. But...
+  * Similar search results can be achieved using the Last.fm api without authentication
+  * Spotify offers a preview url for most tracks which does not require authentication
+* Automatic playlist population - all the user has to do is click 'save to Spotify' button.
+  * Users did not find version 2.0 to be incredibly intuitive, and were confused about having to create their own playlist from recommendations. They just wanted to save the recommendations as a playlist. So, in version 3.0, that is how it will work.
 
