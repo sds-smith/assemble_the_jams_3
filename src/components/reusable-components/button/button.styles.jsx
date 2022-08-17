@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const CustomButton = styled.button`
     cursor: pointer;
     width: 8.11rem;
+    height: 50px;
     padding: .77rem 0;
     border-radius: 54px;
     background-color: green;

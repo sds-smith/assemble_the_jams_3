@@ -26,7 +26,7 @@ const Navigation = () => {
                   <p>Works with Spotify Premium</p> 
                 </SpotifyAttributor>        
                 <h1><JamsLogo /></h1>
-                <Button onClick={logout} >Log Out</Button>
+                <Button onClick={logout} >LOG OUT</Button>
             </Header>  
             <Outlet />
         </Fragment>

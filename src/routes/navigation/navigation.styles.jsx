@@ -19,6 +19,12 @@ export const Header = styled.div`
             color: green;
           }
       }
+
+      Button {
+        position: fixed;
+        top: 25px;
+        right: 20px;
+      }
       
 `
 
