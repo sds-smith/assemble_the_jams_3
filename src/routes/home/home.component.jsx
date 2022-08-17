@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
-import { useSelector, useDispatch } from "react-redux"
+import { useSelector } from "react-redux"
 
 import HomeHero from "../../components/home-page-components/home-hero/home-hero.component"
 // import SearchBar from "../../components/home-page-components/search-bar/search-bar.component"
