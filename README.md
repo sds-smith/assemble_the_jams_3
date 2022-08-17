@@ -9,6 +9,7 @@ Assemble the Jams 2.0 is a complete scratch rewrite of my Spotify playlist app (
 * Enterprise-level scalability through file structure, separation of concerns, and the use of reusable material components (ie buttons, logos, spinners, etc).
 * Better human-readability through file structure, naming conventions (files, functions, variables), and the use of Styled Components.
 * A more secure auth flow - creating a serverless backend with Redux-persist, Netlify (AWS Lambda) functions, and Firebase allowed for a proper auth code flow with PKCE that is kept entirely out of the browser.
+* Elimination of 'prop-drilling' through the use of React Context API.
 
 The app in its version 2.0 iteration can be viewed in [this video](https://youtu.be/LwBpalQgtro).
 
