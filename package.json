@@ -11,7 +11,7 @@
     "dotenv": "^16.0.1",
     "firebase": "^9.8.4",
     "get-random-values": "^2.0.0",
-    "netlify-cli": "^10.7.1",
+    "netlify-cli": "^10.18.0",
     "node-fetch": "^3.2.6",
     "qs": "^6.11.0",
     "react": "^18.2.0",
