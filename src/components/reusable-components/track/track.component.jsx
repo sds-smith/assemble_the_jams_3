@@ -12,6 +12,7 @@ import { selectAccessToken } from '../../../store/auth/auth.selector'
 import { selectPlaylistTracks } from '../../../store/track/track.selector'
 import { setPlaylistTracks } from '../../../store/track/track.action'
 import { PlayerContext } from '../../../contexts/player.context'
+import { UserContext } from '../../../contexts/user.context'
 
 import { TrackContainer, TrackInformation, TrackActionContainer } from './track.styles'
 import { ProgressContainer } from '../../home-page-components/now-playing-card/now-playing-card.styles'
@@ -21,6 +22,7 @@ const Track = ({track, trackType }) => {
 
   const accessToken = useSelector(selectAccessToken)
   const playlistTracks = useSelector(selectPlaylistTracks)
+  const { currentUser } = useContext(UserContext)
   const { nowPlaying, setNowPlaying, deviceID, currentPlayer, active } = useContext(PlayerContext)
 
   const addTrack = () => {
@@ -38,16 +40,21 @@ const Track = ({track, trackType }) => {
   }
 
   const playTrack = async () => {
-    if (!nowPlaying.hasTrack) {
-      const hasTrack = true
-      const isLike = await Spotify.getLikeStatus(accessToken, track.id)
-      const uri = `spotify:track:${track.id}`
-      setNowPlaying({hasTrack, track, isLike})
-      Spotify.play(deviceID, {
-        playerInstance : currentPlayer,
-        spotify_uri : uri,
-      })
+    if (currentUser) {
+      if (!nowPlaying.hasTrack) {
+        const hasTrack = true
+        const isLike = await Spotify.getLikeStatus(accessToken, track.id)
+        const uri = `spotify:track:${track.id}`
+        setNowPlaying({hasTrack, track, isLike})
+        Spotify.play(deviceID, {
+          playerInstance : currentPlayer,
+          spotify_uri : uri,
+        })
+      }
+    } else {
+      window.alert('Please sign in with Spotify to enjoy this feature')
     }
+
   }
 
   let trackActions 

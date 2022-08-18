@@ -29,7 +29,7 @@ const App = () => {
     }, 2000)
   }
 
-  useEffect( () => {
+  useEffect(() => {
     if (!clientToken) {
       const getClientToken = async () => {
         const { token, expiresIn } = await Spotify.getClientToken()
@@ -40,6 +40,13 @@ const App = () => {
       }
       getClientToken()
     }
+    return () => {
+      dispatch(setClientToken(''))
+    }
+  }, [])
+
+  useEffect( () => {
+
     if (accessToken) {
       setUserLoading(true)
       const getUserProfile = async () => {
@@ -64,7 +71,7 @@ const App = () => {
       setCurrentUser('')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [accessToken, clientToken])
+  }, [accessToken])
 
   return (
     <Routes >

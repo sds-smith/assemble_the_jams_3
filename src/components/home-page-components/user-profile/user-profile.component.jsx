@@ -23,7 +23,7 @@ const UserProfile = () => {
           setDisplayName(currentUser.display_name)
         } else {
           setProfilePic(ProfilePic)
-          setDisplayName('')
+          setDisplayName('unknown user')
         }
       },[currentUser])
 

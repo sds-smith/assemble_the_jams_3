@@ -42,6 +42,15 @@ export const Spotify = {
             const headers =  { Authorization : `Bearer ${accessToken}` }
             const response = await axios.get(`https://api.spotify.com/v1/search?type=track&q=${searchTerm}&market=US`,{headers : headers})
             const searchResults = response.data
+            const searchResultsArray = searchResults.tracks.items.map(track => ({
+              id : track.id,
+              name : track.name,
+              artist : track.artists[0].name,
+              album : track.album.name,
+              cover : track.album.images[0].url,
+              uri : track.uri,
+              preview : track.preview_url
+            }))
             const seeds = searchResults.tracks.items.slice(0, 5).map(track => track.id)
           
             const recommendationsResponse = await axios.get(`https://api.spotify.com/v1/recommendations?seed_tracks=${seeds}`,{headers : headers})
@@ -52,16 +61,10 @@ export const Spotify = {
               artist : track.artists[0].name,
               album : track.album.name,
               cover : track.album.images[0].url,
-              uri : track.uri
+              uri : track.uri,
+              preview : track.preview_url
             }))
-            const searchResultsArray = searchResults.tracks.items.map(track => ({
-              id : track.id,
-              name : track.name,
-              artist : track.artists[0].name,
-              album : track.album.name,
-              cover : track.album.images[0].url,
-              uri : track.uri
-            }))
+            console.log(recommendationsArray)
             return {searchResultsArray, recommendationsArray}
         } catch(error) {
             console.log('error with search', error)
@@ -108,6 +111,7 @@ export const Spotify = {
             return status
         } catch(error) {
             console.log('error getting like status', error)
+            return false
         }
     },
 
