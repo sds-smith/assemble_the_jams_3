@@ -64,7 +64,6 @@ export const Spotify = {
               uri : track.uri,
               preview : track.preview_url
             }))
-            console.log(recommendationsArray)
             return {searchResultsArray, recommendationsArray}
         } catch(error) {
             console.log('error with search', error)
@@ -142,7 +141,9 @@ export const Spotify = {
           return {
             message: 'Playlist has been saved to your Spotify account',
             playlistName: 'Enter New Playlist Name',
-            playlistTracks: []
+            playlistTracks: [],
+            searchResults: [],
+            recommendations: []
         }
       } catch(error) {
             console.log('error saving playlist', error)

@@ -4,7 +4,8 @@ import { useSelector, useDispatch } from "react-redux"
 import Button from "../../reusable-components/button/button.component"
 
 import { Spotify } from "../../../utils/spotify"
-import { selectAccessToken, selectClientToken } from "../../../store/auth/auth.selector"
+import { selectAccessToken } from "../../../store/auth/auth.selector"
+import { ClientContext } from "../../../contexts/client.context"
 import { UserContext } from '../../../contexts/user.context'
 import { PlayerContext } from "../../../contexts/player.context"
 import { setSearchResults, setRecommendations, setPlaylistTracks, setSearchLoading } from '../../../store/track/track.action'
@@ -18,7 +19,7 @@ const SearchBar = () => {
     const dispatch = useDispatch()
 
     const accessToken = useSelector(selectAccessToken)
-    const clientToken = useSelector(selectClientToken)
+    const {clientToken} = useContext(ClientContext)
     const { currentUser } = useContext(UserContext)
     const { currentPlayer } = useContext(PlayerContext)
     

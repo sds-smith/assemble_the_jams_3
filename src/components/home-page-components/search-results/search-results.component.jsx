@@ -13,7 +13,7 @@ const SearchResults = () => {
     const isMobile = useMediaQuery('(max-width: 1020px)')
     return (
         <SearchResultsContainer isMobile={isMobile} >
-            <h2 >Search Results</h2>
+            <h2 >Search Term Matches</h2>
             <Spinner loading={searchLoading} />
             <TrackList tracks={searchResults} trackType={'search-results'} />
         </SearchResultsContainer>

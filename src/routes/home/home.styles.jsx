@@ -26,7 +26,7 @@ export const ResultsContainer = styled.div`
     display: flex;
     flex-direction: ${props => props.isMobile ? 'column' : 'unset'};
     align-items: ${props => props.isMobile ? 'center' : 'unset'};
-    justify-content: ${props => props.isMobile ? 'flex-start' : 'space-between'};
+    justify-content: ${props => props.isMobile ? 'flex-start' : 'center'};
     width: 100%;
 `
 

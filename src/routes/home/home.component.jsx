@@ -48,7 +48,7 @@ const Home = () => {
         <ResultsContainer isMobile={isMobile} >
           {activeTab.playlist && <Playlist />}
           { activeTab.search_results && <SearchResults />}
-          { activeTab.recommendations && <Recommendations />}
+          {/* { activeTab.recommendations && <Recommendations />} */}
         </ResultsContainer>
         {isMobile && <Footer activeTab={activeTab} setActiveTab={setActiveTab} />}
       </HomeContainer>

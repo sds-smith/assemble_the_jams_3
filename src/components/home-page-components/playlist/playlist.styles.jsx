@@ -6,10 +6,10 @@ export const PlaylistContainer = styled.div`
     flex-direction: column;
     align-items: center;
     overflow-y: scroll;
-    width: ${props => props.isMobile ? '95%' : '30%'};
+    width: ${props => props.isMobile ? '95%' : '40%'};
     max-height: 950px;
     padding: 0.88rem 1.16rem;
-
+    margin: 10px;
     background-color: rgba(0, 0, 0, 0.4);
     box-shadow: 0 4px 2px 2px #000000;
 

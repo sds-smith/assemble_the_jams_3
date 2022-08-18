@@ -60,7 +60,12 @@ const Track = ({track, trackType }) => {
   let trackActions 
   switch(trackType) {
     case 'playlist' :
-      trackActions =  <TrackActionButton onClick={removeTrack} src={ClearBtn} alt='button to remove track from playlist'/>
+      trackActions = (
+                <Fragment>
+                  <TrackActionButton onClick={playTrack} src={PlayBtn} alt='button to play track'/>
+                  <TrackActionButton onClick={removeTrack} src={ClearBtn} alt='button to remove track from playlist'/>
+                </Fragment>
+        )  
       break
     default :
       trackActions = (
@@ -80,7 +85,7 @@ const Track = ({track, trackType }) => {
             <TrackActionContainer>
               {trackActions}
             </TrackActionContainer>
-            { nowPlaying.track.id === track.id && trackType !== 'playlist' &&
+            { nowPlaying.track.id === track.id &&
               <ProgressContainer 
                 transform={ active ? 'scaleX(1)' : 'scaleX(0)' }
                 transition={ active ? 'transform 30s linear' : 'transform 0s linear' } 

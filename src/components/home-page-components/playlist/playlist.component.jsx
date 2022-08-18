@@ -8,7 +8,7 @@ import editIcon from '../../../assets/icons/edit_white24.png'
 
 import { selectAccessToken } from "../../../store/auth/auth.selector"
 import { selectPlaylistTracks, selectPlaylistName } from '../../../store/track/track.selector'
-import { setPlaylistTracks, setPlaylistName } from '../../../store/track/track.action'
+import { setPlaylistTracks, setPlaylistName, setSearchResults, setRecommendations } from '../../../store/track/track.action'
 import { UserContext } from "../../../contexts/user.context"
 import { useMediaQuery } from '../../../utils/customHooks'
 import { Spotify } from "../../../utils/spotify"
@@ -52,6 +52,8 @@ const Playlist = () => {
         const response = await Spotify.savePlaylist(accessToken, currentUser, playlistName, trackURIs)
         dispatch(setPlaylistName(response.playlistName))
         dispatch(setPlaylistTracks(response.playlistTracks))
+        dispatch(setSearchResults(response.searchResults))
+        dispatch(setRecommendations(response.recommendations))
       } catch(error) {
         console.log(error)
       }
@@ -62,11 +64,11 @@ const Playlist = () => {
           <TitleContainer>
             <img src={editIcon} alt='edit playlist name' />
             <PlaylistNameInput width='unset' />
+            <SaveToSpotifyButton onClick={savePlaylist} >SAVE TO SPOTIFY</SaveToSpotifyButton>
           </TitleContainer>
           <TrackList 
             tracks={playlistTracks}
             trackType={'playlist'}/>
-          <SaveToSpotifyButton onClick={savePlaylist} >SAVE TO SPOTIFY</SaveToSpotifyButton>
         </PlaylistContainer>            
     )
 }

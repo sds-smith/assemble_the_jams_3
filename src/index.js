@@ -8,6 +8,7 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 
 import App from './App';
+import { ClientProvider } from './contexts/client.context';
 import { UserProvider } from './contexts/user.context';
 import { PlayerProvider } from './contexts/player.context';
 import { TrackProvider } from './contexts/track.context';
@@ -19,13 +20,15 @@ root.render(
     <Provider store={store} >
       <PersistGate persistor={persistor} >
         <BrowserRouter >
-          <UserProvider>
-            <TrackProvider>
-              <PlayerProvider>
-                <App />
-              </PlayerProvider>        
-            </TrackProvider>
-          </UserProvider>  
+          <ClientProvider>
+            <UserProvider>
+              <TrackProvider>
+                <PlayerProvider>
+                  <App />
+                </PlayerProvider>        
+              </TrackProvider>
+            </UserProvider>  
+          </ClientProvider>
         </BrowserRouter>
       </PersistGate>
     </Provider>
