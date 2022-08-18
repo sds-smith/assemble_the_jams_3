@@ -1,9 +1,6 @@
 import axios from 'axios';
 
-
 export const LastFM = {
-
-
 
     async search(searchTerm) {
         try {
@@ -31,7 +28,6 @@ export const LastFM = {
                 cover : track.image[0]['#text'],
                 uri : track.url
               }))
-            // const recommendationsArray = searchResultsArray
             return {searchResultsArray, recommendationsArray}
         } catch(error) {
             console.log('error with search', error)

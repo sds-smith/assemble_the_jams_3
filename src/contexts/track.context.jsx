@@ -10,7 +10,7 @@ export const TrackContext = createContext({
     playlistName : null, 
     setPlaylistName : () => null,
     searchLoading : null, 
-    setSearchLoadin : () => null
+    setSearchLoading : () => null
 })
 
 export const TrackProvider = ({children}) => {
