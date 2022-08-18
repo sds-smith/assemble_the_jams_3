@@ -1,18 +1,22 @@
 import { useContext } from "react"
+import { useSelector, useDispatch } from "react-redux"
 
+import { selectPlaylistName } from '../../../store/track/track.selector'
+import { setPlaylistName } from "../../../store/track/track.action"
 import { TrackContext } from "../../../contexts/track.context"
 import { PlaylistNameContainer, NameInput } from "./playlist-name-input.styles"
 
 const PlaylistNameInput = ({ width }) => {
 
-    const { playlistName, setPlaylistName } = useContext(TrackContext)
+    const dispatch = useDispatch()
+    const playlistName = useSelector(selectPlaylistName)
     
     const clearInput = () => {
-     setPlaylistName('')
+     dispatch(setPlaylistName(''))
     }
   
     const handleNameChange = (e) => {
-     setPlaylistName(e.target.value)
+     dispatch(setPlaylistName(e.target.value))
     }
 
     return (

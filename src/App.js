@@ -8,8 +8,8 @@ import LogIn from './routes/log-in/log-in.component';
 import NewUser from './routes/new-user/new-user.component';
 import Auth from './components/auth/auth.component';
 
-import { selectAccessToken } from './store/auth/auth.selector';
-import { setAuthSession, setAccessToken } from './store/auth/auth.action';
+import { selectAccessToken, selectClientToken } from './store/auth/auth.selector';
+import { setClientToken, setAuthSession, setAccessToken } from './store/auth/auth.action';
 import { UserContext } from './contexts/user.context';
 import { Spotify } from './utils/spotify';
 
@@ -17,6 +17,7 @@ import './App.css';
 
 const App = () => {
   const dispatch = useDispatch()
+  const clientToken = useSelector(selectClientToken)
   const accessToken = useSelector(selectAccessToken)
   const { setUserLoading, setCurrentUser } = useContext(UserContext)
   const navigate = useNavigate()
@@ -29,6 +30,16 @@ const App = () => {
   }
 
   useEffect( () => {
+    if (!clientToken) {
+      const getClientToken = async () => {
+        const { token, expiresIn } = await Spotify.getClientToken()
+        dispatch(setClientToken(token))
+        window.setTimeout(() => {
+          dispatch(setClientToken(''))
+        }, expiresIn * 1000)
+      }
+      getClientToken()
+    }
     if (accessToken) {
       setUserLoading(true)
       const getUserProfile = async () => {
@@ -53,7 +64,7 @@ const App = () => {
       setCurrentUser('')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [accessToken])
+  }, [accessToken, clientToken])
 
   return (
     <Routes >

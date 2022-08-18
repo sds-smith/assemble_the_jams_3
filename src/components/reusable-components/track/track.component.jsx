@@ -1,5 +1,5 @@
 import { useContext, Fragment } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 import TrackActionButton from '../track-action-button/track-action-button.component'
 
@@ -9,15 +9,18 @@ import ClearBtn from '../../../assets/icons/clear_white24.png'
 
 import { Spotify } from '../../../utils/spotify'
 import { selectAccessToken } from '../../../store/auth/auth.selector'
-import { TrackContext } from '../../../contexts/track.context'
+import { selectPlaylistTracks } from '../../../store/track/track.selector'
+import { setPlaylistTracks } from '../../../store/track/track.action'
 import { PlayerContext } from '../../../contexts/player.context'
 
 import { TrackContainer, TrackInformation, TrackActionContainer } from './track.styles'
 import { ProgressContainer } from '../../home-page-components/now-playing-card/now-playing-card.styles'
 
 const Track = ({track, trackType }) => {
+  const dispatch = useDispatch()
+
   const accessToken = useSelector(selectAccessToken)
-  const { playlistTracks, setPlaylistTracks } = useContext(TrackContext)
+  const playlistTracks = useSelector(selectPlaylistTracks)
   const { nowPlaying, setNowPlaying, deviceID, currentPlayer, active } = useContext(PlayerContext)
 
   const addTrack = () => {
@@ -26,12 +29,12 @@ const Track = ({track, trackType }) => {
       return
     }
     tracks.push(track)
-    setPlaylistTracks(tracks => [...tracks])
+    dispatch(setPlaylistTracks(tracks => [...tracks]))
   }
 
   const removeTrack = () => {
     let newTracks = playlistTracks.filter(savedTrack => savedTrack.id !== track.id)
-    setPlaylistTracks(newTracks)
+    dispatch(setPlaylistTracks(newTracks))
   }
 
   const playTrack = async () => {

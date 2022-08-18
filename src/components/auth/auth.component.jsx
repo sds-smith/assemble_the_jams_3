@@ -16,7 +16,7 @@ const Auth = () => {
 
         const getAccessToken = async ( authCode ) => {
           try {
-            const response = await fetch('/.netlify/functions/get-access-token', {
+            const response = await fetch('/.netlify/functions/get-user-access-token', {
               method: 'post',
               headers: {
                 'Content-Type': 'application/json'

@@ -7,8 +7,9 @@ import TrackList from "../../reusable-components/track-list/track-list.component
 import editIcon from '../../../assets/icons/edit_white24.png'
 
 import { selectAccessToken } from "../../../store/auth/auth.selector"
+import { selectPlaylistTracks, selectPlaylistName } from '../../../store/track/track.selector'
+import { setPlaylistTracks, setPlaylistName } from '../../../store/track/track.action'
 import { UserContext } from "../../../contexts/user.context"
-import { TrackContext } from "../../../contexts/track.context"
 import { useMediaQuery } from '../../../utils/customHooks'
 import { Spotify } from "../../../utils/spotify"
 import { generateRandomString } from '../../../utils/random-state-generator'
@@ -20,7 +21,8 @@ const Playlist = () => {
     const { currentUser } = useContext(UserContext)
     const dispatch = useDispatch()
 
-    const { playlistTracks, setPlaylistTracks, playlistName, setPlaylistName } = useContext(TrackContext)
+    const playlistTracks = useSelector(selectPlaylistTracks)
+    const playlistName = useSelector(selectPlaylistName)
     const isMobile = useMediaQuery('(max-width: 1020px)')
 
     const signIn = async () => {
@@ -48,8 +50,8 @@ const Playlist = () => {
       const trackURIs = playlistTracks.map(track => track.uri)
       try {
         const response = await Spotify.savePlaylist(accessToken, currentUser, playlistName, trackURIs)
-        setPlaylistName(response.playlistName)
-        setPlaylistTracks(response.playlistTracks)
+        dispatch(setPlaylistName(response.playlistName))
+        dispatch(setPlaylistTracks(response.playlistTracks))
       } catch(error) {
         console.log(error)
       }

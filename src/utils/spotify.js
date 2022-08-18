@@ -3,6 +3,23 @@ import axios from 'axios';
 const scope = encodeURIComponent('user-read-private user-read-email playlist-modify-public streaming user-library-read user-library-modify')
 
 export const Spotify = {
+
+    async getClientToken() {
+      try {
+        const response = await fetch('/.netlify/functions/get-client-access-token', {
+          method: 'post',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+        })
+        const {token, expiresIn} = await response.json()
+        return {token, expiresIn}
+      } catch(error) {
+        console.log('nope ', error)
+        window.alert('error with log-in, please contact app support.')
+      }
+    },
+
     auth(codeChallenge, state) {
       const SpotifyAuth = `https://accounts.spotify.com/authorize?response_type=code&client_id=${process.env.REACT_APP_CLIENT_ID}&scope=${scope}&state=${state}&code_challenge_method=S256&code_challenge=${codeChallenge}&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}`
 
@@ -23,7 +40,7 @@ export const Spotify = {
     async search(accessToken, searchTerm) {
         try {
             const headers =  { Authorization : `Bearer ${accessToken}` }
-            const response = await axios.get(`https://api.spotify.com/v1/search?type=track&q=${searchTerm}`,{headers : headers})
+            const response = await axios.get(`https://api.spotify.com/v1/search?type=track&q=${searchTerm}&market=US`,{headers : headers})
             const searchResults = response.data
             const seeds = searchResults.tracks.items.slice(0, 5).map(track => track.id)
           

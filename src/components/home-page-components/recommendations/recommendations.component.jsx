@@ -1,14 +1,16 @@
 import { useContext } from 'react'
+import { useSelector } from 'react-redux'
 
 import TrackList from '../../reusable-components/track-list/track-list.component'
 import Spinner from '../../reusable-components/spinner/spinner.component'
 
-import { TrackContext } from '../../../contexts/track.context'
+import { selectRecommendations, selectSearchLoading } from '../../../store/track/track.selector'
 import { useMediaQuery } from '../../../utils/customHooks'
 import { RecommendationsContainer } from './recommendations.styles'
 
 const Recommendations = () => {
-        const { recommendations, searchLoading } = useContext(TrackContext)
+        const recommendations = useSelector(selectRecommendations)
+        const searchLoading = useSelector(selectSearchLoading)
         const isMobile = useMediaQuery('(max-width: 1020px)')
 
         return (
