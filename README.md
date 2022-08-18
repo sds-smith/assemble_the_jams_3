@@ -19,7 +19,7 @@ You can try out the app at https://assemblethejams.netlify.app
 
 ### Version 3.0 (coming soon)
 
-Version 3.0 is already on the drawing board, with UI/UX enhancements based on user feedback.  These enhancements will include:
+Version 3.0 is already in planning, with UI/UX enhancements based on user feedback.  These enhancements will include:
 
 * No-auth search functionality and no-auth track preview capability.
   * Based on user feedback, being faced with a sign-in page requesting personal info at the very beginning is a big turn-off, but this is unavoidable in the current configuration since both the Spotify search function and the playback sdk require authentication first. But...
