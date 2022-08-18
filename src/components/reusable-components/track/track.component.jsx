@@ -14,7 +14,7 @@ import { setPlaylistTracks } from '../../../store/track/track.action'
 import { PlayerContext } from '../../../contexts/player.context'
 import { UserContext } from '../../../contexts/user.context'
 
-import { TrackContainer, TrackInformation, TrackActionContainer } from './track.styles'
+import { TrackContainer, TrackInformation, TrackActionContainer, TrackCover } from './track.styles'
 import { ProgressContainer } from '../../home-page-components/now-playing-card/now-playing-card.styles'
 
 const Track = ({track, trackType }) => {
@@ -78,6 +78,7 @@ const Track = ({track, trackType }) => {
 
     return (
         <TrackContainer >
+            <TrackCover src={track.cover} alt='album cover'/>
             <TrackInformation >
               <h3 >{track.name}</h3>
               <p >{track.artist} | {track.album}</p>

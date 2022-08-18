@@ -13,8 +13,8 @@ const HomeHero = () => {
     const isMobile = useMediaQuery('(max-width : 1020px)')
 
     const step1 = '1. Name your New Playlist'
-    const step2 = '2. Search for tracks'
-    let step3 = `3. Add tracks to your playlist with the plus button.  Hear a preview of any track with the play button. Repeat step 2 for more Recommendations.`
+    const step2 = '2. Enter a search term to generate a playlist.'
+    let step3 = `3. Scroll through your playlist. Remove tracks with the remove button. Add tracks from Search Term Matches with the add button. Hear a preview of any track with the play button (must be signed in with Spotify).`
     const step4 = '4. Once you\'re happy with your playlist, save it to your Spotify account with the \'Save to Spotify\' button'
     step3 += isMobile ? ' Switch between list views with the links below.' : ''
     

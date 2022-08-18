@@ -51,7 +51,7 @@ const WebPlayer = ({ onAdd }) => {
                 player.connect();
             };
             // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[currentUser])
+    },[accessToken, currentUser])
 
     return (
         <WebPlayerContainer isMobile={isMobile} >        

@@ -45,7 +45,7 @@ const SearchBar = () => {
     return (
         <SearchBarContainer onKeyPress={(e) => e.key === 'Enter' && search()}>
             <SearchBarInput placeholder="Enter A Song, Album, or Artist" onChange={handleTermChange} value={searchTerm}/>
-            <Button onClick={search}>SEARCH</Button>
+            <Button onClick={search}>GENERATE PLAYLIST</Button>
         </SearchBarContainer>
     )
 }

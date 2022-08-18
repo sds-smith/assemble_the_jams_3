@@ -9,7 +9,11 @@ export const TrackContainer = styled.div`
     margin-top: .5rem;
     padding-bottom: .5rem;
 `
-
+export const TrackCover = styled.img`
+  height: 55px;
+  width: auto;
+  margin-right: 15px;
+`
 export const TrackInformation = styled.div`
     flex-grow: 1;
     display: flex;

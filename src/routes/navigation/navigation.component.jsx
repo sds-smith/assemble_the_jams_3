@@ -3,7 +3,6 @@ import { Outlet } from "react-router-dom"
 import SpotifyLogoWhite from '../../assets/icons/Spotify_Logo_RGB_White.png'
 import JamsLogo from "../../components/reusable-components/jams-logo/jams-logo.component"
 import Button from "../../components/reusable-components/button/button.component"
-import UserAction from "../../components/auth/user-action"
 import { useMediaQuery } from '../../utils/customHooks'
 import { Header, SpotifyAttributor, SpotifyLogo } from "./navigation.styles"
 

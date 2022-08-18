@@ -12,6 +12,7 @@ export const TrackAction = styled.button`
     background-color: rgba(0, 0, 0, 0);
     color: #fff;
 
+
     &:hover {
         opacity: 0.5;
     }
