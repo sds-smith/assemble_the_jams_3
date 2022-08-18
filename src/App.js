@@ -49,7 +49,9 @@ const App = () => {
         }
       }
       getUserProfile()
-    } 
+    } else {
+      setCurrentUser('')
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accessToken])
 

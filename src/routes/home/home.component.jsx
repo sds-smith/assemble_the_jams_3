@@ -26,9 +26,7 @@ const Home = () => {
     const isMobile = useMediaQuery('(max-width: 1020px)')
 
     useEffect(() => {
-      if (!accessToken) {
-          navigate('/log-in')
-      }
+
       const setResponsiveTabs = () => {
         if (isMobile) {
           setActiveTab({...activeTab, 'playlist' : false, 'recommendations' : false})

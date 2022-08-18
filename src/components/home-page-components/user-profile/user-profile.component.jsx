@@ -21,6 +21,9 @@ const UserProfile = () => {
         if (currentUser) {
           currentUser.images.length && setProfilePic(currentUser.images[0].url)
           setDisplayName(currentUser.display_name)
+        } else {
+          setProfilePic(ProfilePic)
+          setDisplayName('')
         }
       },[currentUser])
 
