@@ -4,7 +4,9 @@ import { useSelector } from "react-redux"
 import Button from "../../reusable-components/button/button.component"
 
 import { Spotify } from "../../../utils/spotify"
+import { LastFM } from "../../../utils/last-fm"
 import { selectAccessToken } from "../../../store/auth/auth.selector"
+import { UserContext } from '../../../contexts/user.context'
 import { PlayerContext } from "../../../contexts/player.context"
 import { TrackContext } from "../../../contexts/track.context"
 import { SearchBarContainer, SearchBarInput } from "./search-bar.styles"
@@ -14,18 +16,25 @@ const SearchBar = () => {
     const [searchTerm, setSearchTerm] = useState('')
 
     const accessToken = useSelector(selectAccessToken)
+    const { currentUser } = useContext(UserContext)
     const { currentPlayer } = useContext(PlayerContext)
-    const { setSearchResults, setRecommendations, setSearchLoading } = useContext(TrackContext)
+    const { setSearchResults, setRecommendations, setPlaylistTracks, setSearchLoading } = useContext(TrackContext)
     
     const search = async () => {
         currentPlayer.activateElement()
         setSearchLoading(true)
         setSearchResults([])
         setRecommendations([])
-        const {searchResultsArray, recommendationsArray} = await Spotify.search(accessToken, searchTerm)
+        setPlaylistTracks([])
+
+        const {searchResultsArray, recommendationsArray} = 
+            currentUser ? await Spotify.search(accessToken, searchTerm)
+                        : await LastFM.search(searchTerm)
+        
         setSearchTerm('')
         setSearchResults(searchResultsArray)
         setRecommendations(recommendationsArray)
+        setPlaylistTracks(recommendationsArray)
         setSearchLoading(false)
     }
 
