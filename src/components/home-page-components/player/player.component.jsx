@@ -3,11 +3,13 @@ import { useSelector } from "react-redux";
 
 import { selectAccessToken } from '../../../store/auth/auth.selector'
 import { PlayerContext } from '../../../contexts/player.context'
+import { UserContext } from "../../../contexts/user.context";
 
 const Player = () => {
     const accessToken = useSelector(selectAccessToken)
 
     const { setCurrentPlayer, setDeviceId } = useContext(PlayerContext)
+    const { currentUser } = useContext(UserContext)
 
     useEffect(() => {
         const script = document.createElement("script");
@@ -42,9 +44,9 @@ const Player = () => {
             player.connect();
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[accessToken])
+    },[])
 
-    return <div></div>
+    return <div allow='encrypted-media'></div>
 }
 
 export default Player

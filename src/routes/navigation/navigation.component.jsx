@@ -4,7 +4,7 @@ import SpotifyLogoWhite from '../../assets/icons/Spotify_Logo_RGB_White.png'
 import JamsLogo from "../../components/reusable-components/jams-logo/jams-logo.component"
 import Button from "../../components/reusable-components/button/button.component"
 import { useMediaQuery } from '../../utils/customHooks'
-import { Header, SpotifyAttributor, SpotifyLogo } from "./navigation.styles"
+import { Header, SpotifyAttributor, SpotifyLogo, SignInButton } from "./navigation.styles"
 
 import { generateRandomString } from '../../utils/random-state-generator';
 import { Spotify } from "../../utils/spotify"
@@ -61,7 +61,7 @@ const Navigation = () => {
                   <p>Works with Spotify Premium</p> 
                 </SpotifyAttributor>        
                 <h1><JamsLogo /></h1>
-                <Button onClick={userAction} >{buttonText}</Button>
+                <SignInButton onClick={userAction} isMobile={isMobile} >{buttonText}</SignInButton>
             </Header>  
             <Outlet />
         </Fragment>

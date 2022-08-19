@@ -5,6 +5,7 @@ import Button from "../../reusable-components/button/button.component"
 
 import { Spotify } from "../../../utils/spotify"
 import { ClientContext } from "../../../contexts/client.context"
+import { PlayerContext } from "../../../contexts/player.context"
 
 import { setSearchResults, setPlaylistTracks, setSearchLoading } from '../../../store/track/track.action'
     
@@ -17,9 +18,12 @@ const SearchBar = () => {
     const dispatch = useDispatch()
 
     const {clientToken} = useContext(ClientContext)
+    const {currentPlayer} = useContext(PlayerContext)
     
     const search = async () => {
-        // currentPlayer.activateElement()
+        if (currentPlayer) {
+            currentPlayer.activateElement()
+        }
         dispatch(setSearchLoading(true))
         dispatch(setSearchResults([]))
         dispatch(setPlaylistTracks([]))

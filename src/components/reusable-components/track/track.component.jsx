@@ -22,7 +22,6 @@ const Track = ({track, trackType }) => {
 
   const accessToken = useSelector(selectAccessToken)
   const playlistTracks = useSelector(selectPlaylistTracks)
-  const { currentUser } = useContext(UserContext)
   const { nowPlaying, setNowPlaying, deviceID, currentPlayer, active } = useContext(PlayerContext)
 
   const addTrack = () => {
@@ -39,22 +38,47 @@ const Track = ({track, trackType }) => {
     dispatch(setPlaylistTracks(newTracks))
   }
 
+  const playPreview = async () => {
+    if (!track.preview) {
+      window.alert('Please sign in with Spotify to preview this track')
+      return;
+    }
+  
+    if (!nowPlaying.hasTrack) {
+      const newAudio = new Audio(track.preview);
+      newAudio.volume = 0.5;
+      const hasTrack = true
+      const isLike = await Spotify.getLikeStatus(accessToken, track.id)
+      setNowPlaying({hasTrack, track, isLike})
+      newAudio
+      .play()
+      .catch((error) => {
+        console.log(error);
+      });
+    }
+  };
+
   const playTrack = async () => {
-    if (currentUser) {
       if (!nowPlaying.hasTrack) {
         const hasTrack = true
         const isLike = await Spotify.getLikeStatus(accessToken, track.id)
         const uri = `spotify:track:${track.id}`
         setNowPlaying({hasTrack, track, isLike})
+        console.log({deviceID, currentPlayer, uri})
         Spotify.play(deviceID, {
           playerInstance : currentPlayer,
           spotify_uri : uri,
         })
       }
-    } else {
-      window.alert('Please sign in with Spotify to enjoy this feature')
-    }
+  }
 
+  const play = () => {
+    if (currentPlayer) {
+      // currentPlayer.activateElement()
+      playTrack()
+    } else {
+      playPreview()
+    }
   }
 
   let trackActions 
@@ -62,7 +86,7 @@ const Track = ({track, trackType }) => {
     case 'playlist' :
       trackActions = (
                 <Fragment>
-                  <TrackActionButton onClick={playTrack} src={PlayBtn} alt='button to play track'/>
+                  <TrackActionButton onClick={play} src={PlayBtn} alt='button to play track'/>
                   <TrackActionButton onClick={removeTrack} src={ClearBtn} alt='button to remove track from playlist'/>
                 </Fragment>
         )  
@@ -70,7 +94,7 @@ const Track = ({track, trackType }) => {
     default :
       trackActions = (
                 <Fragment>
-                  <TrackActionButton onClick={playTrack} src={PlayBtn} alt='button to play track'/>
+                  <TrackActionButton onClick={play} src={PlayBtn} alt='button to play track'/>
                   <TrackActionButton onClick={addTrack} src={AddBtn} alt='button to add track to playlist'/>
                 </Fragment>
       )  

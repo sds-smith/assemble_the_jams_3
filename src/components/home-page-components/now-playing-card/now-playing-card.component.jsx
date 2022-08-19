@@ -12,6 +12,7 @@ import Unlike from '../../../assets/icons/unlike24.png'
 import { selectAccessToken } from '../../../store/auth/auth.selector'
 import { selectPlaylistTracks } from '../../../store/track/track.selector'
 import { setPlaylistTracks } from '../../../store/track/track.action'
+import { UserContext } from '../../../contexts/user.context'
 import { PlayerContext } from '../../../contexts/player.context'
 import { useMediaQuery } from '../../../utils/customHooks'
 import { Spotify } from '../../../utils/spotify'
@@ -25,6 +26,7 @@ const NowPlayingCard = () => {
     const accessToken = useSelector(selectAccessToken)
     const playlistTracks = useSelector(selectPlaylistTracks)
 
+    const { currentUser } = useContext(UserContext)
     const { deviceID, nowPlaying, setNowPlaying, active, setActive } = useContext(PlayerContext)
     const isMobile = useMediaQuery('(max-width: 1020px)')
 
@@ -38,6 +40,10 @@ const NowPlayingCard = () => {
     }
 
     const toggleLike = () => {
+        if (!currentUser) {
+            window.alert('Please sign in with Spotify to use this feature')
+            return
+        }
         if (!nowPlaying.track.id) {
             return
           }
@@ -55,7 +61,11 @@ const NowPlayingCard = () => {
     }
 
     const closeNowPlaying = () => {
-        Spotify.stopPlayback(deviceID, accessToken)
+        if (accessToken) {
+            Spotify.stopPlayback(deviceID, accessToken)
+        } else {
+            
+        }
         setActive(false)
         setNowPlaying({hasTrack: false, track: {}, isLike: null})
     }

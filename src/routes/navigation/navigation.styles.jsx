@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Button from "../../components/reusable-components/button/button.component";
 
 export const Header = styled.div`
     background-color: black;
@@ -19,13 +20,13 @@ export const Header = styled.div`
             color: green;
           }
       }
+`
 
-      Button {
-        position: fixed;
-        top: 25px;
-        right: 20px;
-      }
-      
+export const SignInButton = styled(Button)`
+  position: absolute;
+  top: ${props => props.isMobile ? '5px' : '25px'};
+  right: ${props => props.isMobile ? '5px' : '20px'};
+  ${props => props.isMobile && 'width: 80px; height: 35px; font-size: 12px'};
 `
 
 export const SpotifyAttributor = styled.a`
