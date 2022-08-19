@@ -4,8 +4,6 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import Navigation from './routes/navigation/navigation.component';
 import Home from './routes/home/home.component'
-import LogIn from './routes/log-in/log-in.component';
-import NewUser from './routes/new-user/new-user.component';
 import Auth from './components/auth/auth.component';
 
 import { selectAccessToken } from './store/auth/auth.selector';
@@ -23,13 +21,6 @@ const App = () => {
   const { setUserLoading, setCurrentUser } = useContext(UserContext)
   const navigate = useNavigate()
 
-  const unregisteredMessage = () => {
-    navigate('/log-in')
-    setTimeout(() => {
-      window.alert('Please complete registration process and wait for verification email.')
-    }, 2000)
-  }
-
   useEffect(() => {
     if (!clientToken) {
       const getClientToken = async () => {
@@ -44,7 +35,6 @@ const App = () => {
   }, [])
 
   useEffect( () => {
-
     if (accessToken) {
       setUserLoading(true)
       const getUserProfile = async () => {
@@ -56,12 +46,13 @@ const App = () => {
             navigate('/')            
           } else {
             setUserLoading(false)
-            unregisteredMessage()
+            window.alert('problem logging in.  Please contact app support')
           }
         } catch(error) {
           setUserLoading(false)
           dispatch(setAuthSession(''))
           dispatch(setAccessToken(''))
+          window.alert('problem logging in.  Please contact app support')
         }
       }
       getUserProfile()
@@ -75,8 +66,6 @@ const App = () => {
     <Routes >
       <Route path='/' element={ <Navigation /> } >
         <Route index element={ <Home /> } />
-        <Route path='log-in' element={ <LogIn /> } />
-        <Route path='new-user' element={ <NewUser /> } />
       </Route>
       <Route path='callback' element={<Auth />} />
     </Routes>

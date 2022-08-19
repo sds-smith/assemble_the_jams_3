@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 
 import PlaylistNameInput from '../playlist-name-input/playlist-name-input.component'
@@ -8,7 +8,7 @@ import editIcon from '../../../assets/icons/edit_white24.png'
 
 import { selectAccessToken } from "../../../store/auth/auth.selector"
 import { selectPlaylistTracks, selectPlaylistName } from '../../../store/track/track.selector'
-import { setPlaylistTracks, setPlaylistName, setSearchResults, setRecommendations } from '../../../store/track/track.action'
+import { setPlaylistTracks, setPlaylistName, setSearchResults } from '../../../store/track/track.action'
 import { UserContext } from "../../../contexts/user.context"
 import { useMediaQuery } from '../../../utils/customHooks'
 import { Spotify } from "../../../utils/spotify"
@@ -53,7 +53,6 @@ const Playlist = () => {
         dispatch(setPlaylistName(response.playlistName))
         dispatch(setPlaylistTracks(response.playlistTracks))
         dispatch(setSearchResults(response.searchResults))
-        dispatch(setRecommendations(response.recommendations))
       } catch(error) {
         console.log(error)
       }

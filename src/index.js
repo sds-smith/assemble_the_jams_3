@@ -11,7 +11,6 @@ import App from './App';
 import { ClientProvider } from './contexts/client.context';
 import { UserProvider } from './contexts/user.context';
 import { PlayerProvider } from './contexts/player.context';
-import { TrackProvider } from './contexts/track.context';
 import { store, persistor } from './store/store';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -22,11 +21,9 @@ root.render(
         <BrowserRouter >
           <ClientProvider>
             <UserProvider>
-              <TrackProvider>
                 <PlayerProvider>
                   <App />
                 </PlayerProvider>        
-              </TrackProvider>
             </UserProvider>  
           </ClientProvider>
         </BrowserRouter>

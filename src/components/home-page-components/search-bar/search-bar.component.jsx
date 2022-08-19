@@ -1,14 +1,12 @@
 import { useState, useContext } from "react"
-import { useSelector, useDispatch } from "react-redux"
+import { useDispatch } from "react-redux"
 
 import Button from "../../reusable-components/button/button.component"
 
 import { Spotify } from "../../../utils/spotify"
-import { selectAccessToken } from "../../../store/auth/auth.selector"
 import { ClientContext } from "../../../contexts/client.context"
-import { UserContext } from '../../../contexts/user.context'
-import { PlayerContext } from "../../../contexts/player.context"
-import { setSearchResults, setRecommendations, setPlaylistTracks, setSearchLoading } from '../../../store/track/track.action'
+
+import { setSearchResults, setPlaylistTracks, setSearchLoading } from '../../../store/track/track.action'
     
 import { SearchBarContainer, SearchBarInput } from "./search-bar.styles"
 
@@ -18,23 +16,18 @@ const SearchBar = () => {
 
     const dispatch = useDispatch()
 
-    const accessToken = useSelector(selectAccessToken)
     const {clientToken} = useContext(ClientContext)
-    const { currentUser } = useContext(UserContext)
-    const { currentPlayer } = useContext(PlayerContext)
     
     const search = async () => {
-        currentPlayer.activateElement()
+        // currentPlayer.activateElement()
         dispatch(setSearchLoading(true))
         dispatch(setSearchResults([]))
-        dispatch(setRecommendations([]))
         dispatch(setPlaylistTracks([]))
         const {searchResultsArray, recommendationsArray} = await Spotify.search(clientToken, searchTerm)
         
         setSearchTerm('')
         dispatch(setSearchResults(searchResultsArray))
-        dispatch(setRecommendations(recommendationsArray))
-        dispatch(setPlaylistTracks(recommendationsArray))
+        dispatch(setPlaylistTracks([...recommendationsArray]))
         dispatch(setSearchLoading(false))
     }
 

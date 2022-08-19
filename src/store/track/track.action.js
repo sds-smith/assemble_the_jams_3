@@ -1,37 +1,30 @@
 
 import { TRACK_ACTION_TYPES } from "./track.types"
 
-export const setSearchResults = (session) => {
+export const setSearchResults = (tracks) => {
     return {
         type: TRACK_ACTION_TYPES.SET_SEARCH_RESULTS,
-        payload: session
+        payload: tracks
     }
 }
 
-export const setPlaylistTracks = (session) => {
+export const setPlaylistTracks = (tracks) => {
     return {
         type: TRACK_ACTION_TYPES.SET_PLAYLIST_TRACKS,
-        payload: session
+        payload: tracks
     }
 }
 
-export const setRecommendations = (session) => {
-    return {
-        type: TRACK_ACTION_TYPES.SET_RECOMMENDATIONS,
-        payload: session
-    }
-}
-
-export const setPlaylistName = (session) => {
+export const setPlaylistName = (name) => {
     return {
         type: TRACK_ACTION_TYPES.SET_PLAYLIST_NAME,
-        payload: session
+        payload: name
     }
 }
 
-export const setSearchLoading = (session) => {
+export const setSearchLoading = (loading) => {
     return {
         type: TRACK_ACTION_TYPES.SET_SEARCH_LOADING,
-        payload: session
+        payload: loading
     }
 }

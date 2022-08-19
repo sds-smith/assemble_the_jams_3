@@ -140,10 +140,9 @@ export const Spotify = {
           })    
           return {
             message: 'Playlist has been saved to your Spotify account',
-            playlistName: 'Enter New Playlist Name',
+            playlistName: 'Name Your New Playlist',
             playlistTracks: [],
-            searchResults: [],
-            recommendations: []
+            searchResults: []
         }
       } catch(error) {
             console.log('error saving playlist', error)
