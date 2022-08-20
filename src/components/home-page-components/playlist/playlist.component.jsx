@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react"
+import { useContext } from "react"
 import { useSelector, useDispatch } from "react-redux"
 
 import PlaylistNameInput from '../playlist-name-input/playlist-name-input.component'

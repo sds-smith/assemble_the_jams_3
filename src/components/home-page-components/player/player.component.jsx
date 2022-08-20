@@ -9,7 +9,6 @@ const Player = () => {
     const accessToken = useSelector(selectAccessToken)
 
     const { setCurrentPlayer, setDeviceId } = useContext(PlayerContext)
-    const { currentUser } = useContext(UserContext)
 
     useEffect(() => {
         const script = document.createElement("script");

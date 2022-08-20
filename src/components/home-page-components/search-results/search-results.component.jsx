@@ -6,7 +6,6 @@ import Spinner from "../../reusable-components/spinner/spinner.component"
 import { selectSearchResults, selectSearchLoading } from '../../../store/track/track.selector'
 import { useMediaQuery } from '../../../utils/customHooks'
 import { SearchResultsContainer } from "./search-results.styles"
-import { useEffect } from "react"
 
 const SearchResults = () => {
     const searchResults = useSelector(selectSearchResults)

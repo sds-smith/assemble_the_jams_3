@@ -13,7 +13,6 @@ import { selectAccessToken } from '../../../store/auth/auth.selector'
 import { selectPlaylistTracks } from '../../../store/track/track.selector'
 import { setPlaylistTracks } from '../../../store/track/track.action'
 import { PlayerContext } from '../../../contexts/player.context'
-import { UserContext } from '../../../contexts/user.context'
 
 import { TrackContainer, TrackInformation, TrackActionContainer, TrackCover } from './track.styles'
 import { ProgressContainer } from '../../home-page-components/now-playing-card/now-playing-card.styles'

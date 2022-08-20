@@ -14,9 +14,8 @@ import { WebPlayerContainer } from "./web-player.styles"
 const WebPlayer = ({ onAdd }) => {
 
     const accessToken = useSelector(selectAccessToken)
-    const { currentUser } = useContext(UserContext)
 
-    const { setCurrentPlayer, setDeviceId, nowPlaying } = useContext(PlayerContext)
+    const { nowPlaying } = useContext(PlayerContext)
     const isMobile = useMediaQuery('(max-width: 1020px)')
 
 
