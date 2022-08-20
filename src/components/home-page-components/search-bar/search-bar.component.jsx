@@ -19,7 +19,6 @@ const SearchBar = () => {
     const {clientToken} = useContext(ClientContext)
     
     const search = async () => {
-
         dispatch(setSearchLoading(true))
         dispatch(setSearchResults([]))
         dispatch(setPlaylistTracks([]))
