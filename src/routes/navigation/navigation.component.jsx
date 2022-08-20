@@ -9,7 +9,7 @@ import { generateRandomString } from '../../utils/random-state-generator';
 import { Spotify } from "../../utils/spotify"
 
 import { UserContext } from "../../contexts/user.context"
-
+import { PlayerContext } from "../../contexts/player.context"
 import { setAccessToken, setAuthSession } from "../../store/auth/auth.action"
 import { useDispatch } from "react-redux"
 import { setPlaylistTracks, setPlaylistName, setSearchResults } from "../../store/track/track.action"
@@ -18,7 +18,7 @@ const Navigation = () => {
     const dispatch = useDispatch()
     const isMobile = useMediaQuery('(max-width: 1020px)')
     const { currentUser } = useContext(UserContext)
-
+    const { setCurrentPlayer } = useContext(PlayerContext)
 
     const buttonText = currentUser ? 'SIGN OUT' : 'SIGN IN'
 
@@ -46,6 +46,7 @@ const Navigation = () => {
         dispatch(setPlaylistName('Name Your New Playlist'))
         dispatch(setPlaylistTracks([]))
         dispatch(setSearchResults([]))
+        setCurrentPlayer(undefined)
     }
 
     const userAction = () => {
