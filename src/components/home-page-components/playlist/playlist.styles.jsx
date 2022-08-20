@@ -24,6 +24,7 @@ export const TitleContainer = styled.div`
     display: flex;
     justify-content: center;
     width: 100%;
+    height: fit-content;
     border: 5px solid salmon;
     ${props => props.isMobile && 'flex-wrap: wrap'};
 

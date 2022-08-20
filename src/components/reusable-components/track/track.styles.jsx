@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const TrackContainer = styled.div`
+    
     display: flex;
     height: fit-content;
     align-items: center;
