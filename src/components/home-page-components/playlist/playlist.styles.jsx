@@ -8,7 +8,6 @@ export const PlaylistContainer = styled.div`
     justify-content: flex-start;
     overflow-y: scroll;
     width: ${props => props.isMobile ? '95%' : '40%'};
-    max-height: 950px;
     padding: 0.88rem 1.16rem;
     margin: 10px;
     background-color: rgba(0, 0, 0, 0.4);
