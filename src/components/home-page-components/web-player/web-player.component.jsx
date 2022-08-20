@@ -5,7 +5,6 @@ import Player from '../player/player.component'
 import NowPlayingCard from '../now-playing-card/now-playing-card.component'
 
 import { selectAccessToken } from '../../../store/auth/auth.selector'
-import { UserContext } from '../../../contexts/user.context'
 import { PlayerContext } from '../../../contexts/player.context'
 import { useMediaQuery } from '../../../utils/customHooks'
 
