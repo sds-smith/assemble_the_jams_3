@@ -8,6 +8,7 @@ import AddBtn from '../../../assets/icons/add_white24.png'
 import ClearBtn from '../../../assets/icons/clear_white24.png'
 
 import { Spotify } from '../../../utils/spotify'
+import { Preview } from '../../../utils/preview'
 import { selectAccessToken } from '../../../store/auth/auth.selector'
 import { selectPlaylistTracks } from '../../../store/track/track.selector'
 import { setPlaylistTracks } from '../../../store/track/track.action'
@@ -43,19 +44,14 @@ const Track = ({track, trackType }) => {
       window.alert('Please sign in with Spotify to preview this track')
       return;
     }
-  
     if (!nowPlaying.hasTrack) {
-      const newAudio = new Audio(track.preview);
-      newAudio.volume = 0.5;
+      const audioPreview = new Audio(track.preview);
+      audioPreview.volume = 0.5;
       const hasTrack = true
-      const isLike = await Spotify.getLikeStatus(accessToken, track.id)
+      const isLike = false
       setNowPlaying({hasTrack, track, isLike})
-      newAudio
-      .play()
-      .catch((error) => {
-        console.log(error);
-      });
-    }
+      await Preview.playPreview(audioPreview)
+    }  
   };
 
   const playTrack = async () => {
@@ -64,7 +60,6 @@ const Track = ({track, trackType }) => {
         const isLike = await Spotify.getLikeStatus(accessToken, track.id)
         const uri = `spotify:track:${track.id}`
         setNowPlaying({hasTrack, track, isLike})
-        console.log({deviceID, currentPlayer, uri})
         Spotify.play(deviceID, {
           playerInstance : currentPlayer,
           spotify_uri : uri,

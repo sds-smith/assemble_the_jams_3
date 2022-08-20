@@ -17,7 +17,6 @@ const Player = () => {
         script.async = true;
     
         document.body.appendChild(script);
-    
         window.onSpotifyWebPlaybackSDKReady = () => {            
             const player = new window.Spotify.Player({
                 name: 'Assemble the Jams',

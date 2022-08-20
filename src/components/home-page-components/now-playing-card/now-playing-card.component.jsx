@@ -61,13 +61,17 @@ const NowPlayingCard = () => {
     }
 
     const closeNowPlaying = () => {
-        if (accessToken) {
-            Spotify.stopPlayback(deviceID, accessToken)
-        } else {
-            
-        }
+        Spotify.stopPlayback(deviceID, accessToken)
         setActive(false)
         setNowPlaying({hasTrack: false, track: {}, isLike: null})
+    }
+
+    const stopPlayback = () => {
+        if (accessToken) {
+            closeNowPlaying()
+        } else {
+            window.alert('This feature only available with signed in user')
+        }
     }
 
     useEffect(() => {
@@ -98,7 +102,7 @@ const NowPlayingCard = () => {
             <TrackControls>
                  <TrackActionButton onClick={addTrack} src={AddBtn} alt='button to add track to playlist'/>
                  <TrackActionButton onClick={toggleLike} src={LikeOrUnlike} alt='button to add/remove song from liked songs' />
-                 <TrackActionButton onClick={closeNowPlaying} src={StopBtn} alt='play or pause button'/>
+                 <TrackActionButton onClick={stopPlayback} src={StopBtn} alt='play or pause button'/>
             </TrackControls>   
             <LikesMessage>{likesMessage}</LikesMessage>
             <ProgressContainer 
