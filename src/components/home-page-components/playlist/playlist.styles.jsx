@@ -18,8 +18,6 @@ export const PlaylistContainer = styled.div`
       width: 0px;
       background: transparent;
     }
-
-
 `
 
 export const TitleContainer = styled.div`
