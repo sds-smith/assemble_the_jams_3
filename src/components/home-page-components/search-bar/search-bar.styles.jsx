@@ -26,6 +26,6 @@ export const SearchBarInput = styled.input`
 
 export const ButtonContainer = styled.div`
     display: flex;
-    width: 100%;
+    width: 80%;
     justify-content: space-evenly;
 `
