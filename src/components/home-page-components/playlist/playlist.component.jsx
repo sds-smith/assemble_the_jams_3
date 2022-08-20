@@ -60,8 +60,8 @@ const Playlist = () => {
 
     return (
         <PlaylistContainer isMobile={isMobile} onKeyPress={(e) => e.key === 'Enter' && savePlaylist()}>
-          <TitleContainer>
-            <img src={editIcon} alt='edit playlist name' />
+          <TitleContainer isMobile={isMobile} >
+            { !isMobile && <img src={editIcon} alt='edit playlist name' />}
             <PlaylistNameInput width='unset' />
             <SaveToSpotifyButton onClick={savePlaylist} >SAVE TO SPOTIFY</SaveToSpotifyButton>
           </TitleContainer>

@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from "react-redux"
 
 import { selectPlaylistName } from '../../../store/track/track.selector'
 import { setPlaylistName } from "../../../store/track/track.action"
-import { PlaylistNameContainer, NameInput } from "./playlist-name-input.styles"
+import { NameInput } from "./playlist-name-input.styles"
 
 const PlaylistNameInput = ({ width }) => {
 
@@ -18,7 +18,6 @@ const PlaylistNameInput = ({ width }) => {
     }
 
     return (
-        <PlaylistNameContainer >
             <NameInput 
               placeholder={"Name Your New Playlist"}
               value={playlistName}
@@ -26,7 +25,6 @@ const PlaylistNameInput = ({ width }) => {
               onChange={handleNameChange}
               width={width}
             />
-        </PlaylistNameContainer>
     )
 }
 

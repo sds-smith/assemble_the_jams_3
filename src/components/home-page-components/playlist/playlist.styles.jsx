@@ -25,6 +25,7 @@ export const TitleContainer = styled.div`
     display: flex;
     justify-content: center;
     width: 100%;
+    ${props => props.isMobile && 'flex-wrap: wrap'};
 
     input {
       display: block;
@@ -52,5 +53,5 @@ export const TitleContainer = styled.div`
 `
 
 export const SaveToSpotifyButton = styled(Button)`
-      margin-top: 1rem;
+      margin: 1rem 0rem 0rem 1rem;
 `
