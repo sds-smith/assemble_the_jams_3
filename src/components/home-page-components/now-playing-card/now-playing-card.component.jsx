@@ -36,7 +36,7 @@ const NowPlayingCard = () => {
           return
         }
         tracks.push(nowPlaying.track)
-        dispatch(setPlaylistTracks(tracks => [...tracks]))
+        dispatch(setPlaylistTracks(tracks))
     }
 
     const toggleLike = () => {

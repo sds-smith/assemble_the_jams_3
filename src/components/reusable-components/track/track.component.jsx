@@ -30,7 +30,7 @@ const Track = ({track, trackType }) => {
       return
     }
     tracks.push(track)
-    dispatch(setPlaylistTracks(tracks => [...tracks]))
+    dispatch(setPlaylistTracks(tracks))
   }
 
   const removeTrack = () => {

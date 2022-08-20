@@ -27,7 +27,7 @@ const SearchBar = () => {
         
         setSearchTerm('')
         dispatch(setSearchResults(searchResultsArray))
-        dispatch(setPlaylistTracks([...recommendationsArray]))
+        dispatch(setPlaylistTracks(recommendationsArray))
         dispatch(setSearchLoading(false))
     }
 
