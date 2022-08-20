@@ -5,6 +5,7 @@ export const PlaylistContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: flex-start;
     overflow-y: scroll;
     width: ${props => props.isMobile ? '95%' : '40%'};
     max-height: 950px;
@@ -32,8 +33,6 @@ export const TitleContainer = styled.div`
       font-size: 1.5em;
       margin: 0.83em 0em;
       font-weight: bold;
-
-      // width: 80%;
       border: 0;
       outline: 0;
       text-align: center;
