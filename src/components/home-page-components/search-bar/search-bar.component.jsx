@@ -21,9 +21,7 @@ const SearchBar = () => {
     const {currentPlayer} = useContext(PlayerContext)
     
     const search = async () => {
-        if (currentPlayer) {
-            currentPlayer.activateElement()
-        }
+
         dispatch(setSearchLoading(true))
         dispatch(setSearchResults([]))
         dispatch(setPlaylistTracks([]))

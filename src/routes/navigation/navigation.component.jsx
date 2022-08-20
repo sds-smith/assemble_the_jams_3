@@ -12,6 +12,7 @@ import { UserContext } from "../../contexts/user.context"
 
 import { setAccessToken, setAuthSession } from "../../store/auth/auth.action"
 import { useDispatch } from "react-redux"
+import { setPlaylistTracks, setPlaylistName, setSearchResults } from "../../store/track/track.action"
 
 const Navigation = () => {
     const dispatch = useDispatch()
@@ -42,6 +43,9 @@ const Navigation = () => {
     const signOut = () => {
         dispatch(setAuthSession(''))
         dispatch(setAccessToken(''))
+        dispatch(setPlaylistName('Name Your New Playlist'))
+        dispatch(setPlaylistTracks([]))
+        dispatch(setSearchResults([]))
     }
 
     const userAction = () => {

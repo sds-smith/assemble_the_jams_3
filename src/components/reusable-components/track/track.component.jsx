@@ -68,7 +68,7 @@ const Track = ({track, trackType }) => {
 
   const play = () => {
     if (currentPlayer) {
-      // currentPlayer.activateElement()
+      currentPlayer.activateElement()
       playTrack()
     } else {
       playPreview()
