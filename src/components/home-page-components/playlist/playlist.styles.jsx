@@ -23,6 +23,7 @@ export const PlaylistContainer = styled.div`
 export const TitleContainer = styled.div`
     display: flex;
     justify-content: center;
+    overflow: auto;
     width: 100%;
     ${props => props.isMobile && 'flex-wrap: wrap'};
 
