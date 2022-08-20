@@ -8,7 +8,7 @@ import { ClientContext } from "../../../contexts/client.context"
 
 import { setSearchResults, setPlaylistTracks, setSearchLoading } from '../../../store/track/track.action'
     
-import { SearchBarContainer, SearchBarInput } from "./search-bar.styles"
+import { SearchBarContainer, SearchBarInput, ButtonContainer } from "./search-bar.styles"
 
 const SearchBar = () => {
 
@@ -35,10 +35,19 @@ const SearchBar = () => {
         setSearchTerm(e.target.value)
     }
 
+    const clearTracklists = () => {
+        dispatch(setSearchResults([]))
+        dispatch(setPlaylistTracks([]))
+    }
+
     return (
         <SearchBarContainer onKeyPress={(e) => e.key === 'Enter' && search()}>
             <SearchBarInput placeholder="Enter A Song, Album, or Artist" onChange={handleTermChange} value={searchTerm}/>
-            <Button onClick={search}>GENERATE PLAYLIST</Button>
+            <ButtonContainer>
+                <Button onClick={search}>GENERATE PLAYLIST</Button>
+                <Button onClick={clearTracklists}>CLEAR TRACKLISTS</Button>
+            </ButtonContainer>
+
         </SearchBarContainer>
     )
 }

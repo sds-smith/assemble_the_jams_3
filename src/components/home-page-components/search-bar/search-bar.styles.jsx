@@ -23,3 +23,9 @@ export const SearchBarInput = styled.input`
         outline: none;
       }
 `
+
+export const ButtonContainer = styled.div`
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+`
