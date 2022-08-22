@@ -56,7 +56,6 @@ const Auth = () => {
           } catch(error) {
             console.log('nope ', error)
             window.alert('error with log-in, please contact app support.')
-            navigate('/log-in')
           }
         }
 

@@ -1,7 +1,7 @@
 require('dotenv').config()
 const axios = require('axios').default
 const {  base64urlencode } = require('../../src/utils/random-generator')
-const { getAuthDoc } = require('../../src/utils/firebase.node')
+const { getAuthDoc, updateAuthDoc } = require('../../src/utils/firebase.node')
 
 exports.handler = async (event) => {
     try {
@@ -23,6 +23,8 @@ exports.handler = async (event) => {
         })
         const token = response.data.access_token
         const expiresIn = response.data.expires_in
+        console.log({token, expiresIn})
+        await updateAuthDoc(authSession, token)
         return {
             statusCode: 200,
             body: JSON.stringify({ 

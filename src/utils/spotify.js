@@ -26,15 +26,21 @@ export const Spotify = {
       window.location.replace(SpotifyAuth)
     },
 
-    async getUserProfile(accessToken) {
-        try {
-          const headers = { Authorization : `Bearer ${accessToken}` }
-          const response = await axios.get('https://api.spotify.com/v1/me',{headers : headers})
-          const user = response.data
-          return user
-        } catch(error) {
-            console.log('error getting user profile', error)
-        }
+    async getUserProfile(authSession) {
+      try {
+        const response = await fetch('/.netlify/functions/get-user', {
+          method: 'post',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ authSession })
+        })
+        const {user} = await response.json()
+        return user
+      } catch(error) {
+        console.log('nope ', error)
+        window.alert('error getting user profile, please contact app support.')
+      }
     },
 
     async search(accessToken, searchTerm) {

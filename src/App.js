@@ -6,7 +6,7 @@ import Navigation from './routes/navigation/navigation.component';
 import Home from './routes/home/home.component'
 import Auth from './components/auth/auth.component';
 
-import { selectAccessToken } from './store/auth/auth.selector';
+import { selectAccessToken, selectAuthSession } from './store/auth/auth.selector';
 import { setAuthSession, setAccessToken } from './store/auth/auth.action';
 import { ClientContext } from './contexts/client.context';
 import { UserContext } from './contexts/user.context';
@@ -18,6 +18,7 @@ const App = () => {
   const dispatch = useDispatch()
   const {clientToken, setClientToken} = useContext(ClientContext)
   const accessToken = useSelector(selectAccessToken)
+  const authSession = useSelector(selectAuthSession)
   const { setUserLoading, setCurrentUser } = useContext(UserContext)
   const navigate = useNavigate()
 
@@ -40,7 +41,7 @@ const App = () => {
       setUserLoading(true)
       const getUserProfile = async () => {
         try {
-          const user = await Spotify.getUserProfile(accessToken)
+          const user = await Spotify.getUserProfile(authSession)
           if (user.display_name) {
             setCurrentUser(user)
             setUserLoading(false)
