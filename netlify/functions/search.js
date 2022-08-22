@@ -1,11 +1,11 @@
 require('dotenv').config()
 const axios = require('axios').default
-const {getAuthAccessToken} = require('../../src/utils/firebase')
+const {getAuthDoc} = require('../../src/utils/firebase.node')
 
 exports.handler = async (event) => {
     try {
         const {authSession, searchTerm} = JSON.parse(event.body)
-        const accessToken = await getAuthAccessToken(authSession) 
+        const {accessToken} = await getAuthDoc(authSession) 
         const headers =  { Authorization : `Bearer ${accessToken}` }
 
         const response = await axios.get(`https://api.spotify.com/v1/search?type=track&q=${searchTerm}`,{headers : headers})

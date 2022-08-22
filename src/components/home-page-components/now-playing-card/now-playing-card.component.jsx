@@ -27,7 +27,7 @@ const NowPlayingCard = () => {
     const playlistTracks = useSelector(selectPlaylistTracks)
 
     const { currentUser } = useContext(UserContext)
-    const { deviceID, nowPlaying, setNowPlaying, active, setActive } = useContext(PlayerContext)
+    const { currentPlayer, nowPlaying, setNowPlaying, active, setActive } = useContext(PlayerContext)
     const isMobile = useMediaQuery('(max-width: 1020px)')
 
     const addTrack = () => {
@@ -60,8 +60,8 @@ const NowPlayingCard = () => {
           }
     }
 
-    const closeNowPlaying = () => {
-        Spotify.stopPlayback(deviceID, accessToken)
+    const closeNowPlaying = async () => {
+        await currentPlayer.pause()
         setActive(false)
         setNowPlaying({hasTrack: false, track: {}, isLike: null})
     }

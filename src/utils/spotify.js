@@ -43,9 +43,9 @@ export const Spotify = {
       }
     },
 
-    async search(accessToken, searchTerm) {
+    async search(clientToken, searchTerm) {
         try {
-            const headers =  { Authorization : `Bearer ${accessToken}` }
+            const headers =  { Authorization : `Bearer ${clientToken}` }
             const response = await axios.get(`https://api.spotify.com/v1/search?type=track&q=${searchTerm}&market=US`,{headers : headers})
             const searchResults = response.data
             const searchResultsArray = searchResults.tracks.items.map(track => ({
@@ -94,18 +94,6 @@ export const Spotify = {
           },
         });
       });
-    },
-
-    stopPlayback(id, access_token) {
-      fetch(`https://api.spotify.com/v1/me/player/pause?device_id=${id}`, {
-        method: 'PUT',
-        // body: JSON.stringify({ uris: [spotify_uri] }),
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${access_token}`
-        },
-      }).then(response => {console.log(response.ok)}
-      ).catch(error => {console.log(error)});
     },
 
     async getLikeStatus(accessToken, trackId) {
