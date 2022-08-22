@@ -16,7 +16,7 @@ export const Spotify = {
         return {token, expiresIn}
       } catch(error) {
         console.log('nope ', error)
-        window.alert('error with log-in, please contact app support.')
+        window.alert('error with client log-in, please contact app support.')
       }
     },
 
@@ -96,74 +96,54 @@ export const Spotify = {
       });
     },
 
-    async getLikeStatus(accessToken, trackId) {
-        try {
-            const headers = { Authorization : `Bearer ${accessToken}` }
-            const response = await axios.get(`https://api.spotify.com/v1/me/tracks/contains?ids=${trackId}`,{headers : headers})
-            const status = response.data[0]
-            return status
-        } catch(error) {
-            console.log('error getting like status', error)
-            return false
-        }
+    async getLikeStatus(authSession, trackId) {
+      try {
+        const response = await fetch('/.netlify/functions/get-like-status', {
+          method: 'post',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ authSession, trackId })
+        })
+        const {status} = await response.json()
+        return status
+      } catch(error) {
+          console.log('error getting like status', error)
+          return false
+      }
     },
 
-    async savePlaylist(accessToken, currentUser, playlistName, trackURIs) {
+    async savePlaylist(authSession, currentUser, playlistName, trackURIs) {
       try {
-          const userId = currentUser.id
-          const headers =  { Authorization : `Bearer ${accessToken}` }
-
-          const data = JSON.stringify({
-              name : playlistName,
-          })
-          const playlistResponse = await axios.post(`https://api.spotify.com/v1/users/${userId}/playlists`,
-              data,
-          {
-              headers : headers,
-          })        
-          const playlistID = playlistResponse.data.id
-
-          const body = JSON.stringify({
-              uris : trackURIs,
-          })
-
-          await axios.post(`https://api.spotify.com/v1/users/${userId}/playlists/${playlistID}/tracks`,
-              body,
-          {
-              headers : headers,
-          })    
-          return {
-            message: 'Playlist has been saved to your Spotify account',
-            playlistName: 'Name Your New Playlist',
-            playlistTracks: [],
-            searchResults: []
-        }
+        const response = await fetch('/.netlify/functions/save-playlist', {
+          method: 'post',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ authSession, currentUser, playlistName, trackURIs })
+        })
+        const jsonResponse = await response.json()
+        return jsonResponse 
       } catch(error) {
             console.log('error saving playlist', error)
       }
     },
 
-    addLike(accessToken, trackId) {
-      const headers = { 
-          'Content-Type' : 'application/json',
-          Authorization : `Bearer ${accessToken}`,
+    async toggleLike(authSession, nowPlaying) {
+      try {
+        const {isLike, track} = nowPlaying
+        const trackId = track.id
+        const response = await fetch('/.netlify/functions/toggle-like', {
+          method: 'post',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ authSession, trackId, isLike })
+        })
+        const jsonResponse = await response.json()
+        return jsonResponse 
+      } catch(error) {
+            console.log('error editing like', error)
       }
-      return fetch(`https://api.spotify.com/v1/me/tracks?ids=${trackId}`,
-      {
-          headers : headers,
-          method : 'PUT',
-      })
-    },
-
-    deleteLike(accessToken, trackId) {
-      const headers = { 
-          'Content-Type' : 'application/json',
-          Authorization : `Bearer ${accessToken}`,
-      }
-      return fetch(`https://api.spotify.com/v1/me/tracks?ids=${trackId}`,
-      {
-          headers : headers,
-          method : 'DELETE',
-      })
-    } 
+    }
 }

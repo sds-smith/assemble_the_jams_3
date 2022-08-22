@@ -33,7 +33,6 @@ const Player = () => {
             });
         
             player.addListener('player_state_changed', ( state => {
-                console.log('player state changed', state)
                 if (!state) {
                     return;
                 }

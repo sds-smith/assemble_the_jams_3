@@ -9,7 +9,7 @@ import ClearBtn from '../../../assets/icons/clear_white24.png'
 
 import { Spotify } from '../../../utils/spotify'
 import { Preview } from '../../../utils/preview'
-import { selectAccessToken } from '../../../store/auth/auth.selector'
+import { selectAuthSession } from '../../../store/auth/auth.selector'
 import { selectPlaylistTracks } from '../../../store/track/track.selector'
 import { setPlaylistTracks } from '../../../store/track/track.action'
 import { PlayerContext } from '../../../contexts/player.context'
@@ -20,7 +20,7 @@ import { ProgressContainer } from '../../home-page-components/now-playing-card/n
 const Track = ({track, trackType }) => {
   const dispatch = useDispatch()
 
-  const accessToken = useSelector(selectAccessToken)
+  const authSession = useSelector(selectAuthSession)
   const playlistTracks = useSelector(selectPlaylistTracks)
   const { nowPlaying, setNowPlaying, deviceID, currentPlayer, active } = useContext(PlayerContext)
 
@@ -56,7 +56,7 @@ const Track = ({track, trackType }) => {
   const playTrack = async () => {
       if (!nowPlaying.hasTrack) {
         const hasTrack = true
-        const isLike = await Spotify.getLikeStatus(accessToken, track.id)
+        const isLike = await Spotify.getLikeStatus(authSession, track.id)
         const uri = `spotify:track:${track.id}`
         setNowPlaying({hasTrack, track, isLike})
         Spotify.play(deviceID, {

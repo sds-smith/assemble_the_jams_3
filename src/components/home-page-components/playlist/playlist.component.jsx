@@ -6,7 +6,7 @@ import TrackList from "../../reusable-components/track-list/track-list.component
 
 import editIcon from '../../../assets/icons/edit_white24.png'
 
-import { selectAccessToken } from "../../../store/auth/auth.selector"
+import { selectAuthSession } from "../../../store/auth/auth.selector"
 import { selectPlaylistTracks, selectPlaylistName } from '../../../store/track/track.selector'
 import { setPlaylistTracks, setPlaylistName, setSearchResults } from '../../../store/track/track.action'
 import { UserContext } from "../../../contexts/user.context"
@@ -17,7 +17,7 @@ import { setAuthSession } from '../../../store/auth/auth.action'
 import { PlaylistContainer, TitleContainer,  SaveToSpotifyButton } from './playlist.styles'
 
 const Playlist = () => {
-    const accessToken = useSelector(selectAccessToken)
+    const authSession = useSelector(selectAuthSession)
     const { currentUser } = useContext(UserContext)
     const dispatch = useDispatch()
 
@@ -49,7 +49,7 @@ const Playlist = () => {
       }
       const trackURIs = playlistTracks.map(track => track.uri)
       try {
-        const response = await Spotify.savePlaylist(accessToken, currentUser, playlistName, trackURIs)
+        const response = await Spotify.savePlaylist(authSession, currentUser, playlistName, trackURIs)
         dispatch(setPlaylistName(response.playlistName))
         dispatch(setPlaylistTracks(response.playlistTracks))
         dispatch(setSearchResults(response.searchResults))

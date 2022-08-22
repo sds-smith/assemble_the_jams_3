@@ -7,9 +7,5 @@ export const Preview = {
         .catch((error) => {
           console.log(error);
         });
-    },
-
-    async stopPreview (audioPreview) {
-        audioPreview.pause()
     }
 }

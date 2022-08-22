@@ -1,11 +1,11 @@
 require('dotenv').config()
 const axios = require('axios').default
-const {getAuthAccessToken} = require('../../src/utils/firebase')
+const {getAuthDoc} = require('../../src/utils/firebase.node')
 
 exports.handler = async (event) => {
     try {
         const {authSession, currentUser, playlistName, trackURIs} = JSON.parse(event.body)
-        const accessToken = await getAuthAccessToken(authSession) 
+        const {accessToken} = await getAuthDoc(authSession) 
         const userId = currentUser.id
         const headers =  { Authorization : `Bearer ${accessToken}` }
 
@@ -32,9 +32,10 @@ exports.handler = async (event) => {
         return {
             statusCode: 200,
             body: JSON.stringify({
-                message: 'success',
-                playlistName: 'Enter New Playlist Name',
-                playlistTracks: []
+                message: 'Playlist has been saved to your Spotify account',
+                playlistName: 'Name Your New Playlist',
+                playlistTracks: [],
+                searchResults: []
             })
         }
     } catch(error) {
