@@ -3,9 +3,9 @@ const { deleteAuthDocumentFromSession } = require('../../src/utils/firebase.node
 
 exports.handler = async (event) => {
     try {
-        const { session } = JSON.parse(event.body)
+        const { authSession } = JSON.parse(event.body)
 
-        await deleteAuthDocumentFromSession(session)
+        await deleteAuthDocumentFromSession(authSession)
         return {
             statusCode: 200,
             body: JSON.stringify({ 

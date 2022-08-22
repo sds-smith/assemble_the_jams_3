@@ -11,12 +11,14 @@ import { Spotify } from "../../utils/spotify"
 import { UserContext } from "../../contexts/user.context"
 import { PlayerContext } from "../../contexts/player.context"
 import { setAccessToken, setAuthSession } from "../../store/auth/auth.action"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
+import { selectAuthSession } from '../../store/auth/auth.selector'
 import { setPlaylistTracks, setPlaylistName, setSearchResults } from "../../store/track/track.action"
 
 const Navigation = () => {
     const dispatch = useDispatch()
     const isMobile = useMediaQuery('(max-width: 1020px)')
+    const authSession = useSelector(selectAuthSession)
     const { currentUser } = useContext(UserContext)
     const { setCurrentPlayer } = useContext(PlayerContext)
 
@@ -40,7 +42,18 @@ const Navigation = () => {
         } 
     }
 
-    const signOut = () => {
+    const signOut = async () => {
+        try {
+            await fetch('/.netlify/functions/delete-auth-doc', {
+              method: 'post',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ authSession })
+            })
+        } catch(error) {
+            console.log(error)
+        }
         dispatch(setAuthSession(''))
         dispatch(setAccessToken(''))
         dispatch(setPlaylistName('Name Your New Playlist'))

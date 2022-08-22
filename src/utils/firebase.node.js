@@ -4,6 +4,7 @@ const {
     doc, 
     getDoc, 
     setDoc,
+    deleteDoc,
     collection,
     // writeBatch,
     query,
@@ -101,7 +102,8 @@ const createAuthDocumentFromSession = async (sessionData) => {
 }
 
 const deleteAuthDocumentFromSession = async (session) => {
-    await db.collection('auth').doc(session).delete()
+    // await db.collection('auth').doc(session).delete()
+    await deleteDoc(doc(db, "auth", session));
     
 }
 // const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
