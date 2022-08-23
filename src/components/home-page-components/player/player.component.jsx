@@ -44,7 +44,7 @@ const Player = () => {
             setCurrentPlayer(player)
 
             player.addListener('ready', ({ device_id }) => {
-                console.log('Ready with Device ID', device_id, player);
+                console.log('Ready with Device ID', device_id);
                 setDeviceId(device_id);
             });
         
