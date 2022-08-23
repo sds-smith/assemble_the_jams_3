@@ -10,7 +10,7 @@ const Player = () => {
     // const authSession = useSelector(selectAuthSession)
     const accessToken = useSelector(selectAccessToken)
 
-    const { setCurrentPlayer, setDeviceId } = useContext(PlayerContext)
+    const { setCurrentPlayer, setDeviceId, setActive } = useContext(PlayerContext)
 
     useEffect(() => {
         // const getAccessToken = async () => {
@@ -56,6 +56,10 @@ const Player = () => {
                 if (!state) {
                     return;
                 }
+
+                player.getCurrentState().then( state => { 
+                    (!state)? setActive(false) : setActive(true) 
+                });
             }));
             player.connect();
         };
