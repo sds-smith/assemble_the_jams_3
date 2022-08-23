@@ -22,7 +22,7 @@ const Track = ({track, trackType }) => {
 
   const authSession = useSelector(selectAuthSession)
   const playlistTracks = useSelector(selectPlaylistTracks)
-  const { nowPlaying, setNowPlaying, deviceID, currentPlayer, active, setActive } = useContext(PlayerContext)
+  const { nowPlaying, setNowPlaying, deviceID, currentPlayer, active } = useContext(PlayerContext)
 
   const addTrack = () => {
     let tracks = playlistTracks
