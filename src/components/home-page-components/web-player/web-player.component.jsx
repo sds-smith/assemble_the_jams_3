@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react'
+import { useContext } from 'react'
 import { useSelector } from 'react-redux'
 
 import Player from '../player/player.component'
@@ -14,7 +14,7 @@ const WebPlayer = ({ onAdd }) => {
 
     const accessToken = useSelector(selectAccessToken)
 
-    const { setCurrentPlayer, setDeviceId, nowPlaying } = useContext(PlayerContext)
+    const { nowPlaying } = useContext(PlayerContext)
     const isMobile = useMediaQuery('(max-width: 1020px)')
 
     // useEffect(() => {
