@@ -1,33 +1,35 @@
 import { useEffect, useContext } from "react";
 import { useSelector } from "react-redux";
 
-import { selectAuthSession } from "../../../store/auth/auth.selector";
+import { selectAccessToken } from "../../../store/auth/auth.selector";
 
 import { PlayerContext } from '../../../contexts/player.context'
 
 const Player = () => {
 
-    const authSession = useSelector(selectAuthSession)
+    // const authSession = useSelector(selectAuthSession)
+    const accessToken = useSelector(selectAccessToken)
+
     const { setCurrentPlayer, setDeviceId } = useContext(PlayerContext)
 
     useEffect(() => {
-        const getAccessToken = async () => {
-            try {
-              const response = await fetch('/.netlify/functions/return-user-token', {
-                method: 'post',
-                headers: {
-                  'Content-Type': 'application/json'
-                },   
-                body: JSON.stringify({ authSession })
-              })
-              const {accessToken} = await response.json()
-              return accessToken
-            } catch(error) {
-              console.log('nope ', error)
-              window.alert('error retrieving access token, please contact app support.')
-            }
-        }
-        const accessToken = getAccessToken()
+        // const getAccessToken = async () => {
+        //     try {
+        //       const response = await fetch('/.netlify/functions/return-user-token', {
+        //         method: 'post',
+        //         headers: {
+        //           'Content-Type': 'application/json'
+        //         },   
+        //         body: JSON.stringify({ authSession })
+        //       })
+        //       const {accessToken} = await response.json()
+        //       return accessToken
+        //     } catch(error) {
+        //       console.log('nope ', error)
+        //       window.alert('error retrieving access token, please contact app support.')
+        //     }
+        // }
+        // const accessToken = getAccessToken()
         const script = document.createElement("script");
         script.src = "https://sdk.scdn.co/spotify-player.js";
         script.async = true;
