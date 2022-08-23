@@ -1,7 +1,7 @@
 
 
 export const Preview = {
-    async playPreview(audioPreview) {
+    playPreview(audioPreview) {
         audioPreview
         .play()
         .catch((error) => {

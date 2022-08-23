@@ -69,6 +69,7 @@ const NowPlayingCard = () => {
     }
 
     useEffect(() => {
+        !currentPlayer && setActive(true)
         const timer = setTimeout(() => closeNowPlaying(), 30000)
         return () => {
             clearTimeout(timer)

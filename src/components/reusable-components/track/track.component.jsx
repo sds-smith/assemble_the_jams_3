@@ -22,7 +22,7 @@ const Track = ({track, trackType }) => {
 
   const authSession = useSelector(selectAuthSession)
   const playlistTracks = useSelector(selectPlaylistTracks)
-  const { nowPlaying, setNowPlaying, deviceID, currentPlayer, active } = useContext(PlayerContext)
+  const { nowPlaying, setNowPlaying, deviceID, currentPlayer, active, setActive } = useContext(PlayerContext)
 
   const addTrack = () => {
     let tracks = playlistTracks
@@ -49,7 +49,7 @@ const Track = ({track, trackType }) => {
       const hasTrack = true
       const isLike = false
       setNowPlaying({hasTrack, track, isLike})
-      await Preview.playPreview(audioPreview)
+      Preview.playPreview(audioPreview)
     }  
   };
 
