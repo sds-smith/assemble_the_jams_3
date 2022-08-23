@@ -68,8 +68,8 @@ const App = () => {
     <Routes >
       <Route path='/' element={ <Navigation /> } >
         <Route index element={ <Home /> } />
+        <Route path='/callback' element={<Auth />} />
       </Route>
-      <Route path='callback' element={<Auth />} />
     </Routes>
   );
 }

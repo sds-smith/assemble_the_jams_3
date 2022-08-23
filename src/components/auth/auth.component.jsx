@@ -2,10 +2,14 @@ import { useEffect, useContext } from "react"
 import { useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 
+import Spinner from '../reusable-components/spinner/spinner.component'
+
 import { setAccessToken, setAuthSession } from "../../store/auth/auth.action"
 import { setPlaylistTracks, setPlaylistName, setSearchResults } from "../../store/track/track.action"
 import { selectAuthSession } from "../../store/auth/auth.selector"
 import { PlayerContext } from "../../contexts/player.context"
+
+import { AuthContainer } from "./auth.styles"
 
 const Auth = () => {
     const dispatch = useDispatch()
@@ -70,7 +74,9 @@ const Auth = () => {
     }, [])
 
     return (
-        <div></div>
+        <AuthContainer>
+          <Spinner loading />
+        </AuthContainer>
     )
 }
 
