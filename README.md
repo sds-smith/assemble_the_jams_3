@@ -18,7 +18,7 @@ Assemble the Jams 3.0 builds on version 2.0 with several key improvements ([read
       * Post-sign-in:  When an authenticated user is signed in, the Spotify Web Player SDK is utilized so the user may preview any track that is rendered.
   * **Automatic playlist creation.**  In previous versions, the Playlist began empty and the user was required to build their own playlist by adding tracks from the two returned lists (Search Term Matches and Recommendations).  Beginning in version 3.0, the Recommendations component has been removed, and the Playlist is populated with the list returned from the Spotify 'recommendations' call. The user may choose to add/remove tracks, or they can save the Playlist as-is.
 
-The app in its version 3.0 iteration can be viewed in [this video](https://youtu.be/LwBpalQgtro).
+The app in its version 3.0 iteration can be viewed in [this video](https://youtu.be/vI-VfJhfXq4).
 
 ### TRY IT OUT
 
