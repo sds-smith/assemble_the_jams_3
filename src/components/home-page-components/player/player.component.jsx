@@ -58,7 +58,7 @@ const Player = () => {
                 }
 
                 player.getCurrentState().then( state => { 
-                    (!state)? setActive(false) : setActive(true) 
+                    (!state.track_window.current_track)? setActive(false) : setActive(true) 
                 });
             }));
             player.connect();
