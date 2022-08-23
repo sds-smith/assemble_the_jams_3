@@ -58,7 +58,7 @@ const Player = () => {
                 }
 
                 player.getCurrentState().then( state => { 
-                    (state.position>=60000)? setActive(false) : setActive(true) 
+                    (state.paused)? setActive(false) : setActive(true) 
                 });
             }));
             player.connect();
