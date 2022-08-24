@@ -3,7 +3,8 @@ import { Outlet } from "react-router-dom"
 import SpotifyLogoWhite from '../../assets/icons/Spotify_Logo_RGB_White.png'
 import JamsLogo from "../../components/reusable-components/jams-logo/jams-logo.component"
 import { useMediaQuery } from '../../utils/customHooks'
-import { Header, SpotifyAttributor, SpotifyLogo, SignInButton } from "./navigation.styles"
+import { Header, SpotifyAttributor, SpotifyLogo, SignInButtonContainer } from "./navigation.styles"
+import Button from "../../components/reusable-components/button/button.component"
 
 import { generateRandomString } from '../../utils/random-state-generator';
 import { Spotify } from "../../utils/spotify"
@@ -78,7 +79,13 @@ const Navigation = () => {
                   <p>Works with Spotify Premium</p> 
                 </SpotifyAttributor>        
                 <h1><JamsLogo /></h1>
-                <SignInButton onClick={userAction} isMobile={isMobile} >{buttonText}</SignInButton>
+                <SignInButtonContainer currentUser={currentUser} isMobile={isMobile} >
+                  For the best experience
+                  <Button onClick={userAction}>
+                    {buttonText}
+                  </Button>
+                  with your Spotify Premium acct
+                </SignInButtonContainer>
             </Header>  
             <Outlet />
         </Fragment>
