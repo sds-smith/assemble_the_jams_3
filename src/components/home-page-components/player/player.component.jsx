@@ -10,7 +10,7 @@ const Player = () => {
     // const authSession = useSelector(selectAuthSession)
     const accessToken = useSelector(selectAccessToken)
 
-    const { nowPlaying, setCurrentPlayer, setDeviceId, setActive } = useContext(PlayerContext)
+    const { setCurrentPlayer, setDeviceId, setActive } = useContext(PlayerContext)
 
     useEffect(() => {
         // const getAccessToken = async () => {
