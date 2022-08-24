@@ -58,10 +58,13 @@ const Player = () => {
                 }
 
                 player.getCurrentState().then( state => { 
-                    if (nowPlaying.hasTrack && state.paused) {
+                    if (state.position >= 60000 || !state) {
+                        setActive(false)
+                        player.pause()
+                    } else {
+                        setActive(true)
                         player.resume()
                     }
-                    (!state.track_window.current_track)? setActive(false) : setActive(true) 
                 });
             }));
             player.connect();
