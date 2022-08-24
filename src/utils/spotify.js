@@ -73,6 +73,7 @@ export const Spotify = {
             return {searchResultsArray, recommendationsArray}
         } catch(error) {
             console.log('error with search', error)
+            window.alert('Error with Search. Please try again.')
         }
     },
 
