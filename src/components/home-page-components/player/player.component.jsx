@@ -68,8 +68,8 @@ const Player = () => {
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
-    
-    return <div allow='encrypted-media'></div>
+
+    return <div allow='encrypted-media autoplay'></div>
 }
 
 export default Player
