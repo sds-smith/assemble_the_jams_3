@@ -10,7 +10,7 @@ const Player = () => {
     // const authSession = useSelector(selectAuthSession)
     const accessToken = useSelector(selectAccessToken)
 
-    const { setCurrentPlayer, setDeviceId, setActive } = useContext(PlayerContext)
+    const { nowPlaying, setCurrentPlayer, setDeviceId, setActive } = useContext(PlayerContext)
 
     useEffect(() => {
         // const getAccessToken = async () => {
@@ -58,14 +58,17 @@ const Player = () => {
                 }
 
                 player.getCurrentState().then( state => { 
-                    (state.paused || !state.track_window.current_track)? setActive(false) : setActive(true) 
+                    if (nowPlaying.hasTrack && state.paused) {
+                        player.resume()
+                    }
+                    (!state.track_window.current_track)? setActive(false) : setActive(true) 
                 });
             }));
             player.connect();
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
-
+    
     return <div allow='encrypted-media'></div>
 }
 

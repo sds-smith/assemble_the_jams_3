@@ -55,7 +55,7 @@ const NowPlayingCard = () => {
     }
 
     const closeNowPlaying = async () => {
-        currentPlayer && await currentPlayer.pause()
+        currentPlayer && await currentPlayer.nextTrack()
         setActive(false)
         setNowPlaying({hasTrack: false, track: {}, isLike: null})
     }
