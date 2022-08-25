@@ -60,9 +60,12 @@ const Player = () => {
                 player.getCurrentState().then( state => { 
                     if ((state.paused) && (state.position >= 30000) && (state.position < 32000)) {
                         player.resume()
+                        setActive(true)
+                    } else if (!state || state.paused) {
+                        setActive(false)
+                    } else {
+                        setActive(true) 
                     }
-
-                    (!state || state.paused)? setActive(false) : setActive(true) 
                 });
             }));
             player.connect();
