@@ -58,7 +58,7 @@ const Player = () => {
                 }
 
                 player.getCurrentState().then( state => { 
-                    if ((state.paused) && (state.position >= 30000) && (state.position < 30500)) {
+                    if ((state.paused) && (state.position >= 30000) && (state.position < 30100)) {
                         player.resume()
                     } else if ((!state ) || (state.paused) ) {
                         setActive(false)
