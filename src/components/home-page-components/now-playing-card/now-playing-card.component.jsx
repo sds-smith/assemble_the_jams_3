@@ -9,7 +9,7 @@ import AddBtn from '../../../assets/icons/add_black24.png'
 import Like from '../../../assets/icons/like24.png'
 import Unlike from '../../../assets/icons/unlike24.png'
 
-import { selectAccessToken, selectAuthSession } from '../../../store/auth/auth.selector'
+import { selectAuthSession } from '../../../store/auth/auth.selector'
 import { selectPlaylistTracks } from '../../../store/track/track.selector'
 import { setPlaylistTracks } from '../../../store/track/track.action'
 import { UserContext } from '../../../contexts/user.context'
@@ -23,7 +23,6 @@ const NowPlayingCard = () => {
 
     const dispatch = useDispatch()
 
-    const accessToken = useSelector(selectAccessToken)
     const authSession = useSelector(selectAuthSession)
     const playlistTracks = useSelector(selectPlaylistTracks)
 
