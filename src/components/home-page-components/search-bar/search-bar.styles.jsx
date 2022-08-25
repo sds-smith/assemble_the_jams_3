@@ -24,6 +24,15 @@ export const SearchBarInput = styled.input`
       }
 `
 
+export const TermSelector = styled.div`
+    width: 287px;
+    border: 1px solid rgba(255, 255, 255, .6);
+    border-radius: 3px;
+    margin-top: -1rem;
+    margin-bottom: 1rem;
+    background-color: rgba(255, 255, 255, .6);
+`
+
 export const ButtonContainer = styled.div`
     display: flex;
     width: 80%;

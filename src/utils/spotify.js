@@ -43,10 +43,11 @@ export const Spotify = {
       }
     },
 
-    async search(clientToken, searchTerm) {
+    async search(clientToken, query) {
         try {
+            let endpoint = `https://api.spotify.com/v1/search?type=track&q=${query}&market=US`
             const headers =  { Authorization : `Bearer ${clientToken}` }
-            const response = await axios.get(`https://api.spotify.com/v1/search?type=track&q=${searchTerm}&market=US`,{headers : headers})
+            const response = await axios.get(endpoint, {headers : headers})
             const searchResults = response.data
             const searchResultsArray = searchResults.tracks.items.map(track => ({
               id : track.id,
