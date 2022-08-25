@@ -17,7 +17,7 @@ import { UserContext } from '../../../contexts/user.context'
 import { PlayerContext } from '../../../contexts/player.context'
 import { useMediaQuery } from '../../../utils/customHooks'
 import { Spotify } from '../../../utils/spotify'
-import {NowPlayingContainer, SpotifyAttributor, SpotifyLogo, NowPlayingCover, NowPlayingLabel, TrackControls, LikesMessage, ProgressContainer} from './now-playing-card.styles'
+import {NowPlayingContainer, SpotifyAttributor, SpotifyLogo, NowPlayingCover, NowPlayingLabel, TrackControls, ProgressContainer} from './now-playing-card.styles'
 
 const NowPlayingCard = () => {
     const [likesMessage, setLikesMessage] = useState('')
