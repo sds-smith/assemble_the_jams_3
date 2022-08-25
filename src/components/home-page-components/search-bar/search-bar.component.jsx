@@ -90,7 +90,11 @@ const SearchBar = () => {
             {searchFocus && 
                 <TermSelector>
                     {filters.map((filter) => (
-                        <SearchFilterButton key={filter.id} onClick={()=>filteredSearch(filter.filter)} >
+                        <SearchFilterButton 
+                            key={filter.id} 
+                            onClick={()=>filteredSearch(filter.filter)}
+                            disabled={!searchTerm} 
+                        >
                             {filter.label} : {searchTerm}
                         </SearchFilterButton>)
                     )}
