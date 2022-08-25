@@ -10,7 +10,7 @@ const Player = () => {
     // const authSession = useSelector(selectAuthSession)
     const accessToken = useSelector(selectAccessToken)
 
-    const { setCurrentPlayer, setDeviceId, setActive } = useContext(PlayerContext)
+    const { setCurrentPlayer, setDeviceId, setActive, setNowPlaying } = useContext(PlayerContext)
 
     useEffect(() => {
         // const getAccessToken = async () => {
@@ -60,9 +60,9 @@ const Player = () => {
                 player.getCurrentState().then( state => { 
                     if ((state.paused) && (state.position >= 30000) && (state.position < 32000)) {
                         player.resume()
-                        setActive(true)
                     } else if (!state || state.paused) {
                         setActive(false)
+                        setNowPlaying({hasTrack: false, track: {}, isLike: null})
                     } else {
                         setActive(true) 
                     }

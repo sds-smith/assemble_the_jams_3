@@ -55,13 +55,16 @@ const NowPlayingCard = () => {
     }
 
     const closeNowPlaying = async () => {
-        currentPlayer && await currentPlayer.pause()
-        !currentPlayer && setActive(false)
-        setNowPlaying({hasTrack: false, track: {}, isLike: null})
+        if (currentPlayer) {
+            await currentPlayer.pause()
+        } else {
+            setActive(false)
+            setNowPlaying({hasTrack: false, track: {}, isLike: null})
+        }
     }
 
     const stopPlayback = () => {
-        if (accessToken) {
+        if (currentPlayer) {
             closeNowPlaying()
         } else {
             window.alert('This feature only available with signed in user')
