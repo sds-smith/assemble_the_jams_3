@@ -60,7 +60,7 @@ const Player = () => {
                 player.getCurrentState().then( state => { 
                     if ((state.paused) && (state.position >= 30000) && (state.position < 32000)) {
                         player.resume()
-                    } else if (!state || state.paused) {
+                    } else if ((!state )|| ((state.paused) && (state.position >=32000) )) {
                         setActive(false)
                         setNowPlaying({hasTrack: false, track: {}, isLike: null})
                     } else {
