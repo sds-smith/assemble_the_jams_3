@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Button from "../../reusable-components/button/button.component";
 
 export const PlaylistContainer = styled.div`
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;

@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import TrackActionButton from '../../reusable-components/track-action-button/track-action-button.component'
+import ActionMessage from '../../reusable-components/action-message/action-message.component'
 
 import SpotifyIcon from '../../../assets/icons/Spotify_Icon_RGB_Black.png'
 import StopBtn from '../../../assets/icons/stop_black24.png'
@@ -101,7 +102,7 @@ const NowPlayingCard = () => {
                  <TrackActionButton onClick={toggleLike} src={LikeOrUnlike} alt='button to add/remove song from liked songs' />
                  <TrackActionButton onClick={stopPlayback} src={StopBtn} alt='play or pause button'/>
             </TrackControls>   
-            <LikesMessage>{likesMessage}</LikesMessage>
+            <ActionMessage bottom='2.2rem' right='10px'>{likesMessage}</ActionMessage>
             <ProgressContainer 
                 transition={ active ? 'transform 30s linear' : 'transform 0s linear' } 
                 transform={ active ? 'scaleX(1)' : 'scaleX(0)' }

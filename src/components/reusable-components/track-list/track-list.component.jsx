@@ -6,7 +6,7 @@ const TrackList = ({tracks, onAdd, onRemove, trackType }) => {
 
         return (
             <TrackListContainer>
-                {tracks.map(track => (
+                {tracks && tracks.map(track => (
                      <Track track={track} 
                             key={track.id}
                             onAdd={onAdd}

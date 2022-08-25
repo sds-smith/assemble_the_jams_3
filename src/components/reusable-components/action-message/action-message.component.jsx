@@ -2,9 +2,9 @@
 
 import { ActionMessageContainer } from "./action-message.styles";
 
-const ActionMessage = ({ children }) => {
+const ActionMessage = ({ bottom, right, width, children }) => {
     return (
-        <ActionMessageContainer >{children}</ActionMessageContainer>
+        <ActionMessageContainer bottom={bottom} right={right} width={width} >{children}</ActionMessageContainer>
     )
 }
 
