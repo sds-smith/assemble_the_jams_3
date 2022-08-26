@@ -2,7 +2,7 @@
 
 This project is a [Progressive Web App](https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Introduction) created with React 18 and React Router 6, employing React functional components, hooks (including a custom hook), and Context API.  It utilizes css-in-js via Styled Components, and incorporates Redux, Firebase, and AWS Lambda functions.
 
-The app allows any user (whether signed in or anonymous) to enter a search term (artist, album, or song) and receive back a custom generated playlist based on that search term. The user can further customize the playlist by giving it a name, removing unwanted tracks, and adding more tracks from a list of search term matches. They can also preview select tracks within the Playlist or Search Term Matches. Users who are signed in with their Spotify Premium account are additionally able to save the playlist to their Spotify profile, hear a preview of any track, and even add or remove a track from their liked songs from within the custom web player.
+Working with the Spotify API, the app allows any user (whether signed in or anonymous) to enter a search term (artist, album, or song) and receive back a custom generated playlist based on that search term. The user can further customize the playlist by giving it a name, removing unwanted tracks, and adding more tracks from a list of search term matches. They can also preview select tracks within the Playlist or Search Term Matches. Users who are signed in with their Spotify Premium account are additionally able to save the playlist to their Spotify profile, hear a preview of any track, and even add or remove a track from their liked songs from within the custom web player.
 
 ## Project overview
 
