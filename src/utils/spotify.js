@@ -128,6 +128,7 @@ export const Spotify = {
         return jsonResponse 
       } catch(error) {
             console.log('error saving playlist', error)
+            window.alert('Because this app is in Development Mode, Spotify requires you to be added as an approved user.  Please contact app support to be added.  Sorry for the inconvenience as we await Spotify approval for full app status.')
       }
     },
 
