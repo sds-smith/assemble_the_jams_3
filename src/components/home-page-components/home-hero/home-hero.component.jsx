@@ -12,7 +12,7 @@ const HomeHero = () => {
     const step1 = '1. Name your New Playlist'
     const step2 = '2. Enter a search term to generate a playlist.'
     let step3 = `3. Customize your playlist by removing tracks with the remove button or adding tracks from Search Term Matches with the add button. Hear a preview of any track with the play button. Start over at any time with the 'Clear Tracklists' button.`
-    const step4 = '4. Save your playlist to your Spotify account with the \'Save to Spotify\' button'
+    const step4 = '4. Save your playlist to your Spotify Premium account with the \'Save to Spotify\' button'
     step3 += isMobile ? ' Switch between list views with the links below.' : ''
     
     return (

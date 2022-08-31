@@ -9,17 +9,26 @@ export const TrackContainer = styled.div`
     margin-top: .5rem;
     padding-bottom: .5rem;
 `
+
+export const CoverContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+`
+
 export const TrackCover = styled.img`
-  height: 55px;
-  width: auto;
+  width: 67px;
+  height: auto;
   margin-right: 15px;
+  z-index: 10;
 `
 export const TrackInformation = styled.div`
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     min-height: 72px;
+    z-index: 10;
 
     h3 {
         margin: 0px;
@@ -35,4 +44,10 @@ export const TrackInformation = styled.div`
 
 export const TrackActionContainer = styled.div`
     display: flex;
+`
+
+export const SpotifyLogo = styled.img`
+  width: 67px;
+  height: auto;
+  margin-top: 3px;
 `

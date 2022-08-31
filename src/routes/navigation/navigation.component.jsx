@@ -75,7 +75,7 @@ const Navigation = () => {
             <Header>
                 <SpotifyAttributor isMobile={isMobile} href='https://www.spotify.com/us/premium/' target='_blank' rel="noreferrer" >
                   <SpotifyLogo src={SpotifyLogoWhite} id='spotify-logo' alt='Spotify Logo'/>
-                  <p>Works with Spotify Premium</p> 
+                  <p>Search powered by Spotify</p> 
                 </SpotifyAttributor>        
                 <h1><JamsLogo /></h1>
                 <SignInButtonContainer currentUser={currentUser} isMobile={isMobile} >

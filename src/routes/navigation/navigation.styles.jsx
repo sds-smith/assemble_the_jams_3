@@ -54,6 +54,6 @@ export const SpotifyAttributor = styled.a`
 `
 
 export const SpotifyLogo = styled.img`
-    width: auto;
-    height: 20px;
+    width: 67px;
+    height: auto;
 `

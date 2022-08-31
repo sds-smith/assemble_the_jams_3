@@ -32,14 +32,15 @@ export const SpotifyAttributor = styled.a`
 `
 
 export const SpotifyLogo = styled.img`
-    width: auto;
-    height: 20px;
+    width: 20px;
+    height: auto;
 `
 
 export const NowPlayingCover = styled.img`
     height: 150px;
     width: auto;
     margin-bottom: 1rem;
+    z-index: 10;
 `
 
 export const NowPlayingLabel = styled.div`
@@ -47,6 +48,7 @@ export const NowPlayingLabel = styled.div`
     flex-direction: column;
     align-items: center;
     color: black;
+    z-index: 10;
 `
 
 export const TrackControls = styled.div`

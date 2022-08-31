@@ -6,6 +6,7 @@ import TrackActionButton from '../track-action-button/track-action-button.compon
 import PlayBtn from '../../../assets/icons/play_white24.png'
 import AddBtn from '../../../assets/icons/add_white24.png'
 import ClearBtn from '../../../assets/icons/clear_white24.png'
+import SpotifyLogoWhite from '../../../assets/icons/Spotify_Logo_RGB_White.png'
 
 import { Spotify } from '../../../utils/spotify'
 import { Preview } from '../../../utils/preview'
@@ -14,7 +15,7 @@ import { selectPlaylistTracks } from '../../../store/track/track.selector'
 import { setPlaylistTracks } from '../../../store/track/track.action'
 import { PlayerContext } from '../../../contexts/player.context'
 
-import { TrackContainer, TrackInformation, TrackActionContainer, TrackCover } from './track.styles'
+import { TrackContainer, CoverContainer, TrackInformation, TrackActionContainer, TrackCover, SpotifyLogo } from './track.styles'
 import { ProgressContainer } from '../../home-page-components/now-playing-card/now-playing-card.styles'
 
 const Track = ({track, trackType }) => {
@@ -96,7 +97,10 @@ const Track = ({track, trackType }) => {
 
     return (
         <TrackContainer >
-            <TrackCover src={track.cover} alt='album cover'/>
+            <CoverContainer>
+              <TrackCover src={track.cover} alt='album cover'/>
+              <SpotifyLogo src={SpotifyLogoWhite} id='spotify-logo' alt='Spotify Logo'/>
+            </CoverContainer>
             <TrackInformation >
               <h3 >{track.name}</h3>
               <p >{track.artist} | {track.album}</p>
