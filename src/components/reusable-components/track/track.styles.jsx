@@ -47,7 +47,7 @@ export const TrackActionContainer = styled.div`
 `
 
 export const SpotifyLogo = styled.img`
-  width: 67px;
+  width: 70px;
   height: auto;
   margin-top: 3px;
 `
