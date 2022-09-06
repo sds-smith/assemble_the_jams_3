@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, FC } from "react";
 
 export const UserContext = createContext({
     userLoading : null,
