@@ -1,12 +1,17 @@
-
+import { AnyAction } from "redux"
 import { AUTH_ACTION_TYPES } from "./auth.types"
 
-const INITIAL_STATE = {
+export type AuthState = {
+    readonly authSession : string,
+    readonly accessToken : string
+}
+
+const INITIAL_STATE: AuthState = {
     authSession: '',
     accessToken: ''
 }
 
-export const authReducer = (state=INITIAL_STATE, action) => {
+export const authReducer = (state=INITIAL_STATE, action: AnyAction) => {
     const { type, payload } = action
 
     switch(type) {
