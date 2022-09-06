@@ -36,7 +36,9 @@ export const Spotify = {
           body: JSON.stringify({ authSession })
         })
         const {user} = await response.json()
-        return user
+        const {display_name, images} = user
+        const imageUrl = images.length ? images[0].url : ''
+        return {display_name, imageUrl}
       } catch(error) {
         console.log('nope ', error)
         window.alert('error getting user profile, please contact app support.')

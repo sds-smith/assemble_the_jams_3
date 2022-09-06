@@ -1,15 +1,16 @@
 import { createContext, useState, FC } from "react";
+import { UserContextProps, ProviderProps, CurrentUserType } from "../utils/context.utils";
 
-export const UserContext = createContext({
+export const UserContext = createContext<UserContextProps>({
     userLoading : null,
     setUserLoading : () => null,
     currentUser : null,
     setCurrentUser : () => null,
 })
 
-export const UserProvider = ({children}) => {
-    const [userLoading, setUserLoading] = useState(false)
-    const [currentUser, setCurrentUser] = useState(null)
+export const UserProvider: FC<ProviderProps> = ({children}) => {
+    const [userLoading, setUserLoading] = useState<boolean | null>(false)
+    const [currentUser, setCurrentUser] = useState<CurrentUserType | null>(null)
 
     const value = { 
                     userLoading,

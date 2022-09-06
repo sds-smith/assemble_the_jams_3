@@ -34,14 +34,15 @@ export type PlayerContextProps = {
 }
 
 export type CurrentUserType = {
-    
+    display_name: string;
+    imageUrl: string;
 }
 
 export type UserContextProps = {
     userLoading : boolean | null;
-    setUserLoading : () => null
-    currentUser : null
-    setCurrentUser : () => null
+    setUserLoading(userLoading : boolean | null): void;
+    currentUser : CurrentUserType | null;
+    setCurrentUser(currentUser : CurrentUserType | null): void;
 }
 
 export type ProviderProps = {
