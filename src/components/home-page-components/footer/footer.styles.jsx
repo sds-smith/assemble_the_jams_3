@@ -11,5 +11,6 @@ export const FooterContainer = styled.div`
     align-items: center;
     height: 10vh;
     border-top: .5px solid white;
+    z-index: 20;
 `
 
