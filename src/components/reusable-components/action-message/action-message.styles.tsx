@@ -1,6 +1,12 @@
 import styled from "styled-components"
 
-export const ActionMessageContainer = styled.p`
+type ActionMessageContainerProps = {
+  bottom: string;
+  right: string;
+  width: string;
+}
+
+export const ActionMessageContainer = styled.p<ActionMessageContainerProps>`
   position: absolute;
   bottom: ${props => props.bottom};
   right: ${props => props.right};

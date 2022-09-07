@@ -1,8 +1,12 @@
+import { FC } from 'react'
 import spinner from '../../../assets/icons/spinner_white48.png'
-
 import { SpinnerContainer, SpinnerImg } from './spinner.styles'
 
-const Spinner = ({loading}) => {
+type SpinnerProps = {
+    loading: boolean;
+}
+
+const Spinner: FC<SpinnerProps> = ({loading}) => {
 
     return (
         <SpinnerContainer display={loading ? 'block' : 'none'} >

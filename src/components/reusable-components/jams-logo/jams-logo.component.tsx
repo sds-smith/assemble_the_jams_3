@@ -2,7 +2,11 @@ import { LogoContainer } from "./jams-logo.styles";
 
 const JamsLogo = () => {
     return (
-        <LogoContainer>Assemble<span>the</span>Jams</LogoContainer>
+        <LogoContainer>
+            Assemble
+            <span>the</span>
+            Jams
+        </LogoContainer>
     )
 }
 
