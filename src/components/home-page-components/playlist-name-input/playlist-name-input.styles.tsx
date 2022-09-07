@@ -1,7 +1,11 @@
 import styled from "styled-components";
 
-export const NameInput = styled.input`
-    width: ${props => props.width || '287px'};
+type NameInputProps = {
+  width: string;
+}
+
+export const NameInput = styled.input<NameInputProps>`
+    width: ${props => props.width};
     padding: .88rem 0;
     border: 1px solid #fff;
     border-radius: 3px;
