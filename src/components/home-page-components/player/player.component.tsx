@@ -1,36 +1,16 @@
 import { useEffect, useContext } from "react";
 import { useSelector } from "react-redux";
-import '@types/spotify-web-playback-sdk'
 
 import { selectAccessToken } from "../../../store/auth/auth.selector";
 
 import { PlayerContext } from '../../../contexts/player.context'
 
 const Player = () => {
-
-    // const authSession = useSelector(selectAuthSession)
     const accessToken = useSelector(selectAccessToken)
-
     const { setCurrentPlayer, setDeviceId, setActive } = useContext(PlayerContext)
 
     useEffect(() => {
-        // const getAccessToken = async () => {
-        //     try {
-        //       const response = await fetch('/.netlify/functions/return-user-token', {
-        //         method: 'post',
-        //         headers: {
-        //           'Content-Type': 'application/json'
-        //         },   
-        //         body: JSON.stringify({ authSession })
-        //       })
-        //       const {accessToken} = await response.json()
-        //       return accessToken
-        //     } catch(error) {
-        //       console.log('nope ', error)
-        //       window.alert('error retrieving access token, please contact app support.')
-        //     }
-        // }
-        // const accessToken = getAccessToken()
+
         const script = document.createElement("script");
         script.src = "https://sdk.scdn.co/spotify-player.js";
         script.async = true;
@@ -39,7 +19,7 @@ const Player = () => {
         window.onSpotifyWebPlaybackSDKReady = () => {            
             const player = new window.Spotify.Player({
                 name: 'Assemble the Jams',
-                getOAuthToken: cb => { cb(accessToken); },
+                getOAuthToken: (callback: (t: string) => void) => { callback(accessToken); },
                 volume: 0.5
             });            
             setCurrentPlayer(player)
@@ -58,13 +38,17 @@ const Player = () => {
                     return;
                 }
 
-                player.getCurrentState().then( state => { 
-                    if ((state.paused) && (state.position >= 30000) && (state.position < 30100)) {
-                        player.resume()
-                    } else if ((!state ) || (state.paused) ) {
-                        setActive(false)
+                player.getCurrentState().then( (state: Spotify.PlaybackState | null) => { 
+                    if (state) {
+                        if ((state.paused) && (state.position >= 30000) && (state.position < 30100)) {
+                            player.resume()
+                        } else if (state.paused) {
+                            setActive(false)
+                        } else {
+                            setActive(true) 
+                        }
                     } else {
-                        setActive(true) 
+                        setActive(false)
                     }
                 });
             }));
@@ -73,7 +57,7 @@ const Player = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
-    return <div allow='encrypted-media autoplay'></div>
+    return <div data-allow='encrypted-media autoplay'></div>
 }
 
 export default Player

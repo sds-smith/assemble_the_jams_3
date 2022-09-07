@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { defaultCurrentUser } from "../contexts/user.context";
 import { Track } from "../store/track/track.types";
 
 
@@ -14,8 +15,8 @@ export type NowPlaying = {
 }
 
 export type PlayerContextProps = {
-    currentPlayer : (typeof Spotify.Player) | null;
-    setCurrentPlayer(currentPlayer: (typeof Spotify.Player) | null): void;
+    currentPlayer : (Spotify.Player) | null;
+    setCurrentPlayer(currentPlayer: (Spotify.Player) | null): void;
     deviceID : string | null;
     setDeviceId(deviceID: string | null): void;
     nowPlaying : NowPlaying;
@@ -36,6 +37,7 @@ export type UserContextProps = {
     setUserLoading(userLoading : boolean): void;
     currentUser : CurrentUserType;
     setCurrentUser(currentUser : CurrentUserType): void;
+    defaultCurrentUser: CurrentUserType;
     currentUserExists(): boolean;
 }
 

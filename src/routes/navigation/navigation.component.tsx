@@ -19,10 +19,12 @@ const Navigation = () => {
     const dispatch = useDispatch()
     const isMobile = useMediaQuery('(max-width: 1020px)')
     const authSession = useSelector(selectAuthSession)
-    const { currentUser } = useContext(UserContext)
+    const { currentUserExists } = useContext(UserContext)
     const { setCurrentPlayer } = useContext(PlayerContext)
 
-    const buttonText = currentUser ? 'SIGN OUT' : 'SIGN IN'
+    const userExists = currentUserExists()
+
+    const buttonText = userExists ? 'SIGN OUT' : 'SIGN IN'
 
     const signIn = async () => {
         const session = generateRandomString()
@@ -59,11 +61,11 @@ const Navigation = () => {
         dispatch(setPlaylistName('Name Your New Playlist'))
         dispatch(setPlaylistTracks([]))
         dispatch(setSearchResults([]))
-        setCurrentPlayer(undefined)
+        setCurrentPlayer(null)
     }
 
     const userAction = () => {
-        if (currentUser) {
+        if (userExists) {
             signOut()
         } else {
             signIn()
@@ -78,7 +80,7 @@ const Navigation = () => {
                   <p>Search powered by Spotify</p> 
                 </SpotifyAttributor>        
                 <h1><JamsLogo /></h1>
-                <SignInButtonContainer currentUser={currentUser} isMobile={isMobile} >
+                <SignInButtonContainer userExists={userExists} isMobile={isMobile} >
                   {!isMobile && 'For the best experience'}
                   <SignInButton isMobile={isMobile} onClick={userAction}>
                     {buttonText}

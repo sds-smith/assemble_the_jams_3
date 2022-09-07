@@ -12,6 +12,8 @@ export const UserContext = createContext<UserContextProps>({
     setUserLoading : () => {},
     currentUser : defaultCurrentUser,
     setCurrentUser : () => {},
+    defaultCurrentUser,
+    currentUserExists : () => false
 })
 
 export const UserProvider: FC<ProviderProps> = ({children}) => {
@@ -27,7 +29,8 @@ export const UserProvider: FC<ProviderProps> = ({children}) => {
                     setUserLoading,
                     currentUser, 
                     setCurrentUser,
-                    currentUserExists
+                    currentUserExists,
+                    defaultCurrentUser
                 }
 
     return <UserContext.Provider value={value} >{children}</UserContext.Provider>

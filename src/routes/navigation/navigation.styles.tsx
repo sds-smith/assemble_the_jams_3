@@ -1,6 +1,14 @@
 import styled from "styled-components";
 import Button from "../../components/reusable-components/button/button.component";
 
+type NavigationProps = {
+  isMobile: boolean;
+}
+
+type SignInButtonContainerProps = NavigationProps & {
+  userExists: boolean;
+}
+
 export const Header = styled.div`
     background-color: black;
     border: 1px solid black;
@@ -22,7 +30,7 @@ export const Header = styled.div`
       }
 `
 
-export const SignInButtonContainer = styled.div`
+export const SignInButtonContainer = styled.div<SignInButtonContainerProps>`
   position: absolute;
   top: ${props => props.isMobile ? '5px' : '10px'};
   right: ${props => props.isMobile ? '5px' : '20px'};
@@ -32,14 +40,14 @@ export const SignInButtonContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: ${props => props.currentUser ? 'black' : 'white'};
+  color: ${props => props.userExists ? 'black' : 'white'};
 `
 
-export const SignInButton = styled(Button)`
+export const SignInButton = styled(Button)<NavigationProps>`
 ${props => props.isMobile && 'width: 80px; height: 35px; font-size: 8px'};
 `
 
-export const SpotifyAttributor = styled.a`
+export const SpotifyAttributor = styled.a<NavigationProps>`
     position: absolute;
     top: 5px;
     left: 5px;

@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+type HomeProps = {
+    isMobile: boolean;
+}
+
 export const HomeContainer = styled.div`
     min-height: calc(100vh - 100px);
     position: relative;
@@ -14,7 +18,7 @@ export const HomeContainer = styled.div`
 
 `
 
-export const InputContainer = styled.div`
+export const InputContainer = styled.div<HomeProps>`
     display: flex;
     flex-direction: ${props => props.isMobile ? 'column' : 'unset'};
     align-items: ${props => props.isMobile ? 'center' : 'unset'};
@@ -22,7 +26,7 @@ export const InputContainer = styled.div`
     width: 100%;
 `
 
-export const ResultsContainer = styled.div`
+export const ResultsContainer = styled.div<HomeProps>`
     display: flex;
     flex-direction: ${props => props.isMobile ? 'column' : 'unset'};
     align-items: ${props => props.isMobile ? 'center' : 'unset'};
