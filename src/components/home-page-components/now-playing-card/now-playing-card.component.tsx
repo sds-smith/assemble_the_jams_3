@@ -14,9 +14,10 @@ import { selectAuthSession } from '../../../store/auth/auth.selector'
 import { selectPlaylistTracks } from '../../../store/track/track.selector'
 import { setPlaylistTracks } from '../../../store/track/track.action'
 import { UserContext } from '../../../contexts/user.context'
-import { PlayerContext } from '../../../contexts/player.context'
+import { PlayerContext, nowPlayingInitialState } from '../../../contexts/player.context'
 import { useMediaQuery } from '../../../utils/customHooks'
 import { Spotify } from '../../../utils/spotify'
+import { Track } from '../../../store/track/track.types'
 import {NowPlayingContainer, SpotifyAttributor, SpotifyLogo, NowPlayingCover, NowPlayingLabel, TrackControls, ProgressContainer} from './now-playing-card.styles'
 
 const NowPlayingCard = () => {
@@ -32,7 +33,7 @@ const NowPlayingCard = () => {
     const isMobile = useMediaQuery('(max-width: 1020px)')
 
     const addTrack = () => {
-        let tracks = playlistTracks
+        let tracks: Track[] = playlistTracks
         if (tracks.find(savedTrack => savedTrack.id === nowPlaying.track.id)) {
           return
         }
@@ -49,7 +50,7 @@ const NowPlayingCard = () => {
             return
         }
         const {message, isLike} = await Spotify.toggleLike(authSession, nowPlaying)
-        setNowPlaying(nowPlaying => ({...nowPlaying, isLike}))
+        setNowPlaying({...nowPlaying, isLike})
         setLikesMessage(message)
         setTimeout(() => setLikesMessage(''), 3000);
     }
@@ -57,10 +58,10 @@ const NowPlayingCard = () => {
     const closeNowPlaying = async () => {
         if (currentPlayer) {
             await currentPlayer.pause()
-            setNowPlaying({hasTrack: false, track: {}, isLike: null})
+            setNowPlaying(nowPlayingInitialState)
         } else {
             setActive(false)
-            setNowPlaying({hasTrack: false, track: {}, isLike: null})
+            setNowPlaying(nowPlayingInitialState)
         }
     }
 
@@ -89,10 +90,12 @@ const NowPlayingCard = () => {
                     <SpotifyLogo src={SpotifyIcon} id='spotify-icon' alt='spotify icon'/>
                     <p>Listen on Spotify</p>
             </SpotifyAttributor>
-            <NowPlayingCover  
-                src={nowPlaying.track.cover} 
-                 alt="now playing cover art" 
-            />
+            {nowPlaying.track.cover && 
+                <NowPlayingCover  
+                    src={nowPlaying.track.cover} 
+                    alt="now playing cover art" 
+                />
+            }
             <NowPlayingLabel>
                 <div >{nowPlaying.track.name}</div>
                 <div >{nowPlaying.track.artist}</div>

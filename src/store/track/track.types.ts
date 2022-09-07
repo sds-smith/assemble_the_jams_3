@@ -8,11 +8,11 @@ export enum TRACK_ACTION_TYPES {
 }
 
 export type Track = {
-    id : string;
-    name : string;
-    artist : string;
-    album : string;
-    cover : string;
-    uri : string;
-    preview : string;
+    id : string | null;
+    name : string | null;
+    artist : string | null;
+    album : string | null;
+    cover : string | null;
+    uri : string | null;
+    preview : string | null;
 }

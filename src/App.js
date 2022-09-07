@@ -26,12 +26,10 @@ const App = () => {
     if (!clientToken) {
       const getClientToken = async () => {
         const { token, expiresIn } = await Spotify.getClientToken()
-        if (expiresIn !== null) {
-          setClientToken(token)
-          window.setTimeout(() => {
-            setClientToken('')
-          }, expiresIn * 1000)
-        }
+        setClientToken(token)
+        window.setTimeout(() => {
+          setClientToken('')
+        }, expiresIn * 1000)
       }
       getClientToken()
     }

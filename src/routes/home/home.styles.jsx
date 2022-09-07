@@ -29,31 +29,3 @@ export const ResultsContainer = styled.div`
     justify-content: ${props => props.isMobile ? 'flex-start' : 'center'};
     width: 100%;
 `
-
-export const TabContainer = styled.div`
-    display: flex;
-    width: calc(100% + .88rem);
-    margin: 25px 0px 0px 20px;
-    justify-content: flex-start;
-
-`
-
-export const Tab = styled.button`
-    border: none;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    height: 30px;
-    width: 40%;
-    margin: 0px;
-    background-color: ${props => props.active ? 'rgba(0, 0, 0, 0.4)' : 'rgba(0, 0, 0, 0.2)'} ;
-    font-weight: ${props => props.active ? 'bold' : 'unset'};
-    color: ${props => props.active ? 'white' : 'rgba(255, 255, 255, 0.5)'};
-    // box-shadow: ${props => props.active ? '0 0 0 2px #000000' : '0 4px 2px 2px #000000'};
-    ${props => props.active ? (
-        'border-left: 2px solid black; border-top: 2px solid black; border-right: 2px solid black'
-        ) : (
-         'border-bottom: 2px solid black'
-        )};
-    
-
-`

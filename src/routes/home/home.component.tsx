@@ -12,8 +12,14 @@ import { useMediaQuery } from '../../utils/customHooks'
 import { HomeContainer, InputContainer, ResultsContainer  } from "./home.styles"
 import { selectAccessToken } from "../../store/auth/auth.selector"
 
+export type ActiveTab = {
+  'playlist' : boolean;
+  'search_results' : boolean;
+}
+
 const Home = () => { 
-    const [activeTab, setActiveTab] = useState({
+
+    const [activeTab, setActiveTab] = useState<ActiveTab>({
       'playlist' : true,
       'search_results' : true
     })

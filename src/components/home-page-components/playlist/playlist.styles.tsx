@@ -1,7 +1,11 @@
 import styled from "styled-components";
 import Button from "../../reusable-components/button/button.component";
 
-export const PlaylistContainer = styled.div`
+type PlaylistProps = {
+  isMobile: boolean;
+}
+
+export const PlaylistContainer = styled.div<PlaylistProps>`
     position: relative;
     display: flex;
     flex-direction: column;
@@ -20,7 +24,7 @@ export const PlaylistContainer = styled.div`
     }
 `
 
-export const TitleContainer = styled.div`
+export const TitleContainer = styled.div<PlaylistProps>`
     display: flex;
     justify-content: center;
     width: 100%;

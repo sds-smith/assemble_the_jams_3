@@ -1,10 +1,11 @@
 import axios from 'axios';
+import { NowPlaying, TrackType } from './context.utils';
 
 const scope = encodeURIComponent('user-read-private user-read-email playlist-modify-public streaming user-library-read user-library-modify')
 
 export const Spotify = {
 
-    async getClientToken() {
+    async getClientToken(): Promise<{token: string, expiresIn: number | null}> {
       try {
         const response = await fetch('/.netlify/functions/get-client-access-token', {
           method: 'post',
@@ -18,15 +19,15 @@ export const Spotify = {
         console.log('nope ', error)
         window.alert('error with client log-in, please contact app support.')
       }
+      return {token: '', expiresIn: null}
     },
 
-    auth(codeChallenge, state) {
+    auth(codeChallenge: string, state: string) {
       const SpotifyAuth = `https://accounts.spotify.com/authorize?response_type=code&client_id=${process.env.REACT_APP_CLIENT_ID}&scope=${scope}&state=${state}&code_challenge_method=S256&code_challenge=${codeChallenge}&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}`
-
       window.location.replace(SpotifyAuth)
     },
 
-    async getUserProfile(authSession) {
+    async getUserProfile(authSession: string) {
       try {
         const response = await fetch('/.netlify/functions/get-user', {
           method: 'post',
@@ -45,7 +46,7 @@ export const Spotify = {
       }
     },
 
-    async search(clientToken, query) {
+    async search(clientToken: string, query: string) {
         try {
             let endpoint = `https://api.spotify.com/v1/search?type=track&q=${query}&market=US`
             const headers =  { Authorization : `Bearer ${clientToken}` }
@@ -100,7 +101,7 @@ export const Spotify = {
       });
     },
 
-    async getLikeStatus(authSession, trackId) {
+    async getLikeStatus(authSession: string, trackId: string) {
       try {
         const response = await fetch('/.netlify/functions/get-like-status', {
           method: 'post',
@@ -134,7 +135,7 @@ export const Spotify = {
       }
     },
 
-    async toggleLike(authSession, nowPlaying) {
+    async toggleLike(authSession: string, nowPlaying: NowPlaying) {
       try {
         const {isLike, track} = nowPlaying
         const trackId = track.id

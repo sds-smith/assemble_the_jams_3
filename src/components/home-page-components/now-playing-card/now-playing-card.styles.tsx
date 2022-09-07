@@ -1,6 +1,10 @@
 import styled from "styled-components";
 
-export const NowPlayingContainer = styled.div`
+type NowPlayingContainerProps = {
+    isMobile: boolean;
+}
+
+export const NowPlayingContainer = styled.div<NowPlayingContainerProps>`
     position: relative;
     display: ${props => props.isMobile ? 'none' : 'flex'};
     width: 80%;
@@ -57,7 +61,13 @@ export const TrackControls = styled.div`
     z-index: 10;
 `
 
-export const ProgressContainer = styled.div`
+type ProgressContainerProps = {
+    backgroundColor: string;
+    transform: string;
+    transition: string;
+}
+
+export const ProgressContainer = styled.div<ProgressContainerProps>`
     position: absolute;
     top: 0;
     left: 0;

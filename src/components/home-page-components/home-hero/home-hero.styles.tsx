@@ -1,6 +1,10 @@
 import styled from "styled-components"
 
-export const HomeHeroContainer = styled.div`
+type HomeHeroContainerProps = {
+    isMobile: boolean;
+}
+
+export const HomeHeroContainer = styled.div<HomeHeroContainerProps>`
     display: flex;
     flex-direction: column;
     align-items: center;

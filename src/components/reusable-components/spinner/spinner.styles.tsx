@@ -5,12 +5,19 @@ const rotate = keyframes`
     transform: rotate(360deg);
   }
 `
+type SpinnerContainerProps = {
+  display: string;
+}
 
-export const SpinnerContainer = styled.h3`
+type SpinnerImgProps = {
+  play: string;
+}
+
+export const SpinnerContainer = styled.h3<SpinnerContainerProps>`
     display: ${props => props.display};
 `
 
-export const SpinnerImg = styled.img`
+export const SpinnerImg = styled.img<SpinnerImgProps>`
     width: 24px;
     height: auto;
     animation: ${rotate} 4s linear infinite;

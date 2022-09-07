@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { Track } from "../store/track/track.types";
 
 
 export type ClientContextProps = {
@@ -6,20 +7,10 @@ export type ClientContextProps = {
     setClientToken(clientToken: string): void
 }
 
-export type TrackType = {
-    album: string | null;
-    artist: string | null;
-    cover: string | null;
-    id: string | null;
-    name: string | null;
-    preview: string | null;
-    uri: string | null;
-}
-
 export type NowPlaying = {
     hasTrack: boolean;
     isLike: boolean | null;
-    track: TrackType;
+    track: Track;
 }
 
 export type PlayerContextProps = {
@@ -27,8 +18,8 @@ export type PlayerContextProps = {
     setCurrentPlayer(currentPlayer: (typeof Spotify.Player) | null): void;
     deviceID : string | null;
     setDeviceId(deviceID: string | null): void;
-    nowPlaying : NowPlaying | null;
-    setNowPlaying(nowPlaying: NowPlaying | null): void;
+    nowPlaying : NowPlaying;
+    setNowPlaying(nowPlaying: NowPlaying): void;
     active : boolean | null;
     setActive(active: boolean | null): void;
 }
