@@ -43,6 +43,7 @@ const App = () => {
         try {
           const user = await Spotify.getUserProfile(authSession)
           if (user.display_name) {
+            console.log({user})
             setCurrentUser(user)
             setUserLoading(false)
             navigate('/')            

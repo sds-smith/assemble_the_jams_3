@@ -36,8 +36,8 @@ export const Spotify = {
           body: JSON.stringify({ authSession })
         })
         const {user} = await response.json()
-        const {display_name, images} = user
-        return {display_name, images}
+        const {display_name, images, id} = user
+        return {display_name, images, id}
         
       } catch(error) {
         console.log('nope ', error)
