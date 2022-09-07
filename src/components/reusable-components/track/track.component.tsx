@@ -1,4 +1,4 @@
-import { useContext, Fragment } from 'react'
+import { useContext, Fragment, FC, ImgHTMLAttributes } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import TrackActionButton from '../track-action-button/track-action-button.component'
@@ -17,8 +17,14 @@ import { PlayerContext } from '../../../contexts/player.context'
 
 import { TrackContainer, CoverContainer, TrackInformation, TrackActionContainer, TrackCover, SpotifyLogo } from './track.styles'
 import { ProgressContainer } from '../../home-page-components/now-playing-card/now-playing-card.styles'
+import { Track } from '../../../store/track/track.types'
 
-const Track = ({track, trackType }) => {
+type TrackProps = {
+  track: Track;
+  trackType: string;
+} & ImgHTMLAttributes<HTMLImageElement>
+
+const Track: FC<TrackProps> = ({track, trackType }) => {
   const dispatch = useDispatch()
 
   const authSession = useSelector(selectAuthSession)
@@ -60,16 +66,16 @@ const Track = ({track, trackType }) => {
         const isLike = await Spotify.getLikeStatus(authSession, track.id)
         const uri = `spotify:track:${track.id}`
         setNowPlaying({hasTrack, track, isLike})
-        Spotify.play(deviceID, {
-          playerInstance : currentPlayer,
-          spotify_uri : uri,
-        })
+        if (currentPlayer) {
+          Spotify.playTrack(deviceID, uri) 
+        }
+
       }
   }
 
-  const play = () => {
+  const play = async () => {
     if (currentPlayer) {
-      currentPlayer.activateElement()
+      await currentPlayer.activateElement()
       playTrack()
     } else {
       playPreview()
@@ -95,10 +101,12 @@ const Track = ({track, trackType }) => {
       )  
   }
 
+  const trackCover = track.cover ? track.cover : ''
+
     return (
         <TrackContainer >
             <CoverContainer>
-              <TrackCover src={track.cover} alt='album cover'/>
+              <TrackCover src={trackCover} alt='album cover'/>
               <SpotifyLogo src={SpotifyLogoWhite} id='spotify-logo' alt='Spotify Logo'/>
             </CoverContainer>
             <TrackInformation >

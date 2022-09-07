@@ -1,7 +1,14 @@
 import { AnyAction } from "redux"
-import { TRACK_ACTION_TYPES } from "./track.types"
+import { TRACK_ACTION_TYPES, Track } from "./track.types"
 
-const INITIAL_STATE = {
+type TrackState = {
+    searchResults : Track[];
+    playlistTracks : Track[];
+    playlistName : string;
+    searchLoading : boolean;
+}
+
+const INITIAL_STATE: TrackState = {
     searchResults : [], 
     playlistTracks : [], 
     playlistName : "Name Your New Playlist", 
@@ -11,7 +18,7 @@ const INITIAL_STATE = {
 export const trackReducer = (
     state=INITIAL_STATE, 
     action: AnyAction
-) => {
+): TrackState => {
     const { type, payload } = action
 
     switch(type) {

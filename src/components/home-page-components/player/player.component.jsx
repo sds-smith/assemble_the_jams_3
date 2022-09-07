@@ -1,5 +1,6 @@
 import { useEffect, useContext } from "react";
 import { useSelector } from "react-redux";
+import '@types/spotify-web-playback-sdk'
 
 import { selectAccessToken } from "../../../store/auth/auth.selector";
 

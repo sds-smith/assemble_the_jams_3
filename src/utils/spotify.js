@@ -1,4 +1,5 @@
 import axios from 'axios';
+import '@types/spotify-web-playback-sdk'
 
 const scope = encodeURIComponent('user-read-private user-read-email playlist-modify-public streaming user-library-read user-library-modify')
 
@@ -80,25 +81,56 @@ export const Spotify = {
         }
     },
 
-    play(id, {
-      spotify_uri,
-      playerInstance:  {
+    playTrack(id, uri) {
+      const secondParam = {
+        spotify_uri: uri,
+        playerInstance: {
           _options: {
             getOAuthToken
           }
+        }
       }
-    }) {
-      getOAuthToken(access_token => {
-        fetch(`https://api.spotify.com/v1/me/player/play?device_id=${id}`, {
-          method: 'PUT',
-          body: JSON.stringify({ uris: [spotify_uri], position_ms: 30000 }),
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${access_token}`
-          },
+      const play = (id, {
+        spotify_uri,
+        playerInstance: {
+          _options: {
+            getOAuthToken
+          }
+        }
+      }) => {
+        getOAuthToken(access_token => {
+          fetch(`https://api.spotify.com/v1/me/player/play?device_id=${id}`, {
+            method: 'PUT',
+            body: JSON.stringify({ uris: [spotify_uri], position_ms: 30000 }),
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${access_token}`
+            },
+          });
         });
-      });
+      }
+      play(id, secondParam)
     },
+
+    // play(id, {
+      // spotify_uri,
+      // playerInstance:  {
+          // _options: {
+            // getOAuthToken
+          // }
+      // }
+    // }) {
+      // getOAuthToken(access_token => {
+        // fetch(`https://api.spotify.com/v1/me/player/play?device_id=${id}`, {
+          // method: 'PUT',
+          // body: JSON.stringify({ uris: [spotify_uri], position_ms: 30000 }),
+          // headers: {
+            // 'Content-Type': 'application/json',
+            // 'Authorization': `Bearer ${access_token}`
+          // },
+        // });
+      // });
+    // },
 
     async getLikeStatus(authSession, trackId) {
       try {

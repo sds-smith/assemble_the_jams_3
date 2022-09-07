@@ -72,8 +72,8 @@ const Playlist = () => {
           </TitleContainer>
           <ActionMessage bottom='65%' right='50%' width='10rem' >{savedMessage}</ActionMessage>
           <TrackList 
-            tracks={playlistTracks}
-            trackType={'playlist'}/>
+            trackType={'playlist'}
+          />
         </PlaylistContainer>            
     )
 }

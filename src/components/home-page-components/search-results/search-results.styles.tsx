@@ -1,6 +1,10 @@
 import styled from "styled-components"
 
-export const SearchResultsContainer = styled.div`
+type SearchResultsContainerProps = {
+  isMobile: boolean;
+}
+
+export const SearchResultsContainer = styled.div<SearchResultsContainerProps>`
     width: ${props => props.isMobile ? '95%' : '40%'};
     min-height: 40vh;
     max-height: 90vh;

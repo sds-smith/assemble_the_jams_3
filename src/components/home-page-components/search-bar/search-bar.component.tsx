@@ -1,4 +1,4 @@
-import { useState, useContext } from "react"
+import { useState, useContext, FC, ChangeEvent } from "react"
 import { useDispatch } from "react-redux"
 
 import Button from "../../reusable-components/button/button.component"
@@ -8,8 +8,16 @@ import { Spotify } from "../../../utils/spotify"
 import { ClientContext } from "../../../contexts/client.context"
 
 import { setSearchResults, setPlaylistTracks, setSearchLoading } from '../../../store/track/track.action'
-    
+
 import { SearchBarContainer, SearchBarInput, ButtonContainer, TermSelector } from "./search-bar.styles"
+
+type Search = (filter?: string) => void
+type AsyncSearch = (filter?: string) => Promise<void>
+type FilterObj = {
+    id: number;
+    label: string;
+    filter: string;
+}
 
 const SearchBar = () => {
 
@@ -20,7 +28,7 @@ const SearchBar = () => {
 
     const {clientToken} = useContext(ClientContext)
     
-    const filters = [
+    const filters: FilterObj[] = [
         {
             id : 1,
             label : 'Song',
@@ -43,15 +51,15 @@ const SearchBar = () => {
         }
     ]
 
-    const onFocus = () => {
+    const onFocus = (): void => {
         setSearchFocus(true)
     }
 
-    const onBlur = () => {
+    const onBlur = (): void => {
         !searchTerm && setSearchFocus(false)
     }
 
-    const search = async (filter) => {
+    const search: AsyncSearch = async (filter) => {
         setSearchFocus(false)
         dispatch(setSearchLoading(true))
         dispatch(setSearchResults([]))
@@ -65,21 +73,21 @@ const SearchBar = () => {
         dispatch(setSearchLoading(false))
     }
 
-    const filteredSearch = (filter) => {
+    const filteredSearch: Search = (filter) => {
         search(filter)
     }
 
-    const handleTermChange = (e) => {
+    const handleTermChange = (e: ChangeEvent<HTMLInputElement>): void => {
         setSearchTerm(e.target.value)
     }
 
-    const clearTracklists = () => {
+    const clearTracklists = (): void => {
         dispatch(setSearchResults([]))
         dispatch(setPlaylistTracks([]))
     }
 
     return (
-        <SearchBarContainer onKeyPress={(e) => e.key === 'Enter' && search()}>
+        <SearchBarContainer onKeyPress={(e) => e.key === 'Enter' && search('')}>
             <SearchBarInput 
                 placeholder="Enter A Song, Album, or Artist" 
                 onFocus={onFocus} 
@@ -101,10 +109,8 @@ const SearchBar = () => {
                 </TermSelector>
             }
             <ButtonContainer>
-                {/* <Button onClick={()=>search('')}>GENERATE PLAYLIST</Button> */}
                 <Button onClick={clearTracklists}>CLEAR TRACKLISTS</Button>
             </ButtonContainer>
-
         </SearchBarContainer>
     )
 }
