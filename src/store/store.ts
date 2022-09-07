@@ -4,6 +4,8 @@ import storage from 'redux-persist/lib/storage'
 
 import { rootReducer } from "./root-reducer";
 
+export type RootState = ReturnType<typeof rootReducer>
+
 const persistConfig = {
     key: 'root',
     storage,

@@ -1,4 +1,4 @@
-
+import { AnyAction } from "redux"
 import { TRACK_ACTION_TYPES } from "./track.types"
 
 const INITIAL_STATE = {
@@ -8,7 +8,10 @@ const INITIAL_STATE = {
     searchLoading : false, 
 }
 
-export const trackReducer = (state=INITIAL_STATE, action) => {
+export const trackReducer = (
+    state=INITIAL_STATE, 
+    action: AnyAction
+) => {
     const { type, payload } = action
 
     switch(type) {
