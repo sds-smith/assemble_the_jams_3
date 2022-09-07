@@ -14,12 +14,12 @@ const UserProfile = () => {
     const [profilePic, setProfilePic] = useState(ProfilePic)
     const [displayName, setDisplayName] = useState('')
 
-    const { userLoading, currentUser } = useContext(UserContext)
+    const { userLoading, currentUser, currentUserExists } = useContext(UserContext)
     const isMobile = useMediaQuery('(max-width: 1020px)')
 
     useEffect(() => {
-        if (currentUser) {
-          currentUser.images.length && setProfilePic(currentUser.images[0].url)
+        if (currentUserExists()) {
+          currentUser.image_url && setProfilePic(currentUser.image_url)
           setDisplayName(currentUser.display_name)
         } else {
           setProfilePic(ProfilePic)

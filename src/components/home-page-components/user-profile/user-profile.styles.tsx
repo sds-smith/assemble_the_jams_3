@@ -1,6 +1,10 @@
 import styled from "styled-components";
 
-export const ProfileLink = styled.a`
+type ProfileProps = {
+    isMobile: boolean;
+}
+
+export const ProfileLink = styled.a<ProfileProps>`
     width: ${props => props.isMobile ? '100%' : '30%'};
     min-height: 100%;
     height:inherit;
@@ -12,7 +16,7 @@ export const ProfileLink = styled.a`
     color: white;
 `
 
-export const ProfileImg = styled.img`
+export const ProfileImg = styled.img<ProfileProps>`
     height: ${props => props.isMobile ? '50px' : '180px'};
     width: auto;
     border-radius: 50%;

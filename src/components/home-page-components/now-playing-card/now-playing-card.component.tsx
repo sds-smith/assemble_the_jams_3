@@ -28,7 +28,7 @@ const NowPlayingCard = () => {
     const playlistTracks = useSelector(selectPlaylistTracks)
 
     const { currentUser } = useContext(UserContext)
-    const { currentPlayer, nowPlaying, setNowPlaying, active, setActive } = useContext(PlayerContext)
+    const { currentPlayer, nowPlaying, setNowPlaying, active, setActive, nowPlayingInitialState } = useContext(PlayerContext)
     const isMobile = useMediaQuery('(max-width: 1020px)')
 
     const addTrack = () => {
@@ -49,7 +49,7 @@ const NowPlayingCard = () => {
             return
         }
         const {message, isLike} = await Spotify.toggleLike(authSession, nowPlaying)
-        setNowPlaying(nowPlaying => ({...nowPlaying, isLike}))
+        setNowPlaying({...nowPlaying, isLike})
         setLikesMessage(message)
         setTimeout(() => setLikesMessage(''), 3000);
     }
@@ -57,10 +57,10 @@ const NowPlayingCard = () => {
     const closeNowPlaying = async () => {
         if (currentPlayer) {
             await currentPlayer.pause()
-            setNowPlaying({hasTrack: false, track: {}, isLike: null})
+            setNowPlaying(nowPlayingInitialState)
         } else {
             setActive(false)
-            setNowPlaying({hasTrack: false, track: {}, isLike: null})
+            setNowPlaying(nowPlayingInitialState)
         }
     }
 
@@ -82,6 +82,7 @@ const NowPlayingCard = () => {
     }, [])
 
     let LikeOrUnlike = nowPlaying.isLike ? Like : Unlike
+    const nowPlayingCover = nowPlaying.track.cover ? nowPlaying.track.cover : ''
 
     return (
         <NowPlayingContainer isMobile={isMobile} >
@@ -90,7 +91,7 @@ const NowPlayingCard = () => {
                     <p>Listen on Spotify</p>
             </SpotifyAttributor>
             <NowPlayingCover  
-                src={nowPlaying.track.cover} 
+                src={nowPlayingCover} 
                  alt="now playing cover art" 
             />
             <NowPlayingLabel>

@@ -1,6 +1,10 @@
 import styled from "styled-components";
 
-export const WebPlayerContainer = styled.div`
+type WebPlayerContainerProps = {
+    isMobile: boolean;
+}
+
+export const WebPlayerContainer = styled.div<WebPlayerContainerProps>`
     display: ${props => props.isMobile ? 'none' : 'flex'};
     width: 30%;
     height: ${props => props.isMobile ? '0px' : '300px'};

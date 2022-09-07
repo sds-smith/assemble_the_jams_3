@@ -38,10 +38,10 @@ const Auth = () => {
           dispatch(setPlaylistName('Name Your New Playlist'))
           dispatch(setPlaylistTracks([]))
           dispatch(setSearchResults([]))
-          setCurrentPlayer(undefined)
+          setCurrentPlayer(null)
       }
 
-        const getAccessToken = async ( authCode ) => {
+        const getAccessToken = async ( authCode: string ): Promise<void> => {
           try {
             const response = await fetch('/.netlify/functions/get-user-access-token', {
               method: 'post',
@@ -64,7 +64,7 @@ const Auth = () => {
         }
 
         if (authCodeMatch) {
-            const authCode = authCodeMatch[1]
+            const authCode: string = authCodeMatch[1]
             getAccessToken(authCode)
         } else {
           console.log('nope')

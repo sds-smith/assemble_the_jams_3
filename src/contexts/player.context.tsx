@@ -23,7 +23,8 @@ export const PlayerContext = createContext<PlayerContextProps>({
     nowPlaying : nowPlayingInitialState,
     setNowPlaying : () => null,
     active : null,
-    setActive : () => null
+    setActive : () => null,
+    nowPlayingInitialState
 })
 
 export const PlayerProvider: FC<ProviderProps> = ({children}) => {
@@ -39,7 +40,8 @@ export const PlayerProvider: FC<ProviderProps> = ({children}) => {
                     nowPlaying,
                     setNowPlaying,
                     active,
-                    setActive 
+                    setActive,
+                    nowPlayingInitialState
                 }
 
     return <PlayerContext.Provider value={value} >{children}</PlayerContext.Provider>

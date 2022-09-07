@@ -5,7 +5,7 @@ import { ActionMessageContainer } from "./action-message.styles";
 type ActionMessageProps = {
     bottom: string;
     right: string;
-    width: string;
+    width?: string;
     children: string;
 }
 
@@ -14,7 +14,7 @@ const ActionMessage: FC<ActionMessageProps> = ({ bottom, right, width, children 
         <ActionMessageContainer 
             bottom={bottom} 
             right={right} 
-            width={width} 
+            width={width || '7rem'} 
         >
             {children}
         </ActionMessageContainer>

@@ -22,6 +22,7 @@ export type PlayerContextProps = {
     setNowPlaying(nowPlaying: NowPlaying): void;
     active : boolean | null;
     setActive(active: boolean | null): void;
+    nowPlayingInitialState: NowPlaying;
 }
 
 export type CurrentUserType = {
@@ -35,6 +36,7 @@ export type UserContextProps = {
     setUserLoading(userLoading : boolean): void;
     currentUser : CurrentUserType;
     setCurrentUser(currentUser : CurrentUserType): void;
+    currentUserExists(): boolean;
 }
 
 export type ProviderProps = {
