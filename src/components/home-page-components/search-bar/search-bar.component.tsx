@@ -19,7 +19,7 @@ type FilterObj = {
     filter: string;
 }
 
-const SearchBar = () => {
+const SearchBar: FC = () => {
 
     const [searchTerm, setSearchTerm] = useState('')
     const [searchFocus, setSearchFocus] = useState(false)

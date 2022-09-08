@@ -1,6 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
 import { SpotifyType, RecommendationsResponseType, Play, SecondParamType } from './spotify.types';
-import { TrackType } from '../store/track/track.types';
 
 const scope = encodeURIComponent('user-read-private user-read-email playlist-modify-public streaming user-library-read user-library-modify')
 

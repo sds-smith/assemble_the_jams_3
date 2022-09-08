@@ -25,7 +25,7 @@ const UserProfile = () => {
           setProfilePic(ProfilePic)
           setDisplayName('unknown user')
         }
-      },[currentUser])
+      },[currentUserExists])
 
     return (
         <ProfileLink isMobile={isMobile} href={`https://open.spotify.com/user/${displayName}`} target='_blank' rel="noreferrer" >
