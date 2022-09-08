@@ -67,7 +67,7 @@ const Track: FC<TrackProps> = ({track, trackType }) => {
         const uri = `spotify:track:${track.id}`
         setNowPlaying({hasTrack, track, isLike})
         if (currentPlayer) {
-          Spotify.playTrack(deviceID, uri) 
+          Spotify.playTrack(deviceID, uri, currentPlayer) 
         }
 
       }

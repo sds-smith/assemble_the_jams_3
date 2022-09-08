@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import { SpotifyType } from './spotify.types';
+import { SpotifyType, RecommendationsResponseType, Play, SecondParamType, GetOAuthToken } from './spotify.types';
 import { Track } from '../store/track/track.types';
 
 const scope = encodeURIComponent('user-read-private user-read-email playlist-modify-public streaming user-library-read user-library-modify')
@@ -65,7 +65,7 @@ export const Spotify: SpotifyType = {
             const seeds = searchResults.tracks.items.slice(0, 5).map(track => track.id)
           
             const recommendationsResponse: AxiosResponse = await axios.get(`https://api.spotify.com/v1/recommendations?seed_tracks=${seeds}`,{headers : headers})
-            const recommendations: SpotifyApi.RecommendationsFromSeedsResponse = recommendationsResponse.data
+            const recommendations: RecommendationsResponseType = recommendationsResponse.data
             const recommendationsArray: Track[] = recommendations.tracks.map(track => ({
               id : track.id,
               name : track.name,
@@ -82,16 +82,12 @@ export const Spotify: SpotifyType = {
         }
     },
 
-    playTrack(id, uri) {
-      const secondParam = {
+    playTrack(id, uri, currentPlayer) {
+      const secondParam: SecondParamType = {
         spotify_uri: uri,
-        playerInstance: {
-          _options: {
-            getOAuthToken
-          }
-        }
+        playerInstance: currentPlayer
       }
-      const play = (id, {
+      const play: Play = (id, {
         spotify_uri,
         playerInstance: {
           _options: {
@@ -185,16 +181,3 @@ export const Spotify: SpotifyType = {
       }
     }
 }
-
-{
-  "tracks": {
-    "href": "https://api.spotify.com/v1/me/shows?offset=0&limit=20\n",
-    "items": [
-      {}
-    ],
-    "limit": 20,
-    "next": "https://api.spotify.com/v1/me/shows?offset=1&limit=1",
-    "offset": 0,
-    "previous": "https://api.spotify.com/v1/me/shows?offset=1&limit=1",
-    "total": 4
-  },

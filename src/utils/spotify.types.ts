@@ -1,4 +1,5 @@
 import { Track } from '../store/track/track.types';
+import { CurrentUserType, NowPlaying } from './context.utils'
 
 // {
 //   "tracks": {
@@ -18,12 +19,39 @@ type GetClientToken = () => Promise<{token: string, expiresIn: string} | undefin
 type Auth = (codeChallenge: string, state: string) => void
 type GetUserProfile = (authSession: string) => Promise<{display_name: string, image_url: string, id: string} | undefined>
 type Search = (clientToken: string, query: string) => Promise<{searchResultsArray: Track[], recommendationsArray: Track[]} | undefined>
+type PlayTrack = (id: string, uri: string, currentPlayer: Spotify.Player) => void
+type GetLikeStatus = (authSession: string, trackId: string) => Promise<boolean>
+type SaveResponse = { 
+  message: string;
+  playlistName: string;
+  playlistTracks: Track[];
+  searchResults: Track[];
+}
+type SavePlaylist = (authSession: string, currentUser: CurrentUserType, playlistName: string, trackURIs: string[]) => Promise<SaveResponse>
+type ToggleLike = (authSession: string, nowPlaying: NowPlaying) => Promise<{message: string, isLike: boolean}>
+
+export type RecommendationsResponseType = {
+  tracks: SpotifyApi.TrackObjectFull[]
+  seeds: SpotifyApi.RecommendationsSeedObject[]
+}
+
+export type GetOAuthToken = (callback: (t: string) => void) => {callback(access_token: string): void};
+
+export type SecondParamType = {
+  spotify_uri: string;
+  playerInstance: Spotify.Player
+}
+
+export type Play = (id: string, secondParam: SecondParamType) => void
 
 export type SpotifyType = {
   getClientToken: GetClientToken;
   auth: Auth;
   getUserProfile: GetUserProfile;
   search: Search;
-
+  playTrack: PlayTrack;
+  getLikeStatus: GetLikeStatus;
+  savePlaylist: SavePlaylist;
+  toggleLike: ToggleLike;
 
 }
