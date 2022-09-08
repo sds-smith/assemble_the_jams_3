@@ -1,9 +1,10 @@
-import axios from 'axios';
-import '@types/spotify-web-playback-sdk'
+import axios, { AxiosResponse } from 'axios';
+import { SpotifyType } from './spotify.types';
+import { Track } from '../store/track/track.types';
 
 const scope = encodeURIComponent('user-read-private user-read-email playlist-modify-public streaming user-library-read user-library-modify')
 
-export const Spotify = {
+export const Spotify: SpotifyType = {
 
     async getClientToken() {
       try {
@@ -50,9 +51,9 @@ export const Spotify = {
         try {
             let endpoint = `https://api.spotify.com/v1/search?type=track&q=${query}&market=US`
             const headers =  { Authorization : `Bearer ${clientToken}` }
-            const response = await axios.get(endpoint, {headers : headers})
-            const searchResults = response.data
-            const searchResultsArray = searchResults.tracks.items.map(track => ({
+            const response: AxiosResponse = await axios.get(endpoint, {headers : headers})
+            const searchResults: SpotifyApi.TrackSearchResponse = response.data
+            const searchResultsArray: Track[] = searchResults.tracks.items.map(track => ({
               id : track.id,
               name : track.name,
               artist : track.artists[0].name,
@@ -63,9 +64,9 @@ export const Spotify = {
             }))
             const seeds = searchResults.tracks.items.slice(0, 5).map(track => track.id)
           
-            const recommendationsResponse = await axios.get(`https://api.spotify.com/v1/recommendations?seed_tracks=${seeds}`,{headers : headers})
-            const recommendations = recommendationsResponse.data
-            const recommendationsArray = recommendations.tracks.map(track => ({
+            const recommendationsResponse: AxiosResponse = await axios.get(`https://api.spotify.com/v1/recommendations?seed_tracks=${seeds}`,{headers : headers})
+            const recommendations: SpotifyApi.RecommendationsFromSeedsResponse = recommendationsResponse.data
+            const recommendationsArray: Track[] = recommendations.tracks.map(track => ({
               id : track.id,
               name : track.name,
               artist : track.artists[0].name,
@@ -184,3 +185,16 @@ export const Spotify = {
       }
     }
 }
+
+{
+  "tracks": {
+    "href": "https://api.spotify.com/v1/me/shows?offset=0&limit=20\n",
+    "items": [
+      {}
+    ],
+    "limit": 20,
+    "next": "https://api.spotify.com/v1/me/shows?offset=1&limit=1",
+    "offset": 0,
+    "previous": "https://api.spotify.com/v1/me/shows?offset=1&limit=1",
+    "total": 4
+  },
