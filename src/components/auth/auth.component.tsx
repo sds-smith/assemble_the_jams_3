@@ -1,5 +1,4 @@
 import { useEffect, useContext } from "react"
-import { useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 
 import Spinner from '../reusable-components/spinner/spinner.component'
@@ -13,7 +12,6 @@ import { AuthContainer } from "./auth.styles"
 
 const Auth = () => {
     const dispatch = useDispatch()
-    const navigate = useNavigate()
 
     const authSession = useSelector(selectAuthSession)
     const { setCurrentPlayer } = useContext(PlayerContext)
@@ -68,7 +66,6 @@ const Auth = () => {
             getAccessToken(authCode)
         } else {
           console.log('nope')
-          navigate('/log-in')
         }
          // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])

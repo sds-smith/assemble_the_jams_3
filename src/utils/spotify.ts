@@ -24,7 +24,6 @@ export const Spotify: SpotifyType = {
 
     auth(codeChallenge, state) {
       const SpotifyAuth = `https://accounts.spotify.com/authorize?response_type=code&client_id=${process.env.REACT_APP_CLIENT_ID}&scope=${scope}&state=${state}&code_challenge_method=S256&code_challenge=${codeChallenge}&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}`
-
       window.location.replace(SpotifyAuth)
     },
 
