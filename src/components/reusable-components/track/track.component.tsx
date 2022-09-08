@@ -61,6 +61,7 @@ const Track: FC<TrackProps> = ({track, trackType }) => {
   };
 
   const playTrack = async () => {
+    if (track.id) {
       if (!nowPlaying.hasTrack) {
         const hasTrack = true
         const isLike = await Spotify.getLikeStatus(authSession, track.id)
@@ -71,6 +72,7 @@ const Track: FC<TrackProps> = ({track, trackType }) => {
         }
 
       }
+    }
   }
 
   const play = async () => {

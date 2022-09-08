@@ -25,11 +25,16 @@ const App = () => {
   useEffect(() => {
     if (!clientToken) {
       const getClientToken = async () => {
-        const { token, expiresIn } = await Spotify.getClientToken()
-        setClientToken(token)
-        window.setTimeout(() => {
-          setClientToken('')
-        }, expiresIn * 1000)
+        const response = await Spotify.getClientToken()
+        if (response) {
+          const { token, expiresIn } = response
+          setClientToken(token)        
+          window.setTimeout(() => {
+            setClientToken('')
+          }, expiresIn * 1000)
+        }
+
+
       }
       getClientToken()
     }

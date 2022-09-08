@@ -1,10 +1,9 @@
 
-
 export const Preview = {
-    playPreview(audioPreview) {
+    playPreview(audioPreview: HTMLAudioElement) {
         audioPreview
         .play()
-        .catch((error) => {
+        .catch((error: Error) => {
           console.log(error);
         });
     }

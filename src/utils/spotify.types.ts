@@ -15,7 +15,7 @@ import { CurrentUserType, NowPlaying } from './context.utils'
 //   },
 // }
 
-type GetClientToken = () => Promise<{token: string, expiresIn: string} | undefined>
+type GetClientToken = () => Promise<{token: string, expiresIn: number} | undefined>
 type Auth = (codeChallenge: string, state: string) => void
 type GetUserProfile = (authSession: string) => Promise<{display_name: string, image_url: string, id: string} | undefined>
 type Search = (clientToken: string, query: string) => Promise<{searchResultsArray: Track[], recommendationsArray: Track[]} | undefined>

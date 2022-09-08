@@ -17,12 +17,12 @@ export type NowPlaying = {
 export type PlayerContextProps = {
     currentPlayer : (Spotify.Player) | null;
     setCurrentPlayer(currentPlayer: (Spotify.Player) | null): void;
-    deviceID : string | null;
-    setDeviceId(deviceID: string | null): void;
+    deviceID : string;
+    setDeviceId(deviceID: string): void;
     nowPlaying : NowPlaying;
     setNowPlaying(nowPlaying: NowPlaying): void;
-    active : boolean | null;
-    setActive(active: boolean | null): void;
+    active : boolean;
+    setActive(active: boolean): void;
     nowPlayingInitialState: NowPlaying;
 }
 

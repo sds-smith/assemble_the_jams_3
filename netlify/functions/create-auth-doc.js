@@ -1,7 +1,7 @@
 require('dotenv').config()
 const { generateRandomString, generateCodeChallenge, pkce_challenge_from_verifier } = require('../../src/utils/random-generator')
 const { createAuthDocumentFromSession } = require('../../src/utils/firebase.node')
-
+const { CreateAuthDocumentFromSessionProps } = require('../../src/utils/firebase.types')
 exports.handler = async (event) => {
     try {
         const { session } = JSON.parse(event.body)
