@@ -11,4 +11,5 @@ export type AuthDoc = {
         codeVerifier: string;
         createdAt: Date;
         state: string;
+        accessToken: string;
 }

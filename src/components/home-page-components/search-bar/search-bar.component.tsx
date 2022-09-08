@@ -65,12 +65,14 @@ const SearchBar = () => {
         dispatch(setSearchResults([]))
         dispatch(setPlaylistTracks([]))
         const query = filter ? `${filter}:"${searchTerm}"` : searchTerm
-        const {searchResultsArray, recommendationsArray} = await Spotify.search(clientToken, query)
-        
-        setSearchTerm('')
-        dispatch(setSearchResults(searchResultsArray))
-        dispatch(setPlaylistTracks(recommendationsArray))
-        dispatch(setSearchLoading(false))
+        const response = await Spotify.search(clientToken, query)
+        if (response) {
+            const {searchResultsArray, recommendationsArray} = response
+            setSearchTerm('')
+            dispatch(setSearchResults(searchResultsArray))
+            dispatch(setPlaylistTracks(recommendationsArray))
+            dispatch(setSearchLoading(false))
+        }
     }
 
     const filteredSearch: Search = (filter) => {

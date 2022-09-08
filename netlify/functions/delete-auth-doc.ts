@@ -1,5 +1,5 @@
 require('dotenv').config()
-const { deleteAuthDocumentFromSession } = require('../../src/utils/firebase.node')
+import { deleteAuthDocumentFromSession } from '../../src/utils/firebase.node'
 
 exports.handler = async (event) => {
     try {

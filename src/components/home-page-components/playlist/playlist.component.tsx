@@ -50,7 +50,7 @@ const Playlist = () => {
       if (!currentUser) {
         signIn()
       }
-      const trackURIs = playlistTracks.map(track => track.uri)
+      const trackURIs: string[] = playlistTracks.map(track => track.uri)
       try {
         const response = await Spotify.savePlaylist(authSession, currentUser, playlistName, trackURIs)
         dispatch(setPlaylistName(response.playlistName))

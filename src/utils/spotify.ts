@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
-import { SpotifyType, RecommendationsResponseType, Play, SecondParamType, GetOAuthToken } from './spotify.types';
-import { Track } from '../store/track/track.types';
+import { SpotifyType, RecommendationsResponseType, Play, SecondParamType } from './spotify.types';
+import { TrackType } from '../store/track/track.types';
 
 const scope = encodeURIComponent('user-read-private user-read-email playlist-modify-public streaming user-library-read user-library-modify')
 
@@ -53,7 +53,7 @@ export const Spotify: SpotifyType = {
             const headers =  { Authorization : `Bearer ${clientToken}` }
             const response: AxiosResponse = await axios.get(endpoint, {headers : headers})
             const searchResults: SpotifyApi.TrackSearchResponse = response.data
-            const searchResultsArray: Track[] = searchResults.tracks.items.map(track => ({
+            const searchResultsArray = searchResults.tracks.items.map(track => ({
               id : track.id,
               name : track.name,
               artist : track.artists[0].name,
@@ -66,7 +66,7 @@ export const Spotify: SpotifyType = {
           
             const recommendationsResponse: AxiosResponse = await axios.get(`https://api.spotify.com/v1/recommendations?seed_tracks=${seeds}`,{headers : headers})
             const recommendations: RecommendationsResponseType = recommendationsResponse.data
-            const recommendationsArray: Track[] = recommendations.tracks.map(track => ({
+            const recommendationsArray = recommendations.tracks.map(track => ({
               id : track.id,
               name : track.name,
               artist : track.artists[0].name,

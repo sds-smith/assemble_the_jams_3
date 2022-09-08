@@ -17,10 +17,10 @@ import { PlayerContext } from '../../../contexts/player.context'
 
 import { TrackContainer, CoverContainer, TrackInformation, TrackActionContainer, TrackCover, SpotifyLogo } from './track.styles'
 import { ProgressContainer } from '../../home-page-components/now-playing-card/now-playing-card.styles'
-import { Track } from '../../../store/track/track.types'
+import { TrackType } from '../../../store/track/track.types'
 
 type TrackProps = {
-  track: Track;
+  track: TrackType;
   trackType: string;
 } & ImgHTMLAttributes<HTMLImageElement>
 

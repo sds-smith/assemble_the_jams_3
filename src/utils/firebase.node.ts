@@ -31,7 +31,7 @@ initializeApp(firebaseConfig);
 
 const db = getFirestore()
 
-const createAuthDocumentFromSession = async (
+export const createAuthDocumentFromSession = async (
     sessionData: CreateAuthDocumentFromSessionProps
 ): Promise<void | QueryDocumentSnapshot<AuthDoc>> => {
     const authDocRef = doc(db, 'auth', sessionData.session)
@@ -53,7 +53,7 @@ const createAuthDocumentFromSession = async (
     }
 }
 
-const getAuthDoc = async (authSession: string): Promise<AuthDoc> => {
+export const getAuthDoc = async (authSession: string): Promise<AuthDoc> => {
     const collectionRef = collection(db, 'auth')
     const q = query(collectionRef)
     const querySnapshot = await getDocs(q)
@@ -61,7 +61,7 @@ const getAuthDoc = async (authSession: string): Promise<AuthDoc> => {
     return snapshotDocs[0]
 }
 
-const updateAuthDoc = async (authSession: string, token: string) => {
+export const updateAuthDoc = async (authSession: string, token: string) => {
     const sessionRef = doc(db, 'auth', authSession)
     await updateDoc(sessionRef, {
         accessToken: token
@@ -69,8 +69,8 @@ const updateAuthDoc = async (authSession: string, token: string) => {
     return sessionRef
 }
 
-const deleteAuthDocumentFromSession = async (session: string) => {
+export const deleteAuthDocumentFromSession = async (session: string) => {
     await deleteDoc(doc(db, "auth", session));    
 }
 
-module.exports = { createAuthDocumentFromSession, getAuthDoc, updateAuthDoc, deleteAuthDocumentFromSession }
+// module.exports = { createAuthDocumentFromSession, getAuthDoc, updateAuthDoc, deleteAuthDocumentFromSession }

@@ -1,6 +1,6 @@
 require('dotenv').config()
-const axios = require('axios').default
-const {getAuthDoc} = require('../../src/utils/firebase.node')
+import axios from 'axios'
+import {getAuthDoc} from '../../src/utils/firebase.node'
 
 exports.handler = async (event) => {
     try {

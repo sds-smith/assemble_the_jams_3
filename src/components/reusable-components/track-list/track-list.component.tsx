@@ -11,7 +11,9 @@ type TrackListProps = {
 }
 
 const TrackList: FC<TrackListProps> = ({ trackType }) => {
-    const tracks = trackType === 'playlist' ? useSelector(selectPlaylistTracks) : useSelector(selectSearchResults)
+    const playlistTracks = useSelector(selectPlaylistTracks)
+    const searchResults = useSelector(selectSearchResults)
+    const tracks = trackType === 'playlist' ? playlistTracks : searchResults 
 
     return (
         <TrackListContainer>

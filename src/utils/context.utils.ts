@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { defaultCurrentUser } from "../contexts/user.context";
-import { Track } from "../store/track/track.types";
+import { TrackType } from "../store/track/track.types";
 
 
 export type ClientContextProps = {
@@ -11,7 +11,7 @@ export type ClientContextProps = {
 export type NowPlaying = {
     hasTrack: boolean;
     isLike: boolean | null;
-    track: Track;
+    track: TrackType;
 }
 
 export type PlayerContextProps = {

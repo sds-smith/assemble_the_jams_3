@@ -4,13 +4,13 @@ import { PlayerContextProps, ProviderProps, NowPlaying } from "../utils/context.
 export const nowPlayingInitialState = {
     hasTrack: false,
     track : {
-      album: null,
-      artist: null,
-      cover: null,
-      id: null,
-      name: null,
-      preview: null,
-      uri: null,
+      album: '',
+      artist: '',
+      cover: '',
+      id: '',
+      name: '',
+      preview: '',
+      uri: '',
     },
     isLike : null
   }  

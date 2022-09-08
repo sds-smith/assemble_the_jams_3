@@ -7,12 +7,12 @@ export enum TRACK_ACTION_TYPES {
     SET_SEARCH_LOADING = 'SET_SEARCH_LOADING'
 }
 
-export type Track = {
-    id : string | null;
-    name : string | null;
-    artist: string | null;
-    album : string | null;
-    cover : string | null;
-    uri : string | null;
+export type TrackType = {
+    id : string;
+    name : string;
+    artist: string;
+    album : string;
+    cover : string;
+    uri : string;
     preview : string | null;
 }

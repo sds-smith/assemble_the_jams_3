@@ -1,9 +1,9 @@
 import { AnyAction } from "redux"
-import { TRACK_ACTION_TYPES, Track } from "./track.types"
+import { TRACK_ACTION_TYPES, TrackType } from "./track.types"
 
 type TrackState = {
-    searchResults : Track[];
-    playlistTracks : Track[];
+    searchResults : TrackType[];
+    playlistTracks : TrackType[];
     playlistName : string;
     searchLoading : boolean;
 }

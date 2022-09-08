@@ -1,9 +1,9 @@
 
-import { TRACK_ACTION_TYPES, Track } from "./track.types"
+import { TRACK_ACTION_TYPES, TrackType } from "./track.types"
 import { ActionWithPayload } from "../../utils/reducer.utils"
 
-export const setSearchResults = (tracks: Track[]):
-    ActionWithPayload<TRACK_ACTION_TYPES.SET_SEARCH_RESULTS, Track[]> => 
+export const setSearchResults = (tracks: TrackType[]):
+    ActionWithPayload<TRACK_ACTION_TYPES.SET_SEARCH_RESULTS, TrackType[]> => 
 {
     return {
         type: TRACK_ACTION_TYPES.SET_SEARCH_RESULTS,
@@ -11,8 +11,8 @@ export const setSearchResults = (tracks: Track[]):
     }
 }
 
-export const setPlaylistTracks = (tracks: Track[]):
-    ActionWithPayload<TRACK_ACTION_TYPES.SET_PLAYLIST_TRACKS, Track[]> => 
+export const setPlaylistTracks = (tracks: TrackType[]):
+    ActionWithPayload<TRACK_ACTION_TYPES.SET_PLAYLIST_TRACKS, TrackType[]> => 
 {
     return {
         type: TRACK_ACTION_TYPES.SET_PLAYLIST_TRACKS,
