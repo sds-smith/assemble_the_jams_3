@@ -1,5 +1,5 @@
-const {initializeApp} = require('firebase/app');
-const { 
+import {initializeApp} from 'firebase/app';
+import { 
     getFirestore, 
     doc, 
     getDoc, 
@@ -9,8 +9,12 @@ const {
     collection,
     // writeBatch,
     query,
-    getDocs
-} = require('firebase/firestore');
+    getDocs,
+    QueryDocumentSnapshot
+} from 'firebase/firestore';
+
+import { CreateAuthDocumentFromSessionProps, AuthDoc } from './firebase.types'
+
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -25,10 +29,11 @@ const firebaseConfig = {
 // Initialize Firebase
 initializeApp(firebaseConfig);
 
-
 const db = getFirestore()
 
-const createAuthDocumentFromSession = async (sessionData) => {
+const createAuthDocumentFromSession = async (
+    sessionData: CreateAuthDocumentFromSessionProps
+): Promise<void | QueryDocumentSnapshot<AuthDoc>> => {
     const authDocRef = doc(db, 'auth', sessionData.session)
     const authSnapshot = await getDoc(authDocRef)
 
@@ -48,15 +53,15 @@ const createAuthDocumentFromSession = async (sessionData) => {
     }
 }
 
-const getAuthDoc = async (authSession) => {
+const getAuthDoc = async (authSession: string): Promise<AuthDoc> => {
     const collectionRef = collection(db, 'auth')
     const q = query(collectionRef)
     const querySnapshot = await getDocs(q)
-    const snapshotDocs = querySnapshot.docs.map((doc) => doc.data()).filter((doc) => doc.authSession === authSession)
+    const snapshotDocs = querySnapshot.docs.map((doc) => doc.data() as AuthDoc).filter((doc) => doc.authSession === authSession)
     return snapshotDocs[0]
 }
 
-const updateAuthDoc = async (authSession, token) => {
+const updateAuthDoc = async (authSession: string, token: string) => {
     const sessionRef = doc(db, 'auth', authSession)
     await updateDoc(sessionRef, {
         accessToken: token
@@ -64,7 +69,7 @@ const updateAuthDoc = async (authSession, token) => {
     return sessionRef
 }
 
-const deleteAuthDocumentFromSession = async (session) => {
+const deleteAuthDocumentFromSession = async (session: string) => {
     await deleteDoc(doc(db, "auth", session));    
 }
 

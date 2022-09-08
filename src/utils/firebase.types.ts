@@ -7,10 +7,8 @@ export type CreateAuthDocumentFromSessionProps = {
 }
 
 export type AuthDoc = {
-    data: {
         authSession: string;
         codeVerifier: string;
         createdAt: Date;
         state: string;
-    }
 }
