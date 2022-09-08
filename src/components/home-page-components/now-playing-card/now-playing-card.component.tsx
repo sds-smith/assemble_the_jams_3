@@ -27,7 +27,7 @@ const NowPlayingCard = () => {
     const authSession = useSelector(selectAuthSession)
     const playlistTracks = useSelector(selectPlaylistTracks)
 
-    const { currentUser } = useContext(UserContext)
+    const { currentUserExists } = useContext(UserContext)
     const { currentPlayer, nowPlaying, setNowPlaying, active, setActive, nowPlayingInitialState } = useContext(PlayerContext)
     const isMobile = useMediaQuery('(max-width: 1020px)')
 
@@ -41,7 +41,7 @@ const NowPlayingCard = () => {
     }
 
     const toggleLike = async () => {
-        if (!currentUser) {
+        if (!currentUserExists()) {
             window.alert('Please sign in with Spotify to use this feature')
             return
         }
