@@ -63,5 +63,5 @@ export const SpotifyAttributor = styled.a<NavigationProps>`
 
 export const SpotifyLogo = styled.img`
     width: 70px;
-    height: auto;
+    height: 21px;
 `
