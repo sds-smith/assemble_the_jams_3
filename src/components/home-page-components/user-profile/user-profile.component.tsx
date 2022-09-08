@@ -20,7 +20,7 @@ const UserProfile = () => {
     useEffect(() => {
         if (currentUserExists()) {
           currentUser.image_url && setProfilePic(currentUser.image_url)
-          setDisplayName(currentUser.display_name)
+          currentUser.display_name && setDisplayName(currentUser.display_name)
         } else {
           setProfilePic(ProfilePic)
           setDisplayName('unknown user')
