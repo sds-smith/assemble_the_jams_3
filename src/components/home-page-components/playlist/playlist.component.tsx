@@ -11,10 +11,9 @@ import { selectAuthSession } from "../../../store/auth/auth.selector"
 import { selectPlaylistTracks, selectPlaylistName } from '../../../store/track/track.selector'
 import { setPlaylistTracks, setPlaylistName, setSearchResults } from '../../../store/track/track.action'
 import { UserContext } from "../../../contexts/user.context"
-import { useMediaQuery } from '../../../utils/customHooks'
+import { useMediaQuery } from '../../../utils/custom-hooks/use-media-query'
+import { useSignIn } from "../../../utils/custom-hooks/use-sign-in"
 import { Spotify } from "../../../utils/spotify"
-import { generateRandomString } from '../../../utils/random-state-generator'
-import { setAuthSession } from '../../../store/auth/auth.action'
 import { PlaylistContainer, TitleContainer,  SaveToSpotifyButton } from './playlist.styles'
 
 const Playlist = () => {
@@ -27,24 +26,7 @@ const Playlist = () => {
     const playlistTracks = useSelector(selectPlaylistTracks)
     const playlistName = useSelector(selectPlaylistName)
     const isMobile = useMediaQuery('(max-width: 1020px)')
-
-    const signIn = async () => {
-      const session = generateRandomString()
-      dispatch(setAuthSession(session))
-      try {
-          const response = await fetch('/.netlify/functions/create-auth-doc', {
-            method: 'post',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ session })
-          })
-          const { codeChallenge, state} = await response.json()
-          Spotify.auth(codeChallenge, state)
-      } catch (error) {
-        console.log(error)
-      } 
-  }
+    const { signIn } = useSignIn()
 
     const savePlaylist = async () => {
       if (!currentUser) {

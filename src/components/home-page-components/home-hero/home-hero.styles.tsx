@@ -12,8 +12,16 @@ export const HomeHeroContainer = styled.div<HomeHeroContainerProps>`
     width: ${props => props.isMobile ? '100%' : '30%'};
     margin-bottom: 10px;
 
-    p {
-        margin-bottom: 0px;
-        text-align: center;
+    .step4 {
+        margin-top: 1rem;
     }
+`
+
+export const StepContainer = styled.div`
+    text-align: center;    
+`
+
+export const Icon = styled.img`
+    margin-bottom: -5px;
+    height: 1rem;
 `

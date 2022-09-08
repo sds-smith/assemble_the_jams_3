@@ -15,7 +15,7 @@ import { selectPlaylistTracks } from '../../../store/track/track.selector'
 import { setPlaylistTracks } from '../../../store/track/track.action'
 import { UserContext } from '../../../contexts/user.context'
 import { PlayerContext } from '../../../contexts/player.context'
-import { useMediaQuery } from '../../../utils/customHooks'
+import { useMediaQuery } from '../../../utils/custom-hooks/use-media-query'
 import { Spotify } from '../../../utils/spotify'
 import {NowPlayingContainer, SpotifyAttributor, SpotifyLogo, NowPlayingCover, NowPlayingLabel, TrackControls, ProgressContainer} from './now-playing-card.styles'
 

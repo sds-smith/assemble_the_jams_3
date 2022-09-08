@@ -8,7 +8,7 @@ import SearchResults from "../../components/home-page-components/search-results/
 import Playlist from "../../components/home-page-components/playlist/playlist.component"
 import Footer from "../../components/home-page-components/footer/footer.component"
 
-import { useMediaQuery } from '../../utils/customHooks'
+import { useMediaQuery } from '../../utils/custom-hooks/use-media-query'
 import { HomeContainer, InputContainer, ResultsContainer  } from "./home.styles"
 import { selectAccessToken } from "../../store/auth/auth.selector"
 

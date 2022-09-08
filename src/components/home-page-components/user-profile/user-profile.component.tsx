@@ -6,7 +6,7 @@ import ProfilePic from '../../../assets/icons/default_profile96.png'
 
 import { UserContext } from '../../../contexts/user.context';
 
-import { useMediaQuery } from '../../../utils/customHooks'
+import { useMediaQuery } from '../../../utils/custom-hooks/use-media-query'
 import { ProfileLink, ProfileImg } from "./user-profile.styles";
 
 const UserProfile = () => {

@@ -4,7 +4,7 @@ import TrackList from "../../reusable-components/track-list/track-list.component
 import Spinner from "../../reusable-components/spinner/spinner.component"
 
 import { selectSearchLoading } from '../../../store/track/track.selector'
-import { useMediaQuery } from '../../../utils/customHooks'
+import { useMediaQuery } from '../../../utils/custom-hooks/use-media-query'
 import { SearchResultsContainer } from "./search-results.styles"
 
 const SearchResults = () => {
