@@ -91,11 +91,13 @@ const SearchBar: FC = () => {
                 onChange={handleTermChange} 
                 value={searchTerm}
             />
-            {/* {searchFocus &&  */}
+            {searchFocus && 
                 <TermSelector>
                     {filters.map((filter) => (
                         <SearchFilterButton 
                             key={filter.id} 
+                            scroll={(el) => el.scrollIntoView({ behavior: 'smooth', block: "start" })}
+                            to='/#results'
                             onClick={()=>filteredSearch(filter.filter)}
                             disabled={!searchTerm} 
                         >
@@ -103,7 +105,7 @@ const SearchBar: FC = () => {
                         </SearchFilterButton>)
                     )}
                 </TermSelector>
-            {/* } */}
+            } 
         </SearchBarContainer>
     )
 }

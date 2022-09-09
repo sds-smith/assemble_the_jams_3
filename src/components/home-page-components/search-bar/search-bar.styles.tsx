@@ -32,5 +32,5 @@ export const TermSelector = styled.div`
     border-radius: 3px;
     margin-top: -1rem;
     margin-bottom: 1rem;
-    background-color: rgba(255, 255, 255, .6);
+    background-color: rgb(255, 255, 255);
 `
