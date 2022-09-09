@@ -5,7 +5,6 @@ type HomeHeroContainerProps = {
 }
 
 export const HomeHeroContainer = styled.div<HomeHeroContainerProps>`
-    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;

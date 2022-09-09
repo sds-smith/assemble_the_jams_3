@@ -91,7 +91,7 @@ const SearchBar: FC = () => {
                 onChange={handleTermChange} 
                 value={searchTerm}
             />
-            {searchFocus && 
+            {/* {searchFocus &&  */}
                 <TermSelector>
                     {filters.map((filter) => (
                         <SearchFilterButton 
@@ -103,7 +103,7 @@ const SearchBar: FC = () => {
                         </SearchFilterButton>)
                     )}
                 </TermSelector>
-            }
+            {/* } */}
         </SearchBarContainer>
     )
 }

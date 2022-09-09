@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const SearchBarContainer = styled.div`
+    position: relative;
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -24,6 +25,8 @@ export const SearchBarInput = styled.input`
 `
 
 export const TermSelector = styled.div`
+    position: absolute;
+    top: 5rem;
     width: 287px;
     border: 1px solid rgba(255, 255, 255, .6);
     border-radius: 3px;
