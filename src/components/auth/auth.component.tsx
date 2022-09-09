@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 
 import Spinner from '../reusable-components/spinner/spinner.component'
 
-import { setAccessToken, setAuthSession } from "../../store/auth/auth.action"
+import { setAccessToken } from "../../store/auth/auth.action"
 import { selectAuthSession } from "../../store/auth/auth.selector"
 import { useSignIn } from "../../utils/custom-hooks/use-sign-in"
 
