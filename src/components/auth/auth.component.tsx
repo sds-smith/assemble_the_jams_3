@@ -1,12 +1,11 @@
-import { useEffect, useContext } from "react"
+import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 
 import Spinner from '../reusable-components/spinner/spinner.component'
 
 import { setAccessToken, setAuthSession } from "../../store/auth/auth.action"
-import { setPlaylistTracks, setPlaylistName, setSearchResults } from "../../store/track/track.action"
 import { selectAuthSession } from "../../store/auth/auth.selector"
-import { PlayerContext } from "../../contexts/player.context"
+import { useSignIn } from "../../utils/custom-hooks/use-sign-in"
 
 import { AuthContainer } from "./auth.styles"
 
@@ -14,30 +13,10 @@ const Auth = () => {
     const dispatch = useDispatch()
 
     const authSession = useSelector(selectAuthSession)
-    const { setCurrentPlayer } = useContext(PlayerContext)
+    const { signOut } = useSignIn()
 
     useEffect(() => {
         const authCodeMatch = window.location.href.match(/code=([^&]*)/)
-
-        const signOut = async () => {
-          try {
-              await fetch('/.netlify/functions/delete-auth-doc', {
-                method: 'post',
-                headers: {
-                  'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ authSession })
-              })
-          } catch(error) {
-              console.log(error)
-          }
-          dispatch(setAuthSession(''))
-          dispatch(setAccessToken(''))
-          dispatch(setPlaylistName('Name Your New Playlist'))
-          dispatch(setPlaylistTracks([]))
-          dispatch(setSearchResults([]))
-          setCurrentPlayer(null)
-      }
 
         const getAccessToken = async ( authCode: string ): Promise<void> => {
           try {

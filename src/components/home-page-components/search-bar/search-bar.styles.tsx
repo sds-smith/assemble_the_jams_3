@@ -6,7 +6,6 @@ export const SearchBarContainer = styled.div`
     width: 100%;
     align-items: center;
     padding-top: 1rem;
-    margin-bottom: 1rem;
 `
 
 export const SearchBarInput = styled.input`
@@ -31,10 +30,4 @@ export const TermSelector = styled.div`
     margin-top: -1rem;
     margin-bottom: 1rem;
     background-color: rgba(255, 255, 255, .6);
-`
-
-export const ButtonContainer = styled.div`
-    display: flex;
-    width: 80%;
-    justify-content: space-evenly;
 `

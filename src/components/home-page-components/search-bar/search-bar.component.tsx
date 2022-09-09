@@ -1,7 +1,6 @@
 import { useState, useContext, FC, ChangeEvent } from "react"
 import { useDispatch } from "react-redux"
 
-import Button from "../../reusable-components/button/button.component"
 import SearchFilterButton from "../../reusable-components/search-filter-button/search-filter-button.component"
 
 import { Spotify } from "../../../utils/spotify"
@@ -9,7 +8,7 @@ import { ClientContext } from "../../../contexts/client.context"
 
 import { setSearchResults, setPlaylistTracks, setSearchLoading } from '../../../store/track/track.action'
 
-import { SearchBarContainer, SearchBarInput, ButtonContainer, TermSelector } from "./search-bar.styles"
+import { SearchBarContainer, SearchBarInput, TermSelector } from "./search-bar.styles"
 
 type Search = (filter?: string) => void
 type AsyncSearch = (filter?: string) => Promise<void>
@@ -83,11 +82,6 @@ const SearchBar: FC = () => {
         setSearchTerm(e.target.value)
     }
 
-    const clearTracklists = (): void => {
-        dispatch(setSearchResults([]))
-        dispatch(setPlaylistTracks([]))
-    }
-
     return (
         <SearchBarContainer onKeyPress={(e) => e.key === 'Enter' && search('')}>
             <SearchBarInput 
@@ -110,9 +104,6 @@ const SearchBar: FC = () => {
                     )}
                 </TermSelector>
             }
-            <ButtonContainer>
-                <Button onClick={clearTracklists}>CLEAR TRACKLISTS</Button>
-            </ButtonContainer>
         </SearchBarContainer>
     )
 }

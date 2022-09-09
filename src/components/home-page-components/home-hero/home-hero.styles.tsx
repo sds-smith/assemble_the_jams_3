@@ -5,12 +5,13 @@ type HomeHeroContainerProps = {
 }
 
 export const HomeHeroContainer = styled.div<HomeHeroContainerProps>`
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     width: ${props => props.isMobile ? '100%' : '30%'};
-    margin-bottom: 10px;
+    margin: 10px 0px;
 
     .step4 {
         margin-top: 1rem;
@@ -24,4 +25,11 @@ export const StepContainer = styled.div`
 export const Icon = styled.img`
     margin-bottom: -5px;
     height: 1rem;
+`
+
+export const ButtonContainer = styled.div`
+    display: flex;
+    width: 80%;
+    justify-content: space-evenly;
+    margin-top: 20px;
 `
