@@ -28,6 +28,7 @@ const Auth = () => {
               body: JSON.stringify({ authCode, authSession })
             })
             const {token, expiresIn} = await response.json()
+            console.log({token})
             if (token) {
               dispatch(setAccessToken(token))
               window.setTimeout(() => {
