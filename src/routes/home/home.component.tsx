@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react"
 import { useSelector } from "react-redux"
 
-import Activate from "../activate/activate.component"
+import Activate from "../../components/home-page-components/activate/activate.component"
 import HomeHero from "../../components/home-page-components/home-hero/home-hero.component"
 import UserProfile from "../../components/home-page-components/user-profile/user-profile.component"
 import WebPlayer from "../../components/home-page-components/web-player/web-player.component"

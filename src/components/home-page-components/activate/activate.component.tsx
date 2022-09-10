@@ -1,7 +1,7 @@
 import { useContext } from "react"
-import Button from "../../components/reusable-components/button/button.component"
-import Spinner from "../../components/reusable-components/spinner/spinner.component"
-import { PlayerContext } from "../../contexts/player.context"
+import Button from "../../reusable-components/button/button.component"
+import Spinner from "../../reusable-components/spinner/spinner.component"
+import { PlayerContext } from "../../../contexts/player.context"
 import { ActivateContainer } from "./activate.styles"
 
 const Activate = () => {
