@@ -1,8 +1,8 @@
 import { useContext } from 'react'
 import { useSelector } from 'react-redux'
 
-import Player from '../player/player.component'
-import NowPlayingCard from '../now-playing-card/now-playing-card.component'
+import Player from './player/player.component'
+import NowPlayingCard from './now-playing-card/now-playing-card.component'
 
 import { selectAccessToken } from '../../../store/auth/auth.selector'
 import { PlayerContext } from '../../../contexts/player.context'

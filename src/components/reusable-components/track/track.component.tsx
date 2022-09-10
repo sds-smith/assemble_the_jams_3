@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import TrackActionButton from '../track-action-button/track-action-button.component'
 
 import PlayBtn from '../../../assets/icons/play_white24.png'
+import StopBtn from '../../../assets/icons/stop_white24.png'
+
 import AddBtn from '../../../assets/icons/add_white24.png'
 import ClearBtn from '../../../assets/icons/clear_white24.png'
 import SpotifyLogoWhite from '../../../assets/icons/Spotify_Logo_RGB_White.png'
@@ -16,7 +18,7 @@ import { setPlaylistTracks } from '../../../store/track/track.action'
 import { PlayerContext } from '../../../contexts/player.context'
 
 import { TrackContainer, CoverContainer, TrackInformation, TrackActionContainer, TrackCover, SpotifyLogo } from './track.styles'
-import { ProgressContainer } from '../../home-page-components/now-playing-card/now-playing-card.styles'
+import { ProgressContainer } from '../../home-page-components/web-player/now-playing-card/now-playing-card.styles'
 import { TrackType } from '../../../store/track/track.types'
 
 type TrackProps = {
@@ -29,7 +31,9 @@ const Track: FC<TrackProps> = ({track, trackType }) => {
 
   const authSession = useSelector(selectAuthSession)
   const playlistTracks = useSelector(selectPlaylistTracks)
-  const { nowPlaying, setNowPlaying, deviceID, currentPlayer, active } = useContext(PlayerContext)
+  const { nowPlaying, setNowPlaying, deviceID, currentPlayer, active, setActive, nowPlayingInitialState } = useContext(PlayerContext)
+
+  let audioPreview: HTMLAudioElement
 
   const addTrack = () => {
     let tracks = playlistTracks
@@ -51,7 +55,7 @@ const Track: FC<TrackProps> = ({track, trackType }) => {
       return;
     }
     if (!nowPlaying.hasTrack) {
-      const audioPreview = new Audio(track.preview);
+      audioPreview = new Audio(track.preview);
       audioPreview.volume = 0.5;
       const hasTrack = true
       const isLike = false
@@ -84,12 +88,40 @@ const Track: FC<TrackProps> = ({track, trackType }) => {
     }
   }
 
+  const closeNowPlaying = async () => {
+    if (currentPlayer) {
+        await currentPlayer.pause()
+        setNowPlaying(nowPlayingInitialState)
+    } else {
+        setActive(false)
+        setNowPlaying(nowPlayingInitialState)
+    }
+}
+
+const stopPlayback = () => {
+  if (currentPlayer) {
+      closeNowPlaying()
+  } else {
+      window.alert('This feature only available with signed in user')
+  }
+}
+
+  const isActiveTrack = nowPlaying.track.id === track.id
+  const playActionButton = isActiveTrack ? StopBtn : PlayBtn
+  const playAction = () => {
+    if (isActiveTrack) {
+      stopPlayback()
+    } else {
+      play()
+    }
+  }
+
   let trackActions 
   switch(trackType) {
     case 'playlist' :
       trackActions = (
                 <Fragment>
-                  <TrackActionButton onClick={play} src={PlayBtn} alt='button to play track'/>
+                  <TrackActionButton onClick={playAction} src={playActionButton} alt='button to play track'/>
                   <TrackActionButton onClick={removeTrack} src={ClearBtn} alt='button to remove track from playlist'/>
                 </Fragment>
         )  
@@ -97,7 +129,7 @@ const Track: FC<TrackProps> = ({track, trackType }) => {
     default :
       trackActions = (
                 <Fragment>
-                  <TrackActionButton onClick={play} src={PlayBtn} alt='button to play track'/>
+                  <TrackActionButton onClick={playAction} src={playActionButton} alt='button to play track'/>
                   <TrackActionButton onClick={addTrack} src={AddBtn} alt='button to add track to playlist'/>
                 </Fragment>
       )  
@@ -118,7 +150,7 @@ const Track: FC<TrackProps> = ({track, trackType }) => {
             <TrackActionContainer>
               {trackActions}
             </TrackActionContainer>
-            { nowPlaying.track.id === track.id &&
+            { isActiveTrack &&
               <ProgressContainer 
                 transform={ active ? 'scaleX(1)' : 'scaleX(0)' }
                 transition={ active ? 'transform 30s linear' : 'transform 0s linear' } 

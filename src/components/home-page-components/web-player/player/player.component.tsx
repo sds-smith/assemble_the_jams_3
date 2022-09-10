@@ -1,9 +1,9 @@
 import { useEffect, useContext } from "react";
 import { useSelector } from "react-redux";
 
-import { selectAccessToken } from "../../../store/auth/auth.selector";
+import { selectAccessToken } from "../../../../store/auth/auth.selector";
 
-import { PlayerContext } from '../../../contexts/player.context'
+import { PlayerContext } from '../../../../contexts/player.context'
 
 const Player = () => {
     const accessToken = useSelector(selectAccessToken)
