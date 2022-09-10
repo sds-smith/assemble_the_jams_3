@@ -15,7 +15,7 @@ const AudioElement: FC<AudioHTMLAttributes<HTMLAudioElement>> = () => {
         } else {
             audioPreview.pause()
         }
-    }, [nowPlaying.hasTrack])
+    }, [nowPlaying, audioPreview])
 
     return (
         <Fragment>
