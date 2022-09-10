@@ -22,7 +22,10 @@ export const FilterButton = styled.button`
         justify-self: flex-end;
     }
 
-    &:hover {
-        opacity: .8;
+    @media only screen and (min-width: 1020px) {
+        &:hover {
+            opacity: .8;
+        }
     }
+ 
 `

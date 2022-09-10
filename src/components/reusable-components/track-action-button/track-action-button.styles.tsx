@@ -12,12 +12,10 @@ export const TrackAction = styled.button`
     background-color: rgba(0, 0, 0, 0);
     color: #fff;
 
-
-    &:hover {
-        opacity: 0.5;
+    @media only screen and (min-width: 1020px) {
+        &:hover {
+            opacity: 0.5;
+        }
     }
 
-    &:visited {
-        opacity: 1;
-    }
 `

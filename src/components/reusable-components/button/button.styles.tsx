@@ -15,7 +15,9 @@ export const CustomButton = styled.button`
     color: #fff;
     font-weight: 500;
 
-    &:hover {
-        background-color: rgba(0, 128, 0, .6);
-      }
+    @media only screen and (min-width: 1020px) {
+        &:hover {
+          background-color: rgba(0, 128, 0, .6);
+        }
+    }
 `

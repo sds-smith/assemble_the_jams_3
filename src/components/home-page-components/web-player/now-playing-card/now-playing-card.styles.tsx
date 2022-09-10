@@ -29,16 +29,18 @@ export const SpotifyAttributor = styled.a`
     left: 10px;
     text-decoration: none;
     z-index: 10;
-
-    &:hover {
-        opacity: 0.5;
-    }
     
     p {
         font-size: 10px;
         color: black;
         margin: 0px;
       }
+
+    @media only screen and (min-width: 1020px) {
+        &:hover {
+            opacity: 0.5;
+        }
+    }
 `
 
 export const SpotifyLogo = styled.img`
