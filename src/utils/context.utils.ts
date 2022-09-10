@@ -1,7 +1,5 @@
 import { ReactNode } from "react";
-import { defaultCurrentUser } from "../contexts/user.context";
 import { TrackType } from "../store/track/track.types";
-
 
 export type ClientContextProps = {
     clientToken: string;
@@ -17,6 +15,8 @@ export type NowPlaying = {
 export type PlayerContextProps = {
     currentPlayer : (Spotify.Player) | null;
     setCurrentPlayer(currentPlayer: (Spotify.Player) | null): void;
+    currentPlayerActivated : boolean | null;
+    setCurrentPlayerActivated(currentPlayerActivated : boolean) : void;
     deviceID : string;
     setDeviceId(deviceID: string): void;
     nowPlaying : NowPlaying;

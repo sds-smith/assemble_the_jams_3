@@ -1,5 +1,6 @@
 import { useEffect, useContext } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import { selectAccessToken } from "../../../../store/auth/auth.selector";
 
@@ -8,6 +9,7 @@ import { PlayerContext } from '../../../../contexts/player.context'
 const SpotifyPlayer = () => {
     const accessToken = useSelector(selectAccessToken)
     const { setCurrentPlayer, setDeviceId, setActive } = useContext(PlayerContext)
+    const navigate = useNavigate()
 
     useEffect(() => {
 

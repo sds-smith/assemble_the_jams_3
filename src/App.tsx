@@ -1,10 +1,10 @@
 import { useEffect, useContext } from 'react'
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import Navigation from './routes/navigation/navigation.component';
 import Home from './routes/home/home.component'
-import Auth from './components/auth/auth.component';
+import Auth from './routes/auth/auth.component';
 
 import { selectAccessToken, selectAuthSession } from './store/auth/auth.selector';
 import { setAuthSession, setAccessToken } from './store/auth/auth.action';
@@ -20,7 +20,6 @@ const App = () => {
   const accessToken = useSelector(selectAccessToken)
   const authSession = useSelector(selectAuthSession)
   const { setUserLoading, setCurrentUser, defaultCurrentUser } = useContext(UserContext)
-  const navigate = useNavigate()
 
   useEffect(() => {
     if (!clientToken) {
@@ -33,8 +32,6 @@ const App = () => {
             setClientToken('')
           }, expiresIn * 1000)
         }
-
-
       }
       getClientToken()
     }
@@ -50,7 +47,6 @@ const App = () => {
           if (user && user.display_name) {
             setCurrentUser(user)
             setUserLoading(false)
-            navigate('/')            
           } else {
             setUserLoading(false)
             window.alert('problem logging in.  Please contact app support')
