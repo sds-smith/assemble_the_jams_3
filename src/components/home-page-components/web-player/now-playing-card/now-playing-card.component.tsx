@@ -1,5 +1,4 @@
 import { useState, useEffect, useContext } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 
 import TrackActionButton from '../../../reusable-components/track-action-button/track-action-button.component'
 import ActionMessage from '../../../reusable-components/action-message/action-message.component'
@@ -10,66 +9,24 @@ import AddBtn from '../../../../assets/icons/add_black24.png'
 import Like from '../../../../assets/icons/like24.png'
 import Unlike from '../../../../assets/icons/unlike24.png'
 
-import { selectAuthSession } from '../../../../store/auth/auth.selector'
-import { selectPlaylistTracks } from '../../../../store/track/track.selector'
-import { setPlaylistTracks } from '../../../../store/track/track.action'
-import { UserContext } from '../../../../contexts/user.context'
+import { useTrackControls } from '../../../../utils/custom-hooks/use-track-controls'
+
 import { PlayerContext } from '../../../../contexts/player.context'
 import { useMediaQuery } from '../../../../utils/custom-hooks/use-media-query'
-import { Spotify } from '../../../../utils/spotify'
 import {NowPlayingContainer, SpotifyAttributor, SpotifyLogo, NowPlayingCover, NowPlayingLabel, TrackControls, ProgressContainer} from './now-playing-card.styles'
 
 const NowPlayingCard = () => {
     const [likesMessage, setLikesMessage] = useState('')
 
-    const dispatch = useDispatch()
-
-    const authSession = useSelector(selectAuthSession)
-    const playlistTracks = useSelector(selectPlaylistTracks)
-
-    const { currentUserExists } = useContext(UserContext)
-    const { currentPlayer, nowPlaying, setNowPlaying, active, setActive, nowPlayingInitialState } = useContext(PlayerContext)
+    const { currentPlayer, nowPlaying, active, setActive } = useContext(PlayerContext)
+    const track = nowPlaying.track
     const isMobile = useMediaQuery('(max-width: 1020px)')
+    const { closeNowPlaying, stopPlayback, addTrack, toggleLike } = useTrackControls(track)
 
-    const addTrack = () => {
-        let tracks = playlistTracks
-        if (tracks.find(savedTrack => savedTrack.id === nowPlaying.track.id)) {
-          return
-        }
-        tracks.push(nowPlaying.track)
-        dispatch(setPlaylistTracks(tracks))
-    }
-
-    const toggleLike = async () => {
-        if (!currentUserExists()) {
-            window.alert('Please sign in with Spotify to use this feature')
-            return
-        }
-        if (!nowPlaying.track.id) {
-            return
-        }
-        const {message, isLike} = await Spotify.toggleLike(authSession, nowPlaying)
-        setNowPlaying({...nowPlaying, isLike})
+    const LikeAction = async () => {
+        const message = await toggleLike()
         setLikesMessage(message)
         setTimeout(() => setLikesMessage(''), 3000);
-    }
-
-    const closeNowPlaying = async () => {
-        if (currentPlayer) {
-            await currentPlayer.pause()
-            setNowPlaying(nowPlayingInitialState)
-        } else {
-            setActive(false)
-            setNowPlaying(nowPlayingInitialState)
-        }
-    }
-
-    const stopPlayback = () => {
-        if (currentPlayer) {
-            closeNowPlaying()
-        } else {
-            window.alert('This feature only available with signed in user')
-        }
     }
 
     useEffect(() => {
@@ -100,7 +57,7 @@ const NowPlayingCard = () => {
             </NowPlayingLabel>
             <TrackControls>
                  <TrackActionButton onClick={addTrack} src={AddBtn} alt='button to add track to playlist'/>
-                 <TrackActionButton onClick={toggleLike} src={LikeOrUnlike} alt='button to add/remove song from liked songs' />
+                 <TrackActionButton onClick={LikeAction} src={LikeOrUnlike} alt='button to add/remove song from liked songs' />
                  <TrackActionButton onClick={stopPlayback} src={StopBtn} alt='play or pause button'/>
             </TrackControls>   
             <ActionMessage bottom='2.2rem' right='10px'>{likesMessage}</ActionMessage>

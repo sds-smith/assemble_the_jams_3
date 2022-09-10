@@ -1,5 +1,4 @@
 import { useContext, Fragment, FC, ImgHTMLAttributes } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 
 import TrackActionButton from '../track-action-button/track-action-button.component'
 
@@ -10,10 +9,8 @@ import AddBtn from '../../../assets/icons/add_white24.png'
 import ClearBtn from '../../../assets/icons/clear_white24.png'
 import SpotifyLogoWhite from '../../../assets/icons/Spotify_Logo_RGB_White.png'
 
-import { Spotify } from '../../../utils/spotify'
-import { selectAuthSession } from '../../../store/auth/auth.selector'
-import { selectPlaylistTracks } from '../../../store/track/track.selector'
-import { setPlaylistTracks } from '../../../store/track/track.action'
+import { useTrackControls } from '../../../utils/custom-hooks/use-track-controls'
+
 import { PlayerContext } from '../../../contexts/player.context'
 
 import { TrackContainer, CoverContainer, TrackInformation, TrackActionContainer, TrackCover, SpotifyLogo } from './track.styles'
@@ -26,78 +23,10 @@ type TrackProps = {
 } & ImgHTMLAttributes<HTMLImageElement>
 
 const Track: FC<TrackProps> = ({track, trackType }) => {
-  const dispatch = useDispatch()
 
-  const authSession = useSelector(selectAuthSession)
-  const playlistTracks = useSelector(selectPlaylistTracks)
-  const { nowPlaying, setNowPlaying, deviceID, currentPlayer, active, setActive, nowPlayingInitialState } = useContext(PlayerContext)
+  const { play, stopPlayback, addTrack, removeTrack } = useTrackControls(track)
 
-  const addTrack = () => {
-    let tracks = playlistTracks
-    if (tracks.find(savedTrack => savedTrack.id === track.id)) {
-      return
-    }
-    tracks.push(track)
-    dispatch(setPlaylistTracks(tracks))
-  }
-
-  const removeTrack = () => {
-    let newTracks = playlistTracks.filter(savedTrack => savedTrack.id !== track.id)
-    dispatch(setPlaylistTracks(newTracks))
-  }
-
-  const playPreview = async () => {
-    if (!track.preview) {
-      window.alert('Please sign in with Spotify to preview this track')
-      return;
-    }
-    if (!nowPlaying.hasTrack) {
-      const hasTrack = true
-      const isLike = false
-      setNowPlaying({hasTrack, track, isLike})
-    }  
-  };
-
-  const playTrack = async () => {
-    if (track.id) {
-      if (!nowPlaying.hasTrack) {
-        const hasTrack = true
-        const isLike = await Spotify.getLikeStatus(authSession, track.id)
-        const uri = `spotify:track:${track.id}`
-        setNowPlaying({hasTrack, track, isLike})
-        if (currentPlayer) {
-          Spotify.playTrack(deviceID, uri, currentPlayer) 
-        }
-      }
-    }
-  }
-
-  const play = async () => {
-    if (currentPlayer) {
-      await currentPlayer.activateElement()
-      playTrack()
-    } else {
-      playPreview()
-    }
-  }
-
-  const closeNowPlaying = async () => {
-    if (currentPlayer) {
-        await currentPlayer.pause()
-        setNowPlaying(nowPlayingInitialState)
-    } else {
-        setActive(false)
-        setNowPlaying(nowPlayingInitialState)
-    }
-}
-
-const stopPlayback = () => {
-  if (currentPlayer) {
-      closeNowPlaying()
-  } else {
-      window.alert('This feature only available with signed in user')
-  }
-}
+  const { nowPlaying, active } = useContext(PlayerContext)
 
   const isActiveTrack = nowPlaying.track.id === track.id
   const playActionButton = isActiveTrack ? StopBtn : PlayBtn
