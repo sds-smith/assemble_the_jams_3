@@ -37,12 +37,12 @@ const HomeHero = () => {
     
     return (
         <HomeHeroContainer isMobile={isMobile} >
-            <StepContainer>{step1}</StepContainer>
+            <StepContainer key='1'>{step1}</StepContainer>
             <PlaylistNameInput />
-            <StepContainer>{step2}</StepContainer>
+            <StepContainer key='2'>{step2}</StepContainer>
             <SearchBar />
-            <StepContainer>{step3}</StepContainer>
-            <StepContainer className='step4' >{step4}</StepContainer>
+            <StepContainer key='3'>{step3}</StepContainer>
+            <StepContainer key='4' className='step4' >{step4}</StepContainer>
             <ButtonContainer>
                 <Button onClick={clearTracklists}>CLEAR TRACKLISTS</Button>
             </ButtonContainer>

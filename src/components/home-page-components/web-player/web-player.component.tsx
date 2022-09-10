@@ -1,7 +1,8 @@
 import { useContext } from 'react'
 import { useSelector } from 'react-redux'
 
-import Player from './player/player.component'
+import AudioElement from './audio-element/audio-element.component'
+import SpotifyPlayer from './spotify-player/spotify-player.component'
 import NowPlayingCard from './now-playing-card/now-playing-card.component'
 
 import { selectAccessToken } from '../../../store/auth/auth.selector'
@@ -19,7 +20,10 @@ const WebPlayer = () => {
 
     return (
         <WebPlayerContainer isMobile={isMobile} >     
-            { accessToken && <Player /> }   
+            { accessToken ? 
+                <SpotifyPlayer /> :
+                <AudioElement />
+            }   
             { nowPlaying.hasTrack && 
                 <NowPlayingCard />
             }    

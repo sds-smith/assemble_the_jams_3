@@ -11,7 +11,6 @@ import ClearBtn from '../../../assets/icons/clear_white24.png'
 import SpotifyLogoWhite from '../../../assets/icons/Spotify_Logo_RGB_White.png'
 
 import { Spotify } from '../../../utils/spotify'
-import { Preview } from '../../../utils/preview'
 import { selectAuthSession } from '../../../store/auth/auth.selector'
 import { selectPlaylistTracks } from '../../../store/track/track.selector'
 import { setPlaylistTracks } from '../../../store/track/track.action'
@@ -33,8 +32,6 @@ const Track: FC<TrackProps> = ({track, trackType }) => {
   const playlistTracks = useSelector(selectPlaylistTracks)
   const { nowPlaying, setNowPlaying, deviceID, currentPlayer, active, setActive, nowPlayingInitialState } = useContext(PlayerContext)
 
-  let audioPreview: HTMLAudioElement
-
   const addTrack = () => {
     let tracks = playlistTracks
     if (tracks.find(savedTrack => savedTrack.id === track.id)) {
@@ -55,12 +52,9 @@ const Track: FC<TrackProps> = ({track, trackType }) => {
       return;
     }
     if (!nowPlaying.hasTrack) {
-      audioPreview = new Audio(track.preview);
-      audioPreview.volume = 0.5;
       const hasTrack = true
       const isLike = false
       setNowPlaying({hasTrack, track, isLike})
-      Preview.playPreview(audioPreview)
     }  
   };
 
@@ -74,7 +68,6 @@ const Track: FC<TrackProps> = ({track, trackType }) => {
         if (currentPlayer) {
           Spotify.playTrack(deviceID, uri, currentPlayer) 
         }
-
       }
     }
   }

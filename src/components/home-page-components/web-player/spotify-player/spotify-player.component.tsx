@@ -5,7 +5,7 @@ import { selectAccessToken } from "../../../../store/auth/auth.selector";
 
 import { PlayerContext } from '../../../../contexts/player.context'
 
-const Player = () => {
+const SpotifyPlayer = () => {
     const accessToken = useSelector(selectAccessToken)
     const { setCurrentPlayer, setDeviceId, setActive } = useContext(PlayerContext)
 
@@ -60,4 +60,4 @@ const Player = () => {
     return <div data-allow='encrypted-media autoplay'></div>
 }
 
-export default Player
+export default SpotifyPlayer
