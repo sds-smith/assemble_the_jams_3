@@ -12,7 +12,7 @@ const AudioElement: FC<AudioHTMLAttributes<HTMLAudioElement>> = () => {
         audioPreview.src = nowPlaying.track.preview as string
         audioPreview.load()
         audioPreview.play()
-    }, [nowPlaying, audioPreview])
+    }, [nowPlaying])
 
     return (
         <Fragment>
