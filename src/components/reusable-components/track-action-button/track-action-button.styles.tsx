@@ -16,4 +16,8 @@ export const TrackAction = styled.button`
     &:hover {
         opacity: 0.5;
     }
+
+    &:visited {
+        opacity: 1;
+    }
 `
