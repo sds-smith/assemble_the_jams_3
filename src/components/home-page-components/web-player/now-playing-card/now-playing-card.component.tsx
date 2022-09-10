@@ -21,7 +21,7 @@ const NowPlayingCard = () => {
     const { currentPlayer, nowPlaying, active, setActive } = useContext(PlayerContext)
     const track = nowPlaying.track
     const isMobile = useMediaQuery('(max-width: 1020px)')
-    const { closeNowPlaying, stopPlayback, addTrack, toggleLike } = useTrackControls(track)
+    const { stopPlayback, addTrack, toggleLike } = useTrackControls(track)
 
     const LikeAction = async () => {
         const message = await toggleLike()
@@ -31,7 +31,7 @@ const NowPlayingCard = () => {
 
     useEffect(() => {
         !currentPlayer && setActive(true)
-        const timer = setTimeout(() => closeNowPlaying(), 30000)
+        const timer = setTimeout(() => stopPlayback(), 30000)
         return () => {
             clearTimeout(timer)
         }

@@ -82,7 +82,7 @@ export const useTrackControls = (track: TrackType) => {
 }
 
 
-  const closeNowPlaying = async () => {
+  const stopPlayback = async () => {
     if (currentPlayer) {
         await currentPlayer.pause()
     } else {
@@ -91,13 +91,5 @@ export const useTrackControls = (track: TrackType) => {
     setNowPlaying(nowPlayingInitialState)
 }
 
-const stopPlayback = () => {
-  if (currentPlayer) {
-      closeNowPlaying()
-  } else {
-      window.alert('This feature only available with signed in user')
-  }
-}
-
-    return { play, closeNowPlaying, stopPlayback, addTrack, removeTrack, toggleLike }
+    return { play, stopPlayback, addTrack, removeTrack, toggleLike }
 }

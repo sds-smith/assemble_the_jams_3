@@ -30,6 +30,7 @@ const Track: FC<TrackProps> = ({track, trackType }) => {
 
   const isActiveTrack = nowPlaying.track.id === track.id
   const playActionButton = isActiveTrack ? StopBtn : PlayBtn
+  
   const playAction = () => {
     if (isActiveTrack) {
       stopPlayback()

@@ -44,6 +44,7 @@ export const TrackInformation = styled.div`
 
 export const TrackActionContainer = styled.div`
     display: flex;
+    z-index: 10;
 `
 
 export const SpotifyLogo = styled.img`
