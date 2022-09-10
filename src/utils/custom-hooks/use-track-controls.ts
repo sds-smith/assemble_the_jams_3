@@ -16,7 +16,7 @@ export const useTrackControls = (track: TrackType) => {
 
   const authSession = useSelector(selectAuthSession)
   const playlistTracks = useSelector(selectPlaylistTracks)
-  const { nowPlaying, setNowPlaying, deviceID, currentPlayer, active, setActive, nowPlayingInitialState } = useContext(PlayerContext)
+  const { nowPlaying, setNowPlaying, deviceID, currentPlayer, setActive, nowPlayingInitialState } = useContext(PlayerContext)
   const { currentUserExists } = useContext(UserContext)
 
   const addTrack = () => {
