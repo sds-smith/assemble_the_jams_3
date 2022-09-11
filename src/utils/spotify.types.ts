@@ -22,7 +22,7 @@ type Search = (clientToken: string, query: string) => Promise<{searchResultsArra
 type TransferPlayback = (id: string, access_token: string) => Promise<void>
 type PlayTrack = (id: string, uri: string, access_token: string) => Promise<void>
 // type PlayTrack = (id: string, uri: string, currentPlayer: Spotify.Player) => Promise<void>
-type StopPlayback = (deviceID: string) => Promise<void>
+type StopPlayback = (id: string, access_token: string) => Promise<void>
 type GetLikeStatus = (authSession: string, trackId: string) => Promise<boolean>
 type SaveResponse = { 
   message: string;

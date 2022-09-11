@@ -84,7 +84,6 @@ export const useTrackControls = (track: TrackType) => {
     return message
 }
 
-
   const stopPlayback = async () => {
     if (currentPlayer) {
         await currentPlayer.pause()
