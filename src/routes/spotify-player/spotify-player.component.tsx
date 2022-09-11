@@ -1,7 +1,8 @@
-import { useEffect, useContext, memo } from "react";
+import { useState, useEffect, useContext, memo } from "react";
 import { useSelector } from "react-redux";
 
 import Home from "../home/home.component";
+import Activate from "../../components/home-page-components/activate/activate.component";
 
 import { selectAccessToken } from "../../store/auth/auth.selector";
 
@@ -9,7 +10,7 @@ import { PlayerContext } from '../../contexts/player.context'
 
 const SpotifyPlayer = memo(() => {
     const accessToken = useSelector(selectAccessToken)
-    const { setCurrentPlayer, setDeviceId, setActive } = useContext(PlayerContext)
+    const { setCurrentPlayer, setDeviceId, setActive, browserBlocked, setBrowserBlocked } = useContext(PlayerContext)
 
     useEffect(() => {
 
@@ -37,7 +38,7 @@ const SpotifyPlayer = memo(() => {
 
             player.addListener('autoplay_failed', () => {
                 console.log('Autoplay is not allowed by the browser autoplay rules');                
-                window.alert('Autoplay is not allowed by the browser autoplay rules');
+                setBrowserBlocked(true)
               });
         
             player.addListener('player_state_changed', ( state => {
@@ -65,15 +66,19 @@ const SpotifyPlayer = memo(() => {
                 console.error('Failed to perform playback', message);
                 window.alert('playback_error')
               });
-
-
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (
         <div data-allow='encrypted-media autoplay'>
-            <Home/>
+            { 
+                browserBlocked ? (
+                    <Activate />
+                ) : (
+                    <Home/>
+                )
+            }
         </div>
     )
 })

@@ -18,8 +18,8 @@ export const nowPlayingInitialState = {
 export const PlayerContext = createContext<PlayerContextProps>({
     currentPlayer : null,
     setCurrentPlayer : () => null,
-    currentPlayerActivated : null,
-    setCurrentPlayerActivated : () => null,
+    browserBlocked : null,
+    setBrowserBlocked : () => null,
     deviceID : '',
     setDeviceId : () => '',
     nowPlaying : nowPlayingInitialState,
@@ -31,15 +31,15 @@ export const PlayerContext = createContext<PlayerContextProps>({
 
 export const PlayerProvider: FC<ProviderProps> = ({children}) => {
     const [currentPlayer, setCurrentPlayer] = useState<(Spotify.Player) | null>(null)
-    const [currentPlayerActivated, setCurrentPlayerActivated] = useState<boolean>(false)
+    const [browserBlocked, setBrowserBlocked] = useState<boolean>(false)
     const [deviceID, setDeviceId] = useState<string>('')
     const [nowPlaying, setNowPlaying] = useState<NowPlaying>(nowPlayingInitialState)
     const [active, setActive] = useState<boolean>(false)
     
     const value = { currentPlayer, 
                     setCurrentPlayer,
-                    currentPlayerActivated,
-                    setCurrentPlayerActivated,
+                    browserBlocked,
+                    setBrowserBlocked,
                     deviceID,
                     setDeviceId,
                     nowPlaying,

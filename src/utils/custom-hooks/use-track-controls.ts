@@ -89,6 +89,7 @@ export const useTrackControls = (track: TrackType) => {
         await currentPlayer.pause()
         await Spotify.stopPlayback(deviceID, accessToken)
     } else {
+        console.log('no user, setting active to false')
         setActive(false)
     }
     setNowPlaying(nowPlayingInitialState)

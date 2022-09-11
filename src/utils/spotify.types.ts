@@ -1,27 +1,12 @@
 import { TrackType } from '../store/track/track.types';
 import { CurrentUserType, NowPlaying } from './context.utils'
 
-// {
-//   "tracks": {
-//     "href": "https://api.spotify.com/v1/me/shows?offset=0&limit=20\n",
-//     "items": [
-//       {}
-//     ],
-//     "limit": 20,
-//     "next": "https://api.spotify.com/v1/me/shows?offset=1&limit=1",
-//     "offset": 0,
-//     "previous": "https://api.spotify.com/v1/me/shows?offset=1&limit=1",
-//     "total": 4
-//   },
-// }
-
 type GetClientToken = () => Promise<{token: string, expiresIn: number} | undefined>
 type Auth = (codeChallenge: string, state: string) => void
 type GetUserProfile = (authSession: string) => Promise<{display_name: string, image_url: string, id: string} | undefined>
 type Search = (clientToken: string, query: string) => Promise<{searchResultsArray: TrackType[], recommendationsArray: TrackType[]} | undefined>
 type TransferPlayback = (id: string, access_token: string) => Promise<void>
 type PlayTrack = (id: string, uri: string, access_token: string, currentPlayer: Spotify.Player) => Promise<void>
-// type PlayTrack = (id: string, uri: string, currentPlayer: Spotify.Player) => Promise<void>
 type StopPlayback = (id: string, access_token: string) => Promise<void>
 type GetLikeStatus = (authSession: string, trackId: string) => Promise<boolean>
 type SaveResponse = { 

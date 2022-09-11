@@ -5,11 +5,14 @@ import { PlayerContext } from "../../../contexts/player.context"
 import { ActivateContainer } from "./activate.styles"
 
 const Activate = () => {
-    const { currentPlayer, setCurrentPlayerActivated } = useContext(PlayerContext)
+    const { currentPlayer, setBrowserBlocked } = useContext(PlayerContext)
 
     const activate = async () => {
-        currentPlayer && await currentPlayer.activateElement()
-        setCurrentPlayerActivated(true)
+        if (currentPlayer) {
+            await currentPlayer.activateElement()
+            await currentPlayer.resume()
+            setBrowserBlocked(false)
+        }
     }
 
     return (

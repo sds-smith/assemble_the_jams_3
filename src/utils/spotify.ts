@@ -84,7 +84,7 @@ export const Spotify: SpotifyType = {
       try {
         await fetch(`https://api.spotify.com/v1/me/player`, {
           method: 'PUT',
-          body: JSON.stringify({ device_ids: [ id ] }),
+          body: JSON.stringify({ device_ids: [ id ], play: false }),
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${access_token}`
@@ -113,7 +113,7 @@ export const Spotify: SpotifyType = {
       try {
         await fetch(`https://api.spotify.com/v1/me/player/play?device_id=${id}`, {
           method: 'PUT',
-          body: JSON.stringify({ uris: [''], position_ms: 30000 }),
+          body: JSON.stringify({ uris: [''] }),
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${access_token}`
