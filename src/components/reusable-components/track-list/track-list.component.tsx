@@ -2,7 +2,6 @@ import { FC, useState, useEffect, ReactNode } from "react"
 import { useSelector } from "react-redux"
 
 import Track from "../track/track.component"
-import { TrackType } from "../../../store/track/track.types"
 
 import { selectPlaylistTracks, selectSearchResults } from "../../../store/track/track.selector"
 import { TrackListContainer } from "./track-list.styles"
