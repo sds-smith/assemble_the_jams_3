@@ -3,13 +3,14 @@ import { Route, Routes } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import Navigation from './routes/navigation/navigation.component';
-import AudioElement from './routes/audio-element/audio-element.component';
+import PreSignIn from './routes/pre-sign-in/pre-sign-in.component';
 import SpotifyPlayer from './routes/spotify-player/spotify-player.component';
 import Auth from './routes/auth/auth.component';
 
 import { selectAccessToken, selectAuthSession } from './store/auth/auth.selector';
 import { setAuthSession, setAccessToken } from './store/auth/auth.action';
 import { ClientContext } from './contexts/client.context';
+import { PlayerContext } from './contexts/player.context';
 import { UserContext } from './contexts/user.context';
 import { Spotify } from './utils/spotify';
 
@@ -21,8 +22,10 @@ const App = () => {
   const accessToken = useSelector(selectAccessToken)
   const authSession = useSelector(selectAuthSession)
   const { setUserLoading, setCurrentUser, defaultCurrentUser } = useContext(UserContext)
+  const {setActive} = useContext(PlayerContext)
 
   useEffect(() => {
+    setActive(false)
     if (!clientToken) {
       const getClientToken = async () => {
         const response = await Spotify.getClientToken()
@@ -69,7 +72,7 @@ const App = () => {
   return (
     <Routes >
       <Route path='/' element={ <Navigation /> } >
-        <Route index element={ <AudioElement /> } />
+        <Route index element={ <PreSignIn /> } />
         <Route path='/user/*' element={ <SpotifyPlayer /> } />
         <Route path='/callback' element={<Auth />} />
       </Route>
