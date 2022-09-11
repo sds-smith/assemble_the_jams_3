@@ -13,7 +13,6 @@ const SpotifyPlayer = memo(() => {
     const { setCurrentPlayer, setDeviceId, setActive, browserBlocked, setBrowserBlocked } = useContext(PlayerContext)
 
     useEffect(() => {
-
         const script = document.createElement("script");
         script.src = "https://sdk.scdn.co/spotify-player.js";
         script.async = true;
