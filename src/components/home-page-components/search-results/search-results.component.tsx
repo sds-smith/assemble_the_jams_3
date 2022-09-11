@@ -10,7 +10,7 @@ import { SearchResultsContainer } from "./search-results.styles"
 const SearchResults = () => {
     const searchLoading = useSelector(selectSearchLoading)
     const isMobile = useMediaQuery('(max-width: 1020px)')
-
+    
     return (
         <SearchResultsContainer isMobile={isMobile} >
             <h2 >Search Term Matches</h2>
