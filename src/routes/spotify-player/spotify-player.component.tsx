@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext, memo } from "react";
+import { useEffect, useContext, memo } from "react";
 import { useSelector } from "react-redux";
 
 import Home from "../home/home.component";
