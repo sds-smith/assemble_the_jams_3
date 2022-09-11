@@ -46,6 +46,7 @@ export const useTrackControls = (track: TrackType) => {
   };
 
   const playTrack = async () => {
+    await currentPlayer!.activateElement()
     if (track.id) {
       if (!nowPlaying.hasTrack) {
         const hasTrack = true

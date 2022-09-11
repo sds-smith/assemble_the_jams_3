@@ -1,7 +1,6 @@
-import { useState, useEffect, useContext } from "react"
+import { useState, useEffect } from "react"
 import { useSelector } from "react-redux"
 
-import Activate from "../../components/home-page-components/activate/activate.component"
 import HomeHero from "../../components/home-page-components/home-hero/home-hero.component"
 import UserProfile from "../../components/home-page-components/user-profile/user-profile.component"
 import WebPlayer from "../../components/home-page-components/web-player/web-player.component"
@@ -9,7 +8,6 @@ import SearchResults from "../../components/home-page-components/search-results/
 import Playlist from "../../components/home-page-components/playlist/playlist.component"
 import Footer from "../../components/home-page-components/footer/footer.component"
 
-import { PlayerContext } from "../../contexts/player.context"
 import { useMediaQuery } from '../../utils/custom-hooks/use-media-query'
 import { HomeContainer, InputContainer, ResultsContainer  } from "./home.styles"
 import { selectAccessToken } from "../../store/auth/auth.selector"
@@ -20,9 +18,7 @@ const Home = () => {
       'search_results' : true
     })
     const accessToken = useSelector(selectAccessToken)
-    const { currentPlayerActivated } = useContext(PlayerContext)
     const isMobile = useMediaQuery('(max-width: 1020px)')
-    const notActivated = accessToken && !currentPlayerActivated
 
     useEffect(() => {
       const setResponsiveTabs = () => {
@@ -38,7 +34,6 @@ const Home = () => {
 
     return (
       <HomeContainer >
-        { notActivated && <Activate/>}
         <InputContainer isMobile={isMobile} >
            <UserProfile />
            <HomeHero />

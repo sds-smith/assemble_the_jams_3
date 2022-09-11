@@ -1,13 +1,15 @@
 import { useEffect, useContext } from "react";
 import { useSelector } from "react-redux";
 
+import Activate from "../../activate/activate.component";
+
 import { selectAccessToken } from "../../../../store/auth/auth.selector";
 
 import { PlayerContext } from '../../../../contexts/player.context'
 
 const SpotifyPlayer = () => {
     const accessToken = useSelector(selectAccessToken)
-    const { setCurrentPlayer, setDeviceId, setActive } = useContext(PlayerContext)
+    const { currentPlayerActivated, setCurrentPlayer, setDeviceId, setActive } = useContext(PlayerContext)
 
     useEffect(() => {
 
@@ -54,10 +56,13 @@ const SpotifyPlayer = () => {
             }));
             player.connect();
         };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[])
+    },[accessToken, currentPlayerActivated, setActive, setCurrentPlayer, setDeviceId])
 
-    return <div data-allow='encrypted-media autoplay'></div>
+    return (
+        <div data-allow='encrypted-media autoplay'>
+            { !currentPlayerActivated && <Activate/> }
+        </div>
+    )
 }
 
 export default SpotifyPlayer

@@ -15,7 +15,7 @@ const Activate = () => {
     return (
         <ActivateContainer>
             { currentPlayer ?
-                <Button onClick={activate} >CONTINUE</Button> :
+                <Button disabled={currentPlayer === null} onClick={activate} >CONTINUE</Button> :
                 <Spinner loading={true} />
              }
         </ActivateContainer>
