@@ -2,6 +2,7 @@ import { useContext } from "react"
 import { useDispatch, useSelector } from "react-redux"
 
 import { selectAuthSession } from "../../store/auth/auth.selector"
+import { selectAccessToken } from "../../store/auth/auth.selector"
 import { selectPlaylistTracks } from "../../store/track/track.selector"
 import { setPlaylistTracks } from "../../store/track/track.action"
 import { PlayerContext } from "../../contexts/player.context"
@@ -15,6 +16,7 @@ export const useTrackControls = (track: TrackType) => {
   const dispatch = useDispatch()
 
   const authSession = useSelector(selectAuthSession)
+  const accessToken = useSelector(selectAccessToken)
   const playlistTracks = useSelector(selectPlaylistTracks)
   const { nowPlaying, setNowPlaying, deviceID, currentPlayer, setActive, nowPlayingInitialState } = useContext(PlayerContext)
   const { currentUserExists } = useContext(UserContext)
@@ -54,7 +56,7 @@ export const useTrackControls = (track: TrackType) => {
           const isLike = await Spotify.getLikeStatus(authSession, track.id)
           const uri = `spotify:track:${track.id}`
           setNowPlaying({hasTrack, track, isLike})
-            await Spotify.playTrack(deviceID, uri, currentPlayer) 
+            await Spotify.playTrack(deviceID, uri, accessToken) 
           }
         }
     }

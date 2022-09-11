@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
 import { useSelector } from "react-redux"
 
 import HomeHero from "../../components/home-page-components/home-hero/home-hero.component"
@@ -8,29 +8,41 @@ import SearchResults from "../../components/home-page-components/search-results/
 import Playlist from "../../components/home-page-components/playlist/playlist.component"
 import Footer from "../../components/home-page-components/footer/footer.component"
 
+import { PlayerContext } from "../../contexts/player.context"
+import { selectAccessToken } from "../../store/auth/auth.selector"
+import { Spotify } from "../../utils/spotify"
 import { useMediaQuery } from '../../utils/custom-hooks/use-media-query'
 import { HomeContainer, InputContainer, ResultsContainer  } from "./home.styles"
-import { selectAccessToken } from "../../store/auth/auth.selector"
 
 const Home = () => { 
     const [activeTab, setActiveTab] = useState({
       'playlist' : true,
       'search_results' : true
     })
-    const accessToken = useSelector(selectAccessToken)
     const isMobile = useMediaQuery('(max-width: 1020px)')
+    const { deviceID } = useContext(PlayerContext)
+    const accessToken = useSelector(selectAccessToken)
 
     useEffect(() => {
       const setResponsiveTabs = () => {
         if (isMobile) {
-          setActiveTab({...activeTab, 'search_results' : false})
+          setActiveTab({'playlist' : true, 'search_results' : false})
         } else {
           setActiveTab({'playlist' : true, 'search_results' : true})
         }
       }
       setResponsiveTabs()
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [accessToken, isMobile])
+    }, [isMobile])
+
+    useEffect(() => {
+      if (deviceID) {
+        const transfer = async () => {
+          await Spotify.transferPlayback(deviceID, accessToken)
+        }
+        transfer()
+      }
+    }, [deviceID, accessToken])
 
     return (
       <HomeContainer >
