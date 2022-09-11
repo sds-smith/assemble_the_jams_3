@@ -110,14 +110,18 @@ export const Spotify: SpotifyType = {
     },
 
     async stopPlayback(id, access_token) {
-      await fetch(`https://api.spotify.com/v1/me/player/play?device_id=${id}`, {
-        method: 'PUT',
-        body: JSON.stringify({ uris: [''], position_ms: 30000 }),
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${access_token}`
-        },
-      });
+      try {
+        await fetch(`https://api.spotify.com/v1/me/player/play?device_id=${id}`, {
+          method: 'PUT',
+          body: JSON.stringify({ uris: [''], position_ms: 30000 }),
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${access_token}`
+          },
+        });
+      } catch(error) {
+        console.log(error)
+      }
     },
 
     async getLikeStatus(authSession, trackId) {
