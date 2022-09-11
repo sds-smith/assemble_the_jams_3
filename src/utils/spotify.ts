@@ -96,7 +96,7 @@ export const Spotify: SpotifyType = {
       }
     },
 
-    async playTrack(id, spotify_uri, access_token) {
+    async playTrack(id, spotify_uri, access_token, currentPlayer) {
       await fetch(`https://api.spotify.com/v1/me/player/play?device_id=${id}`, {
         method: 'PUT',
         body: JSON.stringify({ uris: [spotify_uri], position_ms: 30000 }),
@@ -105,6 +105,7 @@ export const Spotify: SpotifyType = {
           'Authorization': `Bearer ${access_token}`
         },
       });
+      currentPlayer.resume()
       console.log('play success', id)
     },
 

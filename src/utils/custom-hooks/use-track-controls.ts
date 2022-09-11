@@ -56,7 +56,7 @@ export const useTrackControls = (track: TrackType) => {
           const isLike = await Spotify.getLikeStatus(authSession, track.id)
           const uri = `spotify:track:${track.id}`
           setNowPlaying({hasTrack, track, isLike})
-            await Spotify.playTrack(deviceID, uri, accessToken) 
+            await Spotify.playTrack(deviceID, uri, accessToken, currentPlayer) 
           }
         }
     }
