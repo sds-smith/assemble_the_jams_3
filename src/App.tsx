@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import Navigation from './routes/navigation/navigation.component';
 import AudioElement from './routes/audio-element/audio-element.component';
 import SpotifyPlayer from './routes/spotify-player/spotify-player.component';
-import Home from './routes/home/home.component'
 import Auth from './routes/auth/auth.component';
 
 import { selectAccessToken, selectAuthSession } from './store/auth/auth.selector';
