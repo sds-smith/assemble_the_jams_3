@@ -109,34 +109,6 @@ export const Spotify: SpotifyType = {
       console.log('play success', id)
     },
 
-    // async playTrack(id, uri, currentPlayer) {
-      // const secondParam: SecondParamType = {
-        // spotify_uri: uri,
-        // playerInstance: currentPlayer
-      // }
-      // const play: Play = (currentPlayer, id, {
-        // spotify_uri,
-        // playerInstance: {
-          // _options: {
-            // getOAuthToken
-          // }
-        // }
-      // }) => {
-        // getOAuthToken(async access_token => {
-          // await fetch(`https://api.spotify.com/v1/me/player/play?device_id=${id}`, {
-            // method: 'PUT',
-            // body: JSON.stringify({ uris: [spotify_uri], position_ms: 30000 }),
-            // headers: {
-              // 'Content-Type': 'application/json',
-              // 'Authorization': `Bearer ${access_token}`
-            // },
-          // });
-        // });
-        // currentPlayer.resume()
-      // }
-      // play(currentPlayer, id, secondParam)
-    // },
-
     async stopPlayback(id, access_token) {
       await fetch(`https://api.spotify.com/v1/me/player/play?device_id=${id}`, {
         method: 'PUT',

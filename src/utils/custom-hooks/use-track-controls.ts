@@ -87,6 +87,7 @@ export const useTrackControls = (track: TrackType) => {
   const stopPlayback = async () => {
     if (currentPlayer) {
         await currentPlayer.pause()
+        await Spotify.stopPlayback(deviceID, accessToken)
     } else {
         setActive(false)
     }
