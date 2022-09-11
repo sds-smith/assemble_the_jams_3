@@ -25,6 +25,7 @@ const TrackList: FC<TrackListProps> = ({ trackType }) => {
             ))
             setTrackList(trackList)
         } 
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [playlistTracks, searchResults])
 
     return (
