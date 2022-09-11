@@ -93,8 +93,8 @@ export const Spotify: SpotifyType = {
           }
         }
       }) => {
-        getOAuthToken(access_token => {
-          fetch(`https://api.spotify.com/v1/me/player/play?device_id=${id}`, {
+        getOAuthToken(async access_token => {
+          await fetch(`https://api.spotify.com/v1/me/player/play?device_id=${id}`, {
             method: 'PUT',
             body: JSON.stringify({ uris: [spotify_uri], position_ms: 30000 }),
             headers: {
@@ -102,6 +102,7 @@ export const Spotify: SpotifyType = {
               'Authorization': `Bearer ${access_token}`
             },
           });
+          currentPlayer.resume()
         });
       }
       play(id, secondParam)
