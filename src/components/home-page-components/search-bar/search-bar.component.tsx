@@ -96,8 +96,6 @@ const SearchBar: FC = () => {
                     {filters.map((filter) => (
                         <SearchFilterButton 
                             key={filter.id} 
-                            scroll={(el) => el.scrollIntoView({ behavior: 'smooth', block: "start" })}
-                            to='/#results'
                             onClick={()=>filteredSearch(filter.filter)}
                             disabled={!searchTerm} 
                         >

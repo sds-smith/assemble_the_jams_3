@@ -1,7 +1,6 @@
 import styled from "styled-components";
-import { HashLink } from "react-router-hash-link";
 
-export const FilterButtonContainer = styled(HashLink)`
+export const FilterButtonContainer = styled.div`
     text-decoration: none;
     background-color: green;
 `

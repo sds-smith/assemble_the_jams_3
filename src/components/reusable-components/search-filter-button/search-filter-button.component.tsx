@@ -1,13 +1,12 @@
 import { FC, ButtonHTMLAttributes } from 'react'
-import { HashLinkProps } from 'react-router-hash-link'
 import SrchBtn from '../../../assets/icons/search_white24.png'
 import { FilterButtonContainer, FilterButton } from './search-filter-button.styles'
 
-type SearchFilterButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & HashLinkProps
+type SearchFilterButtonProps = ButtonHTMLAttributes<HTMLButtonElement>
 
-const SearchFilterButton: FC<SearchFilterButtonProps> = ({onClick, to, children}) => {
+const SearchFilterButton: FC<SearchFilterButtonProps> = ({onClick, children}) => {
     return (
-        <FilterButtonContainer to={to} >
+        <FilterButtonContainer >
             <FilterButton 
                 onClick={onClick} 
             >

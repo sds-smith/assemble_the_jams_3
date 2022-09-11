@@ -39,7 +39,7 @@ const Home = () => {
            <HomeHero />
            <WebPlayer /> 
         </InputContainer>
-        <ResultsContainer id='results' isMobile={isMobile} >
+        <ResultsContainer isMobile={isMobile} >
            {activeTab.playlist && <Playlist />}
            { activeTab.search_results && <SearchResults />}
         </ResultsContainer>
