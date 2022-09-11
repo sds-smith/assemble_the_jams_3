@@ -28,13 +28,6 @@ const Track: FC<TrackProps> = ({track, trackType }) => {
 
   const { currentPlayer, nowPlaying, active } = useContext(PlayerContext)
 
-  const playTrack = async () => {
-    if (currentPlayer) {
-      await currentPlayer.activateElement()
-    }
-    play()
-  }
-
   const isActiveTrack = nowPlaying.track.id === track.id
   const playActionButton = isActiveTrack ? StopBtn : PlayBtn
   
@@ -45,7 +38,7 @@ const Track: FC<TrackProps> = ({track, trackType }) => {
       if (currentPlayer) {
         await currentPlayer.activateElement()
       }
-      await playTrack()
+      await play()
     }
   }
 

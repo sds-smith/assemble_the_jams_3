@@ -47,15 +47,16 @@ export const useTrackControls = (track: TrackType) => {
   };
 
   const playTrack = async () => {
-    await currentPlayer!.activateElement()
+  if (currentPlayer) {
+    await currentPlayer.activateElement()
     if (track.id) {
       if (!nowPlaying.hasTrack) {
         const hasTrack = true
         const isLike = await Spotify.getLikeStatus(authSession, track.id)
         const uri = `spotify:track:${track.id}`
         setNowPlaying({hasTrack, track, isLike})
-        if (currentPlayer) {
           await Spotify.playTrack(deviceID, uri, currentPlayer) 
+          currentPlayer.resume()
         }
       }
     }
@@ -63,7 +64,6 @@ export const useTrackControls = (track: TrackType) => {
 
   const play = async () => {
     if (currentPlayer) {
-      await currentPlayer.activateElement()
       playTrack()
     } else {
       playPreview()
