@@ -36,7 +36,8 @@ const SpotifyPlayer = memo(() => {
             });
 
             player.addListener('autoplay_failed', () => {
-                console.log('Autoplay is not allowed by the browser autoplay rules');
+                console.log('Autoplay is not allowed by the browser autoplay rules');                
+                window.alert('Autoplay is not allowed by the browser autoplay rules');
               });
         
             player.addListener('player_state_changed', ( state => {
@@ -62,6 +63,7 @@ const SpotifyPlayer = memo(() => {
 
             player.on('playback_error', ({ message }) => {
                 console.error('Failed to perform playback', message);
+                window.alert('playback_error')
               });
 
 
