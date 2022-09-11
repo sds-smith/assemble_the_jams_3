@@ -37,7 +37,8 @@ const SpotifyPlayer = memo(() => {
 
             player.addListener('autoplay_failed', () => {
                 console.log('Autoplay is not allowed by the browser autoplay rules');                
-                window.alert('Autoplay is not allowed by the browser autoplay rules');
+                // window.alert('Autoplay is not allowed by the browser autoplay rules');
+                player.resume()
               });
         
             player.addListener('player_state_changed', ( state => {

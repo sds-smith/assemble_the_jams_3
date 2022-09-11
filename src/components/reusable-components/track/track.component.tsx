@@ -26,16 +26,26 @@ const Track: FC<TrackProps> = ({track, trackType }) => {
 
   const { play, stopPlayback, addTrack, removeTrack } = useTrackControls(track)
 
-  const { nowPlaying, active } = useContext(PlayerContext)
+  const { currentPlayer, nowPlaying, active } = useContext(PlayerContext)
+
+  const playTrack = async () => {
+    if (currentPlayer) {
+      await currentPlayer.activateElement()
+    }
+    play()
+  }
 
   const isActiveTrack = nowPlaying.track.id === track.id
   const playActionButton = isActiveTrack ? StopBtn : PlayBtn
   
-  const playAction = () => {
+  const playAction = async () => {
     if (isActiveTrack) {
       stopPlayback()
     } else {
-      play()
+      if (currentPlayer) {
+        await currentPlayer.activateElement()
+      }
+      await playTrack()
     }
   }
 
