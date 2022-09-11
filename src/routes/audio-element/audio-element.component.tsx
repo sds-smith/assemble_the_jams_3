@@ -10,9 +10,11 @@ const AudioElement: FC<AudioHTMLAttributes<HTMLAudioElement>> = () => {
     const {nowPlaying} = useContext(PlayerContext)
 
     useEffect(() => {
-        audioPreview.src = nowPlaying.track.preview as string
-        audioPreview.load()
-        audioPreview.play()
+        if (nowPlaying.track.preview) {
+            audioPreview.src = nowPlaying.track.preview as string
+            audioPreview.load()
+            audioPreview.play()
+        }
     }, [nowPlaying])
 
     return (
