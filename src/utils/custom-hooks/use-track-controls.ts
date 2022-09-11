@@ -42,11 +42,13 @@ export const useTrackControls = (track: TrackType) => {
       const hasTrack = true
       const isLike = false
       setNowPlaying({hasTrack, track, isLike})
+      setActive(true)
     }  
   };
 
   const playTrack = async () => {
     await currentPlayer!.activateElement()
+    console.log('play ', {deviceID})
     if (track.id) {
       if (!nowPlaying.hasTrack) {
         const hasTrack = true
@@ -54,7 +56,7 @@ export const useTrackControls = (track: TrackType) => {
         const uri = `spotify:track:${track.id}`
         setNowPlaying({hasTrack, track, isLike})
         if (currentPlayer) {
-          Spotify.playTrack(deviceID, uri, currentPlayer) 
+          await Spotify.playTrack(deviceID, uri, currentPlayer) 
         }
       }
     }

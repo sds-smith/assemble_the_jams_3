@@ -3,6 +3,8 @@ import { Route, Routes } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import Navigation from './routes/navigation/navigation.component';
+import AudioElement from './routes/audio-element/audio-element.component';
+import SpotifyPlayer from './routes/spotify-player/spotify-player.component';
 import Home from './routes/home/home.component'
 import Auth from './routes/auth/auth.component';
 
@@ -68,7 +70,8 @@ const App = () => {
   return (
     <Routes >
       <Route path='/' element={ <Navigation /> } >
-        <Route index element={ <Home /> } />
+        <Route index element={ <AudioElement /> } />
+        <Route path='/user/*' element={ <SpotifyPlayer /> } />
         <Route path='/callback' element={<Auth />} />
       </Route>
     </Routes>

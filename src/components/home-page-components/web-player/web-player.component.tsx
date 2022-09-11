@@ -1,8 +1,6 @@
 import { useContext } from 'react'
 import { useSelector } from 'react-redux'
 
-import AudioElement from './audio-element/audio-element.component'
-import SpotifyPlayer from './spotify-player/spotify-player.component'
 import NowPlayingCard from './now-playing-card/now-playing-card.component'
 
 import { selectAccessToken } from '../../../store/auth/auth.selector'
@@ -19,13 +17,10 @@ const WebPlayer = () => {
     const isMobile = useMediaQuery('(max-width: 1020px)')
 
     return (
-        <WebPlayerContainer isMobile={isMobile} >     
-            { accessToken ? 
-                <SpotifyPlayer /> :
-                <AudioElement />
-            }   
-            { nowPlaying.hasTrack && 
-                <NowPlayingCard />
+        <WebPlayerContainer isMobile={isMobile} >       
+            { 
+                nowPlaying.hasTrack && 
+                    <NowPlayingCard />
             }    
         </WebPlayerContainer>
     )

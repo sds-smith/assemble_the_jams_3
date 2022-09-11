@@ -19,7 +19,8 @@ type GetClientToken = () => Promise<{token: string, expiresIn: number} | undefin
 type Auth = (codeChallenge: string, state: string) => void
 type GetUserProfile = (authSession: string) => Promise<{display_name: string, image_url: string, id: string} | undefined>
 type Search = (clientToken: string, query: string) => Promise<{searchResultsArray: TrackType[], recommendationsArray: TrackType[]} | undefined>
-type PlayTrack = (id: string, uri: string, currentPlayer: Spotify.Player) => void
+type PlayTrack = (id: string, uri: string, currentPlayer: Spotify.Player) => Promise<void>
+type StopPlayback = (deviceID: string) => Promise<void>
 type GetLikeStatus = (authSession: string, trackId: string) => Promise<boolean>
 type SaveResponse = { 
   message: string;
@@ -50,6 +51,7 @@ export type SpotifyType = {
   getUserProfile: GetUserProfile;
   search: Search;
   playTrack: PlayTrack;
+  stopPlayback: StopPlayback;
   getLikeStatus: GetLikeStatus;
   savePlaylist: SavePlaylist;
   toggleLike: ToggleLike;

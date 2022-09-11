@@ -18,7 +18,7 @@ import {NowPlayingContainer, SpotifyAttributor, SpotifyLogo, NowPlayingCover, No
 const NowPlayingCard = () => {
     const [likesMessage, setLikesMessage] = useState('')
 
-    const { currentPlayer, nowPlaying, active, setActive } = useContext(PlayerContext)
+    const { nowPlaying, active } = useContext(PlayerContext)
     const track = nowPlaying.track
     const isMobile = useMediaQuery('(max-width: 1020px)')
     const { stopPlayback, addTrack, toggleLike } = useTrackControls(track)
@@ -30,7 +30,6 @@ const NowPlayingCard = () => {
     }
 
     useEffect(() => {
-        !currentPlayer && setActive(true)
         const timer = setTimeout(() => stopPlayback(), 30000)
         return () => {
             clearTimeout(timer)

@@ -1,15 +1,15 @@
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, memo } from "react";
 import { useSelector } from "react-redux";
 
-import Activate from "../../activate/activate.component";
+import Home from "../home/home.component";
 
-import { selectAccessToken } from "../../../../store/auth/auth.selector";
+import { selectAccessToken } from "../../store/auth/auth.selector";
 
-import { PlayerContext } from '../../../../contexts/player.context'
+import { PlayerContext } from '../../contexts/player.context'
 
-const SpotifyPlayer = () => {
+const SpotifyPlayer = memo(() => {
     const accessToken = useSelector(selectAccessToken)
-    const { currentPlayerActivated, setCurrentPlayer, setDeviceId, setActive } = useContext(PlayerContext)
+    const { setCurrentPlayer, setDeviceId, setActive } = useContext(PlayerContext)
 
     useEffect(() => {
 
@@ -34,6 +34,10 @@ const SpotifyPlayer = () => {
             player.addListener('not_ready', ({ device_id }) => {
                 console.log('Device ID has gone offline', device_id);
             });
+
+            player.addListener('autoplay_failed', () => {
+                console.log('Autoplay is not allowed by the browser autoplay rules');
+              });
         
             player.addListener('player_state_changed', ( state => {
                 if (!state) {
@@ -55,14 +59,21 @@ const SpotifyPlayer = () => {
                 });
             }));
             player.connect();
+
+            player.on('playback_error', ({ message }) => {
+                console.error('Failed to perform playback', message);
+              });
+
+
         };
-    },[accessToken, currentPlayerActivated, setActive, setCurrentPlayer, setDeviceId])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     return (
         <div data-allow='encrypted-media autoplay'>
-            { !currentPlayerActivated && <Activate/> }
+            <Home/>
         </div>
     )
-}
+})
 
 export default SpotifyPlayer
