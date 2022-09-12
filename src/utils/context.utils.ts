@@ -41,6 +41,23 @@ export type UserContextProps = {
     currentUserExists(): boolean;
 }
 
+export type ActiveTabType = {
+    'playlist' : boolean;
+    'search_results' : boolean;
+}
+
+export type ActiveViewType = {
+    'input' : boolean;
+    'results' : boolean;
+}
+
+export type ResponsiveContextProps = {
+    activeTab: ActiveTabType;
+    setActiveTab(activeTab: ActiveTabType): void;
+    activeView: ActiveViewType;
+    setActiveView(activeView: ActiveViewType): void;
+}
+
 export type ProviderProps = {
     children?: ReactNode
 }

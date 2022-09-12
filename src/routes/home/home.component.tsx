@@ -8,6 +8,7 @@ import SearchResults from "../../components/home-page-components/search-results/
 import Playlist from "../../components/home-page-components/playlist/playlist.component"
 import Footer from "../../components/home-page-components/footer/footer.component"
 
+import { ResponsiveContext } from "../../contexts/responsive.context"
 import { PlayerContext } from "../../contexts/player.context"
 import { selectAccessToken } from "../../store/auth/auth.selector"
 import { Spotify } from "../../utils/spotify"
@@ -15,23 +16,22 @@ import { useMediaQuery } from '../../utils/custom-hooks/use-media-query'
 import { HomeContainer, InputContainer, ResultsContainer  } from "./home.styles"
 
 const Home = () => { 
-    const [activeTab, setActiveTab] = useState({
-      'playlist' : true,
-      'search_results' : true
-    })
+    const { activeTab, setActiveTab, activeView, setActiveView } = useContext(ResponsiveContext)
     const isMobile = useMediaQuery('(max-width: 1020px)')
     const { deviceID } = useContext(PlayerContext)
     const accessToken = useSelector(selectAccessToken)
 
     useEffect(() => {
-      const setResponsiveTabs = () => {
+      const setResponsive = () => {
         if (isMobile) {
           setActiveTab({'playlist' : true, 'search_results' : false})
+          setActiveView({'input': true, 'results': false})
         } else {
           setActiveTab({'playlist' : true, 'search_results' : true})
+          setActiveView({'input': true, 'results': true})
         }
       }
-      setResponsiveTabs()
+      setResponsive()
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isMobile])
 
@@ -46,16 +46,18 @@ const Home = () => {
 
     return (
       <HomeContainer >
-        <InputContainer isMobile={isMobile} >
-           <UserProfile />
-           <HomeHero />
-           <WebPlayer /> 
-        </InputContainer>
-        <ResultsContainer isMobile={isMobile} >
-           {activeTab.playlist && <Playlist />}
-           { activeTab.search_results && <SearchResults />}
-        </ResultsContainer>
-        {isMobile && <Footer activeTab={activeTab} setActiveTab={setActiveTab} />}
+        {activeView.input && 
+          <InputContainer isMobile={isMobile} >
+             <UserProfile />
+             <HomeHero />
+             <WebPlayer /> 
+          </InputContainer>}
+        {activeView.results && 
+          <ResultsContainer isMobile={isMobile} >
+             {activeTab.playlist && <Playlist />}
+             { activeTab.search_results && <SearchResults />}
+          </ResultsContainer>}
+        {isMobile && <Footer />}
       </HomeContainer>
     )
 }

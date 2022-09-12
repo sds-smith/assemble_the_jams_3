@@ -1,35 +1,41 @@
-import { FC, Dispatch, SetStateAction } from 'react'
+import { useContext, FC, Dispatch, SetStateAction } from 'react'
+import { ResponsiveContext } from '../../../contexts/responsive.context'
 import { FooterContainer } from './footer.styles'
 import { Tab } from './footer.styles'
 
-export type ActiveTab = {
-    'playlist' : boolean;
-    'search_results' : boolean;
-}
+const Footer: FC = () => {
+    const { activeTab, setActiveTab, activeView, setActiveView } = useContext(ResponsiveContext)
 
-type FooterProps = {
-    activeTab: ActiveTab;
-    setActiveTab: Dispatch<SetStateAction<ActiveTab>>
-}
-
-const Footer: FC<FooterProps> = ({ activeTab, setActiveTab }) => {
+    const searchView = () => {
+        setActiveView({'input': true, 'results': false})
+    }
+    const resultsView = () => {
+        setActiveView({'input': false, 'results': true})
+    }
     const playlistActive = () => {
+        resultsView()
         setActiveTab({'playlist' : true, 'search_results' : false})
     }
     const searchResultsActive = () => {
+        resultsView()
         setActiveTab({'playlist' : false, 'search_results' : true})
     }
 
     return (
         <FooterContainer>
             <Tab
+                onClick={searchView}
+                active={activeView.input}>
+            Home
+            </Tab>
+            <Tab
                 onClick={playlistActive} 
-                active={activeTab.playlist} >
+                active={activeView.results && activeTab.playlist} >
             Playlist
             </Tab>   
             <Tab 
                 onClick={searchResultsActive} 
-                active={activeTab.search_results}>
+                active={activeView.results && activeTab.search_results}>
             Search Results
             </Tab>
         </FooterContainer>
