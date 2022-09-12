@@ -2,6 +2,9 @@ import { useEffect, useContext } from 'react'
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
+import { PlayerProvider } from './contexts/player.context';
+import { ResponsiveProvider } from './contexts/responsive.context';
+
 import Navigation from './routes/navigation/navigation.component';
 import PreSignIn from './routes/pre-sign-in/pre-sign-in.component';
 import SpotifyPlayer from './routes/spotify-player/spotify-player.component';
@@ -19,9 +22,9 @@ const App = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const {clientToken, setClientToken} = useContext(ClientContext)
+  const { setUserLoading, setCurrentUser, defaultCurrentUser } = useContext(UserContext)
   const accessToken = useSelector(selectAccessToken)
   const authSession = useSelector(selectAuthSession)
-  const { setUserLoading, setCurrentUser, defaultCurrentUser } = useContext(UserContext)
 
   useEffect(() => {
     if (!clientToken) {
@@ -71,7 +74,14 @@ const App = () => {
 
   return (
     <Routes >
-      <Route path='/' element={ <Navigation /> } >
+      <Route path='/' element={ 
+                                <PlayerProvider>
+                                  <ResponsiveProvider> 
+                                    <Navigation /> 
+                                  </ResponsiveProvider>
+                                </PlayerProvider> 
+                              } 
+        >
         <Route index element={ <PreSignIn /> } />
         <Route path='/user/*' element={ <SpotifyPlayer /> } />
         <Route path='/callback' element={<Auth />} />
