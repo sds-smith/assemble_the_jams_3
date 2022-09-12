@@ -35,7 +35,6 @@ const Auth = () => {
               window.setTimeout(() => {
                 signOut()
               }, expiresIn * 1000)
-              navigate('/user')
             }
           } catch(error) {
             console.log('nope ', error)

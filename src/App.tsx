@@ -1,5 +1,5 @@
 import { useEffect, useContext } from 'react'
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import Navigation from './routes/navigation/navigation.component';
@@ -10,7 +10,6 @@ import Auth from './routes/auth/auth.component';
 import { selectAccessToken, selectAuthSession } from './store/auth/auth.selector';
 import { setAuthSession, setAccessToken } from './store/auth/auth.action';
 import { ClientContext } from './contexts/client.context';
-import { PlayerContext } from './contexts/player.context';
 import { UserContext } from './contexts/user.context';
 import { Spotify } from './utils/spotify';
 
@@ -18,14 +17,13 @@ import './App.css';
 
 const App = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const {clientToken, setClientToken} = useContext(ClientContext)
   const accessToken = useSelector(selectAccessToken)
   const authSession = useSelector(selectAuthSession)
   const { setUserLoading, setCurrentUser, defaultCurrentUser } = useContext(UserContext)
-  const {setActive} = useContext(PlayerContext)
 
   useEffect(() => {
-    setActive(false)
     if (!clientToken) {
       const getClientToken = async () => {
         const response = await Spotify.getClientToken()
@@ -51,6 +49,8 @@ const App = () => {
           if (user && user.display_name) {
             setCurrentUser(user)
             setUserLoading(false)
+            navigate(`/user/${user.display_name}`)
+
           } else {
             setUserLoading(false)
             window.alert('problem logging in.  Please contact app support')
