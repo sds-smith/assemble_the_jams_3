@@ -26,7 +26,6 @@ const App = () => {
   const authSession = useSelector(selectAuthSession)
 
   useEffect(() => {
-
     if (!clientToken) {
       const getClientToken = async () => {
         const response = await Spotify.getClientToken()
