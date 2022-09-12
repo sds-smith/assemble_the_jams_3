@@ -1,11 +1,16 @@
 import styled from "styled-components";
+import { headerHeight } from "../navigation/navigation.styles";
+import { footerHeight } from '../../components/home-page-components/footer/footer.styles'
 
 type HomeProps = {
     isMobile: boolean;
 }
 
-export const HomeContainer = styled.div`
-    min-height: calc(100vh - 100px);
+const desktopHeight = `calc(100vh - ${headerHeight})`
+const mobileHeight = `calc(100vh - ${headerHeight} - ${footerHeight})`
+
+export const HomeContainer = styled.div<HomeProps>`
+    min-height: ${props => props.isMobile ? mobileHeight : desktopHeight};
     position: relative;
     padding: 0 5% 10% 5%;
     background-image: linear-gradient(115deg, green, black);
@@ -15,7 +20,6 @@ export const HomeContainer = styled.div`
     font-family: 'Work Sans', sans-serif;
     font-weight: 500;
     color: #ffffff;
-
 `
 
 export const InputContainer = styled.div<HomeProps>`

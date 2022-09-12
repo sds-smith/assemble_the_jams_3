@@ -9,10 +9,12 @@ type SignInButtonContainerProps = NavigationProps & {
   userExists: boolean;
 }
 
+export const headerHeight = '100px'
+
 export const Header = styled.div`
     background-color: black;
     border: 1px solid black;
-    height: 100px;
+    height: ${headerHeight};
     border-bottom: .5px solid white;
     display: flex;
     justify-content: center;
