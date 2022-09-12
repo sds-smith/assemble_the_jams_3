@@ -11,7 +11,7 @@ import { selectAuthSession } from "../../../store/auth/auth.selector"
 import { selectPlaylistTracks, selectPlaylistName } from '../../../store/track/track.selector'
 import { setPlaylistTracks, setPlaylistName, setSearchResults } from '../../../store/track/track.action'
 import { UserContext } from "../../../contexts/user.context"
-import { useMediaQuery } from '../../../utils/custom-hooks/use-media-query'
+import { ResponsiveContext } from '../../../contexts/responsive.context'
 import { useSignIn } from "../../../utils/custom-hooks/use-sign-in"
 import { Spotify } from "../../../utils/spotify"
 import { PlaylistContainer, TitleContainer,  SaveToSpotifyButton } from './playlist.styles'
@@ -25,7 +25,7 @@ const Playlist = () => {
 
     const playlistTracks = useSelector(selectPlaylistTracks)
     const playlistName = useSelector(selectPlaylistName)
-    const isMobile = useMediaQuery('(max-width: 1020px)')
+    const {isMobile} = useContext(ResponsiveContext)
     const { signIn } = useSignIn()
 
     const savePlaylist = async () => {

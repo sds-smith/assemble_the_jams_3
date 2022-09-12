@@ -12,24 +12,17 @@ import { ResponsiveContext } from "../../contexts/responsive.context"
 import { PlayerContext } from "../../contexts/player.context"
 import { selectAccessToken } from "../../store/auth/auth.selector"
 import { Spotify } from "../../utils/spotify"
-import { useMediaQuery } from '../../utils/custom-hooks/use-media-query'
 import { HomeContainer, InputContainer, ResultsContainer  } from "./home.styles"
 
 const Home = () => { 
-    const { activeTab, setActiveTab, activeView, setActiveView } = useContext(ResponsiveContext)
-    const isMobile = useMediaQuery('(max-width: 1020px)')
+    const { activeTab, activeView,  } = useContext(ResponsiveContext)
+    const {isMobile, setMobileHome, setDesktop} = useContext(ResponsiveContext)
     const { deviceID } = useContext(PlayerContext)
     const accessToken = useSelector(selectAccessToken)
 
     useEffect(() => {
       const setResponsive = () => {
-        if (isMobile) {
-          setActiveTab({'playlist' : true, 'search_results' : false})
-          setActiveView({'input': true, 'results': false})
-        } else {
-          setActiveTab({'playlist' : true, 'search_results' : true})
-          setActiveView({'input': true, 'results': true})
-        }
+        isMobile ? setMobileHome() : setDesktop()
       }
       setResponsive()
       // eslint-disable-next-line react-hooks/exhaustive-deps

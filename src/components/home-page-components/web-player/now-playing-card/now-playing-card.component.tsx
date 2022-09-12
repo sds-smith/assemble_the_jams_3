@@ -12,7 +12,7 @@ import Unlike from '../../../../assets/icons/unlike24.png'
 import { useTrackControls } from '../../../../utils/custom-hooks/use-track-controls'
 
 import { PlayerContext } from '../../../../contexts/player.context'
-import { useMediaQuery } from '../../../../utils/custom-hooks/use-media-query'
+import { ResponsiveContext } from '../../../../contexts/responsive.context'
 import {NowPlayingContainer, SpotifyAttributor, SpotifyLogo, NowPlayingCover, NowPlayingLabel, TrackControls, ProgressContainer} from './now-playing-card.styles'
 
 const NowPlayingCard = () => {
@@ -20,7 +20,7 @@ const NowPlayingCard = () => {
 
     const { nowPlaying, active } = useContext(PlayerContext)
     const track = nowPlaying.track
-    const isMobile = useMediaQuery('(max-width: 1020px)')
+    const {isMobile} = useContext(ResponsiveContext)
     const { stopPlayback, addTrack, toggleLike } = useTrackControls(track)
 
     const LikeAction = async () => {

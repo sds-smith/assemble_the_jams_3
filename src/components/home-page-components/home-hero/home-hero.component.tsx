@@ -1,3 +1,4 @@
+import { useContext } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
@@ -10,14 +11,14 @@ import AddBtn from '../../../assets/icons/add_white24.png'
 import ClearBtn from '../../../assets/icons/clear_white24.png'
 
 import { setSearchResults, setPlaylistTracks } from '../../../store/track/track.action'
-import { useMediaQuery } from '../../../utils/custom-hooks/use-media-query'
+import { ResponsiveContext } from '../../../contexts/responsive.context'
 
 import { HomeHeroContainer, StepContainer, Icon, ButtonContainer } from './home-hero.styles'
 
 const HomeHero = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const isMobile = useMediaQuery('(max-width : 1020px)')
+    const {isMobile} = useContext(ResponsiveContext)
 
     const Clear = (<Icon src={ClearBtn} alt='clear'/>)
     const Add = (<Icon src={AddBtn} alt='add'/>)

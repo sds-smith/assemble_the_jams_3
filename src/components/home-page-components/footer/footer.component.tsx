@@ -4,27 +4,22 @@ import { FooterContainer } from './footer.styles'
 import { Tab } from './footer.styles'
 
 const Footer: FC = () => {
-    const { activeTab, setActiveTab, activeView, setActiveView } = useContext(ResponsiveContext)
+    const { activeTab, activeView, setMobileHome, setMobilePlaylist, setMobileSearchResults  } = useContext(ResponsiveContext)
 
-    const searchView = () => {
-        setActiveView({'input': true, 'results': false})
-    }
-    const resultsView = () => {
-        setActiveView({'input': false, 'results': true})
+    const homeView = () => {
+        setMobileHome()
     }
     const playlistActive = () => {
-        resultsView()
-        setActiveTab({'playlist' : true, 'search_results' : false})
+        setMobilePlaylist()
     }
     const searchResultsActive = () => {
-        resultsView()
-        setActiveTab({'playlist' : false, 'search_results' : true})
+        setMobileSearchResults()
     }
 
     return (
         <FooterContainer>
             <Tab
-                onClick={searchView}
+                onClick={homeView}
                 active={activeView.input}>
             Home
             </Tab>

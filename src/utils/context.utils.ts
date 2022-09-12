@@ -52,10 +52,15 @@ export type ActiveViewType = {
 }
 
 export type ResponsiveContextProps = {
+    isMobile: boolean;
     activeTab: ActiveTabType;
     setActiveTab(activeTab: ActiveTabType): void;
     activeView: ActiveViewType;
     setActiveView(activeView: ActiveViewType): void;
+    setDesktop(): void;
+    setMobileHome(): void;
+    setMobilePlaylist(): void;
+    setMobileSearchResults(): void;
 }
 
 export type ProviderProps = {
