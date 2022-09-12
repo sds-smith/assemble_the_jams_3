@@ -1,4 +1,4 @@
-import { useContext, FC, Dispatch, SetStateAction } from 'react'
+import { useContext, FC } from 'react'
 import { ResponsiveContext } from '../../../contexts/responsive.context'
 import { FooterContainer } from './footer.styles'
 import { Tab } from './footer.styles'

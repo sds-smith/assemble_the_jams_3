@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react"
+import { useEffect, useContext } from "react"
 import { useSelector } from "react-redux"
 
 import HomeHero from "../../components/home-page-components/home-hero/home-hero.component"
