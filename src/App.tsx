@@ -10,9 +10,8 @@ import PreSignIn from './routes/pre-sign-in/pre-sign-in.component';
 import SpotifyPlayer from './routes/spotify-player/spotify-player.component';
 import Auth from './routes/auth/auth.component';
 
-import { selectAccessToken, selectAuthSession } from './store/auth/auth.selector';
-import { setAuthSession, setAccessToken } from './store/auth/auth.action';
-import { ClientContext } from './contexts/client.context';
+import { selectClientToken, selectAccessToken, selectAuthSession } from './store/auth/auth.selector';
+import { setClientToken, setAuthSession, setAccessToken } from './store/auth/auth.action';
 import { UserContext } from './contexts/user.context';
 import { Spotify } from './utils/spotify';
 
@@ -21,20 +20,21 @@ import './App.css';
 const App = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const {clientToken, setClientToken} = useContext(ClientContext)
   const { setUserLoading, setCurrentUser, defaultCurrentUser } = useContext(UserContext)
+  const clientToken = useSelector(selectClientToken)
   const accessToken = useSelector(selectAccessToken)
   const authSession = useSelector(selectAuthSession)
 
   useEffect(() => {
+
     if (!clientToken) {
       const getClientToken = async () => {
         const response = await Spotify.getClientToken()
         if (response) {
           const { token, expiresIn } = response
-          setClientToken(token)        
+          dispatch(setClientToken(token))        
           window.setTimeout(() => {
-            setClientToken('')
+            dispatch(setClientToken(''))
           }, expiresIn * 1000)
         }
       }

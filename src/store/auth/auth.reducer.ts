@@ -2,11 +2,13 @@ import { AnyAction } from "redux"
 import { AUTH_ACTION_TYPES } from "./auth.types"
 
 export type AuthState = {
+    readonly clientToken : string;
     readonly authSession : string;
     readonly accessToken : string;
 }
 
 const INITIAL_STATE: AuthState = {
+    clientToken: '',
     authSession: '',
     accessToken: ''
 }
@@ -18,6 +20,11 @@ export const authReducer = (
     const { type, payload } = action
 
     switch(type) {
+        case AUTH_ACTION_TYPES.SET_CLIENT_TOKEN :
+            return {
+                ...state,
+                clientToken : payload
+            }
         case AUTH_ACTION_TYPES.SET_AUTH_SESSION :
             return {
                 ...state,

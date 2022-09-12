@@ -1,11 +1,6 @@
 import { ReactNode } from "react";
 import { TrackType } from "../store/track/track.types";
 
-export type ClientContextProps = {
-    clientToken: string;
-    setClientToken(clientToken: string): void
-}
-
 export type NowPlaying = {
     hasTrack: boolean;
     isLike: boolean | null;
