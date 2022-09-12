@@ -23,6 +23,7 @@ export const HomeContainer = styled.div<HomeProps>`
 `
 
 export const InputContainer = styled.div<HomeProps>`
+    ${props => props.isMobile && `height: ${mobileHeight}`}
     display: flex;
     flex-direction: ${props => props.isMobile ? 'column' : 'unset'};
     align-items: ${props => props.isMobile ? 'center' : 'unset'};
