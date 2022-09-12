@@ -28,7 +28,7 @@ const SearchBar: FC = () => {
     const dispatch = useDispatch()
 
     const {clientToken} = useContext(ClientContext)
-    const { setActiveView } = useContext(ResponsiveContext)
+    const { setActiveView, setActiveTab } = useContext(ResponsiveContext)
     const isMobile = useMediaQuery('(max-width: 1020px)')
     
     const filters: FilterObj[] = [
@@ -75,7 +75,10 @@ const SearchBar: FC = () => {
             dispatch(setSearchResults(searchResultsArray))
             dispatch(setPlaylistTracks(recommendationsArray))
             dispatch(setSearchLoading(false))
-            isMobile && setActiveView({'input': false, 'results': true})
+            if (isMobile)  {
+                setActiveView({'input': false, 'results': true})
+                setActiveTab({'playlist' : true, 'search_results' : false})
+            }
         }
     }
 
