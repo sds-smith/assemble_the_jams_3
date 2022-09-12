@@ -45,7 +45,7 @@ const Home = () => {
     }, [deviceID, accessToken])
 
     return (
-      <HomeContainer >
+      <HomeContainer isMobile={isMobile} >
         {activeView.input && 
           <InputContainer isMobile={isMobile} >
              <UserProfile />
