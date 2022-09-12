@@ -13,10 +13,10 @@ type TrackListProps = {
 const TrackList: FC<TrackListProps> = ({ trackType }) => {
     const playlistTracks = useSelector(selectPlaylistTracks)
     const searchResults = useSelector(selectSearchResults)
-    const tracks = trackType === 'playlist' ? playlistTracks : searchResults 
     const [trackList, setTrackList] = useState<ReactNode[]>([])
 
     useEffect(() => {
+        const tracks = trackType === 'playlist' ? playlistTracks : searchResults 
         if (tracks) {
             const trackList = tracks.map(track => (
                 <Track track={track} 
