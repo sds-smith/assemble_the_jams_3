@@ -35,14 +35,14 @@ const Home = () => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isMobile])
 
-    useEffect(() => {
-      if (deviceID) {
-        const transfer = async () => {
-          await Spotify.transferPlayback(deviceID, accessToken)
-        }
-        transfer()
-      }
-    }, [deviceID, accessToken])
+    // useEffect(() => {
+      // if (deviceID) {
+        // const transfer = async () => {
+          // await Spotify.transferPlayback(deviceID, accessToken)
+        // }
+        // transfer()
+      // }
+    // }, [deviceID, accessToken])
 
     return (
       <HomeContainer isMobile activePlayer={activePlayer} >

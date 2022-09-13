@@ -7,6 +7,7 @@ export const SearchBarContainer = styled.div`
     width: 100%;
     align-items: center;
     padding-top: 1rem;
+    z-index: 10;
 `
 
 export const SearchBarInput = styled.input`
