@@ -9,6 +9,8 @@ export const HomeContainer = styled.div`
     position: relative;
     padding: 0 5% 10% 5%;
     background-image: linear-gradient(115deg, green, black);
+    // background-image: linear-gradient(205deg, green, black);
+
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

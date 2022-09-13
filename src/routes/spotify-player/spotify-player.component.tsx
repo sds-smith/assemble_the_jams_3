@@ -63,7 +63,7 @@ const SpotifyPlayer = memo(() => {
 
             player.on('playback_error', ({ message }) => {
                 console.error('Failed to perform playback', message);
-                window.alert('playback_error')
+                setBrowserBlocked(true)
               });
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
