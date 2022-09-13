@@ -1,6 +1,11 @@
 import styled from "styled-components";
 
-export const TrackAction = styled.button`
+type TrackActionProps = {
+    isMobile: boolean;
+    clicked: boolean;
+}
+
+export const TrackAction = styled.button<TrackActionProps>`
     display: flex;
     align-items: center;
     justify-content: center;
@@ -11,6 +16,7 @@ export const TrackAction = styled.button`
     border: none;
     background-color: rgba(0, 0, 0, 0);
     color: #fff;
+    transform: ${ props => props.isMobile && (props.clicked ? 'scale(1.5)' : 'scale(1)') };
 
     @media only screen and (min-width: 1020px) {
         &:hover {

@@ -10,6 +10,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import App from './App';
 import { ClientProvider } from './contexts/client.context';
 import { UserProvider } from './contexts/user.context';
+import { ResponsiveProvider } from './contexts/responsive.context';
 import { PlayerProvider } from './contexts/player.context';
 import { store, persistor } from './store/store';
 
@@ -22,7 +23,9 @@ root.render(
           <ClientProvider>
             <UserProvider>
                 <PlayerProvider>
-                  <App />
+                  <ResponsiveProvider>
+                    <App />
+                  </ResponsiveProvider>
                 </PlayerProvider>        
             </UserProvider>  
           </ClientProvider>

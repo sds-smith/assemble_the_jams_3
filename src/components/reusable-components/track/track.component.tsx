@@ -35,9 +35,7 @@ const Track: FC<TrackProps> = ({track, trackType }) => {
     if (isActiveTrack) {
       stopPlayback()
     } else {
-      if (currentPlayer) {
-        await currentPlayer.activateElement()
-      }
+      currentPlayer && await currentPlayer.activateElement()
       await play()
     }
   }

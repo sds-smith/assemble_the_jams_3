@@ -4,7 +4,9 @@ import { useDispatch, useSelector } from "react-redux"
 import { selectAuthSession } from "../../store/auth/auth.selector"
 import { selectAccessToken } from "../../store/auth/auth.selector"
 import { selectPlaylistTracks } from "../../store/track/track.selector"
+import { selectSearchResults } from "../../store/track/track.selector"
 import { setPlaylistTracks } from "../../store/track/track.action"
+import { setSearchResults } from "../../store/track/track.action"
 import { PlayerContext } from "../../contexts/player.context"
 import { UserContext } from "../../contexts/user.context"
 
@@ -18,6 +20,7 @@ export const useTrackControls = (track: TrackType) => {
   const authSession = useSelector(selectAuthSession)
   const accessToken = useSelector(selectAccessToken)
   const playlistTracks = useSelector(selectPlaylistTracks)
+  const searchResults = useSelector(selectSearchResults)
   const { nowPlaying, setNowPlaying, deviceID, currentPlayer, setActive, nowPlayingInitialState } = useContext(PlayerContext)
   const { currentUserExists } = useContext(UserContext)
 
@@ -27,7 +30,9 @@ export const useTrackControls = (track: TrackType) => {
       return
     }
     tracks.push(track)
+    let searchTracks = searchResults.filter(savedTrack => savedTrack.id !== track.id)
     dispatch(setPlaylistTracks(tracks))
+    dispatch(setSearchResults(searchTracks))
   }
 
   const removeTrack = () => {

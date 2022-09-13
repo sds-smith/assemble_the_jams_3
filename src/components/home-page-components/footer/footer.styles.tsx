@@ -5,6 +5,8 @@ type TabProps = {
     active: boolean;
 } & ButtonHTMLAttributes<HTMLButtonElement>
 
+export const footerHeight = '10vh'
+
 export const FooterContainer = styled.div`
     position: fixed;
     bottom: 0;
@@ -14,7 +16,7 @@ export const FooterContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 10vh;
+    height: ${footerHeight};
     border-top: .5px solid white;
     z-index: 20;
 `

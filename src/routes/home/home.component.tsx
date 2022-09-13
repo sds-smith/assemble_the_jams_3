@@ -45,7 +45,7 @@ const Home = () => {
     }, [deviceID, accessToken])
 
     return (
-      <HomeContainer activePlayer={activePlayer} >
+      <HomeContainer isMobile activePlayer={activePlayer} >
         <InputContainer isMobile={isMobile} >
            <UserProfile />
            <HomeHero />
