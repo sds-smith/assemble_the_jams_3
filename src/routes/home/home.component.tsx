@@ -1,5 +1,4 @@
 import { useState, useEffect, useContext } from "react"
-import { useSelector } from "react-redux"
 
 import HomeHero from "../../components/home-page-components/home-hero/home-hero.component"
 import UserProfile from "../../components/home-page-components/user-profile/user-profile.component"
@@ -9,7 +8,6 @@ import Playlist from "../../components/home-page-components/playlist/playlist.co
 import Footer from "../../components/home-page-components/footer/footer.component"
 
 import { PlayerContext } from "../../contexts/player.context"
-import { selectAccessToken } from "../../store/auth/auth.selector"
 import { useMediaQuery } from '../../utils/custom-hooks/use-media-query'
 import { HomeContainer, InputContainer, ResultsContainer  } from "./home.styles"
 
