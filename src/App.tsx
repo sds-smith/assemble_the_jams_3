@@ -1,5 +1,5 @@
 import { useEffect, useContext } from 'react'
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import Navigation from './routes/navigation/navigation.component';
@@ -17,6 +17,7 @@ import './App.css';
 
 const App = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const {clientToken, setClientToken} = useContext(ClientContext)
   const accessToken = useSelector(selectAccessToken)
   const authSession = useSelector(selectAuthSession)
@@ -48,6 +49,7 @@ const App = () => {
           if (user && user.display_name) {
             setCurrentUser(user)
             setUserLoading(false)
+            navigate(`/user/${user.display_name}`)
           } else {
             setUserLoading(false)
             window.alert('problem logging in.  Please contact app support')

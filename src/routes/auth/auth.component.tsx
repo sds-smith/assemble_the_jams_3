@@ -35,7 +35,6 @@ const Auth = () => {
               window.setTimeout(() => {
                 signOut()
               }, expiresIn * 1000)
-              navigate('/user')
             }
           } catch(error) {
             console.log('nope ', error)
@@ -48,6 +47,8 @@ const Auth = () => {
             getAccessToken(authCode)
         } else {
           console.log('nope')
+          window.alert('user declined sign-in')
+          navigate('/')
         }
          // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
