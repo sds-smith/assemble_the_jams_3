@@ -11,6 +11,7 @@ const AudioElement: FC<AudioHTMLAttributes<HTMLAudioElement>> = () => {
 
     useEffect(() => {
         setActiveAudioElement()
+            // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect((): ReturnType<EffectCallback> => {

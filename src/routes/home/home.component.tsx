@@ -10,7 +10,6 @@ import Footer from "../../components/home-page-components/footer/footer.componen
 
 import { PlayerContext } from "../../contexts/player.context"
 import { selectAccessToken } from "../../store/auth/auth.selector"
-import { Spotify } from "../../utils/spotify"
 import { useMediaQuery } from '../../utils/custom-hooks/use-media-query'
 import { HomeContainer, InputContainer, ResultsContainer  } from "./home.styles"
 
@@ -20,8 +19,7 @@ const Home = () => {
       'search_results' : true
     })
     const isMobile = useMediaQuery('(max-width: 1020px)')
-    const { activePlayer, deviceID } = useContext(PlayerContext)
-    const accessToken = useSelector(selectAccessToken)
+    const { activePlayer } = useContext(PlayerContext)
 
     useEffect(() => {
       const setResponsiveTabs = () => {
@@ -34,15 +32,6 @@ const Home = () => {
       setResponsiveTabs()
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isMobile])
-
-    // useEffect(() => {
-      // if (deviceID) {
-        // const transfer = async () => {
-          // await Spotify.transferPlayback(deviceID, accessToken)
-        // }
-        // transfer()
-      // }
-    // }, [deviceID, accessToken])
 
     return (
       <HomeContainer isMobile activePlayer={activePlayer} >
