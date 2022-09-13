@@ -1,16 +1,22 @@
 import styled from "styled-components";
+import { ActivePlayer } from '../../utils/context.utils'
+
+type HomeContainerProps = {
+    activePlayer: ActivePlayer;
+}
 
 type HomeProps = {
     isMobile: boolean;
 }
 
-export const HomeContainer = styled.div`
+const audioElementBackground = 'linear-gradient(115deg, green, black)'
+const spotifyBackground = 'linear-gradient(205deg, green, black)'
+
+export const HomeContainer = styled.div<HomeContainerProps>`
     min-height: calc(100vh - 100px);
     position: relative;
     padding: 0 5% 10% 5%;
-    background-image: linear-gradient(115deg, green, black);
-    // background-image: linear-gradient(205deg, green, black);
-
+    background-image: ${props => props.activePlayer.spotify ? spotifyBackground : audioElementBackground};
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

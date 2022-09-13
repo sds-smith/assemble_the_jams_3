@@ -20,7 +20,7 @@ const Home = () => {
       'search_results' : true
     })
     const isMobile = useMediaQuery('(max-width: 1020px)')
-    const { deviceID } = useContext(PlayerContext)
+    const { activePlayer, deviceID } = useContext(PlayerContext)
     const accessToken = useSelector(selectAccessToken)
 
     useEffect(() => {
@@ -45,7 +45,7 @@ const Home = () => {
     }, [deviceID, accessToken])
 
     return (
-      <HomeContainer >
+      <HomeContainer activePlayer={activePlayer} >
         <InputContainer isMobile={isMobile} >
            <UserProfile />
            <HomeHero />

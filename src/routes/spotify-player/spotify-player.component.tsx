@@ -10,7 +10,7 @@ import { PlayerContext } from '../../contexts/player.context'
 
 const SpotifyPlayer = memo(() => {
     const accessToken = useSelector(selectAccessToken)
-    const { setCurrentPlayer, setDeviceId, setActive, browserBlocked, setBrowserBlocked } = useContext(PlayerContext)
+    const { setActiveSpotify, setCurrentPlayer, setDeviceId, setActive, browserBlocked, setBrowserBlocked } = useContext(PlayerContext)
 
     useEffect(() => {
         const script = document.createElement("script");
@@ -28,6 +28,7 @@ const SpotifyPlayer = memo(() => {
 
             player.addListener('ready', ({ device_id }) => {
                 console.log('Ready with Device ID', device_id);
+                setActiveSpotify()
                 setDeviceId(device_id);
             });
         

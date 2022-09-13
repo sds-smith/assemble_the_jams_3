@@ -32,6 +32,8 @@ export const PlayerContext = createContext<PlayerContextProps>({
     active : false,
     setActive : () => false,
     activePlayer: defaultActivePlayer,
+    setActiveSpotify: () => {},
+    setActiveAudioElement: () => {},
     nowPlayingInitialState
 })
 

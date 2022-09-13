@@ -29,6 +29,8 @@ export type PlayerContextProps = {
     active : boolean;
     setActive(active: boolean): void;
     activePlayer : ActivePlayer;
+    setActiveSpotify(): void;
+    setActiveAudioElement(): void;
     nowPlayingInitialState: NowPlaying;
 }
 
