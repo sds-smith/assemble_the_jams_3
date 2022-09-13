@@ -1,5 +1,5 @@
 import { createContext, useState, FC } from "react";
-import { PlayerContextProps, ProviderProps, NowPlaying } from "../utils/context.utils";
+import { PlayerContextProps, ProviderProps, NowPlaying, ActivePlayer } from "../utils/context.utils";
 
 export const nowPlayingInitialState = {
     hasTrack: false,
@@ -15,6 +15,11 @@ export const nowPlayingInitialState = {
     isLike : null
   }  
 
+  export const defaultActivePlayer = {
+    spotify: false,
+    audioElement: false
+  }
+
 export const PlayerContext = createContext<PlayerContextProps>({
     currentPlayer : null,
     setCurrentPlayer : () => null,
@@ -26,6 +31,7 @@ export const PlayerContext = createContext<PlayerContextProps>({
     setNowPlaying : () => nowPlayingInitialState,
     active : false,
     setActive : () => false,
+    activePlayer: defaultActivePlayer,
     nowPlayingInitialState
 })
 
@@ -35,6 +41,20 @@ export const PlayerProvider: FC<ProviderProps> = ({children}) => {
     const [deviceID, setDeviceId] = useState<string>('')
     const [nowPlaying, setNowPlaying] = useState<NowPlaying>(nowPlayingInitialState)
     const [active, setActive] = useState<boolean>(false)
+    const [activePlayer, setActivePlayer] = useState<ActivePlayer>(defaultActivePlayer)
+
+    const setActiveSpotify = () => {
+      setActivePlayer({
+        spotify: true,
+        audioElement: false
+      })
+    }
+    const setActiveAudioElement = () => {
+      setActivePlayer({
+        spotify: false,
+        audioElement: true
+      })
+    }
     
     const value = { currentPlayer, 
                     setCurrentPlayer,
@@ -46,6 +66,9 @@ export const PlayerProvider: FC<ProviderProps> = ({children}) => {
                     setNowPlaying,
                     active,
                     setActive,
+                    activePlayer,
+                    setActiveSpotify,
+                    setActiveAudioElement,
                     nowPlayingInitialState
                 }
 

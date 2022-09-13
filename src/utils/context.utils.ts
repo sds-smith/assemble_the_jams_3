@@ -12,6 +12,11 @@ export type NowPlaying = {
     track: TrackType;
 }
 
+export type ActivePlayer = {
+    spotify: boolean;
+    audioElement: boolean;
+}
+
 export type PlayerContextProps = {
     currentPlayer : (Spotify.Player) | null;
     setCurrentPlayer(currentPlayer: (Spotify.Player) | null): void;
@@ -23,6 +28,7 @@ export type PlayerContextProps = {
     setNowPlaying(nowPlaying: NowPlaying): void;
     active : boolean;
     setActive(active: boolean): void;
+    activePlayer : ActivePlayer;
     nowPlayingInitialState: NowPlaying;
 }
 
