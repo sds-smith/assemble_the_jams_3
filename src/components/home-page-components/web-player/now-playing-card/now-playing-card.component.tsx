@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from 'react'
 
 import TrackActionButton from '../../../reusable-components/track-action-button/track-action-button.component'
 import ActionMessage from '../../../reusable-components/action-message/action-message.component'
+import ProgressBar from '../../../reusable-components/progress-bar/progress-bar.component'
 
 import SpotifyIcon from '../../../../assets/icons/Spotify_Icon_RGB_Black.png'
 import StopBtn from '../../../../assets/icons/stop_black24.png'
@@ -13,7 +14,7 @@ import { useTrackControls } from '../../../../utils/custom-hooks/use-track-contr
 
 import { PlayerContext } from '../../../../contexts/player.context'
 import { useMediaQuery } from '../../../../utils/custom-hooks/use-media-query'
-import {NowPlayingContainer, SpotifyAttributor, SpotifyLogo, NowPlayingCover, NowPlayingLabel, TrackControls, ProgressContainer} from './now-playing-card.styles'
+import {NowPlayingContainer, SpotifyAttributor, SpotifyLogo, NowPlayingCover, NowPlayingLabel, TrackControls} from './now-playing-card.styles'
 
 const NowPlayingCard = () => {
     const [likesMessage, setLikesMessage] = useState('')
@@ -60,11 +61,7 @@ const NowPlayingCard = () => {
                  <TrackActionButton onClick={stopPlayback} src={StopBtn} alt='play or pause button'/>
             </TrackControls>   
             <ActionMessage bottom='2.2rem' right='10px'>{likesMessage}</ActionMessage>
-            <ProgressContainer 
-                transition={ active ? 'transform 30s linear' : 'transform 0s linear' } 
-                transform={ active ? 'scaleX(1)' : 'scaleX(0)' }
-                backgroundColor='rgba(0, 0, 0, .1)'
-            />
+            <ProgressBar darkBackground />
         </NowPlayingContainer>
     )
 }

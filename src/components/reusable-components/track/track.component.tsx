@@ -1,6 +1,7 @@
 import { useContext, Fragment, FC, ImgHTMLAttributes } from 'react'
 
 import TrackActionButton from '../track-action-button/track-action-button.component'
+import ProgressBar from '../progress-bar/progress-bar.component'
 
 import PlayBtn from '../../../assets/icons/play_white24.png'
 import StopBtn from '../../../assets/icons/stop_white24.png'
@@ -14,7 +15,6 @@ import { useTrackControls } from '../../../utils/custom-hooks/use-track-controls
 import { PlayerContext } from '../../../contexts/player.context'
 
 import { TrackContainer, CoverContainer, TrackInformation, TrackActionContainer, TrackCover, SpotifyLogo } from './track.styles'
-import { ProgressContainer } from '../../home-page-components/web-player/now-playing-card/now-playing-card.styles'
 import { TrackType } from '../../../store/track/track.types'
 
 type TrackProps = {
@@ -75,11 +75,7 @@ const Track: FC<TrackProps> = ({track, trackType }) => {
               {trackActions}
             </TrackActionContainer>
             { isActiveTrack &&
-              <ProgressContainer 
-                transform={ active ? 'scaleX(1)' : 'scaleX(0)' }
-                transition={ active ? 'transform 30s linear' : 'transform 0s linear' } 
-                backgroundColor='rgba(255, 255, 255, .2)'
-              />}
+              <ProgressBar lightBackground />}
         </TrackContainer>    
     )
 }
