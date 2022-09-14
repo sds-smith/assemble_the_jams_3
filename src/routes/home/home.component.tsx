@@ -14,7 +14,7 @@ import { HomeContainer, InputContainer, ResultsContainer  } from "./home.styles"
 
 const Home = () => { 
 
-    const { isMobile, activeTab, activeView, setDesktop, setMobileHome, setMobilePlaylist, setMobileSearchResults } = useContext(ResponsiveContext) 
+    const { isMobile, activeTab, activeView, setDesktop, setMobileHome } = useContext(ResponsiveContext) 
     const { activePlayer, nowPlaying } = useContext(PlayerContext)
 
     useEffect(() => {

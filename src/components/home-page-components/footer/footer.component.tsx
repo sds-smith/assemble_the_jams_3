@@ -2,16 +2,6 @@ import { useContext, FC, Dispatch, SetStateAction } from 'react'
 import { FooterContainer, Tab } from './footer.styles'
 import { ResponsiveContext } from '../../../contexts/responsive.context';
 
-export type ActiveTab = {
-    'playlist' : boolean;
-    'search_results' : boolean;
-}
-
-type FooterProps = {
-    activeTab: ActiveTab;
-    setActiveTab: Dispatch<SetStateAction<ActiveTab>>
-}
-
 const Footer: FC = () => {
     const { activeTab, activeView, setMobileHome, setMobilePlaylist, setMobileSearchResults } = useContext(ResponsiveContext) 
 
