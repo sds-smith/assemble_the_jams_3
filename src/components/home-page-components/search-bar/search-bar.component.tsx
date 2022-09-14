@@ -1,12 +1,12 @@
 import { useState, useContext, FC, ChangeEvent } from "react"
-import { useDispatch } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 
 import SearchFilterButton from "../../reusable-components/search-filter-button/search-filter-button.component"
 
 import { Spotify } from "../../../utils/spotify"
-import { ClientContext } from "../../../contexts/client.context"
 import { ResponsiveContext } from "../../../contexts/responsive.context"
 
+import { selectClientToken } from "../../../store/auth/auth.selector"
 import { setSearchResults, setPlaylistTracks, setSearchLoading } from '../../../store/track/track.action'
 
 import { SearchBarContainer, SearchBarInput, TermSelector } from "./search-bar.styles"
@@ -24,11 +24,10 @@ const SearchBar: FC = () => {
     const [searchTerm, setSearchTerm] = useState('')
     const [searchFocus, setSearchFocus] = useState(false)
     const { isMobile, setMobilePlaylist } = useContext(ResponsiveContext)
+    const clientToken = useSelector(selectClientToken)
 
     const dispatch = useDispatch()
 
-    const {clientToken} = useContext(ClientContext)
-    
     const filters: FilterObj[] = [
         {
             id : 1,
