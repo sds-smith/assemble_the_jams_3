@@ -49,7 +49,6 @@ export const useTrackControls = (track: TrackType) => {
       const hasTrack = true
       const isLike = false
       setNowPlaying({hasTrack, track, isLike})
-      setActive(true)
     }  
   };
 
@@ -94,9 +93,6 @@ export const useTrackControls = (track: TrackType) => {
     if (currentPlayer) {
         await currentPlayer.pause()
         await Spotify.stopPlayback(deviceID, accessToken)
-    } else {
-        console.log('no user, setting active to false')
-        setActive(false)
     }
     setNowPlaying(nowPlayingInitialState)
 }
