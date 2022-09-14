@@ -5,6 +5,7 @@ import SearchFilterButton from "../../reusable-components/search-filter-button/s
 
 import { Spotify } from "../../../utils/spotify"
 import { ClientContext } from "../../../contexts/client.context"
+import { ResponsiveContext } from "../../../contexts/responsive.context"
 
 import { setSearchResults, setPlaylistTracks, setSearchLoading } from '../../../store/track/track.action'
 
@@ -22,6 +23,7 @@ const SearchBar: FC = () => {
 
     const [searchTerm, setSearchTerm] = useState('')
     const [searchFocus, setSearchFocus] = useState(false)
+    const { isMobile, setMobilePlaylist } = useContext(ResponsiveContext)
 
     const dispatch = useDispatch()
 
@@ -71,6 +73,7 @@ const SearchBar: FC = () => {
             dispatch(setSearchResults(searchResultsArray))
             dispatch(setPlaylistTracks(recommendationsArray))
             dispatch(setSearchLoading(false))
+            isMobile && setMobilePlaylist()
         }
     }
 
