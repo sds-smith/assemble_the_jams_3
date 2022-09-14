@@ -15,16 +15,20 @@ const AudioElement: FC<AudioHTMLAttributes<HTMLAudioElement>> = () => {
     }, [])
 
     useEffect((): ReturnType<EffectCallback> => {
-        audioPreview.src = nowPlaying.track.preview as string
-        audioPreview.load()
-        if (audioPreview.src.length) {
+        if (nowPlaying.hasTrack) {
+            audioPreview.src = nowPlaying.track.preview as string
+            audioPreview.load()
+            const src = audioPreview.src
+            console.log('start play setting active true')
+            console.log({src})
             setActive(true)
             audioPreview.play()
-            audioPreview.onended = () => setActive(false)
+            audioPreview.onended = () => {setActive(false)}
+        } else {
+            audioPreview.src = ''
         }
-
         return (): void => {
-            audioPreview.src = nowPlaying.track.preview as string
+            audioPreview.src = ''
             audioPreview.remove()
             setActive(false)
         }
