@@ -9,7 +9,7 @@ exports.handler = async (event) => {
         return {
             statusCode: 200,
             body: JSON.stringify({ 
-               message: 'success'
+               message: 'auth doc deleted'
             })
         }
     } catch(error) {

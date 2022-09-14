@@ -46,9 +46,9 @@ const Auth = () => {
             const authCode: string = authCodeMatch[1]
             getAccessToken(authCode)
         } else {
-          console.log('nope')
+          console.log('user declined sign-in')
           window.alert('user declined sign-in')
-          navigate('/')
+          signOut()
         }
          // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
