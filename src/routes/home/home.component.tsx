@@ -8,7 +8,7 @@ import Playlist from "../../components/home-page-components/playlist/playlist.co
 import Footer from "../../components/home-page-components/footer/footer.component"
 
 import { PlayerContext } from "../../contexts/player.context"
-import { useMediaQuery } from '../../utils/custom-hooks/use-media-query'
+import { ResponsiveContext } from "../../contexts/responsive.context"
 import { HomeContainer, InputContainer, ResultsContainer  } from "./home.styles"
 
 const Home = () => { 
@@ -16,7 +16,7 @@ const Home = () => {
       'playlist' : true,
       'search_results' : true
     })
-    const isMobile = useMediaQuery('(max-width: 1020px)')
+    const { isMobile } = useContext(ResponsiveContext) 
     const { activePlayer } = useContext(PlayerContext)
 
     useEffect(() => {

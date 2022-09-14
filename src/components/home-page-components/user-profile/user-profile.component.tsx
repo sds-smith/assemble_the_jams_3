@@ -6,7 +6,7 @@ import ProfilePic from '../../../assets/icons/default_profile96.png'
 
 import { UserContext } from '../../../contexts/user.context';
 
-import { useMediaQuery } from '../../../utils/custom-hooks/use-media-query'
+import { ResponsiveContext } from '../../../contexts/responsive.context';
 import { ProfileLink, ProfileImg } from "./user-profile.styles";
 
 const UserProfile = () => {
@@ -15,7 +15,7 @@ const UserProfile = () => {
     const [displayName, setDisplayName] = useState('')
 
     const { userLoading, currentUser, currentUserExists } = useContext(UserContext)
-    const isMobile = useMediaQuery('(max-width: 1020px)')
+    const { isMobile } = useContext(ResponsiveContext) 
 
     useEffect(() => {
         if (currentUserExists()) {

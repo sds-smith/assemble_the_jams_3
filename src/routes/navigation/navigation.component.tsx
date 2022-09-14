@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom"
 
 import SpotifyLogoWhite from '../../assets/icons/Spotify_Logo_RGB_White.png'
 import JamsLogo from "../../components/reusable-components/jams-logo/jams-logo.component"
-import { useMediaQuery } from '../../utils/custom-hooks/use-media-query'
+import { ResponsiveContext } from "../../contexts/responsive.context"
 import { useSignIn } from "../../utils/custom-hooks/use-sign-in"
 import { UserContext } from "../../contexts/user.context"
 
@@ -11,7 +11,7 @@ import { Header, SpotifyAttributor, SpotifyLogo, SignInButtonContainer, SignInBu
 
 
 const Navigation: FC = () => {
-    const isMobile = useMediaQuery('(max-width: 1020px)')
+    const { isMobile } = useContext(ResponsiveContext) 
     const { currentUserExists } = useContext(UserContext)
 
     const {signIn, signOut} = useSignIn()
