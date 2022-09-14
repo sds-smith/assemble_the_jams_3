@@ -21,7 +21,7 @@ export const useTrackControls = (track: TrackType) => {
   const accessToken = useSelector(selectAccessToken)
   const playlistTracks = useSelector(selectPlaylistTracks)
   const searchResults = useSelector(selectSearchResults)
-  const { nowPlaying, setNowPlaying, deviceID, currentPlayer, setActive, nowPlayingInitialState } = useContext(PlayerContext)
+  const { nowPlaying, setNowPlaying, deviceID, currentPlayer, nowPlayingInitialState } = useContext(PlayerContext)
   const { currentUserExists } = useContext(UserContext)
 
   const addTrack = () => {
