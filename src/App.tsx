@@ -27,11 +27,11 @@ const App = () => {
       const getClientToken = async () => {
         const response = await Spotify.getClientToken()
         if (response) {
-          const { token, expiresIn } = response
+          const { token, expires_in } = response
           dispatch(setClientToken(token) )       
           window.setTimeout(() => {
             dispatch(setClientToken(''))
-          }, expiresIn * 1000)
+          }, expires_in * 1000)
         }
       }
       getClientToken()

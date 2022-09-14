@@ -13,8 +13,8 @@ export const Spotify: SpotifyType = {
             'Content-Type': 'application/json'
           },
         })
-        const {token, expiresIn} = await response.json()
-        return {token, expiresIn}
+        const {token, expires_in} = await response.json()
+        return {token, expires_in}
       } catch(error) {
         console.log('nope ', error)
         window.alert('error with client log-in, please contact app support.')

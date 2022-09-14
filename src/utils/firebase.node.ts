@@ -61,10 +61,22 @@ export const getAuthDoc = async (authSession: string): Promise<AuthDoc> => {
     return snapshotDocs[0]
 }
 
-export const updateAuthDoc = async (authSession: string, token: string) => {
+export type UpdateAuthDocProps = {
+    authSession: string;
+    access_token: string;
+    expires_in: number;
+    refresh_token: string;
+    expires_at: number;
+}
+
+export const updateAuthDoc = async (updateAuthDocProps: UpdateAuthDocProps ) => {
+    const {authSession, access_token, expires_in, refresh_token, expires_at} = updateAuthDocProps
     const sessionRef = doc(db, 'auth', authSession)
     await updateDoc(sessionRef, {
-        accessToken: token
+        accessToken: access_token,
+        expires_in, 
+        refresh_token, 
+        expires_at
     })
     return sessionRef
 }

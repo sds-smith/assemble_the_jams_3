@@ -29,12 +29,12 @@ const Auth = () => {
               },
               body: JSON.stringify({ authCode, authSession })
             })
-            const {token, expiresIn} = await response.json()
-            if (token) {
-              dispatch(setAccessToken(token))
+            const { access_token, expires_in, refresh_token, expires_at} = await response.json()
+            if (access_token) {
+              dispatch(setAccessToken(access_token))
               window.setTimeout(() => {
                 signOut()
-              }, expiresIn * 1000)
+              }, expires_in * 1000)
             }
           } catch(error) {
             console.log('nope ', error)

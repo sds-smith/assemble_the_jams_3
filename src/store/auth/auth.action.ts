@@ -27,3 +27,21 @@ export const setAccessToken = (token: string):
         payload: token
     }
 }
+
+export const setRefreshToken = (token: string):
+    ActionWithPayload<AUTH_ACTION_TYPES.SET_REFRESH_TOKEN, string> => 
+{
+    return {
+        type: AUTH_ACTION_TYPES.SET_REFRESH_TOKEN,
+        payload: token
+    }
+}
+
+export const setExpiresAt = (expires_at: number):
+    ActionWithPayload<AUTH_ACTION_TYPES.SET_EXPIRES_AT, number> => 
+{
+    return {
+        type: AUTH_ACTION_TYPES.SET_EXPIRES_AT,
+        payload: expires_at
+    }
+}

@@ -7,12 +7,17 @@ export type AuthState = {
     readonly clientToken : string;
     readonly authSession : string;
     readonly accessToken : string;
+    readonly refreshToken : string;
+    readonly expiresAt : number | null;
+
 }
 
 const INITIAL_STATE: AuthState = {
     clientToken: '',
     authSession: '',
-    accessToken: ''
+    accessToken: '',
+    refreshToken: '',
+    expiresAt: null
 }
 
 export const authReducer = (
@@ -36,6 +41,16 @@ export const authReducer = (
             return {
                 ...state,
                 accessToken : payload
+            }
+        case AUTH_ACTION_TYPES.SET_REFRESH_TOKEN :
+            return {
+                ...state,
+                refreshToken : payload
+            }
+        case AUTH_ACTION_TYPES.SET_EXPIRES_AT :
+            return {
+                ...state,
+                expiresAt : payload
             }
         default : 
             return state
