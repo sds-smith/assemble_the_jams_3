@@ -6,7 +6,7 @@ type Auth = (codeChallenge: string, state: string) => void
 type GetUserProfile = (authSession: string) => Promise<{display_name: string, image_url: string, id: string} | undefined>
 type Search = (clientToken: string, query: string) => Promise<{searchResultsArray: TrackType[], recommendationsArray: TrackType[]} | undefined>
 type TransferPlayback = (id: string, access_token: string) => Promise<void>
-type PlayTrack = (id: string, uri: string, access_token: string, currentPlayer: Spotify.Player) => Promise<void>
+type PlayTrack = (id: string, uri: string, currentPlayer: Spotify.Player) => void
 type StopPlayback = (id: string, access_token: string) => Promise<void>
 type GetLikeStatus = (authSession: string, trackId: string) => Promise<boolean>
 type SaveResponse = { 
@@ -30,7 +30,7 @@ export type SecondParamType = {
   playerInstance: Spotify.Player
 }
 
-export type Play = (currentPlayer: Spotify.Player, id: string, secondParam: SecondParamType) => void
+export type Play = ( id: string, secondParam: SecondParamType) => void
 
 export type SpotifyType = {
   getClientToken: GetClientToken;

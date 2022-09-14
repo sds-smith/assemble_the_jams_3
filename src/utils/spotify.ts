@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import { SpotifyType, RecommendationsResponseType } from './spotify.types';
+import { SpotifyType, RecommendationsResponseType, SecondParamType, Play } from './spotify.types';
 
 const scope = encodeURIComponent('user-read-private user-read-email playlist-modify-public streaming user-library-read user-library-modify')
 
@@ -96,17 +96,31 @@ export const Spotify: SpotifyType = {
       }
     },
 
-    async playTrack(id, spotify_uri, access_token, currentPlayer) {
-      await fetch(`https://api.spotify.com/v1/me/player/play?device_id=${id}`, {
-        method: 'PUT',
-        body: JSON.stringify({ uris: [spotify_uri], position_ms: 30000 }),
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${access_token}`
-        },
-      });
-      currentPlayer.resume()
-      console.log('play success', id)
+    playTrack(id, uri, currentPlayer) {
+      const secondParam: SecondParamType = {
+        spotify_uri: uri,
+        playerInstance: currentPlayer
+      }
+      const play: Play = (id, {
+        spotify_uri,
+        playerInstance: {
+          _options: {
+            getOAuthToken
+          }
+        }
+      }) => {
+        getOAuthToken(access_token => {
+          fetch(`https://api.spotify.com/v1/me/player/play?device_id=${id}`, {
+            method: 'PUT',
+            body: JSON.stringify({ uris: [spotify_uri], position_ms: 30000 }),
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${access_token}`
+            },
+          });
+        });
+      }
+      play(id, secondParam)
     },
 
     async stopPlayback(id, access_token) {
