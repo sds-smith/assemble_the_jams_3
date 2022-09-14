@@ -19,7 +19,7 @@ import {NowPlayingContainer, SpotifyAttributor, SpotifyLogo, NowPlayingCover, No
 const NowPlayingCard = () => {
     const [likesMessage, setLikesMessage] = useState('')
 
-    const { nowPlaying, active } = useContext(PlayerContext)
+    const { nowPlaying } = useContext(PlayerContext)
     const track = nowPlaying.track
     const isMobile = useMediaQuery('(max-width: 1020px)')
     const { stopPlayback, addTrack, toggleLike } = useTrackControls(track)

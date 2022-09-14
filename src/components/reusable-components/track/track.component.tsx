@@ -26,7 +26,7 @@ const Track: FC<TrackProps> = ({track, trackType }) => {
 
   const { play, stopPlayback, addTrack, removeTrack } = useTrackControls(track)
 
-  const { currentPlayer, nowPlaying, active } = useContext(PlayerContext)
+  const { currentPlayer, nowPlaying } = useContext(PlayerContext)
 
   const isActiveTrack = nowPlaying.track.id === track.id
   const playActionButton = isActiveTrack ? StopBtn : PlayBtn
