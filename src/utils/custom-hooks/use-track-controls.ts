@@ -48,6 +48,8 @@ export const useTrackControls = (track: TrackType) => {
     if (!nowPlaying.hasTrack) {
       const hasTrack = true
       const isLike = false
+      console.log('setting nowPlaying')
+      console.log({hasTrack, track, isLike})
       setNowPlaying({hasTrack, track, isLike})
     }  
   };
@@ -59,6 +61,8 @@ export const useTrackControls = (track: TrackType) => {
           const hasTrack = true
           const isLike = await Spotify.getLikeStatus(authSession, track.id)
           const uri = `spotify:track:${track.id}`
+          console.log('setting nowPlaying')
+          console.log({hasTrack, track, isLike})
           setNowPlaying({hasTrack, track, isLike})
           await Spotify.playTrack(deviceID, uri, currentPlayer) 
           }
@@ -84,6 +88,8 @@ export const useTrackControls = (track: TrackType) => {
         return ''
     }
     const {message, isLike} = await Spotify.toggleLike(authSession, nowPlaying)
+    console.log('setting nowPlaying')
+    console.log({...nowPlaying, isLike})
     setNowPlaying({...nowPlaying, isLike})
     return message
 }
@@ -93,6 +99,8 @@ export const useTrackControls = (track: TrackType) => {
         await currentPlayer.pause()
         await Spotify.stopPlayback(deviceID, accessToken)
     }
+    console.log('setting nowPlaying')
+    console.log(nowPlayingInitialState)
     setNowPlaying(nowPlayingInitialState)
 }
 

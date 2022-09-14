@@ -1,6 +1,6 @@
-import { FC, Dispatch, SetStateAction } from 'react'
-import { FooterContainer } from './footer.styles'
-import { Tab } from './footer.styles'
+import { useContext, FC, Dispatch, SetStateAction } from 'react'
+import { FooterContainer, Tab } from './footer.styles'
+import { ResponsiveContext } from '../../../contexts/responsive.context';
 
 export type ActiveTab = {
     'playlist' : boolean;
@@ -12,23 +12,24 @@ type FooterProps = {
     setActiveTab: Dispatch<SetStateAction<ActiveTab>>
 }
 
-const Footer: FC<FooterProps> = ({ activeTab, setActiveTab }) => {
-    const playlistActive = () => {
-        setActiveTab({'playlist' : true, 'search_results' : false})
-    }
-    const searchResultsActive = () => {
-        setActiveTab({'playlist' : false, 'search_results' : true})
-    }
+const Footer: FC = () => {
+    const { activeTab, activeView, setMobileHome, setMobilePlaylist, setMobileSearchResults } = useContext(ResponsiveContext) 
+
 
     return (
         <FooterContainer>
             <Tab
-                onClick={playlistActive} 
-                active={activeTab.playlist} >
+                onClick={setMobileHome} 
+                active={activeView.input} >
+            Home
+            </Tab>
+            <Tab
+                onClick={setMobilePlaylist} 
+                active={activeView.results && activeTab.playlist} >
             Playlist
             </Tab>   
             <Tab 
-                onClick={searchResultsActive} 
+                onClick={setMobileSearchResults} 
                 active={activeTab.search_results}>
             Search Results
             </Tab>
