@@ -13,10 +13,11 @@ export const PlaylistContainer = styled.div<PlaylistProps>`
     justify-content: flex-start;
     overflow-y: scroll;
     min-height: 40vh;
-    max-height: 90vh;
+    max-height: ${props => props.isMobile ? '70vh' : '90vh'};
     width: ${props => props.isMobile ? '95%' : '40%'};
     padding: 0.88rem 1.16rem;
     margin: 10px;
+    ${props => props.isMobile && 'margin-bottom: 200px'};
     background-color: rgba(0, 0, 0, 0.4);
     box-shadow: 0 4px 2px 2px #000000;
 

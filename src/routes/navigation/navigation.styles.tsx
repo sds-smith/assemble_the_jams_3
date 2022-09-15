@@ -11,6 +11,17 @@ type SignInButtonContainerProps = NavigationProps & {
 
 export const headerHeight = '100px'
 
+type NavigationContainerProps = {
+  isMobile: boolean;
+}
+
+export const NavigationContainer = styled.div<NavigationContainerProps>`
+  position: ${props => props.isMobile ? 'fixed' : 'absolute'};
+  top: 0px;
+  left: 0px;
+  width: 100%;
+`
+
 export const Header = styled.div`
     background-color: black;
     border: 1px solid black;

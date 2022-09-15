@@ -1,4 +1,4 @@
-import { Fragment, useContext, FC } from "react"
+import { useContext, FC } from "react"
 import { Outlet } from "react-router-dom"
 
 import SpotifyLogoWhite from '../../assets/icons/Spotify_Logo_RGB_White.png'
@@ -7,7 +7,7 @@ import { ResponsiveContext } from "../../contexts/responsive.context"
 import { useSignIn } from "../../utils/custom-hooks/use-sign-in"
 import { UserContext } from "../../contexts/user.context"
 
-import { Header, SpotifyAttributor, SpotifyLogo, SignInButtonContainer, SignInButton } from "./navigation.styles"
+import { NavigationContainer, Header, SpotifyAttributor, SpotifyLogo, SignInButtonContainer, SignInButton } from "./navigation.styles"
 
 
 const Navigation: FC = () => {
@@ -29,7 +29,7 @@ const Navigation: FC = () => {
     }
 
     return (
-        <Fragment>
+        <NavigationContainer isMobile={isMobile}>
             <Header>
                 <SpotifyAttributor isMobile={isMobile} href='https://www.spotify.com/us/premium/' target='_blank' rel="noreferrer" >
                   <SpotifyLogo src={SpotifyLogoWhite} id='spotify-logo' alt='Spotify Logo'/>
@@ -45,7 +45,7 @@ const Navigation: FC = () => {
                 </SignInButtonContainer>
             </Header>  
             <Outlet />
-        </Fragment>
+        </NavigationContainer>
     )
 }
 
