@@ -31,7 +31,6 @@ export const PlaylistContainer = styled.div<PlaylistProps>`
 `
 
 export const TitleContainer = styled.div<PlaylistProps>`
-    position: relative;
     display: flex;
     justify-content: center;
     width: 100%;

@@ -20,7 +20,7 @@ const ActionMessage: FC<ActionMessageProps> = ({ position, bottom, right, top, l
             right={right} 
             top={top}
             left={left}
-            width={width || '7rem'} 
+            width={width || '8rem'} 
         >
             {children}
         </ActionMessageContainer>
