@@ -29,19 +29,21 @@ const Playlist = () => {
     const { signIn } = useSignIn()
 
     const savePlaylist = async () => {
-      if (!currentUser) {
-        signIn()
-      }
-      const trackURIs: string[] = playlistTracks.map(track => track.uri)
-      try {
-        const response = await Spotify.savePlaylist(authSession, currentUser, playlistName, trackURIs)
-        dispatch(setPlaylistName(response.playlistName))
-        dispatch(setPlaylistTracks(response.playlistTracks))
-        dispatch(setSearchResults(response.searchResults))
-        setSavedMessage(response.message)
-        setTimeout(() => setSavedMessage(''), 3000);
-      } catch(error) {
-        console.log(error)
+      if (!currentUser.id) {
+        setSavedMessage("Please sign in with your Spotify Premium account")
+        setTimeout(() => setSavedMessage(''), 3000);      
+      } else {
+        const trackURIs: string[] = playlistTracks.map(track => track.uri)
+        try {
+          const response = await Spotify.savePlaylist(authSession, currentUser, playlistName, trackURIs)
+          dispatch(setPlaylistName(response.playlistName))
+          dispatch(setPlaylistTracks(response.playlistTracks))
+          dispatch(setSearchResults(response.searchResults))
+          setSavedMessage(response.message)
+          setTimeout(() => setSavedMessage(''), 3000);
+        } catch(error) {
+          console.log(error)
+        }
       }
     }
 
@@ -52,7 +54,7 @@ const Playlist = () => {
             <PlaylistNameInput width='unset' />
             <SaveToSpotifyButton onClick={savePlaylist} >SAVE TO SPOTIFY</SaveToSpotifyButton>
           </TitleContainer>
-          <ActionMessage bottom='65%' right='50%' width='10rem' >{savedMessage}</ActionMessage>
+          <ActionMessage top='65px' left='25%' width='10rem' >{savedMessage}</ActionMessage>
           <TrackList 
             trackType={'playlist'}
           />

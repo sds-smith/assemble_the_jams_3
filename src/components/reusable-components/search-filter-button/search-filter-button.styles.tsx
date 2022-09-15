@@ -23,7 +23,7 @@ export const FilterButton = styled.button`
 
     @media only screen and (min-width: 1020px) {
         &:hover {
-            opacity: .8;
+            opacity: .5;
         }
     }
  

@@ -26,6 +26,22 @@ export const Spotify: SpotifyType = {
       window.location.replace(SpotifyAuth)
     },
 
+    async returnUserAccessToken(authSession) {
+      try {
+        const response = await fetch('/.netlify/functions/return-user-access-token', {
+          method: 'post',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ authSession })
+        })
+        const jsonResponse = await response.json()
+        return jsonResponse.accessToken
+      } catch(error) {
+        console.log('nope ', error)
+      }
+    },
+
     async getUserProfile(authSession) {
       try {
         const response = await fetch('/.netlify/functions/get-user', {

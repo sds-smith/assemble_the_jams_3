@@ -9,7 +9,6 @@ exports.handler = async (event) => {
         const authDoc = await getAuthDoc(authSession)
         const { codeVerifier, state } = authDoc
 
-
         const authorization = base64urlencode(`${process.env.REACT_APP_CLIENT_ID}:${process.env.CLIENT_SECRET}`)
         const headers = {
             'Authorization' : `Basic ${authorization}`,
@@ -24,6 +23,7 @@ exports.handler = async (event) => {
         const {access_token, expires_in, refresh_token} = response.data
         const expires_at = Date.now() + expires_in
         const payload = {authSession, access_token, expires_in, refresh_token, expires_at}
+        console.log(payload)
         await updateAuthDoc(payload)
         return {
             statusCode: 200,

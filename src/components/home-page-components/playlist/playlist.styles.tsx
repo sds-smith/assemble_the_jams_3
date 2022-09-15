@@ -12,6 +12,8 @@ export const PlaylistContainer = styled.div<PlaylistProps>`
     align-items: center;
     justify-content: flex-start;
     overflow-y: scroll;
+    min-height: 40vh;
+    max-height: 90vh;
     width: ${props => props.isMobile ? '95%' : '40%'};
     padding: 0.88rem 1.16rem;
     margin: 10px;

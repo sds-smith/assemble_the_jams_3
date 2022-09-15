@@ -1,6 +1,5 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { useNavigate } from "react-router-dom"
 
 import Spinner from '../../components/reusable-components/spinner/spinner.component'
 
@@ -12,7 +11,6 @@ import { AuthContainer } from "./auth.styles"
 
 const Auth = () => {
     const dispatch = useDispatch()
-    const navigate = useNavigate()
 
     const authSession = useSelector(selectAuthSession)
     const { signOut } = useSignIn()
@@ -30,6 +28,7 @@ const Auth = () => {
               body: JSON.stringify({ authCode, authSession })
             })
             const { access_token, expires_in, refresh_token, expires_at} = await response.json()
+            console.log({ access_token, expires_in, refresh_token, expires_at})
             if (access_token) {
               dispatch(setAccessToken(access_token))
               window.setTimeout(() => {
