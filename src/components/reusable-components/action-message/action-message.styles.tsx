@@ -11,10 +11,10 @@ type ActionMessageContainerProps = {
 
 export const ActionMessageContainer = styled.p<ActionMessageContainerProps>`
   position: ${props => props.position || 'unset' };
-  bottom: ${props => props.bottom || '0'};
-  right: ${props => props.right || '0'};
-  top: ${props => props.top || '0'};
-  left: ${props => props.left || '0'};
+  bottom: ${props => props.bottom || 'unset'};
+  right: ${props => props.right || 'unset'};
+  top: ${props => props.top || 'unset'};
+  left: ${props => props.left || 'unset'};
   width: ${props => props.width};
   height: 2rem;
   background-color: rgba(0,0,0,.6);
