@@ -9,7 +9,7 @@ type ActionMessageContainerProps = {
 }
 
 export const ActionMessageContainer = styled.p<ActionMessageContainerProps>`
-  position: absolute;
+  position: ${props => (props.top || props.bottom) ? 'absolute' : 'unset' };
   bottom: ${props => props.bottom || '0'};
   right: ${props => props.right || '0'};
   top: ${props => props.top || '0'};
