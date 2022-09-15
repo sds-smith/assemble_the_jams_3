@@ -10,7 +10,6 @@ type PlaylistProps = {
 const mobileHeight = `calc(0.9 * (100vh - ${headerHeight} - ${footerHeight}))`
 
 export const PlaylistContainer = styled.div<PlaylistProps>`
-    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
