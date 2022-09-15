@@ -1,13 +1,17 @@
 import styled from "styled-components"
+import { headerHeight } from '../../../routes/navigation/navigation.styles'
+import { footerHeight } from '../footer/footer.styles'
 
 type SearchResultsContainerProps = {
   isMobile: boolean;
 }
 
+const mobileHeight = `calc(0.9 * (100vh - ${headerHeight} - ${footerHeight}))`
+
 export const SearchResultsContainer = styled.div<SearchResultsContainerProps>`
     width: ${props => props.isMobile ? '95%' : '40%'};
     min-height: 40vh;
-    max-height: ${props => props.isMobile ? '70vh' : '90vh'};
+    max-height: ${props => props.isMobile ? mobileHeight : '90vh'};
     overflow-y: scroll;
     padding: .88rem;
     margin: 10px;

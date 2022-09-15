@@ -1,9 +1,13 @@
 import styled from "styled-components";
 import Button from "../../reusable-components/button/button.component";
+import { headerHeight } from '../../../routes/navigation/navigation.styles'
+import { footerHeight } from '../footer/footer.styles'
 
 type PlaylistProps = {
   isMobile: boolean;
 }
+
+const mobileHeight = `calc(0.9 * (100vh - ${headerHeight} - ${footerHeight}))`
 
 export const PlaylistContainer = styled.div<PlaylistProps>`
     position: relative;
@@ -13,7 +17,7 @@ export const PlaylistContainer = styled.div<PlaylistProps>`
     justify-content: flex-start;
     overflow-y: scroll;
     min-height: 40vh;
-    max-height: ${props => props.isMobile ? '70vh' : '90vh'};
+    max-height: ${props => props.isMobile ? mobileHeight : '90vh'};
     width: ${props => props.isMobile ? '95%' : '40%'};
     padding: 0.88rem 1.16rem;
     margin: 10px;
