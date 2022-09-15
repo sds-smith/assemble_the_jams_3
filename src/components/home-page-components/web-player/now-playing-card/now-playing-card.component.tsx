@@ -60,7 +60,7 @@ const NowPlayingCard = () => {
                  <TrackActionButton onClick={LikeAction} src={LikeOrUnlike} alt='button to add/remove song from liked songs' />
                  <TrackActionButton onClick={stopPlayback} src={StopBtn} alt='play or pause button'/>
             </TrackControls>   
-            <ActionMessage bottom='2.2rem' right='10px'>{likesMessage}</ActionMessage>
+            <ActionMessage position='absolute' bottom='2.2rem' right='10px'>{likesMessage}</ActionMessage>
             <ProgressBar darkBackground />
         </NowPlayingContainer>
     )

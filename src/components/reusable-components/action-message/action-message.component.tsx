@@ -3,6 +3,7 @@ import { FC } from "react";
 import { ActionMessageContainer } from "./action-message.styles";
 
 type ActionMessageProps = {
+    position?: string;
     bottom?: string;
     right?: string;
     top?: string;
@@ -11,9 +12,10 @@ type ActionMessageProps = {
     children: string;
 }
 
-const ActionMessage: FC<ActionMessageProps> = ({ bottom, right, top, left, width, children }) => {
+const ActionMessage: FC<ActionMessageProps> = ({ position, bottom, right, top, left, width, children }) => {
     return (
         <ActionMessageContainer 
+            position={position}
             bottom={bottom} 
             right={right} 
             top={top}

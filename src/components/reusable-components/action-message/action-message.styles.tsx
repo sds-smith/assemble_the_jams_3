@@ -1,6 +1,7 @@
 import styled from "styled-components"
 
 type ActionMessageContainerProps = {
+  position?: string;
   bottom?: string;
   right?: string;
   top?: string;
@@ -9,7 +10,7 @@ type ActionMessageContainerProps = {
 }
 
 export const ActionMessageContainer = styled.p<ActionMessageContainerProps>`
-  position: ${props => (props.top || props.bottom) ? 'absolute' : 'unset' };
+  position: ${props => props.position || 'unset' };
   bottom: ${props => props.bottom || '0'};
   right: ${props => props.right || '0'};
   top: ${props => props.top || '0'};
