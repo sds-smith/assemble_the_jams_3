@@ -18,13 +18,9 @@ const AudioElement: FC<AudioHTMLAttributes<HTMLAudioElement>> = () => {
         if (nowPlaying.hasTrack) {
             audioPreview.src = nowPlaying.track.preview as string
             audioPreview.load()
-            const src = audioPreview.src
-            console.log('start play setting active true')
-            console.log({src})
             setActive(true)
             audioPreview.play()
             audioPreview.onended = () => {
-                'preview ended.  setting active false'
                 setActive(false)
             }
         } else {
@@ -33,7 +29,6 @@ const AudioElement: FC<AudioHTMLAttributes<HTMLAudioElement>> = () => {
         return (): void => {
             audioPreview.src = ''
             audioPreview.remove()
-            console.log('unmount. setting active false')
             setActive(false)
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
