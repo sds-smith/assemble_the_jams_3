@@ -28,7 +28,6 @@ const Auth = () => {
               body: JSON.stringify({ authCode, authSession })
             })
             const { access_token, expires_in, refresh_token, expires_at} = await response.json()
-            console.log({ access_token, expires_in, refresh_token, expires_at})
             if (access_token) {
               dispatch(setAccessToken(access_token))
               dispatch(setRefreshToken(refresh_token))
