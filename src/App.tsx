@@ -7,9 +7,10 @@ import AudioElement from './routes/audio-element/audio-element.component';
 import SpotifyPlayer from './routes/spotify-player/spotify-player.component';
 import Auth from './routes/auth/auth.component';
 
-import { selectClientToken, selectAccessToken, selectAuthSession/*, selectExpiresAt, selectRefreshToken*/ } from './store/auth/auth.selector';
-import { setClientToken, setAuthSession, setAccessToken } from './store/auth/auth.action';
+import { selectClientToken, selectAccessToken, selectAuthSession, selectExpiresAt, selectRefreshToken } from './store/auth/auth.selector';
+import { setClientToken, setAuthSession, setAccessToken, setRefreshToken, setExpiresAt } from './store/auth/auth.action';
 import { UserContext } from './contexts/user.context';
+import { useSignIn } from './utils/custom-hooks/use-sign-in';
 import { Spotify } from './utils/spotify';
 
 import './App.css';
@@ -20,10 +21,11 @@ const App = () => {
   const clientToken = useSelector(selectClientToken)
   const accessToken = useSelector(selectAccessToken)
   const authSession = useSelector(selectAuthSession)
-  // const expiresAt = useSelector(selectExpiresAt)
-  // const refreshToken = useSelector(selectRefreshToken)
+  const expiresAt = useSelector(selectExpiresAt)
+  const refreshToken = useSelector(selectRefreshToken)
 
   const { setUserLoading, setCurrentUser, defaultCurrentUser } = useContext(UserContext)
+  const { signOut } = useSignIn()
 
   useEffect(() => {
     if (!clientToken) {
@@ -39,18 +41,29 @@ const App = () => {
       }
       getClientToken()
     }
-    // if (accessToken) {
-      // const expiresIn = expiresAt - Date.now()
-      // console.log({expiresIn})
-      // window.setTimeout(() => {
-        // if (refreshToken) {
-          // get new access token with refresh token
-          // console.log('getting new access token with refresh token')
-        // } else {
-          // signout
-        // }
-      // }, expiresIn * 1000)
-    // }
+    if (accessToken) {
+      const expiresIn = expiresAt - (Date.now()/1000)
+      if (expiresIn <= 0) {
+        signOut()
+      } else {
+        window.setTimeout(() => {
+          if (refreshToken) {
+            const refresh = async () => {
+              const refreshResponse = await Spotify.refreshUserToken(refreshToken, authSession)
+              if (refreshResponse) {
+                const {access_token, expires_at, refresh_token} = refreshResponse
+                dispatch(setAccessToken(access_token))
+                dispatch(setRefreshToken(refresh_token))
+                dispatch(setExpiresAt(expires_at))
+              }
+            }
+            refresh()
+          } else {
+            signOut()
+          }
+        }, expiresIn * 1000)
+      }
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

@@ -3,6 +3,7 @@ import { CurrentUserType, NowPlaying } from './context.utils'
 
 type GetClientToken = () => Promise<{token: string, expires_in: number} | undefined>
 type Auth = (codeChallenge: string, state: string) => void
+type RefreshUserToken = (refreshToken: string, authSession: string) => Promise<{access_token: string, expires_in: number, expires_at: number, refresh_token: string} | undefined>
 type ReturnUserAccessToken = (authSession: string) => Promise<string>
 type GetUserProfile = (authSession: string) => Promise<{display_name: string, image_url: string, id: string} | undefined>
 type Search = (clientToken: string, query: string) => Promise<{searchResultsArray: TrackType[], recommendationsArray: TrackType[]} | undefined>
@@ -36,6 +37,7 @@ export type Play = ( id: string, secondParam: SecondParamType) => void
 export type SpotifyType = {
   getClientToken: GetClientToken;
   auth: Auth;
+  refreshUserToken: RefreshUserToken;
   returnUserAccessToken: ReturnUserAccessToken;
   getUserProfile: GetUserProfile;
   search: Search;

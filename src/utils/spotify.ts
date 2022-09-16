@@ -26,6 +26,23 @@ export const Spotify: SpotifyType = {
       window.location.replace(SpotifyAuth)
     },
 
+    async refreshUserToken(refreshToken, authSession) {
+      try {
+        const response = await fetch('/.netlify/functions/refresh-user-access-token', {
+          method: 'post',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({refreshToken, authSession})
+        })
+        const {access_token, expires_in, expires_at, refresh_token} = await response.json()
+        console.log({access_token, expires_in, expires_at, refresh_token})
+        return {access_token, expires_in, expires_at, refresh_token}
+      } catch(error) {
+        console.log('error with token refresh ', error)
+      }
+    },
+
     async returnUserAccessToken(authSession) {
       try {
         const response = await fetch('/.netlify/functions/return-user-access-token', {
@@ -41,6 +58,8 @@ export const Spotify: SpotifyType = {
         console.log('nope ', error)
       }
     },
+
+
 
     async getUserProfile(authSession) {
       try {

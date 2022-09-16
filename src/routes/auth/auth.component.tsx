@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 
 import Spinner from '../../components/reusable-components/spinner/spinner.component'
 
-import { setAccessToken } from "../../store/auth/auth.action"
+import { setAccessToken, setRefreshToken, setExpiresAt } from "../../store/auth/auth.action"
 import { selectAuthSession } from "../../store/auth/auth.selector"
 import { useSignIn } from "../../utils/custom-hooks/use-sign-in"
 
@@ -31,6 +31,9 @@ const Auth = () => {
             console.log({ access_token, expires_in, refresh_token, expires_at})
             if (access_token) {
               dispatch(setAccessToken(access_token))
+              dispatch(setRefreshToken(refresh_token))
+              dispatch(setExpiresAt(expires_at))
+
               window.setTimeout(() => {
                 signOut()
               }, expires_in * 1000)
