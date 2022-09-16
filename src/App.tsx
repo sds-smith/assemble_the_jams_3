@@ -43,24 +43,27 @@ const App = () => {
     }
     if (accessToken) {
       const expiresIn = expiresAt - (Date.now()/1000)
+      const expiredTokenAction = () => {
+        if (refreshToken) {
+          const refresh = async () => {
+            const refreshResponse = await Spotify.refreshUserToken(refreshToken, authSession)
+            if (refreshResponse) {
+              const {access_token, expires_at, refresh_token} = refreshResponse
+              dispatch(setAccessToken(access_token))
+              dispatch(setRefreshToken(refresh_token))
+              dispatch(setExpiresAt(expires_at))
+            }
+          }
+          refresh()
+        } else {
+          signOut()
+        }
+      }
       if (expiresIn <= 0) {
-        signOut()
+        expiredTokenAction()
       } else {
         window.setTimeout(() => {
-          if (refreshToken) {
-            const refresh = async () => {
-              const refreshResponse = await Spotify.refreshUserToken(refreshToken, authSession)
-              if (refreshResponse) {
-                const {access_token, expires_at, refresh_token} = refreshResponse
-                dispatch(setAccessToken(access_token))
-                dispatch(setRefreshToken(refresh_token))
-                dispatch(setExpiresAt(expires_at))
-              }
-            }
-            refresh()
-          } else {
-            signOut()
-          }
+          expiredTokenAction()
         }, expiresIn * 1000)
       }
     }
