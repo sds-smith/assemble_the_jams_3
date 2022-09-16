@@ -20,11 +20,11 @@ A demo video of the app can be viewed by clicking on the below thumbnail.
 
 [![video link](http://img.youtube.com/vi/vI-VfJhfXq4/0.jpg)](http://www.youtube.com/watch?v=vI-VfJhfXq4)
 
-You can try out the app at https://assemblethejams.netlify.app
+Or, you can try out the live app for yourself at https://assemblethejams.netlify.app (feel free to add it to your mobile home screen - or your desktop - for the full PWA experience).
 
 ## Project overview
 
-Assemble the Jams 3.0 builds on version 2.0 with several key improvements ([read about version 2.0 here](https://github.com/sds-smith/assemble_the_jams_2/blob/master/README.md)).  
+Assemble the Jams 3.0 builds on its predecessor with several key improvements ([read about version 2.0 here](https://github.com/sds-smith/assemble_the_jams_2/blob/master/README.md)).  
 
   * **Removal of 'auth wall'** 
     * In previous versions, the user was faced with a sign-in page immediately upon opening the app, and was required to authenticate with their Spotify Premium account before using any of its features. 
@@ -57,6 +57,6 @@ In order to retrieve data from the Spotify API, this and all apps must be regist
 
 In Development Mode, up to 25 Spotify users can install and use the app, but they must be explicitly added on the Developer portal before they can authenticate and actually use the app.
 
-Assemble the Jams has been approved by Spotify as a full production app is no longer in Development Mode.
+**Assemble the Jams has been approved by Spotify as a full production app is no longer in Development Mode.**
 
 To attain this approval, this app underwent a rigorous review process by Spotify to ensure that it complied with all requirements in the [Spotify Developer Policy](https://developer.spotify.com/policy/) and [Spotify Design Guidelines](https://developer.spotify.com/documentation/general/design-and-branding/). As a full production app, Assemble the Jams has been granted access to an increased API request quota and an unlimited number of Spotify users can install and use it without being explicitly added to a list of users in Developer portal.
