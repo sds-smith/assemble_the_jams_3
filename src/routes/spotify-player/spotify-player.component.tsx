@@ -68,7 +68,7 @@ const SpotifyPlayer = memo(() => {
               });
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [accessToken])
 
     return (
         <div data-allow='encrypted-media autoplay'>
