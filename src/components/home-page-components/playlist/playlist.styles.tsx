@@ -13,7 +13,7 @@ export const PlaylistContainer = styled.div<PlaylistProps>`
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: stretch;
+    justify-content: flex-start;
     overflow-y: scroll;
     min-height: 40vh;
     height: ${props => props.isMobile ? mobileHeight : 'unset'};
