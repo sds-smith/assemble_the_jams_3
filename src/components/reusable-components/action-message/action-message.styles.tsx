@@ -26,5 +26,7 @@ export const ActionMessageContainer = styled.p<ActionMessageContainerProps>`
 
   &:empty {
     background-color: unset;
+    height: 0px;
+    padding: 0px;
   }
 `

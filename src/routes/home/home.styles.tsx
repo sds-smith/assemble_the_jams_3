@@ -18,7 +18,6 @@ const mobileHeight = `calc(100vh - ${headerHeight} - ${footerHeight})`
 
 export const HomeContainer = styled.div<HomeContainerProps>`
     min-height: ${props => props.isMobile ? mobileHeight : desktopHeight};
-    position: relative;
     padding: 0 5% 10% 5%;
     background-image: ${props => props.activePlayer.spotify ? spotifyBackground : audioElementBackground};
     background-size: cover;

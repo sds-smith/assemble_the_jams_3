@@ -30,19 +30,16 @@ export const TitleContainer = styled.div<PlaylistProps>`
     display: flex;
     justify-content: center;
     width: 100%;
-    height: auto;
     ${props => props.isMobile && 'flex-wrap: wrap'};
-
     input {
       display: block;
       font-size: 1.5em;
-      margin: 0.83em 0em;
+      margin: 0.6em 0;
       font-weight: bold;
       border: 0;
       outline: 0;
       text-align: center;
       padding: 0;
-      height: 1.7rem;
       background: transparent;
       font-family: 'Poppins', sans-serif;
       color: #fff;
@@ -57,10 +54,5 @@ export const TitleContainer = styled.div<PlaylistProps>`
 `
 
 export const SaveToSpotifyButton = styled(Button)`
-      margin: 1rem 0rem 0rem 1rem;
+      margin: .5rem 0rem .5rem 1rem;
 `
-
-// display: flex;
-// flex-direction: column;
-// align-items: center;
-// justify-content: flex-start;

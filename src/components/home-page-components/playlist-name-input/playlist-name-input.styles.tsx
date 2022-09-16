@@ -9,7 +9,7 @@ export const NameInput = styled.input<NameInputProps>`
     padding: .88rem 0;
     border: 1px solid #fff;
     border-radius: 3px;
-    margin: 1rem;
+    margin-top: 1rem;
     color: #010c3f;
     text-align: center;
     font-size: 1rem;
