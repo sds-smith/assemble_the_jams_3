@@ -20,9 +20,9 @@ const HomeHero = () => {
     const navigate = useNavigate()
     const { isMobile } = useContext(ResponsiveContext)
 
-    const Clear = (<Icon src={ClearBtn} alt='clear'/>)
-    const Add = (<Icon src={AddBtn} alt='add'/>)
-    const Play = (<Icon src={PlayBtn} alt='play'/>)
+    const Clear = (<Icon src={ClearBtn} key={'1'} alt='clear'/>)
+    const Add = (<Icon src={AddBtn} key={'2'} alt='add'/>)
+    const Play = (<Icon src={PlayBtn} key={'3'} alt='play'/>)
 
     const step1 = '1. Name your New Playlist'
     const step2 = '2. Enter a search term to generate a playlist.'
