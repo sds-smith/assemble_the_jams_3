@@ -77,8 +77,7 @@ const Track: FC<TrackProps> = ({track, trackType }) => {
               <p >{track.artist} | {track.album}</p>
             </TrackInformation>
             <TrackActionContainer>
-            <ActionMessage >{message}</ActionMessage>
-
+              <ActionMessage >{message}</ActionMessage>
               {trackActions}
             </TrackActionContainer>
             { isActiveTrack &&
