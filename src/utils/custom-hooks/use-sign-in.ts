@@ -9,6 +9,8 @@ import { PlayerContext } from "../../contexts/player.context"
 import { setAccessToken, setAuthSession } from "../../store/auth/auth.action"
 import { selectAuthSession } from '../../store/auth/auth.selector'
 import { setPlaylistTracks, setPlaylistName, setSearchResults } from "../../store/track/track.action"
+import { setCurrentUser } from "../../store/user/user.action";
+import { defaultCurrentUser } from "../../store/user/user.types";
 
 export const useSignIn = () => {
     const dispatch = useDispatch()
@@ -51,6 +53,7 @@ export const useSignIn = () => {
         dispatch(setPlaylistName('Name Your New Playlist'))
         dispatch(setPlaylistTracks([]))
         dispatch(setSearchResults([]))
+        dispatch(setCurrentUser(defaultCurrentUser))
         setCurrentPlayer(null)
         setDeviceId('')
         navigate('/')
