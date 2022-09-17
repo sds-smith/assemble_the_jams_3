@@ -21,7 +21,7 @@ const ActionMessage: FC<ActionMessageProps> = ({ position, bottom, right, top, l
             right={right || 'unset'} 
             top={top || 'unset'}
             left={left || 'unset'}
-            width={children ? (width || '8rem') : '0px} 
+            width={children ? '8rem' : '0px} 
             minHeight={children ? '2rem' : 'unset'}
         >
             {children}
