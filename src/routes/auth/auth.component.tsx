@@ -38,8 +38,7 @@ const Auth = () => {
               }, expires_in * 1000)
             }
           } catch(error) {
-            console.log('nope ', error)
-            window.alert('error with log-in, please contact app support.')
+            console.log('error getting access token ', error)
           }
         }
 
@@ -48,7 +47,6 @@ const Auth = () => {
             getAccessToken(authCode)
         } else {
           console.log('user declined sign-in')
-          window.alert('user declined sign-in')
           signOut()
         }
          // eslint-disable-next-line react-hooks/exhaustive-deps

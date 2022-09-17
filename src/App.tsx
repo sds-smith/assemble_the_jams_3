@@ -82,13 +82,13 @@ const App = () => {
             navigate(`/user/${user.display_name}`)
           } else {
             setUserLoading(false)
-            window.alert('problem logging in.  Please contact app support')
+            console.log('no user returned from Spotify.')
           }
         } catch(error) {
           setUserLoading(false)
           dispatch(setAuthSession(''))
           dispatch(setAccessToken(''))
-          window.alert('problem logging in.  Please contact app support')
+          console.log('error occurred with logging in.')
         }
       }
       getUserProfile()

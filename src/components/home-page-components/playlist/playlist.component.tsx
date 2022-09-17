@@ -34,9 +34,11 @@ const Playlist = () => {
         const trackURIs: string[] = playlistTracks.map(track => track.uri)
         try {
           const response = await Spotify.savePlaylist(authSession, currentUser, playlistName, trackURIs)
-          dispatch(setPlaylistName(response.playlistName))
-          dispatch(setPlaylistTracks(response.playlistTracks))
-          dispatch(setSearchResults(response.searchResults))
+          if (response.message === 'Playlist has been saved to your Spotify account') {
+            dispatch(setPlaylistName(response.playlistName))
+            dispatch(setPlaylistTracks(response.playlistTracks))
+            dispatch(setSearchResults(response.searchResults))
+          }
           setSavedMessage(response.message)
           setTimeout(() => setSavedMessage(''), 3000);
         } catch(error) {

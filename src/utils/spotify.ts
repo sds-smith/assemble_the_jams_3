@@ -16,8 +16,7 @@ export const Spotify: SpotifyType = {
         const {token, expires_in} = await response.json()
         return {token, expires_in}
       } catch(error) {
-        console.log('nope ', error)
-        window.alert('error with client log-in, please contact app support.')
+        console.log('error with client log-in ', error)
       }
     },
 
@@ -75,8 +74,7 @@ export const Spotify: SpotifyType = {
         const image_url = images.length ? images[0].url : ''
         return {display_name, image_url, id}
       } catch(error) {
-        console.log('nope ', error)
-        window.alert('error getting user profile, please contact app support.')
+        console.log('error getting user profile ', error)
       }
     },
 
@@ -111,8 +109,8 @@ export const Spotify: SpotifyType = {
             return {searchResultsArray, recommendationsArray}
         } catch(error) {
             console.log('error with search', error)
-            window.alert('Error with Search. Please try again.')
-        }
+            return {searchResultsArray:[],recommendationsArray:[]}
+          }
     },
 
     async transferPlayback(id, access_token) {
@@ -203,7 +201,12 @@ export const Spotify: SpotifyType = {
         return jsonResponse 
       } catch(error) {
             console.log('error saving playlist', error)
-            window.alert('error saving playlist')
+            return {
+              message: 'Oops. Please try again.',
+              playlistName: 'Name Your New Playlist',
+              playlistTracks: [],
+              searchResults: []
+          }
       }
     },
 
