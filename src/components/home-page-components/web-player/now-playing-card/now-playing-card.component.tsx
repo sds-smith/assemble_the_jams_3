@@ -30,6 +30,12 @@ const NowPlayingCard = () => {
         setTimeout(() => setLikesMessage(''), 3000);
     }
 
+    const add = async () => {
+        const message = await addTrack()
+        setLikesMessage(message)
+        setTimeout(() => setLikesMessage(''), 3000);
+    }
+
     useEffect(() => {
         const timer = setTimeout(() => stopPlayback(), 30000)
         return () => {
@@ -56,7 +62,7 @@ const NowPlayingCard = () => {
                 <div >{nowPlaying.track.artist}</div>
             </NowPlayingLabel>
             <TrackControls>
-                 <TrackActionButton onClick={addTrack} src={AddBtn} alt='button to add track to playlist'/>
+                 <TrackActionButton onClick={add} src={AddBtn} alt='button to add track to playlist'/>
                  <TrackActionButton onClick={LikeAction} src={LikeOrUnlike} alt='button to add/remove song from liked songs' />
                  <TrackActionButton onClick={stopPlayback} src={StopBtn} alt='play or pause button'/>
             </TrackControls>   

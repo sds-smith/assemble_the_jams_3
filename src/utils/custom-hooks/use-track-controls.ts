@@ -24,15 +24,16 @@ export const useTrackControls = (track: TrackType) => {
   const { nowPlaying, setNowPlaying, deviceID, currentPlayer, nowPlayingInitialState } = useContext(PlayerContext)
   const { currentUserExists } = useContext(UserContext)
 
-  const addTrack = () => {
+  const addTrack = async () => {
     let tracks = playlistTracks
     if (tracks.find(savedTrack => savedTrack.id === track.id)) {
-      return
+      return `${track.name} already exists in Playlist`
     }
     tracks.push(track)
     let searchTracks = searchResults.filter(savedTrack => savedTrack.id !== track.id)
     dispatch(setPlaylistTracks(tracks))
     dispatch(setSearchResults(searchTracks))
+    return `${track.name} added to Playlist`
   }
 
   const removeTrack = () => {
