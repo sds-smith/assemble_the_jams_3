@@ -1,6 +1,6 @@
-require('dotenv').config()
 import  axios from 'axios'
 import {  base64urlencode } from '../../src/utils/random-generator'
+require('dotenv').config()
 
 exports.handler = async (event) => {
     try {

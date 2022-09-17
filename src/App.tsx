@@ -31,6 +31,7 @@ const App = () => {
     if (!clientToken) {
       const getClientToken = async () => {
         const response = await Spotify.getClientToken()
+        console.log(response)
         if (response) {
           const { token, expires_in } = response
           dispatch(setClientToken(token) )       
@@ -39,7 +40,7 @@ const App = () => {
           }, expires_in * 1000)
         }
       }
-      getClientToken()
+        getClientToken()
     }
     if (accessToken) {
       const expiresIn = expiresAt - (Date.now()/1000)
