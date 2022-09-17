@@ -1,5 +1,6 @@
 import { TrackType } from '../store/track/track.types';
-import { CurrentUserType, NowPlaying } from './context.utils'
+import { NowPlaying } from './context.utils'
+import { CurrentUserType } from '../store/user/user.types'
 
 type GetClientToken = () => Promise<{token: string, expires_in: number} | undefined>
 type Auth = (codeChallenge: string, state: string) => void

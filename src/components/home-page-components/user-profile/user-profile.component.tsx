@@ -1,10 +1,11 @@
 import { useState, useEffect, useContext } from 'react'
+import { useSelector } from 'react-redux';
 
 import Spinner from '../../reusable-components/spinner/spinner.component';
 
 import ProfilePic from '../../../assets/icons/default_profile96.png'
 
-import { UserContext } from '../../../contexts/user.context';
+import { selectUserLoading, selectCurrentUser, selectCurrentUserExists } from '../../../store/user/user.selector';
 
 import { ResponsiveContext } from '../../../contexts/responsive.context';
 import { ProfileLink, ProfileImg } from "./user-profile.styles";
@@ -14,11 +15,13 @@ const UserProfile = () => {
     const [profilePic, setProfilePic] = useState(ProfilePic)
     const [displayName, setDisplayName] = useState('')
 
-    const { userLoading, currentUser, currentUserExists } = useContext(UserContext)
+    const userLoading = useSelector(selectUserLoading)
+    const currentUser = useSelector(selectCurrentUser)
+    const currentUserExists = useSelector(selectCurrentUserExists)
     const { isMobile } = useContext(ResponsiveContext) 
 
     useEffect(() => {
-        if (currentUserExists()) {
+        if (currentUserExists) {
           currentUser.image_url && setProfilePic(currentUser.image_url)
           currentUser.display_name && setDisplayName(currentUser.display_name)
         } else {

@@ -1,4 +1,4 @@
-import { useEffect, useContext } from 'react'
+import { useEffect } from 'react'
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -9,7 +9,8 @@ import Auth from './routes/auth/auth.component';
 
 import { selectClientToken, selectAccessToken, selectAuthSession, selectExpiresAt, selectRefreshToken } from './store/auth/auth.selector';
 import { setClientToken, setAuthSession, setAccessToken, setRefreshToken, setExpiresAt } from './store/auth/auth.action';
-import { UserContext } from './contexts/user.context';
+import { setUserLoading, setCurrentUser } from './store/user/user.action';
+import { defaultCurrentUser } from './store/user/user.types';
 import { useSignIn } from './utils/custom-hooks/use-sign-in';
 import { Spotify } from './utils/spotify';
 
@@ -24,7 +25,6 @@ const App = () => {
   const expiresAt = useSelector(selectExpiresAt)
   const refreshToken = useSelector(selectRefreshToken)
 
-  const { setUserLoading, setCurrentUser, defaultCurrentUser } = useContext(UserContext)
   const { signOut } = useSignIn()
 
   useEffect(() => {
@@ -73,20 +73,20 @@ const App = () => {
 
   useEffect( () => {
     if (accessToken) {
-      setUserLoading(true)
+      dispatch(setUserLoading(true))
       const getUserProfile = async () => {
         try {
           const user = await Spotify.getUserProfile(authSession)
           if (user && user.display_name) {
-            setCurrentUser(user)
-            setUserLoading(false)
+            dispatch(setCurrentUser(user))
+            dispatch(setUserLoading(false))
             navigate(`/user/${user.display_name}`)
           } else {
-            setUserLoading(false)
+            dispatch(setUserLoading(false))
             console.log('no user returned from Spotify.')
           }
         } catch(error) {
-          setUserLoading(false)
+          dispatch(setUserLoading(false))
           dispatch(setAuthSession(''))
           dispatch(setAccessToken(''))
           console.log('error occurred with logging in.')
@@ -94,7 +94,7 @@ const App = () => {
       }
       getUserProfile()
     } else {
-      setCurrentUser(defaultCurrentUser)
+      dispatch(setCurrentUser(defaultCurrentUser))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accessToken])

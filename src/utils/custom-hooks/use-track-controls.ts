@@ -8,10 +8,10 @@ import { selectSearchResults } from "../../store/track/track.selector"
 import { setPlaylistTracks } from "../../store/track/track.action"
 import { setSearchResults } from "../../store/track/track.action"
 import { PlayerContext } from "../../contexts/player.context"
-import { UserContext } from "../../contexts/user.context"
 
 import { Spotify } from "../spotify"
 import { TrackType } from "../../store/track/track.types"
+import { selectCurrentUserExists } from "../../store/user/user.selector"
 
 export const useTrackControls = (track: TrackType) => {
 
@@ -22,7 +22,7 @@ export const useTrackControls = (track: TrackType) => {
   const playlistTracks = useSelector(selectPlaylistTracks)
   const searchResults = useSelector(selectSearchResults)
   const { nowPlaying, setNowPlaying, deviceID, currentPlayer, nowPlayingInitialState } = useContext(PlayerContext)
-  const { currentUserExists } = useContext(UserContext)
+  const currentUserExists = useSelector(selectCurrentUserExists)
 
   const addTrack = async () => {
     let tracks = playlistTracks
@@ -82,7 +82,7 @@ export const useTrackControls = (track: TrackType) => {
   }
 
   const toggleLike = async () => {
-    if (!currentUserExists()) {
+    if (!currentUserExists) {
         return 'Please sign in with Spotify to use this feature'
     }
     if (!nowPlaying.track.id) {

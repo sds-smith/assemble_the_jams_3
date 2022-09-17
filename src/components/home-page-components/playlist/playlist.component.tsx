@@ -10,7 +10,7 @@ import editIcon from '../../../assets/icons/edit_white24.png'
 import { selectAuthSession } from "../../../store/auth/auth.selector"
 import { selectPlaylistTracks, selectPlaylistName } from '../../../store/track/track.selector'
 import { setPlaylistTracks, setPlaylistName, setSearchResults } from '../../../store/track/track.action'
-import { UserContext } from "../../../contexts/user.context"
+import { selectCurrentUser, selectCurrentUserExists } from '../../../store/user/user.selector'
 import { ResponsiveContext } from "../../../contexts/responsive.context"
 import { Spotify } from "../../../utils/spotify"
 import { PlaylistContainer, TitleContainer,  SaveToSpotifyButton } from './playlist.styles'
@@ -19,7 +19,8 @@ const Playlist = () => {
     const [savedMessage, setSavedMessage] = useState('')
 
     const authSession = useSelector(selectAuthSession)
-    const { currentUser } = useContext(UserContext)
+    const currentUser = useSelector(selectCurrentUser)
+    const currentUserExists = useSelector(selectCurrentUserExists)
     const dispatch = useDispatch()
 
     const playlistTracks = useSelector(selectPlaylistTracks)
@@ -27,7 +28,7 @@ const Playlist = () => {
     const { isMobile } = useContext(ResponsiveContext) 
 
     const savePlaylist = async () => {
-      if (!currentUser.id) {
+      if (!currentUserExists) {
         setSavedMessage("Please sign in with your Spotify Premium account")
         setTimeout(() => setSavedMessage(''), 3000);      
       } else {
