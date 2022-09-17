@@ -10,6 +10,7 @@ type PlaylistProps = {
 const mobileHeight = `calc(0.9 * (100vh - ${headerHeight} - ${footerHeight}))`
 
 export const PlaylistContainer = styled.div<PlaylistProps>`
+  position: relative;
   width: ${props => props.isMobile ? '95%' : '40%'};
   min-height: 40vh;
   max-height: ${props => props.isMobile ? mobileHeight : '90vh'};

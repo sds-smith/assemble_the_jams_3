@@ -13,14 +13,16 @@ type ActionMessageProps = {
 }
 
 const ActionMessage: FC<ActionMessageProps> = ({ position, bottom, right, top, left, width, children }) => {
+
     return (
         <ActionMessageContainer 
-            position={position}
-            bottom={bottom} 
-            right={right} 
-            top={top}
-            left={left}
+            position={position || 'unset'}
+            bottom={bottom || 'unset'} 
+            right={right || 'unset'} 
+            top={top || 'unset'}
+            left={left || 'unset'}
             width={width || '8rem'} 
+            minHeight={children ? '2rem' : 'unset'}
         >
             {children}
         </ActionMessageContainer>

@@ -42,16 +42,14 @@ export const useTrackControls = (track: TrackType) => {
 
   const playPreview = async () => {
     if (!track.preview) {
-      window.alert('Please sign in with Spotify to preview this track')
-      return;
+      return 'Please sign in with Spotify to preview this track';
     }
     if (!nowPlaying.hasTrack) {
       const hasTrack = true
       const isLike = false
-      console.log('setting nowPlaying')
-      console.log({hasTrack, track, isLike})
       setNowPlaying({hasTrack, track, isLike})
     }  
+    return ''
   };
 
   const playTrack = async () => {
@@ -68,24 +66,26 @@ export const useTrackControls = (track: TrackType) => {
           }
         }
     }
+    return ''
   }
 
   const play = async () => {
+    let message: string;
     if (currentPlayer) {
       await currentPlayer.activateElement()
-      playTrack()
+      message = await playTrack()
     } else {
-      playPreview()
+      message = await playPreview()
     }
+    return message
   }
 
   const toggleLike = async () => {
     if (!currentUserExists()) {
-        window.alert('Please sign in with Spotify to use this feature')
-        return ''
+        return 'Please sign in with Spotify to use this feature'
     }
     if (!nowPlaying.track.id) {
-        return ''
+        return 'Could not find track id'
     }
     const {message, isLike} = await Spotify.toggleLike(authSession, nowPlaying)
     console.log('setting nowPlaying')

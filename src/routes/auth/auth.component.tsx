@@ -1,7 +1,8 @@
-import { useEffect } from "react"
+import { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 
 import Spinner from '../../components/reusable-components/spinner/spinner.component'
+import ActionMessage from "../../components/reusable-components/action-message/action-message.component"
 
 import { setAccessToken, setRefreshToken, setExpiresAt } from "../../store/auth/auth.action"
 import { selectAuthSession } from "../../store/auth/auth.selector"
@@ -10,6 +11,7 @@ import { useSignIn } from "../../utils/custom-hooks/use-sign-in"
 import { AuthContainer } from "./auth.styles"
 
 const Auth = () => {
+    const [declinedMessage, setDeclinedMessage] = useState('')
     const dispatch = useDispatch()
 
     const authSession = useSelector(selectAuthSession)
@@ -47,13 +49,18 @@ const Auth = () => {
             getAccessToken(authCode)
         } else {
           console.log('user declined sign-in')
-          signOut()
+          setDeclinedMessage('User Declined Sign-in')
+          window.setTimeout(() => {
+            setDeclinedMessage('')
+            signOut()
+          }, 2000)
         }
          // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (
         <AuthContainer>
+          <ActionMessage >{declinedMessage}</ActionMessage>
           <Spinner loading />
         </AuthContainer>
     )

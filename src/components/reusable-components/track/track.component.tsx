@@ -1,7 +1,8 @@
-import { useContext, Fragment, FC, ImgHTMLAttributes } from 'react'
+import { useState, useContext, Fragment, FC, ImgHTMLAttributes } from 'react'
 
 import TrackActionButton from '../track-action-button/track-action-button.component'
 import ProgressBar from '../progress-bar/progress-bar.component'
+import ActionMessage from '../action-message/action-message.component'
 
 import PlayBtn from '../../../assets/icons/play_white24.png'
 import StopBtn from '../../../assets/icons/stop_white24.png'
@@ -23,7 +24,7 @@ type TrackProps = {
 } & ImgHTMLAttributes<HTMLImageElement>
 
 const Track: FC<TrackProps> = ({track, trackType }) => {
-
+  const [message, setMessage] = useState('')
   const { play, stopPlayback, addTrack, removeTrack } = useTrackControls(track)
 
   const { currentPlayer, nowPlaying } = useContext(PlayerContext)
@@ -36,7 +37,11 @@ const Track: FC<TrackProps> = ({track, trackType }) => {
       stopPlayback()
     } else {
       currentPlayer && await currentPlayer.activateElement()
-      await play()
+      const playMessage = await play()
+      setMessage(playMessage)
+      window.setTimeout(() => {
+        setMessage('')
+      }, 3000)
     }
   }
 
@@ -72,6 +77,8 @@ const Track: FC<TrackProps> = ({track, trackType }) => {
               <p >{track.artist} | {track.album}</p>
             </TrackInformation>
             <TrackActionContainer>
+            <ActionMessage >{message}</ActionMessage>
+
               {trackActions}
             </TrackActionContainer>
             { isActiveTrack &&

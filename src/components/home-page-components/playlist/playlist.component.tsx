@@ -54,7 +54,7 @@ const Playlist = () => {
             <PlaylistNameInput width={isMobile ? '100%' : 'unset'} />
             <SaveToSpotifyButton onClick={savePlaylist} >SAVE TO SPOTIFY</SaveToSpotifyButton>
           </TitleContainer>
-          <ActionMessage width='10rem' >{savedMessage}</ActionMessage>
+          <ActionMessage position='absolute' right='50px' width='10rem' >{savedMessage}</ActionMessage>
           <TrackList 
             trackType={'playlist'}
           />
