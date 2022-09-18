@@ -26,7 +26,7 @@ const NowPlayingCard = () => {
 
     const LikeAction = async () => {
         const message = await toggleLike()
-        setLikesMessage(message)
+        setLikesMessage(`${track.name} ${message}`)
         setTimeout(() => setLikesMessage(''), 3000);
     }
 

@@ -1,7 +1,6 @@
-require('dotenv').config()
 import axios from 'axios'
 import {getAuthDoc} from '../../src/utils/firebase.node'
-
+require('dotenv').config()
 
 exports.handler = async (event) => {
     const {authSession, trackId, isLike} = JSON.parse(event.body)
@@ -11,7 +10,7 @@ exports.handler = async (event) => {
         'Authorization' : `Bearer ${accessToken}`,
     }
     const method = isLike ? 'DELETE' : 'PUT'
-    const message = isLike ? 'Removed from Liked Songs' : 'Added to Liked Songs'
+    const message = isLike ? 'removed from Liked Songs' : 'added to Liked Songs'
     try {
         await axios(`https://api.spotify.com/v1/me/tracks?ids=${trackId}`,
         {
