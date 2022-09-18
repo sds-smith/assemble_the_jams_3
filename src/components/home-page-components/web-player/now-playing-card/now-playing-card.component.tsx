@@ -5,10 +5,9 @@ import ActionMessage from '../../../reusable-components/action-message/action-me
 import ProgressBar from '../../../reusable-components/progress-bar/progress-bar.component'
 
 import SpotifyIcon from '../../../../assets/icons/Spotify_Icon_RGB_Black.png'
-import StopBtn from '../../../../assets/icons/stop_black24.png'
-import AddBtn from '../../../../assets/icons/add_black24.png'
-import Like from '../../../../assets/icons/like24.png'
-import Unlike from '../../../../assets/icons/unlike24.png'
+
+
+import { TRACK_ACTION_BUTTON_CLASSES } from '../../../reusable-components/track-action-button/track-action-button.component'
 
 import { useTrackControls } from '../../../../utils/custom-hooks/use-track-controls'
 
@@ -22,19 +21,9 @@ const NowPlayingCard = () => {
     const { nowPlaying } = useContext(PlayerContext)
     const track = nowPlaying.track
     const { isMobile } = useContext(ResponsiveContext) 
-    const { stopPlayback, addTrack, toggleLike } = useTrackControls(track)
+    const { stopPlayback } = useTrackControls(track)
 
-    const LikeAction = async () => {
-        const message = await toggleLike()
-        setLikesMessage(message)
-        setTimeout(() => setLikesMessage(''), 3000);
-    }
-
-    const add = async () => {
-        const message = await addTrack()
-        setLikesMessage(message)
-        setTimeout(() => setLikesMessage(''), 3000);
-    }
+    const nowPlayingCover = nowPlaying.track.cover ? nowPlaying.track.cover : ''
 
     useEffect(() => {
         const timer = setTimeout(() => stopPlayback(), 30000)
@@ -43,9 +32,6 @@ const NowPlayingCard = () => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-
-    let LikeOrUnlike = nowPlaying.isLike ? Like : Unlike
-    const nowPlayingCover = nowPlaying.track.cover ? nowPlaying.track.cover : ''
 
     return (
         <NowPlayingContainer isMobile={isMobile} >
@@ -62,9 +48,20 @@ const NowPlayingCard = () => {
                 <div >{nowPlaying.track.artist}</div>
             </NowPlayingLabel>
             <TrackControls>
-                 <TrackActionButton onClick={add} src={AddBtn} alt='button to add track to playlist'/>
-                 <TrackActionButton onClick={LikeAction} src={LikeOrUnlike} alt='button to add/remove song from liked songs' />
-                 <TrackActionButton onClick={stopPlayback} src={StopBtn} alt='play or pause button'/>
+                 <TrackActionButton 
+                    buttonType={TRACK_ACTION_BUTTON_CLASSES.ADD_BLACK} 
+                    track={track} 
+                    setMessage={setLikesMessage}
+                 />
+                 <TrackActionButton 
+                    buttonType={nowPlaying.isLike ? TRACK_ACTION_BUTTON_CLASSES.LIKE : TRACK_ACTION_BUTTON_CLASSES.UNLIKE} 
+                    track={track} 
+                    setMessage={setLikesMessage} 
+                 />
+                 <TrackActionButton 
+                    buttonType={TRACK_ACTION_BUTTON_CLASSES.STOP_BLACK} 
+                    track={track} 
+                 />
             </TrackControls>   
             <ActionMessage position='absolute' bottom='2.2rem' right='10px'>{likesMessage}</ActionMessage>
             <ProgressBar darkBackground />

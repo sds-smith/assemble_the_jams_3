@@ -39,6 +39,7 @@ export const useTrackControls = (track: TrackType) => {
   const removeTrack = () => {
     let newTracks = playlistTracks.filter(savedTrack => savedTrack.id !== track.id)
     dispatch(setPlaylistTracks(newTracks))
+    return 'track removed from playlist'
   }
 
   const playPreview = async () => {
