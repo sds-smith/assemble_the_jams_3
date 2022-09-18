@@ -1,4 +1,4 @@
-import { createStore } from "redux";
+import { legacy_createStore as createStore } from "redux";
 import { persistStore, persistReducer } from "redux-persist";
 import { getPersistConfig } from 'redux-deep-persist'
 import storage from 'redux-persist/lib/storage'
