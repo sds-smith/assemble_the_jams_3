@@ -10,9 +10,10 @@ import { PlayerContext } from '../../contexts/player.context'
 
 const SpotifyPlayer = memo(() => {
     const accessToken = useSelector(selectAccessToken)
-    const { setActiveSpotify, setCurrentPlayer, setDeviceId, setActive, browserBlocked, setBrowserBlocked } = useContext(PlayerContext)
+    const { setSpotifyPlayerLoading, setActiveSpotify, setCurrentPlayer, setDeviceId, setActive, browserBlocked, setBrowserBlocked } = useContext(PlayerContext)
 
     useEffect(() => {
+        setSpotifyPlayerLoading(true)
         const script = document.createElement("script");
         script.src = "https://sdk.scdn.co/spotify-player.js";
         script.async = true;
@@ -28,6 +29,7 @@ const SpotifyPlayer = memo(() => {
 
             player.addListener('ready', ({ device_id }) => {
                 console.log('Ready with Device ID', device_id);
+                setSpotifyPlayerLoading(false)
                 setActiveSpotify()
                 setDeviceId(device_id);
             });

@@ -1,5 +1,4 @@
 import { useState, useContext, Fragment, FC, ImgHTMLAttributes } from 'react'
-import { useSelector } from 'react-redux'
 
 import TrackActionButton from '../track-action-button/track-action-button.component'
 import ProgressBar from '../progress-bar/progress-bar.component'
@@ -13,7 +12,6 @@ import ClearBtn from '../../../assets/icons/clear_white24.png'
 import SpotifyLogoWhite from '../../../assets/icons/Spotify_Logo_RGB_White.png'
 
 import { useTrackControls } from '../../../utils/custom-hooks/use-track-controls'
-import { selectCurrentUserExists } from '../../../store/user/user.selector'
 import { PlayerContext } from '../../../contexts/player.context'
 
 import { TrackContainer, CoverContainer, TrackInformation, TrackActionContainer, TrackCover, SpotifyLogo } from './track.styles'
@@ -27,8 +25,7 @@ type TrackProps = {
 const Track: FC<TrackProps> = ({track, trackType }) => {
   const [message, setMessage] = useState('')
   const { play, stopPlayback, addTrack, removeTrack } = useTrackControls(track)
-  const currentUserExists = useSelector(selectCurrentUserExists)
-  const { currentPlayer, nowPlaying, activePlayer } = useContext(PlayerContext)
+  const { spotifyPlayerLoading, currentPlayer, nowPlaying } = useContext(PlayerContext)
 
   const isActiveTrack = nowPlaying.track.id === track.id
   const playActionButton = isActiveTrack ? StopBtn : PlayBtn
@@ -51,7 +48,7 @@ const Track: FC<TrackProps> = ({track, trackType }) => {
     case 'playlist' :
       trackActions = (
                 <Fragment>
-                  <TrackActionButton onClick={playAction} disabled={currentUserExists && !activePlayer.spotify} src={playActionButton} alt='button to play track'/>
+                  <TrackActionButton onClick={playAction} disabled={spotifyPlayerLoading} src={playActionButton} alt='button to play track'/>
                   <TrackActionButton onClick={removeTrack} src={ClearBtn} alt='button to remove track from playlist'/>
                 </Fragment>
         )  
@@ -59,7 +56,7 @@ const Track: FC<TrackProps> = ({track, trackType }) => {
     default :
       trackActions = (
                 <Fragment>
-                  <TrackActionButton onClick={playAction} disabled={currentUserExists && !activePlayer.spotify} src={playActionButton} alt='button to play track'/>
+                  <TrackActionButton onClick={playAction} disabled={spotifyPlayerLoading} src={playActionButton} alt='button to play track'/>
                   <TrackActionButton onClick={addTrack} src={AddBtn} alt='button to add track to playlist'/>
                 </Fragment>
       )  

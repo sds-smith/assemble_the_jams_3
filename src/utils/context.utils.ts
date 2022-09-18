@@ -13,6 +13,8 @@ export type ActivePlayer = {
 }
 
 export type PlayerContextProps = {
+    spotifyPlayerLoading : boolean;
+    setSpotifyPlayerLoading(spotifyPlayerLoading: boolean): void;
     currentPlayer : (Spotify.Player) | null;
     setCurrentPlayer(currentPlayer: (Spotify.Player) | null): void;
     browserBlocked : boolean | null;
