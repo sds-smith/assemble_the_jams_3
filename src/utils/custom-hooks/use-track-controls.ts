@@ -89,10 +89,8 @@ export const useTrackControls = (track: TrackType) => {
         return 'Could not find track id'
     }
     const {message, isLike} = await Spotify.toggleLike(authSession, nowPlaying)
-    console.log('setting nowPlaying')
-    console.log({...nowPlaying, isLike})
     setNowPlaying({...nowPlaying, isLike})
-    return message
+    return `${track.name} ${message}`
 }
 
   const stopPlayback = async () => {
