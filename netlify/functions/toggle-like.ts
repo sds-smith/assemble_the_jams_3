@@ -10,7 +10,7 @@ exports.handler = async (event) => {
         'Authorization' : `Bearer ${accessToken}`,
     }
     const method = isLike ? 'DELETE' : 'PUT'
-    const message = isLike ? 'removed from Liked Songs' : 'added to Liked Songs'
+    const message = isLike ? 'Removed from Liked Songs' : 'Added to Liked Songs'
     try {
         await axios(`https://api.spotify.com/v1/me/tracks?ids=${trackId}`,
         {

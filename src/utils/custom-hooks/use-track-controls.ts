@@ -90,7 +90,7 @@ export const useTrackControls = (track: TrackType) => {
     }
     const {message, isLike} = await Spotify.toggleLike(authSession, nowPlaying)
     setNowPlaying({...nowPlaying, isLike})
-    return `${track.name} ${message}`
+    return `${message} - ${track.name}`
 }
 
   const stopPlayback = async () => {
