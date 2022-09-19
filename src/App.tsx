@@ -7,6 +7,8 @@ import AudioElement from './routes/audio-element/audio-element.component';
 import SpotifyPlayer from './routes/spotify-player/spotify-player.component';
 import Auth from './routes/auth/auth.component';
 
+import { ResponsiveProvider } from './contexts/responsive.context';
+
 import { selectClientToken, selectAccessToken, selectAuthSession, selectExpiresAt, selectRefreshToken } from './store/auth/auth.selector';
 import { setClientToken, setAuthSession, setAccessToken, setRefreshToken, setExpiresAt } from './store/auth/auth.action';
 import { setUserLoading, setCurrentUser } from './store/user/user.action';
@@ -101,7 +103,11 @@ const App = () => {
 
   return (
     <Routes >
-      <Route path='/' element={ <Navigation /> } >
+      <Route path='/' element={ 
+                                <ResponsiveProvider>
+                                  <Navigation />
+                                </ResponsiveProvider> 
+                              }>
         <Route index element={ <AudioElement /> } />
         <Route path='/user/*' element={ <SpotifyPlayer /> } />
         <Route path='/callback' element={<Auth />} />
