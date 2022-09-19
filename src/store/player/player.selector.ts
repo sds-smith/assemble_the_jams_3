@@ -7,3 +7,4 @@ export const selectDeviceId = (state: RootState) => state.player.deviceId
 export const selectNowPlaying = (state: RootState) => state.player.nowPlaying
 export const selectActive = (state: RootState) => state.player.active
 export const selectActivePlayer = (state: RootState) => state.player.activePlayer
+export const selectNowPlayingInitialState = (state: RootState) => state.player.nowPlayingInitialState

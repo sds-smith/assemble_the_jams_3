@@ -59,3 +59,26 @@ ActionWithPayload<PLAYER_ACTION_TYPES.SET_ACTIVE_PLAYER, ActivePlayer> =>
     }
 }
 
+export const setActiveSpotify = ():
+ActionWithPayload<PLAYER_ACTION_TYPES.SET_ACTIVE_SPOTIFY, ActivePlayer> => 
+{
+    return {
+        type: PLAYER_ACTION_TYPES.SET_ACTIVE_SPOTIFY,
+        payload: {
+            spotify: true,
+            audioElement: false
+          }
+    }
+}
+
+export const setActiveAudioElement = ():
+ActionWithPayload<PLAYER_ACTION_TYPES.SET_ACTIVE_SPOTIFY, ActivePlayer> => 
+{
+    return {
+        type: PLAYER_ACTION_TYPES.SET_ACTIVE_SPOTIFY,
+        payload: {
+            spotify: false,
+            audioElement: true
+          }
+    }
+}

@@ -1,16 +1,6 @@
 import { AnyAction } from "redux"
 import { ActivePlayer, NowPlaying, PLAYER_ACTION_TYPES } from "./player.types"
 
-export type PlayerState = {
-    readonly spotifyPlayerLoading: boolean;
-    readonly currentPlayer: Spotify.Player | null;
-    readonly browserBlocked: boolean;
-    readonly deviceId: string;
-    readonly nowPlaying: NowPlaying;
-    readonly active: boolean;
-    readonly activePlayer: ActivePlayer;
-}
-
 export const nowPlayingInitialState = {
     hasTrack: false,
     track : {
@@ -23,7 +13,18 @@ export const nowPlayingInitialState = {
       uri: '',
     },
     isLike : null
-  }  
+}  
+
+export type PlayerState = {
+    readonly spotifyPlayerLoading: boolean;
+    readonly currentPlayer: Spotify.Player | null;
+    readonly browserBlocked: boolean;
+    readonly deviceId: string;
+    readonly nowPlaying: NowPlaying;
+    readonly active: boolean;
+    readonly activePlayer: ActivePlayer;
+    readonly nowPlayingInitialState: NowPlaying;
+}
 
   export const defaultActivePlayer = {
     spotify: false,
@@ -37,7 +38,8 @@ const INITIAL_STATE: PlayerState = {
     deviceId: '',
     nowPlaying: nowPlayingInitialState,
     active: false,
-    activePlayer: defaultActivePlayer
+    activePlayer: defaultActivePlayer,
+    nowPlayingInitialState
 }
 
 export const playerReducer = (
@@ -78,6 +80,16 @@ export const playerReducer = (
                 active : payload
             }
         case PLAYER_ACTION_TYPES.SET_ACTIVE_PLAYER :
+            return {
+                ...state,
+                activePlayer : payload
+            }
+        case PLAYER_ACTION_TYPES.SET_ACTIVE_SPOTIFY :
+            return {
+                ...state,
+                activePlayer : payload
+            }
+        case PLAYER_ACTION_TYPES.SET_ACTIVE_AUDIO_ELEMENT :
             return {
                 ...state,
                 activePlayer : payload
