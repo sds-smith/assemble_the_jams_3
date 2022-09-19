@@ -1,17 +1,17 @@
-import { useEffect, useContext, memo } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, memo } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 import Home from "../home/home.component";
 import Activate from "../../components/home-page-components/activate/activate.component";
 
 import { selectAccessToken } from "../../store/auth/auth.selector";
-
-import { PlayerContext } from '../../contexts/player.context'
+import { selectBrowserBlocked } from "../../store/player/player.selector";
+import { setSpotifyPlayerLoading, setActiveSpotify, setCurrentPlayer, setdeviceId, setActive, setBrowserBlocked } from '../../store/player/player.action'
 
 const SpotifyPlayer = memo(() => {
+    const dispatch = useDispatch()
     const accessToken = useSelector(selectAccessToken)
-    const { setSpotifyPlayerLoading, setActiveSpotify, setCurrentPlayer, setDeviceId, setActive, browserBlocked, setBrowserBlocked } = useContext(PlayerContext)
-
+    const browserBlocked = useSelector(selectBrowserBlocked)
     useEffect(() => {
         setSpotifyPlayerLoading(true)
         const script = document.createElement("script");
@@ -25,13 +25,13 @@ const SpotifyPlayer = memo(() => {
                 getOAuthToken: (callback: (t: string) => void) => { callback(accessToken); },
                 volume: 0.5
             });            
-            setCurrentPlayer(player)
+            dispatch(setCurrentPlayer(player))
 
             player.addListener('ready', ({ device_id }) => {
                 console.log('Ready with Device ID', device_id);
-                setSpotifyPlayerLoading(false)
-                setActiveSpotify()
-                setDeviceId(device_id);
+                dispatch(setSpotifyPlayerLoading(false))
+                dispatch(setActiveSpotify())
+                dispatch(setdeviceId(device_id));
             });
         
             player.addListener('not_ready', ({ device_id }) => {
@@ -40,7 +40,7 @@ const SpotifyPlayer = memo(() => {
 
             player.addListener('autoplay_failed', () => {
                 console.log('Autoplay is not allowed by the browser autoplay rules');                
-                setBrowserBlocked(true)
+                dispatch(setBrowserBlocked(true))
               });
         
             player.addListener('player_state_changed', ( state => {
@@ -53,12 +53,12 @@ const SpotifyPlayer = memo(() => {
                         if ((state.paused) && (state.position >= 30000) && (state.position < 30100)) {
                             player.resume()
                         } else if (state.paused) {
-                            setActive(false)
+                            dispatch(setActive(false))
                         } else {
-                            setActive(true) 
+                            dispatch(setActive(true)) 
                         }
                     } else {
-                        setActive(false)
+                        dispatch(setActive(false))
                     }
                 });
             }));
@@ -66,7 +66,6 @@ const SpotifyPlayer = memo(() => {
 
             player.on('playback_error', ({ message }) => {
                 console.error('Failed to perform playback', message);
-                setBrowserBlocked(true)
               });
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps

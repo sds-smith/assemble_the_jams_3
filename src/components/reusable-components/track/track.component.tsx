@@ -1,4 +1,5 @@
-import { useState, useContext, FC, ImgHTMLAttributes } from 'react'
+import { useState, FC, ImgHTMLAttributes } from 'react'
+import { useSelector } from 'react-redux'
 
 import TrackActionButton from '../track-action-button/track-action-button.component'
 import ProgressBar from '../progress-bar/progress-bar.component'
@@ -6,7 +7,7 @@ import ActionMessage from '../action-message/action-message.component'
 
 import SpotifyLogoWhite from '../../../assets/icons/Spotify_Logo_RGB_White.png'
 import { TRACK_ACTION_BUTTON_CLASSES } from '../track-action-button/track-action-button.component'
-import { PlayerContext } from '../../../contexts/player.context'
+import { selectNowPlaying } from '../../../store/player/player.selector'
 import { TrackType } from '../../../store/track/track.types'
 
 import { TrackContainer, CoverContainer, TrackInformation, TrackActionContainer, TrackCover, SpotifyLogo } from './track.styles'
@@ -18,7 +19,7 @@ type TrackProps = {
 
 const Track: FC<TrackProps> = ({track, trackType }) => {
   const [message, setMessage] = useState('')
-  const { nowPlaying } = useContext(PlayerContext)
+  const nowPlaying = useSelector(selectNowPlaying)
 
   const isActiveTrack = nowPlaying.track.id === track.id
   const trackCover = track.cover ? track.cover : ''

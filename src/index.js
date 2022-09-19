@@ -9,7 +9,6 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 import App from './App';
 import { ResponsiveProvider } from './contexts/responsive.context';
-import { PlayerProvider } from './contexts/player.context';
 import { store, persistor } from './store/store';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -18,11 +17,9 @@ root.render(
     <Provider store={store} >
       <PersistGate persistor={persistor} >
         <BrowserRouter >
-          <PlayerProvider>
-            <ResponsiveProvider>
-              <App />
-            </ResponsiveProvider>
-          </PlayerProvider>        
+          <ResponsiveProvider>
+            <App />
+          </ResponsiveProvider>
         </BrowserRouter>
       </PersistGate>
     </Provider>

@@ -27,8 +27,8 @@ export const PlayerContext = createContext<PlayerContextProps>({
     setCurrentPlayer : () => null,
     browserBlocked : null,
     setBrowserBlocked : () => null,
-    deviceID : '',
-    setDeviceId : () => '',
+    deviceId : '',
+    setdeviceId : () => '',
     nowPlaying : nowPlayingInitialState,
     setNowPlaying : () => nowPlayingInitialState,
     active : false,
@@ -43,7 +43,7 @@ export const PlayerProvider: FC<ProviderProps> = ({children}) => {
     const [spotifyPlayerLoading, setSpotifyPlayerLoading] = useState<boolean>(false)
     const [currentPlayer, setCurrentPlayer] = useState<(Spotify.Player) | null>(null)
     const [browserBlocked, setBrowserBlocked] = useState<boolean>(false)
-    const [deviceID, setDeviceId] = useState<string>('')
+    const [deviceId, setdeviceId] = useState<string>('')
     const [nowPlaying, setNowPlaying] = useState<NowPlaying>(nowPlayingInitialState)
     const [active, setActive] = useState<boolean>(false)
     const [activePlayer, setActivePlayer] = useState<ActivePlayer>(defaultActivePlayer)
@@ -68,8 +68,8 @@ export const PlayerProvider: FC<ProviderProps> = ({children}) => {
                     setCurrentPlayer,
                     browserBlocked,
                     setBrowserBlocked,
-                    deviceID,
-                    setDeviceId,
+                    deviceId,
+                    setdeviceId,
                     nowPlaying,
                     setNowPlaying,
                     active,

@@ -1,11 +1,10 @@
-import { useContext } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom";
 
 import { generateRandomString } from '../random-state-generator';
 import { Spotify } from "../spotify"
 
-import { PlayerContext } from "../../contexts/player.context"
+import { setCurrentPlayer, setdeviceId } from "../../store/player/player.action";
 import { setAccessToken, setAuthSession } from "../../store/auth/auth.action"
 import { selectAuthSession } from '../../store/auth/auth.selector'
 import { setPlaylistTracks, setPlaylistName, setSearchResults } from "../../store/track/track.action"
@@ -16,7 +15,6 @@ export const useSignIn = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const authSession = useSelector(selectAuthSession)
-    const { setCurrentPlayer, setDeviceId } = useContext(PlayerContext)
 
     const signIn = async () => {
         const session = generateRandomString()
@@ -54,8 +52,8 @@ export const useSignIn = () => {
         dispatch(setPlaylistTracks([]))
         dispatch(setSearchResults([]))
         dispatch(setCurrentUser(defaultCurrentUser))
-        setCurrentPlayer(null)
-        setDeviceId('')
+        dispatch(setCurrentPlayer(null))
+        dispatch(setdeviceId(''))
         navigate('/')
     }
 

@@ -1,4 +1,5 @@
 import { useEffect, useContext } from "react"
+import { useSelector } from "react-redux"
 
 import HomeHero from "../../components/home-page-components/home-hero/home-hero.component"
 import UserProfile from "../../components/home-page-components/user-profile/user-profile.component"
@@ -8,14 +9,15 @@ import Playlist from "../../components/home-page-components/playlist/playlist.co
 import Footer from "../../components/home-page-components/footer/footer.component"
 import NowPlayingCard from "../../components/home-page-components/web-player/now-playing-card/now-playing-card.component"
 
-import { PlayerContext } from "../../contexts/player.context"
+import { selectActivePlayer, selectNowPlaying } from "../../store/player/player.selector"
 import { ResponsiveContext } from "../../contexts/responsive.context"
 import { HomeContainer, InputContainer, ResultsContainer  } from "./home.styles"
 
 const Home = () => { 
 
     const { isMobile, activeTab, activeView, setDesktop, setMobileHome } = useContext(ResponsiveContext) 
-    const { activePlayer, nowPlaying } = useContext(PlayerContext)
+    const activePlayer = useSelector(selectActivePlayer)
+    const nowPlaying = useSelector(selectNowPlaying)
 
     useEffect(() => {
       const setResponsiveTabs = () => {

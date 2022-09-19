@@ -26,7 +26,7 @@ ActionWithPayload<PLAYER_ACTION_TYPES.SET_BROWSER_BLOCKED, boolean> =>
         payload: blocked
     }
 }
-export const setDeviceId = (id: string):
+export const setdeviceId = (id: string):
 ActionWithPayload<PLAYER_ACTION_TYPES.SET_DEVICE_ID, string> => 
 {
     return {

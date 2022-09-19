@@ -19,8 +19,8 @@ export type PlayerContextProps = {
     setCurrentPlayer(currentPlayer: (Spotify.Player) | null): void;
     browserBlocked : boolean | null;
     setBrowserBlocked(browserBlocked : boolean) : void;
-    deviceID : string;
-    setDeviceId(deviceID: string): void;
+    deviceId : string;
+    setdeviceId(deviceId: string): void;
     nowPlaying : NowPlaying;
     setNowPlaying(nowPlaying: NowPlaying): void;
     active : boolean;

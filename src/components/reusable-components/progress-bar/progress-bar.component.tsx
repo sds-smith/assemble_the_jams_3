@@ -1,5 +1,6 @@
-import { useContext, FC } from "react";
-import { PlayerContext } from "../../../contexts/player.context";
+import { FC } from "react";
+import { useSelector } from "react-redux";
+import { selectActive } from "../../../store/player/player.selector";
 import { ProgressContainer } from "./progress-bar.styles";
 
 type ProgressBarProps = {
@@ -8,7 +9,7 @@ type ProgressBarProps = {
 }
 
 const ProgressBar: FC<ProgressBarProps> = ({lightBackground, darkBackground}) => {
-    const { active } = useContext(PlayerContext)
+    const active = useSelector(selectActive)
 
     return (
         <ProgressContainer 

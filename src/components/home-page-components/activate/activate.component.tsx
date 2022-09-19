@@ -1,17 +1,19 @@
-import { useContext } from "react"
+import { useSelector, useDispatch } from "react-redux"
 import Button from "../../reusable-components/button/button.component"
 import Spinner from "../../reusable-components/spinner/spinner.component"
-import { PlayerContext } from "../../../contexts/player.context"
+import { selectCurrentPlayer } from "../../../store/player/player.selector"
+import { setBrowserBlocked } from "../../../store/player/player.action"
 import { ActivateContainer, ButtonContainer, TextDiv } from "./activate.styles"
 
 const Activate = () => {
-    const { currentPlayer, setBrowserBlocked } = useContext(PlayerContext)
+    const dispatch = useDispatch()
+    const currentPlayer = useSelector(selectCurrentPlayer)
 
     const activate = async () => {
         if (currentPlayer) {
             await currentPlayer.activateElement()
             await currentPlayer.resume()
-            setBrowserBlocked(false)
+            dispatch(setBrowserBlocked(false))
         }
     }
 

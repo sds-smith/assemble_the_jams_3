@@ -1,16 +1,18 @@
 import { useEffect, AudioHTMLAttributes, FC, EffectCallback } from "react"
-import { useContext } from "react"
+import { useSelector, useDispatch } from "react-redux";
+import { selectNowPlaying } from "../../store/player/player.selector";
+import { setActiveAudioElement, setActive } from "../../store/player/player.action";
 import Home from "../home/home.component";
-import { PlayerContext } from "../../contexts/player.context"
 
 const audioPreview = new Audio();
 audioPreview.volume = 0.5;
 
 const AudioElement: FC<AudioHTMLAttributes<HTMLAudioElement>> = () => {
-    const { setActiveAudioElement, nowPlaying, setActive } = useContext(PlayerContext)
+    const dispatch = useDispatch()
+    const nowPlaying = useSelector(selectNowPlaying)
 
     useEffect(() => {
-        setActiveAudioElement()
+        dispatch(setActiveAudioElement())
             // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -18,10 +20,10 @@ const AudioElement: FC<AudioHTMLAttributes<HTMLAudioElement>> = () => {
         if (nowPlaying.hasTrack) {
             audioPreview.src = nowPlaying.track.preview as string
             audioPreview.load()
-            setActive(true)
+            dispatch(setActive(true))
             audioPreview.play()
             audioPreview.onended = () => {
-                setActive(false)
+                dispatch(setActive(false))
             }
         } else {
             audioPreview.src = ''
@@ -29,7 +31,7 @@ const AudioElement: FC<AudioHTMLAttributes<HTMLAudioElement>> = () => {
         return (): void => {
             audioPreview.src = ''
             audioPreview.remove()
-            setActive(false)
+            dispatch(setActive(false))
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [nowPlaying])

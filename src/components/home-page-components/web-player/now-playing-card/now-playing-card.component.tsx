@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from 'react'
+import { useSelector } from 'react-redux'
 
 import TrackActionButton from '../../../reusable-components/track-action-button/track-action-button.component'
 import ActionMessage from '../../../reusable-components/action-message/action-message.component'
@@ -11,14 +12,14 @@ import { TRACK_ACTION_BUTTON_CLASSES } from '../../../reusable-components/track-
 
 import { useTrackControls } from '../../../../utils/custom-hooks/use-track-controls'
 
-import { PlayerContext } from '../../../../contexts/player.context'
+import { selectNowPlaying } from '../../../../store/player/player.selector'
 import { ResponsiveContext } from '../../../../contexts/responsive.context'
 import {NowPlayingContainer, SpotifyAttributor, SpotifyLogo, NowPlayingCover, NowPlayingLabel, TrackControls} from './now-playing-card.styles'
 
 const NowPlayingCard = () => {
     const [likesMessage, setLikesMessage] = useState('')
 
-    const { nowPlaying } = useContext(PlayerContext)
+    const nowPlaying = useSelector(selectNowPlaying)
     const track = nowPlaying.track
     const { isMobile } = useContext(ResponsiveContext) 
     const { stopPlayback } = useTrackControls(track)
