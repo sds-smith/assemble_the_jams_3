@@ -53,11 +53,14 @@ const SpotifyPlayer = memo(() => {
                         if ((state.paused) && (state.position >= 30000) && (state.position < 30100)) {
                             player.resume()
                         } else if (state.paused) {
+                            console.log('user paused, setting active false')
                             dispatch(setActive(false))
                         } else {
+                            console.log('track loaded in sdk, setting active true')
                             dispatch(setActive(true)) 
                         }
                     } else {
+                        console.log('no player state, setting active false')
                         dispatch(setActive(false))
                     }
                 });

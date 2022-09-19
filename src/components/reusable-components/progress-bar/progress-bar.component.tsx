@@ -13,7 +13,7 @@ const ProgressBar: FC<ProgressBarProps> = ({lightBackground, darkBackground}) =>
 
     return (
         <ProgressContainer 
-            active={active} 
+            active={active}
             lightBackground={lightBackground} 
             darkBackground={darkBackground} 
         />
