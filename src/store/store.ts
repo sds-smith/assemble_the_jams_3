@@ -10,7 +10,7 @@ export type RootState = ReturnType<typeof rootReducer>
 const persistConfig = getPersistConfig({
     key: 'root',
     storage,
-    blacklist: [ 'auth.clientToken' ],
+    blacklist: [ 'auth.clientToken', 'player' ],
     rootReducer
 })
 
