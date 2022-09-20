@@ -1,6 +1,17 @@
+import { createSelector } from "reselect"
 import { RootState } from "../store"
 
-export const selectUserLoading = (state: RootState) => state.user.userLoading
-export const selectCurrentUser = (state: RootState) => state.user.currentUser
+const selectUserReducer = (state: RootState) => state.user
 
-export const selectCurrentUserExists = (state: RootState) => state.user.currentUser.display_name.length > 0
+export const selectUserLoading = createSelector(
+    [selectUserReducer],
+    (userSlice) => userSlice.userLoading
+)
+export const selectCurrentUser = createSelector(
+    [selectUserReducer],
+    (userSlice) => userSlice.currentUser
+)
+export const selectCurrentUserExists = createSelector(
+    [selectCurrentUser],
+    (currentUser) => currentUser.display_name.length > 0
+)

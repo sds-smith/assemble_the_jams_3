@@ -1,11 +1,41 @@
+import { createSelector } from "reselect"
 import { RootState } from "../store"
 
-export const selectSpotifyPlayerLoading = (state: RootState) => state.player.spotifyPlayerLoading
-export const selectCurrentPlayer = (state: RootState) => state.player.currentPlayer
-export const selectBrowserBlocked = (state: RootState) => state.player.browserBlocked
-export const selectdeviceId = (state: RootState) => state.player.deviceId
-export const selectNowPlaying = (state: RootState) => state.player.nowPlaying
-export const selectActive = (state: RootState) => state.player.active
-export const selectActivePlayer = (state: RootState) => state.player.activePlayer
-export const selectNowPlayingInitialState = (state: RootState) => state.player.nowPlayingInitialState
-export const selectPlaybackError = (state: RootState) => state.player.playbackError
+const selectPlayerReducer = (state: RootState) => state.player
+
+export const selectSpotifyPlayerLoading = createSelector(
+    [selectPlayerReducer],
+    (playerSlice) => playerSlice.spotifyPlayerLoading
+)
+export const selectCurrentPlayer = createSelector(
+    [selectPlayerReducer],
+    (playerSlice) => playerSlice.currentPlayer
+) 
+export const selectBrowserBlocked = createSelector(
+    [selectPlayerReducer],
+    (playerSlice) => playerSlice.browserBlocked
+)
+export const selectdeviceId = createSelector(
+    [selectPlayerReducer],
+    (playerSlice) => playerSlice.deviceId
+)
+export const selectNowPlaying = createSelector(
+    [selectPlayerReducer],
+    (playerSlice) => playerSlice.nowPlaying
+)
+export const selectActive = createSelector(
+    [selectPlayerReducer],
+    (playerSlice) => playerSlice.active
+)
+export const selectActivePlayer = createSelector(
+    [selectPlayerReducer],
+    (playerSlice) => playerSlice.activePlayer
+)
+export const selectNowPlayingInitialState = createSelector(
+    [selectPlayerReducer],
+    (playerSlice) => playerSlice.nowPlayingInitialState
+)
+export const selectPlaybackError = createSelector(
+    [selectPlayerReducer],
+    (playerSlice) => playerSlice.playbackError
+)

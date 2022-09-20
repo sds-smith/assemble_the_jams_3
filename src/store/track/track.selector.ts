@@ -1,9 +1,21 @@
+import { createSelector } from "reselect"
 import { RootState } from "../store"
 
-export const selectSearchResults = (state: RootState) => state.track.searchResults
+const selectTrackReducer = (state: RootState) => state.track
 
-export const selectPlaylistTracks = (state: RootState) => state.track.playlistTracks 
-
-export const selectPlaylistName = (state: RootState) => state.track.playlistName
-
-export const selectSearchLoading = (state: RootState) => state.track.searchLoading 
+export const selectSearchResults = createSelector(
+    [selectTrackReducer],
+    (trackSlice) => trackSlice.searchResults
+ )
+export const selectPlaylistTracks = createSelector(
+    [selectTrackReducer],
+    (trackSlice) => trackSlice.playlistTracks
+)
+export const selectPlaylistName = createSelector(
+    [selectTrackReducer],
+    (trackSlice) => trackSlice.playlistName
+)
+export const selectSearchLoading = createSelector(
+    [selectTrackReducer],
+    (trackSlice) => trackSlice.searchLoading
+) 
