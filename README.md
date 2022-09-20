@@ -77,7 +77,7 @@ In Development Mode, up to 25 Spotify users can install and use the app, but the
 
 To attain this approval, this app underwent a rigorous review process by Spotify to ensure that it complied with all requirements in the [Spotify Developer Policy](https://developer.spotify.com/policy/) and [Spotify Design Guidelines](https://developer.spotify.com/documentation/general/design-and-branding/). As a full production app, Assemble the Jams has been granted access to an increased API request quota and an unlimited number of Spotify users can install and use it without being explicitly added to a list of users in Developer portal.
 
-## DefinitelyTyped - 'spotify-api' open-source type definitions for Typescript
+## DefinitelyTyped - TypeScript node package for Spotify API
 The node package [@types/spotify-api](https://www.npmjs.com/package/@types/spotify-api) is a package containing type definitions for the Spotify Web API, including complex types for data objects, requests, and responses relating to the Spotify API.
 
 I've had the opportunity to contribute two pieces of code to this package:
