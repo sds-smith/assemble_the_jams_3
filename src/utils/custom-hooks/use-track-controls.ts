@@ -67,7 +67,7 @@ export const useTrackControls = (track: TrackType) => {
           console.log('setting nowPlaying')
           console.log({hasTrack, track, isLike})
           dispatch(setNowPlaying({hasTrack, track, isLike}))
-          await Spotify.playTrack(deviceId, uri, currentPlayer) 
+          Spotify.playTrack(deviceId, uri, currentPlayer) 
           }
         }
     }
@@ -99,6 +99,7 @@ export const useTrackControls = (track: TrackType) => {
 
   const stopPlayback = async () => {
     if (currentPlayer) {
+        console.log('currentPlayer.pause(), Spotify.stopPlayback')
         await currentPlayer.pause()
         await Spotify.stopPlayback(deviceId, accessToken)
     }

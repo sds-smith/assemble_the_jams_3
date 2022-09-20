@@ -1,4 +1,4 @@
-import { useEffect, memo } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import Home from "../home/home.component";
@@ -8,7 +8,7 @@ import { selectAccessToken } from "../../store/auth/auth.selector";
 import { selectActive, selectBrowserBlocked } from "../../store/player/player.selector";
 import { setSpotifyPlayerLoading, setActiveSpotify, setCurrentPlayer, setdeviceId, setActive, setBrowserBlocked } from '../../store/player/player.action'
 
-const SpotifyPlayer = memo(() => {
+const SpotifyPlayer = () => {
     const dispatch = useDispatch()
     const accessToken = useSelector(selectAccessToken)
     const browserBlocked = useSelector(selectBrowserBlocked)
@@ -90,6 +90,6 @@ const SpotifyPlayer = memo(() => {
             }
         </div>
     )
-})
+}
 
 export default SpotifyPlayer
