@@ -50,7 +50,23 @@ Assemble the Jams 3.0 builds on its predecessor with several key improvements ([
   When the user clicks the 'Sign In' button, user authentication is initiated with Spotify using Authorization Code flow, returning the user access_token, refresh_token, and expires_in values. The app converts expires_in to expires_at and all values are stored in firestore. Each time the app first mounts (ie if the user closes their browser window without signing out and returns later), the app checks for an expired token. If the token is expired, the app will either refresh the access token (if a refresh token is available) or initiate the signout process. If the token is not expired, the app sets a setTimeout on the window object, at the end of which it either refreshes or signs out.
   
 ## Interaction with Spotify REST API:
-Several endpoints are accessed at different points of the user flow.
+Interaction with the Spotify API is attained through requests to 'https://api.spotify.com/v1'. Several endpoints are accessed at different points of the user flow.
+
+  * SEARCH: '/search?type=track&q=[THE_SEARCH_TERM_ENTERED_BY_USER]' - Returns an array of up to 20 tracks that match the user-entered keyword string. Seven properties are destructured off each track object for use in the app: track_id, name, artist, album, cover, uri, and preview_url. These are then mapped to the track list that is rendered in the 'Search Term Matches' component.
+
+  * RECOMMENDATIONS: '/recommendations?seed_tracks={SEEDS_FROM_SEARCH_RESULTS}' - Recommendations are generated based on the metadata for a given seed entity and matched against similar artists and tracks. Up to five seed entities can be passed as parameters to the endpoint. In this case, the first five tracks returned from the /search request are passed in as the seed entities. Spotify scores each track on as many as 42 attributes (such as tempo, danceability, acousticness, etc). Recommendations are generated based on these attributes. As with the search results, up to 20 recommendations tracks are returned, and these tracks are mapped into the 'Playlist' component.
+
+  * USER: '/me' - Once an access token has been attained through user authentication with Spotify, a request is sent to the '/me' endpoint. display_name, image_url, and id are destructured off the returned user object. display_name is interpolated into the app's url to create a path where Router dynamically renders the signed-in side of the app, and the user's display name and profile picture (image_url, if available) are displayed in place of the 'unknown user' heading to indicate a signed-in user.
+
+  * PLAY: '/me/player/play?device_id=[UNIQUE_DEVICE_ID]' - Once the user is authenticated with their Spotify Premium account, the web playback SDK loads, and instantiates a [Spotify Connect](https://developer.spotify.com/documentation/web-playback-sdk/) player in the window. Selecting the play button inside any track sends that track's information to the player and initiates playback. This player is capable of playing entire tracks, albums, playlists or any other context, but I have it set to play just a 30 second 'preview' to remain consistent with pre-sign-in UX.
+
+  * LIKE-STATUS: '/me/tracks/contains?ids=[TRACK_ID]' - This returns a boolean value indicating whether the selected track exists in the user's list of 'liked' songs in Spotify. It is called when a track is selected to be played and the returned value is used to set/ operate the like toggle button within the 'Now Playing Card'.
+
+  * TOGGLE-LIKE: '/me/tracks?ids=[TRACK_ID]' - Sends either a 'put' or 'delete' request to this endpoint to either add or delete the currently playing track to the user's liked songs list. The like toggle button (heart) will display as either solid or outline depending on whether the song is currently included in the user's liked songs list.
+
+  * SAVE-PLAYLIST: This is a two-step process: 
+                    '/users/[USER-ID]/playlists' - First, a 'post' request is sent to this endpoint, creating an empty playlist with the user's entered playlist name. A playlist id is returned from Spotify.
+                    '/users/[USER-ID]/playlists/[PLAYLIST-ID]/tracks' - Then, a 'post' request is sent to this endpoint with a track_uri array in the body of the request, to add the track_uri's to the newly created playlist.
 
 ## Spotify Approval
 In order to retrieve data from the Spotify API, this and all apps must be registered on the Spotify Developer portal. At that time, the app receives its own unique Client credentials and is registered in **Development Mode**.

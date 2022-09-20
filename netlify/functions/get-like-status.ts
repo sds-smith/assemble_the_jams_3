@@ -1,6 +1,6 @@
-require('dotenv').config()
 import axios from 'axios'
 import {getAuthDoc} from '../../src/utils/firebase.node'
+require('dotenv').config()
 
 exports.handler = async (event) => {
     try {
