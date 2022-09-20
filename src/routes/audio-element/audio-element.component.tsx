@@ -1,6 +1,6 @@
 import { useEffect, AudioHTMLAttributes, FC, EffectCallback } from "react"
 import { useSelector, useDispatch } from "react-redux";
-import { selectNowPlaying } from "../../store/player/player.selector";
+import { selectNowPlaying, selectActive } from "../../store/player/player.selector";
 import { setActiveAudioElement, setActive } from "../../store/player/player.action";
 import Home from "../home/home.component";
 
@@ -10,6 +10,7 @@ audioPreview.volume = 0.5;
 const AudioElement: FC<AudioHTMLAttributes<HTMLAudioElement>> = () => {
     const dispatch = useDispatch()
     const nowPlaying = useSelector(selectNowPlaying)
+    const active = useSelector(selectActive)
 
     useEffect(() => {
         dispatch(setActiveAudioElement())
@@ -20,23 +21,17 @@ const AudioElement: FC<AudioHTMLAttributes<HTMLAudioElement>> = () => {
         if (nowPlaying.hasTrack) {
             audioPreview.src = nowPlaying.track.preview as string
             audioPreview.load()
-            console.log('audioPreview loaded, setting active true')
             dispatch(setActive(true))
             audioPreview.play()
             audioPreview.onended = () => {
-                console.log('preview ended, setting active false')
-                dispatch(setActive(false))
+                active && dispatch(setActive(false))
             }
         } else {
             audioPreview.src = ''
-            console.log('no nowPlaying.hasTrack, setting active false')
-            dispatch(setActive(false))
+            active && dispatch(setActive(false))
         }
         return (): void => {
             audioPreview.src = ''
-            audioPreview.remove()
-            console.log('unmounting, setting active false')
-            dispatch(setActive(false))
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [nowPlaying])

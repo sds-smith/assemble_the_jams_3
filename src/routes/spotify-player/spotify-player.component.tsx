@@ -5,15 +5,17 @@ import Home from "../home/home.component";
 import Activate from "../../components/home-page-components/activate/activate.component";
 
 import { selectAccessToken } from "../../store/auth/auth.selector";
-import { selectBrowserBlocked } from "../../store/player/player.selector";
+import { selectActive, selectBrowserBlocked } from "../../store/player/player.selector";
 import { setSpotifyPlayerLoading, setActiveSpotify, setCurrentPlayer, setdeviceId, setActive, setBrowserBlocked } from '../../store/player/player.action'
 
 const SpotifyPlayer = memo(() => {
     const dispatch = useDispatch()
     const accessToken = useSelector(selectAccessToken)
     const browserBlocked = useSelector(selectBrowserBlocked)
+    const active = useSelector(selectActive)
+
     useEffect(() => {
-        setSpotifyPlayerLoading(true)
+        dispatch(setSpotifyPlayerLoading(true))
         const script = document.createElement("script");
         script.src = "https://sdk.scdn.co/spotify-player.js";
         script.async = true;
@@ -51,17 +53,20 @@ const SpotifyPlayer = memo(() => {
                 player.getCurrentState().then( (state: Spotify.PlaybackState | null) => { 
                     if (state) {
                         if ((state.paused) && (state.position >= 30000) && (state.position < 30100)) {
+                            console.log('browser paused, resume')
                             player.resume()
                         } else if (state.paused) {
                             console.log('user paused, setting active false')
-                            dispatch(setActive(false))
+                            active && dispatch(setActive(false))
                         } else {
-                            console.log('track loaded in sdk, setting active true')
-                            dispatch(setActive(true)) 
+                            if (!active) {
+                                console.log('track loaded in sdk, setting active true')
+                                dispatch(setActive(true)) 
+                            }
                         }
                     } else {
                         console.log('no player state, setting active false')
-                        dispatch(setActive(false))
+                        active && dispatch(setActive(false))
                     }
                 });
             }));

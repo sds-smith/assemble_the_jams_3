@@ -8,3 +8,4 @@ export const selectNowPlaying = (state: RootState) => state.player.nowPlaying
 export const selectActive = (state: RootState) => state.player.active
 export const selectActivePlayer = (state: RootState) => state.player.activePlayer
 export const selectNowPlayingInitialState = (state: RootState) => state.player.nowPlayingInitialState
+export const selectPlaybackError = (state: RootState) => state.player.playbackError

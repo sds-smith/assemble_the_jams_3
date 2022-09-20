@@ -24,6 +24,7 @@ export type PlayerState = {
     readonly active: boolean;
     readonly activePlayer: ActivePlayer;
     readonly nowPlayingInitialState: NowPlaying;
+    readonly playbackError: boolean;
 }
 
   export const defaultActivePlayer = {
@@ -39,7 +40,8 @@ const INITIAL_STATE: PlayerState = {
     nowPlaying: nowPlayingInitialState,
     active: false,
     activePlayer: defaultActivePlayer,
-    nowPlayingInitialState
+    nowPlayingInitialState,
+    playbackError : false
 }
 
 export const playerReducer = (
@@ -93,6 +95,11 @@ export const playerReducer = (
             return {
                 ...state,
                 activePlayer : payload
+            }
+        case PLAYER_ACTION_TYPES.SET_PLAYBACK_ERROR :
+            return {
+                ...state,
+                playbackError : payload
             }
         default : 
             return state

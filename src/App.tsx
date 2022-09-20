@@ -12,6 +12,7 @@ import { ResponsiveProvider } from './contexts/responsive.context';
 import { selectClientToken, selectAccessToken, selectAuthSession, selectExpiresAt, selectRefreshToken } from './store/auth/auth.selector';
 import { setClientToken, setAuthSession, setAccessToken, setRefreshToken, setExpiresAt } from './store/auth/auth.action';
 import { setUserLoading, setCurrentUser } from './store/user/user.action';
+import { selectCurrentUserExists } from './store/user/user.selector';
 import { defaultCurrentUser } from './store/user/user.types';
 import { useSignIn } from './utils/custom-hooks/use-sign-in';
 import { Spotify } from './utils/spotify';
@@ -26,6 +27,7 @@ const App = () => {
   const authSession = useSelector(selectAuthSession)
   const expiresAt = useSelector(selectExpiresAt)
   const refreshToken = useSelector(selectRefreshToken)
+  const currentUserExists = useSelector(selectCurrentUserExists)
 
   const { signOut } = useSignIn()
 
@@ -33,7 +35,6 @@ const App = () => {
     if (!clientToken) {
       const getClientToken = async () => {
         const response = await Spotify.getClientToken()
-        console.log(response)
         if (response) {
           const { token, expires_in } = response
           dispatch(setClientToken(token) )       
@@ -96,7 +97,9 @@ const App = () => {
       }
       getUserProfile()
     } else {
-      dispatch(setCurrentUser(defaultCurrentUser))
+      if (currentUserExists) {
+        dispatch(setCurrentUser(defaultCurrentUser))
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accessToken])

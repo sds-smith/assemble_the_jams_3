@@ -62,8 +62,7 @@ const SearchBar: FC = () => {
     const search: AsyncSearch = async (filter) => {
         setSearchFocus(false)
         dispatch(setSearchLoading(true))
-        dispatch(setSearchResults([]))
-        dispatch(setPlaylistTracks([]))
+
         const query = filter ? `${filter}:"${searchTerm}"` : searchTerm
         const response = await Spotify.search(clientToken, query)
         if (response) {

@@ -72,13 +72,22 @@ ActionWithPayload<PLAYER_ACTION_TYPES.SET_ACTIVE_SPOTIFY, ActivePlayer> =>
 }
 
 export const setActiveAudioElement = ():
-ActionWithPayload<PLAYER_ACTION_TYPES.SET_ACTIVE_SPOTIFY, ActivePlayer> => 
+ActionWithPayload<PLAYER_ACTION_TYPES.SET_ACTIVE_AUDIO_ELEMENT, ActivePlayer> => 
 {
     return {
-        type: PLAYER_ACTION_TYPES.SET_ACTIVE_SPOTIFY,
+        type: PLAYER_ACTION_TYPES.SET_ACTIVE_AUDIO_ELEMENT,
         payload: {
             spotify: false,
             audioElement: true
           }
+    }
+}
+
+export const setPlaybackError = (playbackError: boolean):
+ActionWithPayload<PLAYER_ACTION_TYPES.SET_PLAYBACK_ERROR, boolean> => 
+{
+    return {
+        type: PLAYER_ACTION_TYPES.SET_PLAYBACK_ERROR,
+        payload: playbackError
     }
 }
