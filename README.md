@@ -18,7 +18,7 @@ Spotify provides a robust search and recommendations feature which can be experi
 
 A demo video of the app can be viewed by clicking on the below thumbnail.
 
-[![video link](http://img.youtube.com/vi/vI-VfJhfXq4/0.jpg)](http://www.youtube.com/watch?v=vI-VfJhfXq4)
+[![video link](http://img.youtube.com/vi/MWqiaZKtZzg/0.jpg)](http://www.youtube.com/watch?v=MWqiaZKtZzg)
 
 Or, you can try out the live app for yourself at https://assemblethejams.netlify.app (feel free to add it to your mobile home screen - or your desktop - for the full PWA experience).
 
