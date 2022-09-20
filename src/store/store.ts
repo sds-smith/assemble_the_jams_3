@@ -1,5 +1,4 @@
-import { compose, legacy_createStore as createStore, applyMiddleware } from "redux";
-import logger from 'redux-logger'
+import { legacy_createStore as createStore } from "redux";
 import { persistStore, persistReducer } from "redux-persist";
 import { getPersistConfig } from 'redux-deep-persist'
 import storage from 'redux-persist/lib/storage'
@@ -7,10 +6,6 @@ import storage from 'redux-persist/lib/storage'
 import { rootReducer } from "./root-reducer";
 
 export type RootState = ReturnType<typeof rootReducer>
-
-const middleWares = [logger]
-
-const composedEnhancers = compose(applyMiddleware(...middleWares))
 
 const persistConfig = getPersistConfig({
     key: 'root',
@@ -21,7 +16,6 @@ const persistConfig = getPersistConfig({
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
-export const store = createStore(persistedReducer, undefined, composedEnhancers)
+export const store = createStore(persistedReducer)
 
 export const persistor = persistStore(store)
-
