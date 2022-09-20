@@ -23,10 +23,9 @@ export const selectNowPlaying = createSelector(
     [selectPlayerReducer],
     (playerSlice) => playerSlice.nowPlaying
 )
-export const selectActive = createSelector(
-    [selectPlayerReducer],
-    (playerSlice) => playerSlice.active
-)
+
+export const selectActive = (state: RootState) => state.player.active
+
 export const selectActivePlayer = createSelector(
     [selectPlayerReducer],
     (playerSlice) => playerSlice.activePlayer
