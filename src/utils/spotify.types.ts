@@ -1,5 +1,5 @@
 import { TrackType } from '../store/track/track.types';
-import { NowPlaying } from './context.utils'
+import { NowPlaying } from '../store/player/player.types'; 
 import { CurrentUserType } from '../store/user/user.types'
 
 type GetClientToken = () => Promise<{token: string, expires_in: number} | undefined>

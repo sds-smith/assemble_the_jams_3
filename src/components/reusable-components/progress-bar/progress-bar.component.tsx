@@ -9,7 +9,7 @@ type ProgressBarProps = {
 }
 
 const ProgressBar: FC<ProgressBarProps> = ({lightBackground, darkBackground}) => {
-    const active = useSelector(selectActive)
+    const active: boolean = useSelector(selectActive)
     console.log({active})
     return (
         <ProgressContainer 

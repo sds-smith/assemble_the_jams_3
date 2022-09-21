@@ -5,22 +5,21 @@ import { ResponsiveContext } from '../../../contexts/responsive.context';
 const Footer: FC = () => {
     const { activeTab, activeView, setMobileHome, setMobilePlaylist, setMobileSearchResults } = useContext(ResponsiveContext) 
 
-
     return (
         <FooterContainer>
             <Tab
                 onClick={setMobileHome} 
-                active={activeView.input} >
+                isActiveLink={activeView.input} >
             Home
             </Tab>
             <Tab
                 onClick={setMobilePlaylist} 
-                active={activeView.results && activeTab.playlist} >
+                isActiveLink={activeView.results && activeTab.playlist} >
             Playlist
             </Tab>   
             <Tab 
                 onClick={setMobileSearchResults} 
-                active={activeTab.search_results}>
+                isActiveLink={activeTab.search_results}>
             Search Results
             </Tab>
         </FooterContainer>

@@ -47,7 +47,8 @@ const Track: FC<TrackProps> = ({track, trackType }) => {
             />
           </TrackActionContainer>
           { isActiveTrack &&
-            <ProgressBar lightBackground />}
+            <ProgressBar lightBackground />
+          }
       </TrackContainer>    
   )
 }

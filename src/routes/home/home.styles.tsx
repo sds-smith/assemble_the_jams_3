@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { ActivePlayer } from '../../utils/context.utils'
+import { ActivePlayer } from "../../store/player/player.types"; 
 import { headerHeight } from '../navigation/navigation.styles'
 import { footerHeight } from '../../components/home-page-components/footer/footer.styles'
 

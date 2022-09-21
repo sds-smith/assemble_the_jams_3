@@ -1,35 +1,4 @@
 import { ReactNode } from "react";
-import { TrackType } from "../store/track/track.types";
-
-export type NowPlaying = {
-    hasTrack: boolean;
-    isLike: boolean | null;
-    track: TrackType;
-}
-
-export type ActivePlayer = {
-    spotify: boolean;
-    audioElement: boolean;
-}
-
-export type PlayerContextProps = {
-    spotifyPlayerLoading : boolean;
-    setSpotifyPlayerLoading(spotifyPlayerLoading: boolean): void;
-    currentPlayer : (Spotify.Player) | null;
-    setCurrentPlayer(currentPlayer: (Spotify.Player) | null): void;
-    browserBlocked : boolean | null;
-    setBrowserBlocked(browserBlocked : boolean) : void;
-    deviceId : string;
-    setdeviceId(deviceId: string): void;
-    nowPlaying : NowPlaying;
-    setNowPlaying(nowPlaying: NowPlaying): void;
-    active : boolean;
-    setActive(active: boolean): void;
-    activePlayer : ActivePlayer;
-    setActiveSpotify(): void;
-    setActiveAudioElement(): void;
-    nowPlayingInitialState: NowPlaying;
-}
 
 export type ActiveTabType = {
     'playlist' : boolean;
