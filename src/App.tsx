@@ -9,8 +9,8 @@ import Auth from './routes/auth/auth.component';
 
 import { ResponsiveProvider } from './contexts/responsive.context';
 
-import { selectClientToken, selectAccessToken, selectAuthSession, selectExpiresAt, selectRefreshToken } from './store/auth/auth.selector';
-import { setClientToken, setAuthSession, setAccessToken, setRefreshToken, setExpiresAt } from './store/auth/auth.action';
+import { selectAccessToken, selectAuthSession, selectExpiresAt, selectRefreshToken } from './store/auth/auth.selector';
+import { setAuthSession, setAccessToken, setRefreshToken, setExpiresAt } from './store/auth/auth.action';
 import { setUserLoading, setCurrentUser } from './store/user/user.action';
 import { selectCurrentUserExists } from './store/user/user.selector';
 import { defaultCurrentUser } from './store/user/user.types';
@@ -22,7 +22,6 @@ import './App.css';
 const App = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const clientToken = useSelector(selectClientToken)
   const accessToken = useSelector(selectAccessToken)
   const authSession = useSelector(selectAuthSession)
   const expiresAt = useSelector(selectExpiresAt)
@@ -32,19 +31,6 @@ const App = () => {
   const { signOut } = useSignIn()
 
   useEffect(() => {
-    if (!clientToken) {
-      const getClientToken = async () => {
-        const response = await Spotify.getClientToken()
-        if (response) {
-          const { token, expires_in } = response
-          dispatch(setClientToken(token) )       
-          window.setTimeout(() => {
-            dispatch(setClientToken(''))
-          }, expires_in * 1000)
-        }
-      }
-        getClientToken()
-    }
     if (accessToken) {
       const expiresIn = expiresAt - (Date.now()/1000)
       const expiredTokenAction = () => {
@@ -70,12 +56,6 @@ const App = () => {
           expiredTokenAction()
         }, expiresIn * 1000)
       }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  useEffect( () => {
-    if (accessToken) {
       dispatch(setUserLoading(true))
       const getUserProfile = async () => {
         try {

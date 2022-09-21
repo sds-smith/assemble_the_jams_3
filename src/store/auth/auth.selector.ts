@@ -23,3 +23,7 @@ export const selectExpiresAt = createSelector(
     [selectAuthReducer],
     (authSlice) => authSlice.expiresAt
 )
+export const selectToken = createSelector(
+    [selectAuthReducer],
+    (authSlice) => authSlice.accessToken.length ? authSlice.accessToken : authSlice.clientToken
+)

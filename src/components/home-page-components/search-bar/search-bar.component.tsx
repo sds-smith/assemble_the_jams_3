@@ -6,7 +6,7 @@ import SearchFilterButton from "../../reusable-components/search-filter-button/s
 import { Spotify } from "../../../utils/spotify"
 import { ResponsiveContext } from "../../../contexts/responsive.context"
 
-import { selectClientToken } from "../../../store/auth/auth.selector"
+import { selectToken } from "../../../store/auth/auth.selector"
 import { setSearchResults, setPlaylistTracks, setSearchLoading } from '../../../store/track/track.action'
 
 import { SearchBarContainer, SearchBarInput, TermSelector } from "./search-bar.styles"
@@ -24,7 +24,7 @@ const SearchBar: FC = () => {
     const [searchTerm, setSearchTerm] = useState('')
     const [searchFocus, setSearchFocus] = useState(false)
     const { isMobile, setMobilePlaylist } = useContext(ResponsiveContext)
-    const clientToken = useSelector(selectClientToken)
+    const token = useSelector(selectToken)
 
     const dispatch = useDispatch()
 
@@ -64,7 +64,7 @@ const SearchBar: FC = () => {
         dispatch(setSearchLoading(true))
 
         const query = filter ? `${filter}:"${searchTerm}"` : searchTerm
-        const response = await Spotify.search(clientToken, query)
+        const response = await Spotify.search(token, query)
         if (response) {
             const {searchResultsArray, recommendationsArray} = response
             setSearchTerm('')

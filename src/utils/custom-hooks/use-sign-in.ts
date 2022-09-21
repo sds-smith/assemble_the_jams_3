@@ -5,7 +5,7 @@ import { generateRandomString } from '../random-state-generator';
 import { Spotify } from "../spotify"
 
 import { setCurrentPlayer, setdeviceId } from "../../store/player/player.action";
-import { setAccessToken, setAuthSession } from "../../store/auth/auth.action"
+import { setAccessToken, setAuthSession, setRefreshToken, setExpiresAt } from "../../store/auth/auth.action"
 import { selectAuthSession } from '../../store/auth/auth.selector'
 import { setPlaylistTracks, setPlaylistName, setSearchResults } from "../../store/track/track.action"
 import { setCurrentUser } from "../../store/user/user.action";
@@ -48,6 +48,8 @@ export const useSignIn = () => {
         }
         dispatch(setAuthSession(''))
         dispatch(setAccessToken(''))
+        dispatch(setRefreshToken(''))
+        dispatch(setExpiresAt(0))
         dispatch(setPlaylistName('Name Your New Playlist'))
         dispatch(setPlaylistTracks([]))
         dispatch(setSearchResults([]))
