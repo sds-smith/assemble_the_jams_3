@@ -5,7 +5,7 @@ import Home from "../home/home.component";
 import Activate from "../../components/home-page-components/activate/activate.component";
 
 import { selectAccessToken } from "../../store/auth/auth.selector";
-import { selectSpotifyPlayerLoading, selectActive, selectBrowserBlocked } from "../../store/player/player.selector";
+import { selectActive, selectBrowserBlocked } from "../../store/player/player.selector";
 import { setSpotifyPlayerLoading, setActiveSpotify, setCurrentPlayer, setdeviceId, setActive, setBrowserBlocked } from '../../store/player/player.action'
 
 const SpotifyPlayer = () => {
@@ -13,7 +13,6 @@ const SpotifyPlayer = () => {
     const accessToken = useSelector(selectAccessToken)
     const browserBlocked = useSelector(selectBrowserBlocked)
     const active = useSelector(selectActive)
-    const spotifyPlayerLoading = useSelector(selectSpotifyPlayerLoading)
 
     useEffect(() => {
         dispatch(setSpotifyPlayerLoading(true))
@@ -78,7 +77,7 @@ const SpotifyPlayer = () => {
               });
         };
         return(() => {
-            spotifyPlayerLoading && dispatch(setSpotifyPlayerLoading(false))
+            dispatch(setSpotifyPlayerLoading(false))
         })
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [accessToken])

@@ -3,6 +3,7 @@ import styled from "styled-components";
 type TrackActionProps = {
     isMobile: boolean;
     clicked: boolean;
+    disabled: boolean;
 }
 
 export const TrackAction = styled.button<TrackActionProps>`
@@ -18,10 +19,7 @@ export const TrackAction = styled.button<TrackActionProps>`
     color: #fff;
     transform: ${ props => props.isMobile && (props.clicked ? 'scale(1.5)' : 'scale(1)') };
 
-    @media only screen and (min-width: 1020px) {
-        &:hover {
-            opacity: 0.5;
-        }
+    ${props => !props.isMobile && !props.disabled &&
+        '&:hover {opacity: 0.5;}'
     }
-
 `
