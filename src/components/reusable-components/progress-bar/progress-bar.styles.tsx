@@ -16,6 +16,7 @@ export const ProgressContainer = styled.div<ProgressContainerProps>`
     height: 100%;
     width: 100%;
     background-color: ${props => props.lightBackground ? lightBackground : darkBackground};
+    transform: scaleX(0);
     transition: ${props => props.active ? 'transform 30s linear' : 'transform 0s linear'};
     transform: ${props => props.active ? 'scaleX(1)' : 'scaleX(0)'};
     transform-origin: left;

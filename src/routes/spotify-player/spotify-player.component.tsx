@@ -15,70 +15,68 @@ const SpotifyPlayer = () => {
     const active = useSelector(selectActive)
 
     useEffect(() => {
-        dispatch(setSpotifyPlayerLoading(true))
-        const script = document.createElement("script");
-        script.src = "https://sdk.scdn.co/spotify-player.js";
-        script.async = true;
+        if (accessToken) {
+            dispatch(setSpotifyPlayerLoading(true))
+            const script = document.createElement("script");
+            script.src = "https://sdk.scdn.co/spotify-player.js";
+            script.async = true;
+        
+            document.body.appendChild(script);
+            window.onSpotifyWebPlaybackSDKReady = () => {            
+                const player = new window.Spotify.Player({
+                    name: 'Assemble the Jams',
+                    getOAuthToken: (callback: (t: string) => void) => { callback(accessToken); },
+                    volume: 0.5
+                });            
+                dispatch(setCurrentPlayer(player))
     
-        document.body.appendChild(script);
-        window.onSpotifyWebPlaybackSDKReady = () => {            
-            const player = new window.Spotify.Player({
-                name: 'Assemble the Jams',
-                getOAuthToken: (callback: (t: string) => void) => { callback(accessToken); },
-                volume: 0.5
-            });            
-            dispatch(setCurrentPlayer(player))
-
-            player.addListener('ready', ({ device_id }) => {
-                console.log('Ready with Device ID', device_id);
-                dispatch(setSpotifyPlayerLoading(false))
-                dispatch(setActiveSpotify())
-                dispatch(setdeviceId(device_id));
-            });
-        
-            player.addListener('not_ready', ({ device_id }) => {
-                console.log('Device ID has gone offline', device_id);
-            });
-
-            player.addListener('autoplay_failed', () => {
-                console.log('Autoplay is not allowed by the browser autoplay rules');                
-                dispatch(setBrowserBlocked(true))
-              });
-        
-            player.addListener('player_state_changed', ( state => {
-                if (!state) {
-                    return;
-                }
-
-                player.getCurrentState().then( (state: Spotify.PlaybackState | null) => { 
-                    if (state) {
-                        if ((state.paused) && (state.position >= 30000) && (state.position < 30100)) {
-                            console.log('browser paused, resume')
-                            player.resume()
-                        } else if (state.paused) {
-                            console.log('user paused, setting active false')
-                            active && dispatch(setActive(false))
-                        } else {
-                            if (!active) {
-                                console.log('track loaded in sdk, setting active true')
-                                dispatch(setActive(true)) 
-                            }
-                        }
-                    } else {
-                        console.log('no player state, setting active false')
-                        active && dispatch(setActive(false))
-                    }
+                player.addListener('ready', ({ device_id }) => {
+                    console.log('Ready with Device ID', device_id);
+                    dispatch(setSpotifyPlayerLoading(false))
+                    dispatch(setActiveSpotify())
+                    dispatch(setdeviceId(device_id));
                 });
-            }));
-            player.connect();
-
-            player.on('playback_error', ({ message }) => {
-                console.error('Failed to perform playback', message);
-              });
-        };
-        return(() => {
-            dispatch(setSpotifyPlayerLoading(false))
-        })
+            
+                player.addListener('not_ready', ({ device_id }) => {
+                    console.log('Device ID has gone offline', device_id);
+                });
+    
+                player.addListener('autoplay_failed', () => {
+                    console.log('Autoplay is not allowed by the browser autoplay rules');                
+                    dispatch(setBrowserBlocked(true))
+                  });
+            
+                player.addListener('player_state_changed', ( state => {
+                    if (!state) {
+                        return;
+                    }
+                    player.getCurrentState().then( (state: Spotify.PlaybackState | null) => { 
+                        if (state) {
+                            if ((state.paused) && (state.position >= 30000) && (state.position < 30100)) {
+                                console.log('browser paused, resume')
+                                player.resume()
+                            } else if (state.paused) {
+                                console.log('user paused, setting active false')
+                                active && dispatch(setActive(false))
+                            } else {
+                                if (!active) {
+                                    console.log('track loaded in sdk, setting active true')
+                                    dispatch(setActive(true)) 
+                                }
+                            }
+                        } else {
+                            console.log('no player state, setting active false')
+                            active && dispatch(setActive(false))
+                        }
+                    });
+                }));
+                player.connect();
+    
+                player.on('playback_error', ({ message }) => {
+                    console.error('Failed to perform playback', message);
+                  });
+            };            
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [accessToken])
 
