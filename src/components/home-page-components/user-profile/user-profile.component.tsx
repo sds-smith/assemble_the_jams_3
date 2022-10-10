@@ -32,7 +32,7 @@ const UserProfile = () => {
 
     return (
         <ProfileLink isMobile={isMobile} href={`https://open.spotify.com/user/${displayName}`} target='_blank' rel="noreferrer" >
-            <ProfileImg isMobile={isMobile} src={profilePic} />
+            <ProfileImg isMobile={isMobile} src={profilePic} alt='user profile picture' />
             <Spinner loading={userLoading} />
             <h2>{displayName}</h2>
         </ProfileLink>
