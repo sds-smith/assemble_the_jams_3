@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from "react-redux"
-import { useNavigate } from "react-router-dom";
 
 import { generateRandomString } from '../random-state-generator';
 import { Spotify } from "../spotify"
@@ -13,7 +12,6 @@ import { defaultCurrentUser } from "../../store/user/user.types";
 
 export const useSignIn = () => {
     const dispatch = useDispatch()
-    const navigate = useNavigate()
     const authSession = useSelector(selectAuthSession)
 
     const signIn = async () => {
@@ -56,7 +54,6 @@ export const useSignIn = () => {
         dispatch(setCurrentUser(defaultCurrentUser))
         dispatch(setCurrentPlayer(null))
         dispatch(setdeviceId(''))
-        navigate('/')
     }
 
     return {signIn, signOut}

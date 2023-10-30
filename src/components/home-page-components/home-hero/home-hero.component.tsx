@@ -1,6 +1,5 @@
 import { useContext } from 'react'
 import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
 
 import PlaylistNameInput from '../playlist-name-input/playlist-name-input.component'
 import SearchBar from '../search-bar/search-bar.component'
@@ -17,7 +16,6 @@ import { HomeHeroContainer, StepContainer, Icon, ButtonContainer } from './home-
 
 const HomeHero = () => {
     const dispatch = useDispatch()
-    const navigate = useNavigate()
     const { isMobile } = useContext(ResponsiveContext)
 
     const Clear = (<Icon src={ClearBtn} key={'1'} alt='clear'/>)
@@ -33,7 +31,6 @@ const HomeHero = () => {
     const clearTracklists = (): void => {
         dispatch(setSearchResults([]))
         dispatch(setPlaylistTracks([]))
-        navigate('/')
     }
     
     return (

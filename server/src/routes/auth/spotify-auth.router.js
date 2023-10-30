@@ -33,7 +33,6 @@ spotifyAuthRouter.get('/',
 spotifyAuthRouter.get('/callback', 
     passport.authenticate('spotify', {}), 
     (req, res) => {
-        console.log('line 36', req)
         const isLoggedIn = req.isAuthenticated() && req.user;
         if (isLoggedIn) {
             return res.redirect(`/`)

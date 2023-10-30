@@ -1,5 +1,4 @@
 import { useContext, FC } from "react"
-import { Outlet } from "react-router-dom"
 import { useSelector } from "react-redux"
 
 import SpotifyLogoWhite from '../../assets/icons/Spotify_Logo_RGB_White.png'
@@ -38,13 +37,14 @@ const Navigation: FC = () => {
                 <h1><JamsLogo /></h1>
                 <SignInButtonContainer userExists={currentUserExists} isMobile={isMobile} >
                   {!isMobile && 'For the best experience'}
-                  <SignInButton isMobile={isMobile} onClick={userAction}>
-                    {buttonText}
-                  </SignInButton>
+                  <a href='/auth/spotify'>
+                    <SignInButton isMobile={isMobile} onClick={userAction}>
+                      {buttonText}
+                    </SignInButton>
+                  </a>
                   {!isMobile && 'with your Spotify Premium acct'}
                 </SignInButtonContainer>
             </Header>  
-            <Outlet />
         </NavigationContainer>
     )
 }
