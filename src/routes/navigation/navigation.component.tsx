@@ -9,11 +9,16 @@ import { ResponsiveContext } from "../../contexts/responsive.context"
 import { useSignIn } from "../../utils/custom-hooks/use-sign-in"
 
 import { NavigationContainer, Header, SpotifyAttributor, SpotifyLogo, SignInButtonContainer, SignInButton } from "./navigation.styles"
+import { CurrentUserType } from "../../store/user/user.types"
 
+type NavigationPropTypes = {
+  authenticatedUser: CurrentUserType | null
+}
 
-const Navigation: FC = () => {
+const Navigation: FC<NavigationPropTypes> = ({authenticatedUser}) => {
     const { isMobile } = useContext(ResponsiveContext) 
-    const currentUserExists = useSelector(selectCurrentUserExists)
+    // const currentUserExists = useSelector(selectCurrentUserExists)
+    const currentUserExists = Boolean(authenticatedUser);
 
     const {signIn, signOut} = useSignIn()
 

@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 
 import Navigation from './routes/navigation/navigation.component';
@@ -13,6 +13,8 @@ import { defaultCurrentUser } from './store/user/user.types';
 import { useSignIn } from './utils/custom-hooks/use-sign-in';
 import { Spotify } from './utils/spotify';
 
+import { httpGetSession } from './utils/http.requests/auth';
+
 import './App.css';
 
 const App = () => {
@@ -24,6 +26,15 @@ const App = () => {
   const currentUserExists = useSelector(selectCurrentUserExists)
 
   const { signOut } = useSignIn()
+
+  const [authenticatedUser, setAuthenticatedUser] = useState(null);
+
+  useEffect(() => {
+    if (!authenticatedUser) (async () => {
+      const user = await httpGetSession();
+      setAuthenticatedUser(user)
+    })();
+  },[authenticatedUser]);
 
   // useEffect(() => {
   //   if (accessToken) {
@@ -81,7 +92,7 @@ const App = () => {
 
   return (
     <ResponsiveProvider>
-      <Navigation />
+      <Navigation authenticatedUser={authenticatedUser} />
     </ResponsiveProvider> 
   )
 }
