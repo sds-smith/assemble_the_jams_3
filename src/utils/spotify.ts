@@ -7,7 +7,7 @@ export const Spotify: SpotifyType = {
 
     async getClientToken() {
       try {
-        const response = await fetch('/.netlify/functions/get-client-access-token', {
+        const response = await fetch('/auth/spotify/get-client-access-token', {
           method: 'post',
           headers: {
             'Content-Type': 'application/json'

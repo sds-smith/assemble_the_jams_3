@@ -35,10 +35,10 @@ authRouter.use(passport.session());
 authRouter.use('/spotify', spotifyAuthRouter);
 
 authRouter.get('/get-session', (req, res) => {
-    const user = req.user
-    if (user) {
-        return res.status(200).json(user)
-    } 
+    return res.status(200).json({
+        user: req.user, 
+        client: req.session.client_token
+    })
 })
 
 authRouter.get('/logout', (req, res) => {

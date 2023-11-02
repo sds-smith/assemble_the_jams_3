@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { AuthProvider } from './contexts/auth.context';
 import * as serviceWorker from './serviceWorkerRegistration'
 import './index.css';
 
@@ -14,7 +15,9 @@ root.render(
   <React.StrictMode>
     <Provider store={store} >
       <PersistGate persistor={persistor} >
-            <App />
+        <AuthProvider>
+          <App />
+        </AuthProvider>
       </PersistGate>
     </Provider>
   </React.StrictMode>

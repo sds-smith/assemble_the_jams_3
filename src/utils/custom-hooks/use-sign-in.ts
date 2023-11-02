@@ -34,13 +34,7 @@ export const useSignIn = () => {
     
     const signOut = async () => {
         try {
-            await fetch('/.netlify/functions/delete-auth-doc', {
-              method: 'post',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({ authSession })
-            })
+            await fetch('/auth/logout')
         } catch(error) {
             console.log(error)
         }

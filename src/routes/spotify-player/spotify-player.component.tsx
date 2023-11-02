@@ -1,21 +1,25 @@
-import { useEffect } from "react";
+import { useEffect, useContext, FC } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import Home from "../home/home.component";
 import Activate from "../../components/home-page-components/activate/activate.component";
 
+import { AuthContext } from "../../contexts/auth.context";
+
 import { selectAccessToken } from "../../store/auth/auth.selector";
 import { selectActive, selectBrowserBlocked } from "../../store/player/player.selector";
 import { setSpotifyPlayerLoading, setActiveSpotify, setCurrentPlayer, setdeviceId, setActive, setBrowserBlocked } from '../../store/player/player.action'
 
-const SpotifyPlayer = () => {
+const SpotifyPlayer: FC = () => {
     const dispatch = useDispatch()
     const accessToken = useSelector(selectAccessToken)
     const browserBlocked = useSelector(selectBrowserBlocked)
     const active = useSelector(selectActive)
 
+    const {currentUserExists} = useContext(AuthContext)
+
     useEffect(() => {
-        if (accessToken) {
+        if (currentUserExists) {
             dispatch(setSpotifyPlayerLoading(true))
             const script = document.createElement("script");
             script.src = "https://sdk.scdn.co/spotify-player.js";

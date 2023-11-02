@@ -1,35 +1,26 @@
-import { useContext, FC } from "react"
-import { useSelector } from "react-redux"
+import { useContext } from "react"
 
 import SpotifyLogoWhite from '../../assets/icons/Spotify_Logo_RGB_White.png'
 import JamsLogo from "../../components/reusable-components/jams-logo/jams-logo.component"
 
-import { selectCurrentUserExists } from "../../store/user/user.selector"
 import { ResponsiveContext } from "../../contexts/responsive.context"
-import { useSignIn } from "../../utils/custom-hooks/use-sign-in"
+import { AuthContext } from "../../contexts/auth.context"
+import { httpSignOutUser } from "../../utils/http.requests/auth"
 
 import { NavigationContainer, Header, SpotifyAttributor, SpotifyLogo, SignInButtonContainer, SignInButton } from "./navigation.styles"
-import { CurrentUserType } from "../../store/user/user.types"
 
-type NavigationPropTypes = {
-  authenticatedUser: CurrentUserType | null
-}
-
-const Navigation: FC<NavigationPropTypes> = ({authenticatedUser}) => {
+const Navigation = () => {
     const { isMobile } = useContext(ResponsiveContext) 
-    // const currentUserExists = useSelector(selectCurrentUserExists)
-    const currentUserExists = Boolean(authenticatedUser);
+    const { currentUserExists } = useContext(AuthContext);
 
-    const {signIn, signOut} = useSignIn()
 
     const buttonText = currentUserExists ? 'SIGN OUT' : 'SIGN IN'
+    const buttonHref = currentUserExists ? '' : '/auth/spotify/authenticate-user'
 
     const userAction = () => {
-        if (currentUserExists) {
-            signOut()
-        } else {
-            signIn()
-        }
+      if (currentUserExists) {
+        httpSignOutUser()
+      } 
     }
 
     return (
@@ -42,8 +33,8 @@ const Navigation: FC<NavigationPropTypes> = ({authenticatedUser}) => {
                 <h1><JamsLogo /></h1>
                 <SignInButtonContainer userExists={currentUserExists} isMobile={isMobile} >
                   {!isMobile && 'For the best experience'}
-                  <a href='/auth/spotify'>
-                    <SignInButton isMobile={isMobile} onClick={userAction}>
+                  <a href={buttonHref}>
+                    <SignInButton isMobile={isMobile} onClick={userAction} >
                       {buttonText}
                     </SignInButton>
                   </a>

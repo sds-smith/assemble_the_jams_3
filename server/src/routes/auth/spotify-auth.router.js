@@ -1,5 +1,6 @@
 const express = require('express')
 const passport = require('passport');
+const { getClientToken } = require('./client-token');
 const SpotifyStrategy = require('passport-spotify').Strategy;
 
 require('dotenv').config();
@@ -24,7 +25,9 @@ const spotifyAuthStrategy = new SpotifyStrategy(AUTH_OPTIONS, verifyCallback);
 
 const spotifyAuthRouter = express.Router();
 
-spotifyAuthRouter.get('/', 
+spotifyAuthRouter.post('/get-client-token', getClientToken);
+
+spotifyAuthRouter.get('/authenticate-user', 
     passport.authenticate('spotify', {
         scope: ['user-read-private', 'user-read-email', 'playlist-modify-public', 'streaming user-library-read', 'user-library-modify'],
         showDialog: true

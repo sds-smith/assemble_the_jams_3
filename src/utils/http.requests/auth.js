@@ -5,13 +5,24 @@ async function httpGetSession() {
     return await response.json();
 };
 
-async function httpLoginWithGoogle() {
-    await fetch(`${AUTH_URL}/google`)
-}
+async function httpGetClientToken() {
+    try {
+      const response = await fetch('/auth/spotify/get-client-token', {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      })
+      const tokenResponse = await response.json()
+      return tokenResponse;
+    } catch(error) {
+      console.log('error with client log-in ', error)
+    }
+  }
 
-async function httpLoginWithLinkedin() {
-    await fetch(`${AUTH_URL}/linkedin`)
-};
+async function httpLoginWithSpotify() {
+    await fetch(`${AUTH_URL}/spotify/authenticate-user`)
+}
 
 async function httpSignOutUser() {
     const response = await fetch(`${AUTH_URL}/logout`);
@@ -21,7 +32,7 @@ async function httpSignOutUser() {
 
 export {
     httpGetSession,
-    httpLoginWithGoogle,
-    httpLoginWithLinkedin,
+    httpGetClientToken,
+    httpLoginWithSpotify,
     httpSignOutUser,
 };
