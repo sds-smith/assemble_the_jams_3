@@ -2,7 +2,7 @@ import { createContext, useState } from "react";
 
 export const PlayerContext = createContext();
 
-export const PlayerProvider = (children) => {
+export const PlayerProvider = ({children}) => {
     const [deviceId, setDeviceId] = useState('');
     const [currentPlayer, setCurrentPlayer] = useState(null);
     const [nowPlaying, setNowPlaying] = useState(null);

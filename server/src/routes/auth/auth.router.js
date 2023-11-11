@@ -1,14 +1,14 @@
 const express = require('express')
 const passport = require('passport');
-const cookieSession = require('cookie-session');
+// const cookieSession = require('cookie-session');
 const {spotifyAuthStrategy, spotifyAuthRouter} = require('./spotify-auth.router');
 
 require('dotenv').config();
 
-const config = {
-    COOKIE_KEY_1: process.env.COOKIE_KEY_1,
-    COOKIE_KEY_2: process.env.COOKIE_KEY_2
-}
+// const config = {
+//     COOKIE_KEY_1: process.env.COOKIE_KEY_1,
+//     COOKIE_KEY_2: process.env.COOKIE_KEY_2
+// }
 
 passport.use(spotifyAuthStrategy);
 
@@ -22,12 +22,14 @@ passport.deserializeUser((user, done) => {
 
 const authRouter = express.Router();
 
-authRouter.use(cookieSession({
-    name: 'session',
-    maxAge: 24 * 60 * 60 * 1000,
-    keys: [config.COOKIE_KEY_1, config.COOKIE_KEY_2],
-    httpOnly: false
-}))
+// const session = cookieSession({
+//     name: 'session',
+//     maxAge: 24 * 60 * 60 * 1000,
+//     keys: [config.COOKIE_KEY_1, config.COOKIE_KEY_2],
+//     httpOnly: false
+// })
+
+// authRouter.use(session);
 
 authRouter.use(passport.initialize());
 authRouter.use(passport.session());

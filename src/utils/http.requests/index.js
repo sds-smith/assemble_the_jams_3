@@ -1,7 +1,5 @@
 import {
     httpGetSession,
-    httpLoginWithGoogle,
-    httpLoginWithLinkedin,
     httpSignOutUser,
 } from './auth';
 
@@ -14,8 +12,6 @@ import {
 export {
     httpGetApi,
     httpGetSession,
-    httpLoginWithGoogle,
-    httpLoginWithLinkedin,
     httpSignOutUser,
     httpSearch,
     httpSavePlaylist

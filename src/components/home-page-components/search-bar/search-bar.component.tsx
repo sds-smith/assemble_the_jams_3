@@ -61,7 +61,7 @@ const SearchBar: FC = () => {
         const query = filter ? `${filter}:"${searchTerm}"` : searchTerm
         const response = await httpSearch(query)
         if (response) {
-            const {searchResultsArray, recommendationsArray} = response
+            const {searchResultsArray, recommendationsArray} = response;
             setSearchTerm('')
             setSearchResults(searchResultsArray)
             setPlaylistTracks(recommendationsArray)

@@ -6,16 +6,13 @@ const SPOTIFY_API = 'https://api.spotify.com/v1/'
 
 async function httpsSearch(req, res) {
     const { query } = req.query;
-    const clientToken = req.session.client_token;
-
-    console.log(`[httpsSearch] client_token: ${clientToken}, query: ${query}`)
-
+    const { client_token: {token} } = req.session;
     try {
         let endpoint = `${SPOTIFY_API}search?type=track&q=${query}&market=US`
-        const headers =  { Authorization : `Bearer ${clientToken}` }
+        const headers =  { Authorization : `Bearer ${token}` }
         const response = await fetch(endpoint, {headers : headers})
-        const searchResults = response.json();
-        const searchResultsArray = searchResults.tracks.items.map(track => ({
+        const {tracks} = await response.json();
+        const searchResultsArray = tracks.items.map(track => ({
           id : track.id,
           name : track.name,
           artist : track.artists[0].name,
@@ -24,10 +21,11 @@ async function httpsSearch(req, res) {
           uri : track.uri,
           preview : track.preview_url
         }))
-        const seeds = searchResults.tracks.items.slice(0, 5).map(track => track.id)
-      
+
+        const seeds = tracks.items.slice(0, 5).map(track => track.id)
+
         const recommendationsResponse = await fetch(`${SPOTIFY_API}recommendations?seed_tracks=${seeds}`,{headers : headers})
-        const recommendations = recommendationsResponse.json();
+        const recommendations = await recommendationsResponse.json();
         const recommendationsArray = recommendations.tracks.map(track => ({
           id : track.id,
           name : track.name,

@@ -16,11 +16,11 @@ type TrackProps = {
   trackType: string;
 } & ImgHTMLAttributes<HTMLImageElement>
 
-const Track: FC<TrackProps> = ({track, trackType }) => {
+const Track: FC<TrackProps> = ({ track, trackType }) => {
   const [message, setMessage] = useState('')
   const {nowPlaying} = useContext(PlayerContext);
 
-  const isActiveTrack = nowPlaying.track.id === track.id
+  const isActiveTrack = nowPlaying?.track?.id === track?.id
   const trackCover = track.cover ? track.cover : ''
 
   return (
