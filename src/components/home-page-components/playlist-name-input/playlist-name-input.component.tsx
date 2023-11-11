@@ -1,8 +1,7 @@
-import { FC, InputHTMLAttributes, ChangeEvent } from "react"
-import { useSelector, useDispatch } from "react-redux"
+import { useContext, FC, InputHTMLAttributes, ChangeEvent } from "react";
 
-import { selectPlaylistName } from '../../../store/track/track.selector'
-import { setPlaylistName } from "../../../store/track/track.action"
+import { TrackContext } from "../../../contexts/track.context";
+
 import { NameInput } from "./playlist-name-input.styles"
 
 type PlaylistNameInputProps = {
@@ -11,25 +10,24 @@ type PlaylistNameInputProps = {
 
 const PlaylistNameInput: FC<PlaylistNameInputProps> = ({ width }) => {
 
-    const dispatch = useDispatch()
-    const playlistName = useSelector(selectPlaylistName)
+    const { playlistName, setPlaylistName } = useContext(TrackContext);
     
     const clearInput = () => {
-     dispatch(setPlaylistName(''))
+     setPlaylistName('')
     }
   
     const handleNameChange = (e: ChangeEvent<HTMLInputElement>): void => {
-     dispatch(setPlaylistName(e.target.value))
+     setPlaylistName(e.target.value)
     }
 
     return (
-            <NameInput 
-              placeholder={"Name Your New Playlist"}
-              value={playlistName}
-              onClick={clearInput}
-              onChange={handleNameChange}
-              width={width || '287px'}
-            />
+      <NameInput 
+        placeholder={"Name Your New Playlist"}
+        value={playlistName}
+        onClick={clearInput}
+        onChange={handleNameChange}
+        width={width || '287px'}
+      />
     )
 }
 

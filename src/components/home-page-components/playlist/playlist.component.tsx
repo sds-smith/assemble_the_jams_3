@@ -1,5 +1,4 @@
 import { useContext, useState } from "react"
-import { useSelector, useDispatch } from "react-redux"
 
 import PlaylistNameInput from '../playlist-name-input/playlist-name-input.component'
 import TrackList from "../../reusable-components/track-list/track-list.component"
@@ -7,38 +6,32 @@ import ActionMessage from "../../reusable-components/action-message/action-messa
 
 import editIcon from '../../../assets/icons/edit_white24.png'
 
-import { selectAuthSession } from "../../../store/auth/auth.selector"
-import { selectPlaylistTracks, selectPlaylistName } from '../../../store/track/track.selector'
-import { setPlaylistTracks, setPlaylistName, setSearchResults } from '../../../store/track/track.action'
-import { selectCurrentUser, selectCurrentUserExists } from '../../../store/user/user.selector'
-import { ResponsiveContext } from "../../../contexts/responsive.context"
-import { Spotify } from "../../../utils/spotify"
+import { ResponsiveContext } from "../../../contexts/responsive.context";
+import { AuthContext } from "../../../contexts/auth.context"
+import { TrackContext } from "../../../contexts/track.context";
+import { httpSavePlaylist } from "../../../utils/http.requests";
+import { TrackType } from "../../../store/track/track.types"
 import { PlaylistContainer, TitleContainer,  SaveToSpotifyButton } from './playlist.styles'
 
 const Playlist = () => {
-    const [savedMessage, setSavedMessage] = useState('')
+    const [savedMessage, setSavedMessage] = useState('');
 
-    const authSession = useSelector(selectAuthSession)
-    const currentUser = useSelector(selectCurrentUser)
-    const currentUserExists = useSelector(selectCurrentUserExists)
-    const dispatch = useDispatch()
-
-    const playlistTracks = useSelector(selectPlaylistTracks)
-    const playlistName = useSelector(selectPlaylistName)
-    const { isMobile } = useContext(ResponsiveContext) 
+    const { isMobile } = useContext(ResponsiveContext);
+    const { currentUserExists } = useContext(AuthContext);
+    const { playlistTracks, playlistName, setPlaylistName, setPlaylistTracks, setSearchResults } = useContext(TrackContext);
 
     const savePlaylist = async () => {
       if (!currentUserExists) {
         setSavedMessage("Please sign in with your Spotify Premium account")
         setTimeout(() => setSavedMessage(''), 3000);      
       } else {
-        const trackURIs: string[] = playlistTracks.map(track => track.uri)
+        const trackURIs: string[] = playlistTracks.map((track: TrackType) => track.uri)
         try {
-          const response = await Spotify.savePlaylist(authSession, currentUser, playlistName, trackURIs)
+          const response = await httpSavePlaylist(playlistName, trackURIs);
           if (response.message === 'Playlist has been saved to your Spotify account') {
-            dispatch(setPlaylistName(response.playlistName))
-            dispatch(setPlaylistTracks(response.playlistTracks))
-            dispatch(setSearchResults(response.searchResults))
+            setPlaylistName(response.playlistName)
+            setPlaylistTracks(response.playlistTracks)
+            setSearchResults(response.searchResults)
           }
           setSavedMessage(response.message)
           setTimeout(() => setSavedMessage(''), 3000);

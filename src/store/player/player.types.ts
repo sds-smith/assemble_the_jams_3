@@ -24,3 +24,46 @@ export type ActivePlayer = {
     spotify: boolean;
     audioElement: boolean;
 }
+
+export const nowPlayingInitialState = {
+    hasTrack: false,
+    track : {
+      album: '',
+      artist: '',
+      cover: '',
+      id: '',
+      name: '',
+      preview: '',
+      uri: '',
+    },
+    isLike : null
+}  
+
+export type PlayerState = {
+    readonly spotifyPlayerLoading: boolean;
+    readonly currentPlayer: Spotify.Player | null;
+    readonly browserBlocked: boolean;
+    readonly deviceId: string;
+    readonly nowPlaying: NowPlaying;
+    readonly active: boolean;
+    readonly activePlayer: ActivePlayer;
+    readonly nowPlayingInitialState: NowPlaying;
+    readonly playbackError: boolean;
+}
+
+  export const defaultActivePlayer = {
+    spotify: false,
+    audioElement: false
+  }
+
+export const INITIAL_STATE: PlayerState = {
+    spotifyPlayerLoading: false,
+    currentPlayer: null,
+    browserBlocked: false,
+    deviceId: '',
+    nowPlaying: nowPlayingInitialState,
+    active: false,
+    activePlayer: defaultActivePlayer,
+    nowPlayingInitialState,
+    playbackError : false
+}

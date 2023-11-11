@@ -1,31 +1,22 @@
-import { useDispatch, useSelector } from "react-redux"
+import { useContext } from "react";
 
-import { selectAuthSession } from "../../store/auth/auth.selector"
-import { selectAccessToken } from "../../store/auth/auth.selector"
-import { selectPlaylistTracks } from "../../store/track/track.selector"
-import { selectSearchResults } from "../../store/track/track.selector"
-import { setPlaylistTracks } from "../../store/track/track.action"
-import { setSearchResults } from "../../store/track/track.action"
-import { setNowPlaying } from "../../store/player/player.action"
-import { selectNowPlaying, selectdeviceId, selectCurrentPlayer } from "../../store/player/player.selector"
-import { nowPlayingInitialState } from "../../store/player/player.reducer"
+import { AuthContext } from "../../contexts/auth.context";
+import { TrackContext } from "../../contexts/track.context";
+import { PlayerContext } from "../../contexts/player.context";
 
 import { Spotify } from "../spotify"
 import { TrackType } from "../../store/track/track.types"
-import { selectCurrentUserExists } from "../../store/user/user.selector"
+import { nowPlayingInitialState } from "../../store/player/player.types";
 
 export const useTrackControls = (track: TrackType) => {
+  const { currentUserExists } = useContext(AuthContext);
+  const { playlistTracks, searchResults, setPlaylistTracks, setSearchResults } = useContext(TrackContext);
+  const { nowPlaying, deviceId, currentPlayer, setNowPlaying } = useContext(PlayerContext);
 
-  const dispatch = useDispatch()
-
-  const authSession = useSelector(selectAuthSession)
-  const accessToken = useSelector(selectAccessToken)
-  const playlistTracks = useSelector(selectPlaylistTracks)
-  const searchResults = useSelector(selectSearchResults)
-  const currentUserExists = useSelector(selectCurrentUserExists)
-  const nowPlaying = useSelector(selectNowPlaying)
-  const deviceId = useSelector(selectdeviceId)
-  const currentPlayer = useSelector(selectCurrentPlayer)
+  // To Do: deal with this later //
+  const authSession = '';
+  const accessToken = '';
+  //////// these are not in the frontend ///////////
 
   const addTrack = async () => {
     let tracks = playlistTracks
@@ -34,14 +25,14 @@ export const useTrackControls = (track: TrackType) => {
     }
     tracks.push(track)
     let searchTracks = searchResults.filter(savedTrack => savedTrack.id !== track.id)
-    dispatch(setPlaylistTracks(tracks))
-    dispatch(setSearchResults(searchTracks))
+    setPlaylistTracks(tracks)
+    setSearchResults(searchTracks)
     return `${track.name} added to Playlist`
   }
 
   const removeTrack = () => {
     let newTracks = playlistTracks.filter(savedTrack => savedTrack.id !== track.id)
-    dispatch(setPlaylistTracks(newTracks))
+    setPlaylistTracks(newTracks)
     return 'track removed from playlist'
   }
 
@@ -52,7 +43,7 @@ export const useTrackControls = (track: TrackType) => {
     if (!nowPlaying.hasTrack) {
       const hasTrack = true
       const isLike = false
-      dispatch(setNowPlaying({hasTrack, track, isLike}))
+      setNowPlaying({hasTrack, track, isLike})
     }  
     return ''
   };
@@ -66,7 +57,7 @@ export const useTrackControls = (track: TrackType) => {
           const uri = `spotify:track:${track.id}`
           console.log('setting nowPlaying')
           console.log({hasTrack, track, isLike})
-          dispatch(setNowPlaying({hasTrack, track, isLike}))
+          setNowPlaying({hasTrack, track, isLike})
           Spotify.playTrack(deviceId, uri, currentPlayer) 
           }
         }
@@ -93,7 +84,7 @@ export const useTrackControls = (track: TrackType) => {
         return 'Could not find track id'
     }
     const {message, isLike} = await Spotify.toggleLike(authSession, nowPlaying)
-    dispatch(setNowPlaying({...nowPlaying, isLike}))
+    setNowPlaying({...nowPlaying, isLike})
     return `${message} - ${track.name}`
 }
 
@@ -103,9 +94,7 @@ export const useTrackControls = (track: TrackType) => {
         await currentPlayer.pause()
         await Spotify.stopPlayback(deviceId, accessToken)
     }
-    console.log('setting nowPlaying')
-    console.log(nowPlayingInitialState)
-    dispatch(setNowPlaying(nowPlayingInitialState))
+    setNowPlaying(nowPlayingInitialState)
 }
 
     return { play, stopPlayback, addTrack, removeTrack, toggleLike }

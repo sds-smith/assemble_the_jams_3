@@ -1,5 +1,4 @@
 import { useState, useEffect, useContext } from 'react'
-import { useSelector } from 'react-redux'
 
 import TrackActionButton from '../../../reusable-components/track-action-button/track-action-button.component'
 import ActionMessage from '../../../reusable-components/action-message/action-message.component'
@@ -12,19 +11,20 @@ import { TRACK_ACTION_BUTTON_CLASSES } from '../../../reusable-components/track-
 
 import { useTrackControls } from '../../../../utils/custom-hooks/use-track-controls'
 
-import { selectNowPlaying } from '../../../../store/player/player.selector'
-import { ResponsiveContext } from '../../../../contexts/responsive.context'
+import { ResponsiveContext } from '../../../../contexts/responsive.context';
+import { PlayerContext } from '../../../../contexts/player.context';
+
 import {NowPlayingContainer, SpotifyAttributor, SpotifyLogo, NowPlayingCover, NowPlayingLabel, TrackControls} from './now-playing-card.styles'
 
 const NowPlayingCard = () => {
     const [likesMessage, setLikesMessage] = useState('')
 
-    const nowPlaying = useSelector(selectNowPlaying)
-    const track = nowPlaying.track
+    const {nowPlaying} = useContext(PlayerContext);
+    const {track} = nowPlaying;
     const { isMobile } = useContext(ResponsiveContext) 
     const { stopPlayback } = useTrackControls(track)
 
-    const nowPlayingCover = nowPlaying.track.cover ? nowPlaying.track.cover : ''
+    const nowPlayingCover = track.cover || ''
 
     useEffect(() => {
         const timer = setTimeout(() => stopPlayback(), 30000)

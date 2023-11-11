@@ -1,9 +1,8 @@
-import { FC, useState, useEffect, ReactNode } from "react"
-import { useSelector } from "react-redux"
+import { FC, useState, useEffect, useContext, ReactNode } from "react"
+import { TrackContext } from "../../../contexts/track.context";
 
 import Track from "../track/track.component"
 
-import { selectPlaylistTracks, selectSearchResults } from "../../../store/track/track.selector"
 import { TrackListContainer } from "./track-list.styles"
 
 type TrackListProps = {
@@ -11,8 +10,7 @@ type TrackListProps = {
 }
 
 const TrackList: FC<TrackListProps> = ({ trackType }) => {
-    const playlistTracks = useSelector(selectPlaylistTracks)
-    const searchResults = useSelector(selectSearchResults)
+    const { playlistTracks, searchResults } = useContext(TrackContext);
     const tracks = trackType === 'playlist' ? playlistTracks : searchResults 
     const [trackList, setTrackList] = useState<ReactNode[]>([])
 

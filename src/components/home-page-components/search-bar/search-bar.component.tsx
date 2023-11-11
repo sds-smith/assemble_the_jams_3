@@ -1,13 +1,10 @@
 import { useState, useContext, FC, ChangeEvent } from "react"
-import { useSelector, useDispatch } from "react-redux"
 
 import SearchFilterButton from "../../reusable-components/search-filter-button/search-filter-button.component"
 
-import { Spotify } from "../../../utils/spotify"
+import { httpSearch } from "../../../utils/http.requests"
 import { ResponsiveContext } from "../../../contexts/responsive.context"
-
-import { selectToken } from "../../../store/auth/auth.selector"
-import { setSearchResults, setPlaylistTracks, setSearchLoading } from '../../../store/track/track.action'
+import { TrackContext } from "../../../contexts/track.context"
 
 import { SearchBarContainer, SearchBarInput, TermSelector } from "./search-bar.styles"
 
@@ -24,9 +21,7 @@ const SearchBar: FC = () => {
     const [searchTerm, setSearchTerm] = useState('')
     const [searchFocus, setSearchFocus] = useState(false)
     const { isMobile, setMobilePlaylist } = useContext(ResponsiveContext)
-    const token = useSelector(selectToken)
-
-    const dispatch = useDispatch()
+    const { setSearchLoading, setSearchResults, setPlaylistTracks } = useContext(TrackContext);
 
     const filters: FilterObj[] = [
         {
@@ -61,16 +56,16 @@ const SearchBar: FC = () => {
 
     const search: AsyncSearch = async (filter) => {
         setSearchFocus(false)
-        dispatch(setSearchLoading(true))
+        setSearchLoading(true)
 
         const query = filter ? `${filter}:"${searchTerm}"` : searchTerm
-        const response = await Spotify.search(token, query)
+        const response = await httpSearch(query)
         if (response) {
             const {searchResultsArray, recommendationsArray} = response
             setSearchTerm('')
-            dispatch(setSearchResults(searchResultsArray))
-            dispatch(setPlaylistTracks(recommendationsArray))
-            dispatch(setSearchLoading(false))
+            setSearchResults(searchResultsArray)
+            setPlaylistTracks(recommendationsArray)
+            setSearchLoading(false)
             isMobile && setMobilePlaylist()
         }
     }

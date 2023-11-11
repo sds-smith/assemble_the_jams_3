@@ -1,7 +1,6 @@
 import { useState, useContext, FC, ButtonHTMLAttributes, ImgHTMLAttributes, Dispatch, SetStateAction } from "react"
-import { useSelector } from "react-redux"
-import { ResponsiveContext } from "../../../contexts/responsive.context"
-import { selectSpotifyPlayerLoading, selectCurrentPlayer } from "../../../store/player/player.selector"
+import { ResponsiveContext } from "../../../contexts/responsive.context";
+import { PlayerContext } from "../../../contexts/player.context";
 import { useTrackControls } from "../../../utils/custom-hooks/use-track-controls"
 import { TrackAction } from "./track-action-button.styles"
 
@@ -43,9 +42,8 @@ export enum TRACK_ACTION_BUTTON_CLASSES {
 
 const TrackActionButton: FC<TrackActionButtonProps> = ({buttonType, track, setMessage}) => {
     const [clicked, setClicked] = useState<boolean>(false)
-    const { isMobile } = useContext(ResponsiveContext)
-    const spotifyPlayerLoading =  useSelector(selectSpotifyPlayerLoading)
-    const currentPlayer = useSelector(selectCurrentPlayer)
+    const { isMobile } = useContext(ResponsiveContext);
+    const {spotifyPlayerLoading, currentPlayer} =  useContext(PlayerContext);
     const { addTrack, removeTrack, toggleLike, play, stopPlayback } = useTrackControls(track)
 
     const playTrack = async () => {

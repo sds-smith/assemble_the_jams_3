@@ -13,7 +13,6 @@ const Navigation = () => {
     const { isMobile } = useContext(ResponsiveContext) 
     const { currentUserExists } = useContext(AuthContext);
 
-
     const buttonText = currentUserExists ? 'SIGN OUT' : 'SIGN IN'
     const buttonHref = currentUserExists ? '' : '/auth/spotify/authenticate-user'
 

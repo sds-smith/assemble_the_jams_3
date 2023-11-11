@@ -16,3 +16,17 @@ export type TrackType = {
     uri : string;
     preview : string | null;
 }
+
+export type TrackState = {
+    searchResults : TrackType[];
+    playlistTracks : TrackType[];
+    playlistName : string;
+    searchLoading : boolean;
+}
+
+export const INITIAL_STATE: TrackState = {
+    searchResults : [], 
+    playlistTracks : [], 
+    playlistName : "Name Your New Playlist", 
+    searchLoading : false, 
+}

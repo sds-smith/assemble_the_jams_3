@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { ActivePlayer } from "../../store/player/player.types"; 
 import { headerHeight } from '../navigation/navigation.styles'
 import { footerHeight } from '../../components/home-page-components/footer/footer.styles'
 
@@ -7,19 +6,15 @@ type HomeProps = {
     isMobile: boolean;
 }
 
-type HomeContainerProps = {
-    activePlayer: ActivePlayer;
-} & HomeProps
-
 const audioElementBackground = 'linear-gradient(115deg, green, black)'
-const spotifyBackground = 'linear-gradient(205deg, green, black)'
+// const spotifyBackground = 'linear-gradient(205deg, green, black)'
 const desktopHeight = `calc(100vh - ${headerHeight})`
 const mobileHeight = `calc(100vh - ${headerHeight} - ${footerHeight})`
 
-export const HomeContainer = styled.div<HomeContainerProps>`
+export const HomeContainer = styled.div<HomeProps>`
     min-height: ${props => props.isMobile ? mobileHeight : desktopHeight};
     padding: 0 5% 10% 5%;
-    background-image: ${props => props.activePlayer.spotify ? spotifyBackground : audioElementBackground};
+    background-image: ${audioElementBackground};
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

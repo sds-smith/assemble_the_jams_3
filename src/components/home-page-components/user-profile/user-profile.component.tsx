@@ -1,13 +1,11 @@
 import { useState, useEffect, useContext } from 'react'
-import { useSelector } from 'react-redux';
 
 import Spinner from '../../reusable-components/spinner/spinner.component';
 
 import ProfilePic from '../../../assets/icons/default_profile96.png'
 
-import { selectUserLoading, selectCurrentUser, selectCurrentUserExists } from '../../../store/user/user.selector';
-
 import { ResponsiveContext } from '../../../contexts/responsive.context';
+import { AuthContext } from '../../../contexts/auth.context';
 import { ProfileLink, ProfileImg } from "./user-profile.styles";
 
 const UserProfile = () => {
@@ -15,20 +13,18 @@ const UserProfile = () => {
     const [profilePic, setProfilePic] = useState(ProfilePic)
     const [displayName, setDisplayName] = useState('')
 
-    const userLoading = useSelector(selectUserLoading)
-    const currentUser = useSelector(selectCurrentUser)
-    const currentUserExists = useSelector(selectCurrentUserExists)
+    const { userLoading, authenticatedUser, currentUserExists } = useContext(AuthContext);
     const { isMobile } = useContext(ResponsiveContext) 
 
     useEffect(() => {
         if (currentUserExists) {
-          currentUser.image_url && setProfilePic(currentUser.image_url)
-          currentUser.display_name && setDisplayName(currentUser.display_name)
+          authenticatedUser.image_url && setProfilePic(authenticatedUser.image_url)
+          authenticatedUser.display_name && setDisplayName(authenticatedUser.display_name)
         } else {
           setProfilePic(ProfilePic)
           setDisplayName('unknown user')
         }
-      },[currentUser, currentUserExists])
+      },[authenticatedUser, currentUserExists])
 
     return (
         <ProfileLink isMobile={isMobile} href={`https://open.spotify.com/user/${displayName}`} target='_blank' rel="noreferrer" >

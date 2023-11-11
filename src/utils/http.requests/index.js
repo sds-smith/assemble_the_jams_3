@@ -7,6 +7,8 @@ import {
 
 import {
     httpGetApi,
+    httpSearch,
+    httpSavePlaylist
 } from './api';
 
 export {
@@ -15,4 +17,6 @@ export {
     httpLoginWithGoogle,
     httpLoginWithLinkedin,
     httpSignOutUser,
+    httpSearch,
+    httpSavePlaylist
 };

@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { TrackType, TrackState } from "../store/track/track.types";
 
 export type ActiveTabType = {
     'playlist' : boolean;
@@ -18,6 +19,17 @@ export type ResponsiveContextProps = {
     setMobileHome(): void;
     setMobilePlaylist(): void;
     setMobileSearchResults(): void;
+};
+
+export type TrackContextProps = {
+    searchResults: TrackType[];
+    playlistTracks: TrackType[];
+    playlistName: string;
+    searchLoading: boolean;
+    setSearchResults(searchResults: TrackType[]): void;
+    setPlaylistTracks(playlistTracks: TrackType[]): void;
+    setPlaylistName(laylistName: string): void;
+    setSearchLoading(searchLoading: boolean): void;
 }
 
 export type ProviderProps = {

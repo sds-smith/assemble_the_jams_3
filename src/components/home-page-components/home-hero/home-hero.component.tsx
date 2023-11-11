@@ -1,5 +1,4 @@
 import { useContext } from 'react'
-import { useDispatch } from 'react-redux'
 
 import PlaylistNameInput from '../playlist-name-input/playlist-name-input.component'
 import SearchBar from '../search-bar/search-bar.component'
@@ -9,13 +8,11 @@ import PlayBtn from '../../../assets/icons/play_white24.png'
 import AddBtn from '../../../assets/icons/add_white24.png'
 import ClearBtn from '../../../assets/icons/clear_white24.png'
 
-import { setSearchResults, setPlaylistTracks } from '../../../store/track/track.action'
 import { ResponsiveContext } from '../../../contexts/responsive.context'
 
 import { HomeHeroContainer, StepContainer, Icon, ButtonContainer } from './home-hero.styles'
 
 const HomeHero = () => {
-    const dispatch = useDispatch()
     const { isMobile } = useContext(ResponsiveContext)
 
     const Clear = (<Icon src={ClearBtn} key={'1'} alt='clear'/>)
@@ -29,8 +26,6 @@ const HomeHero = () => {
     isMobile && step3.push(' Switch between list views with the links below.')
 
     const clearTracklists = (): void => {
-        dispatch(setSearchResults([]))
-        dispatch(setPlaylistTracks([]))
     }
     
     return (
