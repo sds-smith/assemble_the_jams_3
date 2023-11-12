@@ -1,4 +1,4 @@
-const express = require('express')
+const express = require('express');
 const passport = require('passport');
 const { spotifyAuthStrategy, spotifyAuthRouter } = require('./spotify-auth.router');
 
@@ -33,14 +33,14 @@ authRouter.get('/get-session', (req, res) => {
             id
         }, 
         client: req.session?.client_token
-    })
-})
+    });
+});
 
-authRouter.get('/logout', (req, res) => {
-    res.clearCookie('session')
+authRouter.get('/logout', (_req, res) => {
+    res.clearCookie('session');
     return res.clearCookie('session.sig').json({
         msg: 'Logged Out'
-    })
+    });
 });
 
 module.exports = authRouter;

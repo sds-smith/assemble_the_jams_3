@@ -11,11 +11,6 @@ const config = {
     COOKIE_KEY_2: process.env.COOKIE_KEY_2
 };
 
-const app = express();
-
-app.use(express.json());
-app.use(express.static(path.join(__dirname, '..', '..', 'build')));
-
 const session = cookieSession({
     name: 'session',
     maxAge: 24 * 60 * 60 * 1000,
@@ -23,6 +18,10 @@ const session = cookieSession({
     httpOnly: false
 });
 
+const app = express();
+
+app.use(express.json());
+app.use(express.static(path.join(__dirname, '..', '..', 'build')));
 app.use(session);
 app.use(passport.session());
 

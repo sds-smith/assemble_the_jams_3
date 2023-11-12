@@ -1,7 +1,7 @@
 const express = require('express')
 const passport = require('passport');
 const { getClientToken } = require('./client-token');
-const SpotifyStrategy = require('passport-spotify').Strategy;
+const { Strategy } = require('passport-spotify');
 
 require('dotenv').config();
 
@@ -14,14 +14,13 @@ const AUTH_OPTIONS = {
     callbackURL: '/auth/spotify/callback',
     clientID: config.SPOTIFY_CLIENT_ID,
     clientSecret: config.SPOTIFY_CLIENT_SECRET,
-    // passReqToCallback: true
   };
 
 function verifyCallback(accessToken, _refreshToken, _expires_in, profile, done) {
       done(null, {accessToken, profile});
   };
 
-const spotifyAuthStrategy = new SpotifyStrategy(AUTH_OPTIONS, verifyCallback);
+const spotifyAuthStrategy = new Strategy(AUTH_OPTIONS, verifyCallback);
 
 const spotifyAuthRouter = express.Router();
 
