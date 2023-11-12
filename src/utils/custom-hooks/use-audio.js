@@ -4,7 +4,7 @@ import { PlayerContext } from "../../contexts/player.context";
 let audioPreview
 
 export const useAudio = () => {
-    const {nowPlaying, setActive} = useContext(PlayerContext);
+    const {nowPlaying, setNowPlaying, setActive} = useContext(PlayerContext);
 
     const [activeElement, setActiveElement] = useState({
         audio: false,
@@ -18,7 +18,8 @@ export const useAudio = () => {
             setActive(true)
             audioPreview.play()
             audioPreview.onended = () => {
-                setActive(false)
+                setActive(false);
+                setNowPlaying(null);
             }
         } else {
             if (audioPreview) audioPreview.src = ''
