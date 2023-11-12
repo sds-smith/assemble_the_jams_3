@@ -1,9 +1,11 @@
 const express = require('express');
-const {httpsSearch, httpsSavePlaylist} = require('../../models/spotify.model');
+const { httpsSearch, httpsSavePlaylist, httpsGetLikeStatus, httpsToggleLike } = require('../../models/spotify.model');
 
 const spotifyRouter = express.Router();
 
 spotifyRouter.use('/search', httpsSearch);
-spotifyRouter.use('/save_playlist', httpsSavePlaylist)
+spotifyRouter.use('/save_playlist', httpsSavePlaylist);
+spotifyRouter.use('/get_like_status', httpsGetLikeStatus);
+spotifyRouter.use('/toggle_like', httpsToggleLike);
 
 module.exports = spotifyRouter;

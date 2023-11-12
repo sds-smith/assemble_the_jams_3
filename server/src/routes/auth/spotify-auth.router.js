@@ -17,8 +17,8 @@ const AUTH_OPTIONS = {
     // passReqToCallback: true
   };
 
-function verifyCallback(_accessToken, _refreshToken, _expires_in, profile, done) {
-      done(null, profile);
+function verifyCallback(accessToken, _refreshToken, _expires_in, profile, done) {
+      done(null, {accessToken, profile});
   };
 
 const spotifyAuthStrategy = new SpotifyStrategy(AUTH_OPTIONS, verifyCallback);

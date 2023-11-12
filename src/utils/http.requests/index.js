@@ -6,7 +6,9 @@ import {
 import {
     httpGetApi,
     httpSearch,
-    httpSavePlaylist
+    httpSavePlaylist,
+    httpToggleLike,
+    httpGetLikeStatus
 } from './api';
 
 export {
@@ -14,5 +16,7 @@ export {
     httpGetSession,
     httpSignOutUser,
     httpSearch,
-    httpSavePlaylist
+    httpSavePlaylist,
+    httpToggleLike,
+    httpGetLikeStatus
 };

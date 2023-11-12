@@ -21,8 +21,34 @@ async function httpSavePlaylist(playlistName, trackURIs) {
     return await response.json();
 };
 
+async function httpGetLikeStatus(trackId) {
+    const response = await fetch(`${API_URL}/spotify/get_like_status`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ trackId })
+      });
+    return await response.json();
+};
+
+async function httpToggleLike(nowPlaying) {
+    const trackId = nowPlaying.track.id;
+    const { isLike } = nowPlaying;
+    const response = await fetch(`${API_URL}/spotify/toggle_like`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ trackId, isLike })
+      });
+    return await response.json();
+};
+
 export {
     httpGetApi,
     httpSearch,
-    httpSavePlaylist
+    httpSavePlaylist,
+    httpToggleLike,
+    httpGetLikeStatus
 };

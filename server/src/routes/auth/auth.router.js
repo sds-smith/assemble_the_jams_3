@@ -1,45 +1,29 @@
 const express = require('express')
 const passport = require('passport');
-// const cookieSession = require('cookie-session');
-const {spotifyAuthStrategy, spotifyAuthRouter} = require('./spotify-auth.router');
+const { spotifyAuthStrategy, spotifyAuthRouter } = require('./spotify-auth.router');
 
 require('dotenv').config();
-
-// const config = {
-//     COOKIE_KEY_1: process.env.COOKIE_KEY_1,
-//     COOKIE_KEY_2: process.env.COOKIE_KEY_2
-// }
 
 passport.use(spotifyAuthStrategy);
 
 passport.serializeUser( async (user, done) => {
     done(null, user)
-})
+});
 
 passport.deserializeUser((user, done) => {
     done(null, user)
-})
+});
 
 const authRouter = express.Router();
 
-// const session = cookieSession({
-//     name: 'session',
-//     maxAge: 24 * 60 * 60 * 1000,
-//     keys: [config.COOKIE_KEY_1, config.COOKIE_KEY_2],
-//     httpOnly: false
-// })
-
-// authRouter.use(session);
-
 authRouter.use(passport.initialize());
-authRouter.use(passport.session());
 
 authRouter.use('/spotify', spotifyAuthRouter);
 
 authRouter.get('/get-session', (req, res) => {
     return res.status(200).json({
-        user: req.user, 
-        client: req.session.client_token
+        user: req.user?.profile, 
+        client: req.session?.client_token
     })
 })
 

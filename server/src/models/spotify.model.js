@@ -43,20 +43,11 @@ async function httpsSearch(req, res) {
 };
 
 async function httpsSavePlaylist(req, res) {
-  const { user: {id} } = req;
-  const { playlistName, trackURIs } = JSON.parse(req.body);
-  const accessToken = '' ///////////// to do ///////////////////
-
-  console.log(`[httpsSavePlaylist] id: ${id}, playlistName: ${playlistName}, trackURIs ${trackURIs}`)
+  const { profile: {id}, accessToken } = req.user;
+  const { playlistName, trackURIs } = req.body;
 
   try {
-    const userId = id;
-    const headers =  { Authorization : `Bearer ${accessToken}` }
-
-    const data = JSON.stringify({
-        name : playlistName,
-    })
-    const playlistResponse = await fetch(`${SPOTIFY_API}users/${userId}/playlists`, {
+    const playlistResponse = await fetch(`${SPOTIFY_API}users/${id}/playlists`, {
       method: 'POST',
       headers: {
         Authorization : `Bearer ${accessToken}`,
@@ -64,9 +55,10 @@ async function httpsSavePlaylist(req, res) {
       },
       body: JSON.stringify({ name : playlistName })
     });
-    const playlistID = playlistResponse.data.id
+    const response = await playlistResponse.json();
+    const playlistID = await response.id;
 
-    await fetch(`${SPOTIFY_API}users/${userId}/playlists/${playlistID}/tracks`, {
+    await fetch(`${SPOTIFY_API}users/${id}/playlists/${playlistID}/tracks`, {
       method: 'POST',
       headers: {
         Authorization : `Bearer ${accessToken}`,
@@ -75,25 +67,68 @@ async function httpsSavePlaylist(req, res) {
       body: JSON.stringify({ uris : trackURIs })
     })    
     
-    return {
-        statusCode: 200,
-        body: JSON.stringify({
-            message: 'Playlist has been saved to your Spotify account',
-            playlistName: 'Name Your New Playlist',
-            playlistTracks: [],
-            searchResults: []
-        })
-    }
-} catch(error) {
-    console.log(error.response.data )
-    return {
-        statusCode: 400,
-        body: JSON.stringify({error})
-    }
-}
+    return res.status(200).json({
+      message: 'Playlist has been saved to your Spotify account',
+      playlistName: 'Name Your New Playlist',
+      playlistTracks: [],
+      searchResults: []
+   });
+  } catch(error) {
+      console.log(error)
+      return {
+          statusCode: 400,
+          body: JSON.stringify({error})
+      }
+  }
 };
+
+async function httpsGetLikeStatus(req, res) {
+  try {
+    const { trackId } = req.body;
+    const { accessToken } = req.user;
+
+    const headers = { Authorization : `Bearer ${accessToken}` }
+    const response = await fetch(`https://api.spotify.com/v1/me/tracks/contains?ids=${trackId}`,{headers : headers})
+    const j = await response.json()
+    console.log(`[response.json()] ${j}`)
+    const status =  j[0]
+    // const status = (await response.json())[0]
+    
+    return res.status(200).json({status});
+  } catch(error) {
+      console.log({ error })
+      return res.status(400).json({error});
+  }
+};
+
+async function httpsToggleLike(req, res) {
+  const { trackId, isLike } = req.body;
+  const { accessToken } = req.user;
+  const headers = { 
+      'Content-Type' : 'application/json',
+      'Authorization' : `Bearer ${accessToken}`,
+  }
+  const method = isLike ? 'DELETE' : 'PUT'
+  const message = isLike ? 'Removed from Liked Songs' : 'Added to Liked Songs'
+  try {
+      await fetch(`https://api.spotify.com/v1/me/tracks?ids=${trackId}`,
+      {
+          headers : headers,
+          method : method
+      })
+      return res.status(200).json({
+        message,
+        isLike : !isLike
+    });
+  } catch(error) {
+      console.log(error)
+      return res.status(400).json({error});
+  }
+}
 
 module.exports = {
     httpsSearch,
-    httpsSavePlaylist
+    httpsSavePlaylist,
+    httpsGetLikeStatus,
+    httpsToggleLike
 };

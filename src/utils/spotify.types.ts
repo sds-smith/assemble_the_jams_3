@@ -10,7 +10,7 @@ type GetUserProfile = (authSession: string) => Promise<{display_name: string, im
 type Search = (clientToken: string, query: string) => Promise<{searchResultsArray: TrackType[], recommendationsArray: TrackType[]} | undefined>
 type TransferPlayback = (id: string, access_token: string) => Promise<void>
 type PlayTrack = (id: string, uri: string, currentPlayer: Spotify.Player) => void
-type StopPlayback = (id: string, access_token: string) => Promise<void>
+type StopPlayback = (id: string) => Promise<void>
 type GetLikeStatus = (authSession: string, trackId: string) => Promise<boolean>
 type SaveResponse = { 
   message: string;
@@ -36,16 +36,7 @@ export type SecondParamType = {
 export type Play = ( id: string, secondParam: SecondParamType) => void
 
 export type SpotifyType = {
-  getClientToken: GetClientToken;
-  auth: Auth;
-  refreshUserToken: RefreshUserToken;
-  returnUserAccessToken: ReturnUserAccessToken;
-  getUserProfile: GetUserProfile;
-  search: Search;
   transferPlayback: TransferPlayback;
   playTrack: PlayTrack;
   stopPlayback: StopPlayback;
-  getLikeStatus: GetLikeStatus;
-  savePlaylist: SavePlaylist;
-  toggleLike: ToggleLike;
 }

@@ -4,7 +4,8 @@ import { AuthContext } from "../../contexts/auth.context";
 import { TrackContext } from "../../contexts/track.context";
 import { PlayerContext } from "../../contexts/player.context";
 
-import { Spotify } from "../spotify"
+import { Spotify } from "../spotify";
+import { httpGetLikeStatus, httpToggleLike } from "../http.requests";
 import { TrackType } from "../../store/track/track.types"
 import { nowPlayingInitialState } from "../../store/player/player.types";
 
@@ -12,11 +13,6 @@ export const useTrackControls = (track: TrackType) => {
   const { currentUserExists } = useContext(AuthContext);
   const { playlistTracks, searchResults, setPlaylistTracks, setSearchResults } = useContext(TrackContext);
   const { nowPlaying, deviceId, currentPlayer, setNowPlaying } = useContext(PlayerContext);
-
-  // To Do: deal with this later //
-  const authSession = '';
-  const accessToken = '';
-  //////// these are not in the frontend ///////////
 
   const addTrack = async () => {
     let tracks = playlistTracks
@@ -53,7 +49,7 @@ export const useTrackControls = (track: TrackType) => {
       if (track.id) {
         if (!nowPlaying.hasTrack) {
           const hasTrack = true
-          const isLike = await Spotify.getLikeStatus(authSession, track.id)
+          const isLike = await httpGetLikeStatus(track.id);
           const uri = `spotify:track:${track.id}`
           console.log('setting nowPlaying')
           console.log({hasTrack, track, isLike})
@@ -83,7 +79,7 @@ export const useTrackControls = (track: TrackType) => {
     if (!nowPlaying.track.id) {
         return 'Could not find track id'
     }
-    const {message, isLike} = await Spotify.toggleLike(authSession, nowPlaying)
+    const {message, isLike} = await httpToggleLike(nowPlaying)
     setNowPlaying({...nowPlaying, isLike})
     return `${message} - ${track.name}`
 }
@@ -92,10 +88,16 @@ export const useTrackControls = (track: TrackType) => {
     if (currentPlayer) {
         console.log('currentPlayer.pause(), Spotify.stopPlayback')
         await currentPlayer.pause()
-        await Spotify.stopPlayback(deviceId, accessToken)
+        await Spotify.stopPlayback(deviceId)
     }
     setNowPlaying(nowPlayingInitialState)
 }
 
-    return { play, stopPlayback, addTrack, removeTrack, toggleLike }
+    return { 
+      play, 
+      stopPlayback, 
+      addTrack, 
+      removeTrack, 
+      toggleLike 
+    }
 }
