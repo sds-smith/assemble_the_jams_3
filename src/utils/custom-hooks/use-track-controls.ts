@@ -33,10 +33,10 @@ export const useTrackControls = (track: TrackType) => {
   }
 
   const playPreview = async () => {
-    if (!track.preview) {
+    if (!track?.preview) {
       return 'Please sign in with Spotify to preview this track';
     }
-    if (!nowPlaying.hasTrack) {
+    if (!nowPlaying?.hasTrack) {
       const hasTrack = true
       const isLike = false
       setNowPlaying({hasTrack, track, isLike})

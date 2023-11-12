@@ -1,26 +1,28 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { PlayerContext } from "../../contexts/player.context";
 
-const nowPlaying = {hasTrack: false, track: {preview:''}};
 let audioPreview
 
 export const useAudio = () => {
+    const {nowPlaying, setActive} = useContext(PlayerContext);
+
     const [activeElement, setActiveElement] = useState({
         audio: false,
         spotify: false
     });
 
     useEffect(() => {
-        if (nowPlaying.hasTrack && audioPreview) {
+        if (nowPlaying?.hasTrack && audioPreview) {
             audioPreview.src = nowPlaying.track.preview 
             audioPreview.load()
-            // dispatch(setActive(true))
+            setActive(true)
             audioPreview.play()
-            // audioPreview.onended = () => {
-            //     active && dispatch(setActive(false))
-            // }
+            audioPreview.onended = () => {
+                setActive(false)
+            }
         } else {
             if (audioPreview) audioPreview.src = ''
-            // active && dispatch(setActive(false))
+            setActive(false)
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [nowPlaying])
