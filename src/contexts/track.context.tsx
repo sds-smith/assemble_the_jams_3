@@ -1,6 +1,6 @@
 import { createContext, useState, FC } from "react";
-import { ProviderProps, TrackContextProps } from "../utils/context.utils";
-import { INITIAL_STATE } from "../store/track/track.types";
+import { ProviderProps, TrackContextProps } from "../utils/types/context.utils";
+import { INITIAL_STATE } from "../utils/types/track.types";
 
 export const TrackContext = createContext<TrackContextProps>({
     ...INITIAL_STATE,

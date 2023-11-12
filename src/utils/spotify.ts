@@ -1,4 +1,4 @@
-import { SpotifyType, SecondParamType, Play } from './spotify.types';
+import { SpotifyType, SecondParamType, Play } from './types/spotify.types';
 
 export const Spotify: SpotifyType = {
 

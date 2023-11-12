@@ -6,8 +6,8 @@ import { PlayerContext } from "../../contexts/player.context";
 
 import { Spotify } from "../spotify";
 import { httpGetLikeStatus, httpToggleLike } from "../http.requests";
-import { TrackType } from "../../store/track/track.types"
-import { nowPlayingInitialState } from "../../store/player/player.types";
+import { TrackType } from "../types/track.types"
+import { nowPlayingInitialState } from "../types/player.types";
 
 export const useTrackControls = (track: TrackType) => {
   const { currentUserExists } = useContext(AuthContext);

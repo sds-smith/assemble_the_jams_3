@@ -7,7 +7,7 @@ import ActionMessage from '../action-message/action-message.component'
 import SpotifyLogoWhite from '../../../assets/icons/Spotify_Logo_RGB_White.png';
 import { PlayerContext } from '../../../contexts/player.context';
 import { TRACK_ACTION_BUTTON_CLASSES } from '../track-action-button/track-action-button.component'
-import { TrackType } from '../../../store/track/track.types'
+import { TrackType } from '../../../utils/types/track.types'
 
 import { TrackContainer, CoverContainer, TrackInformation, TrackActionContainer, TrackCover, SpotifyLogo } from './track.styles'
 

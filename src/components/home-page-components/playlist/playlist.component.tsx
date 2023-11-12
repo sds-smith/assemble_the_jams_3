@@ -10,7 +10,7 @@ import { ResponsiveContext } from "../../../contexts/responsive.context";
 import { AuthContext } from "../../../contexts/auth.context"
 import { TrackContext } from "../../../contexts/track.context";
 import { httpSavePlaylist } from "../../../utils/http.requests";
-import { TrackType } from "../../../store/track/track.types"
+import { TrackType } from "../../../utils/types/track.types"
 import { PlaylistContainer, TitleContainer,  SaveToSpotifyButton } from './playlist.styles'
 
 const Playlist = () => {

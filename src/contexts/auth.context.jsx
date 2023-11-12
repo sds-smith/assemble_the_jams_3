@@ -21,7 +21,6 @@ export const AuthProvider = ({children}) => {
       useEffect(() => {
         (async () => {
           const { user } = await httpGetSession();
-          console.log({user})
           if (Boolean(user)) setAuthenticatedUser(user)
         })();
       },[]);

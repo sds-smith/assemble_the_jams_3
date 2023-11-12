@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { TrackType, TrackState } from "../store/track/track.types";
+import { TrackType, TrackState } from "./track.types";
 
 export type ActiveTabType = {
     'playlist' : boolean;

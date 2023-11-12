@@ -1,5 +1,5 @@
 
-import { TrackType } from "../track/track.types";
+import { TrackType } from "./track.types";
 
 export enum PLAYER_ACTION_TYPES {
     SET_SPOTIFY_PLAYER_LOADING = 'SET_SPOTIFY_PLAYER_LOADING',

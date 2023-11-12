@@ -1,5 +1,5 @@
 import { createContext, useState, FC } from "react";
-import { ResponsiveContextProps, ProviderProps } from "../utils/context.utils";
+import { ResponsiveContextProps, ProviderProps } from "../utils/types/context.utils";
 import { useMediaQuery } from "../utils/custom-hooks/use-media-query";
 
 const desktopActiveTab = {

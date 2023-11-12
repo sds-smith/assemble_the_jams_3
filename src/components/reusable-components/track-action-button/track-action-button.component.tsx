@@ -13,7 +13,7 @@ import ClearBtn from '../../../assets/icons/clear_white24.png'
 import Like from '../../../assets/icons/like24.png'
 import Unlike from '../../../assets/icons/unlike24.png'
 
-import { TrackType } from '../../../store/track/track.types'
+import { TrackType } from '../../../utils/types/track.types'
 
 type TrackActionButtonProps = {
     buttonType: TRACK_ACTION_BUTTON_CLASSES.PLAY | 
