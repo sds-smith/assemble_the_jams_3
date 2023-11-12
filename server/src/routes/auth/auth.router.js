@@ -21,8 +21,17 @@ authRouter.use(passport.initialize());
 authRouter.use('/spotify', spotifyAuthRouter);
 
 authRouter.get('/get-session', (req, res) => {
+    const {
+        display_name,
+        photos,
+        id
+    } = req.user?.profile;
     return res.status(200).json({
-        user: req.user?.profile, 
+        user: {
+            display_name,
+            image_url: photos[1].value,
+            id
+        }, 
         client: req.session?.client_token
     })
 })
