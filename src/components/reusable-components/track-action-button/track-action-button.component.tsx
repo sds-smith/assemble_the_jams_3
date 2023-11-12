@@ -1,19 +1,19 @@
 import { useState, useContext, FC, ButtonHTMLAttributes, ImgHTMLAttributes, Dispatch, SetStateAction } from "react"
 import { ResponsiveContext } from "../../../contexts/responsive.context";
 import { PlayerContext } from "../../../contexts/player.context";
-import { useTrackControls } from "../../../utils/custom-hooks/use-track-controls"
-import { TrackAction } from "./track-action-button.styles"
+import { useTrackControls } from "../../../utils/custom-hooks/use-track-controls";
+import { TrackAction } from "./track-action-button.styles";
 
-import PlayBtn from '../../../assets/icons/play_white24.png'
-import StopBtnWhite from '../../../assets/icons/stop_white24.png'
-import StopBtnBlack from '../../../assets/icons/stop_black24.png'
-import AddBtnWhite from '../../../assets/icons/add_white24.png'
-import AddBtnBlack from '../../../assets/icons/add_black24.png'
-import ClearBtn from '../../../assets/icons/clear_white24.png'
-import Like from '../../../assets/icons/like24.png'
-import Unlike from '../../../assets/icons/unlike24.png'
+import PlayBtn from '../../../assets/icons/play_white24.png';
+import StopBtnWhite from '../../../assets/icons/stop_white24.png';
+import StopBtnBlack from '../../../assets/icons/stop_black24.png';
+import AddBtnWhite from '../../../assets/icons/add_white24.png';
+import AddBtnBlack from '../../../assets/icons/add_black24.png';
+import ClearBtn from '../../../assets/icons/clear_white24.png';
+import Like from '../../../assets/icons/like24.png';
+import Unlike from '../../../assets/icons/unlike24.png';
 
-import { TrackType } from '../../../utils/types/track.types'
+import { TrackType } from '../../../utils/types/track.types';
 
 type TrackActionButtonProps = {
     buttonType: TRACK_ACTION_BUTTON_CLASSES.PLAY | 
@@ -27,7 +27,7 @@ type TrackActionButtonProps = {
     track: TrackType;
     setMessage?: Dispatch<SetStateAction<string>>;
 } & ButtonHTMLAttributes<HTMLButtonElement> 
-  & ImgHTMLAttributes<HTMLImageElement>
+  & ImgHTMLAttributes<HTMLImageElement>;
 
 export enum TRACK_ACTION_BUTTON_CLASSES {
     PLAY = 'PLAY',
@@ -38,34 +38,34 @@ export enum TRACK_ACTION_BUTTON_CLASSES {
     REMOVE = 'REMOVE',
     LIKE = 'LIKE',
     UNLIKE = 'UNLIKE'
-}
+};
 
 const TrackActionButton: FC<TrackActionButtonProps> = ({buttonType, track, setMessage}) => {
-    const [clicked, setClicked] = useState<boolean>(false)
+    const [clicked, setClicked] = useState<boolean>(false);
     const { isMobile } = useContext(ResponsiveContext);
     const {spotifyPlayerLoading, currentPlayer} =  useContext(PlayerContext);
-    const { addTrack, removeTrack, toggleLike, play, stopPlayback } = useTrackControls(track)
+    const { addTrack, removeTrack, toggleLike, play, stopPlayback } = useTrackControls(track);
 
     const playTrack = async () => {
-        currentPlayer && await currentPlayer.activateElement()
-        const playMessage = await play()
-        setMessage!(playMessage)
+        currentPlayer && await currentPlayer.activateElement();
+        const playMessage = await play();
+        setMessage!(playMessage);
         window.setTimeout(() => {
-          setMessage!('')
-        }, 3000)
-    }
+          setMessage!('');
+        }, 3000);
+    };
 
     const LikeAction = async () => {
-        const message = await toggleLike()
-        setMessage!(message)
+        const message = await toggleLike();
+        setMessage!(message);
         setTimeout(() => setMessage!(''), 3000);
-    }
+    };
 
     const add = async () => {
-        const message = await addTrack()
-        setMessage!(message)
+        const message = await addTrack();
+        setMessage!(message);
         window.setTimeout(() => setMessage!(''), 3000);
-    }
+    };
 
     const TRACK_ACTION_BUTTON = {
         PLAY : { 
@@ -108,15 +108,15 @@ const TrackActionButton: FC<TrackActionButtonProps> = ({buttonType, track, setMe
             src : Unlike, 
             alt : 'button to remove song from liked songs'  
         },
-    }
+    };
     
     const click = () => {
-        setClicked(true)
+        setClicked(true);
         setTimeout(() => {
-            setClicked(false)
-        }, 600)
-        TRACK_ACTION_BUTTON[buttonType].onClick()
-    }
+            setClicked(false);
+        }, 600);
+        TRACK_ACTION_BUTTON[buttonType].onClick();
+    };
 
     return (
         <TrackAction 
@@ -127,9 +127,7 @@ const TrackActionButton: FC<TrackActionButtonProps> = ({buttonType, track, setMe
         >
             <img src={TRACK_ACTION_BUTTON[buttonType].src} alt={TRACK_ACTION_BUTTON[buttonType].alt}/>
         </TrackAction>
-    )
-}
+    );
+};
 
-
-
-export default TrackActionButton
+export default TrackActionButton;

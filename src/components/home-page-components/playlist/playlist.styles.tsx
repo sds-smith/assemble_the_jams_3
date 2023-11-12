@@ -1,13 +1,13 @@
 import styled from "styled-components";
 import Button from "../../reusable-components/button/button.component";
-import { headerHeight } from '../../../routes/navigation/navigation.styles'
-import { footerHeight } from '../footer/footer.styles'
+import { headerHeight } from '../../../routes/navigation/navigation.styles';
+import { footerHeight } from '../footer/footer.styles';
 
 type PlaylistProps = {
   isMobile: boolean;
-}
+};
 
-const mobileHeight = `calc(0.9 * (100vh - ${headerHeight} - ${footerHeight}))`
+const mobileHeight = `calc(0.9 * (100vh - ${headerHeight} - ${footerHeight}))`;
 
 export const PlaylistContainer = styled.div<PlaylistProps>`
   position: relative;
@@ -25,7 +25,7 @@ export const PlaylistContainer = styled.div<PlaylistProps>`
     width: 0px;
     background: transparent;
   }
-`
+`;
 
 export const TitleContainer = styled.div<PlaylistProps>`
     display: flex;
@@ -52,8 +52,8 @@ export const TitleContainer = styled.div<PlaylistProps>`
         margin-top: 20px;
         margin-right: 0px;
       }
-`
+`;
 
 export const SaveToSpotifyButton = styled(Button)`
       margin: .5rem 0rem .5rem 1rem;
-`
+`;

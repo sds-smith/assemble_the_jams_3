@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import { PlayerContext } from "../../contexts/player.context";
 
-let audioPreview
+let audioPreview;
 
 export const useAudio = () => {
     const {nowPlaying, setNowPlaying, setActive} = useContext(PlayerContext);
@@ -13,20 +13,20 @@ export const useAudio = () => {
 
     useEffect(() => {
         if (nowPlaying?.hasTrack && audioPreview) {
-            audioPreview.src = nowPlaying.track.preview 
-            audioPreview.load()
-            setActive(true)
-            audioPreview.play()
+            audioPreview.src = nowPlaying.track.preview;
+            audioPreview.load();
+            setActive(true);
+            audioPreview.play();
             audioPreview.onended = () => {
                 setActive(false);
                 setNowPlaying(null);
-            }
+            };
         } else {
-            if (audioPreview) audioPreview.src = ''
-            setActive(false)
-        }
+            if (audioPreview) audioPreview.src = '';
+            setActive(false);
+        };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [nowPlaying])
+    }, [nowPlaying]);
 
     const audioPlayer = () => {
         audioPreview = new Audio();
@@ -34,8 +34,8 @@ export const useAudio = () => {
         setActiveElement({
             ...activeElement,
             audio: true
-        })
-    }
+        });
+    };
 
-    return { audioPlayer }
-}
+    return { audioPlayer };
+};

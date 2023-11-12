@@ -9,8 +9,6 @@ export const PlayerProvider = ({children}) => {
     const [active, setActive] = useState(false);
     const [spotifyPlayerLoading, setSpotifyPlayerLoading] = useState(false);
 
-
-
     const value = {
         deviceId, setDeviceId,
         currentPlayer, setCurrentPlayer,
@@ -19,5 +17,5 @@ export const PlayerProvider = ({children}) => {
         spotifyPlayerLoading, setSpotifyPlayerLoading
     };
 
-    return <PlayerContext.Provider value={value}>{children}</PlayerContext.Provider>
-}
+    return <PlayerContext.Provider value={value}>{children}</PlayerContext.Provider>;
+};

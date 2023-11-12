@@ -5,32 +5,32 @@ import { useMediaQuery } from "../utils/custom-hooks/use-media-query";
 const desktopActiveTab = {
     'playlist' : true,
     'search_results' : true
-}
+};
 
 const mobilePlaylistActiveTab = {
     'playlist' : true,
     'search_results' : false
-}
+};
 
 const mobileSearchResultsActiveTab = {
     'playlist' : false,
     'search_results' : true
-}
+};
 
 const desktopActiveView = {
     'input' : true,
     'results' : true
-}
+};
 
 const mobileHomeView = {
     'input' : true,
     'results' : false
-}
+};
 
 const mobileResultsView = {
     'input' : false,
     'results' : true
-}
+};
 
 export const ResponsiveContext = createContext<ResponsiveContextProps>({
     isMobile: false,
@@ -40,33 +40,33 @@ export const ResponsiveContext = createContext<ResponsiveContextProps>({
     setMobileHome: () => {},
     setMobilePlaylist: () => {},
     setMobileSearchResults: () => {}
-})
+});
 
 export const ResponsiveProvider: FC<ProviderProps> = ({children}) => {
-    const [activeTab, setActiveTab] = useState(desktopActiveTab)
-    const [activeView, setActiveView] = useState(desktopActiveView)
+    const [activeTab, setActiveTab] = useState(desktopActiveTab);
+    const [activeView, setActiveView] = useState(desktopActiveView);
 
-    const isMobile = useMediaQuery('(max-width: 1020px)')
+    const isMobile = useMediaQuery('(max-width: 1020px)');
 
     const setDesktop = () => {
-        setActiveTab(desktopActiveTab)
-        setActiveView(desktopActiveView)
-    }
+        setActiveTab(desktopActiveTab);
+        setActiveView(desktopActiveView);
+    };
 
     const setMobileHome = () => {
-        setActiveTab(mobilePlaylistActiveTab)
-        setActiveView(mobileHomeView)
-    }
+        setActiveTab(mobilePlaylistActiveTab);
+        setActiveView(mobileHomeView);
+    };
 
     const setMobilePlaylist = () => {
-        setActiveTab(mobilePlaylistActiveTab)
-        setActiveView(mobileResultsView)
-    }
+        setActiveTab(mobilePlaylistActiveTab);
+        setActiveView(mobileResultsView);
+    };
 
     const setMobileSearchResults = () => {
-        setActiveTab(mobileSearchResultsActiveTab)
-        setActiveView(mobileResultsView)
-    }
+        setActiveTab(mobileSearchResultsActiveTab);
+        setActiveView(mobileResultsView);
+    };
 
     const value = { 
         isMobile,
@@ -76,7 +76,7 @@ export const ResponsiveProvider: FC<ProviderProps> = ({children}) => {
         setMobileHome,
         setMobilePlaylist,
         setMobileSearchResults
-    }
+    };
 
-    return <ResponsiveContext.Provider value={value} >{children}</ResponsiveContext.Provider>
-}
+    return <ResponsiveContext.Provider value={value} >{children}</ResponsiveContext.Provider>;
+};

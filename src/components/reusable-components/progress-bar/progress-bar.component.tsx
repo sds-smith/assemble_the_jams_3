@@ -5,13 +5,13 @@ import { ProgressContainer } from "./progress-bar.styles";
 type ProgressBarProps = {
     lightBackground?: boolean;
     darkBackground?: boolean;
-}
+};
 
 const ProgressBar: FC<ProgressBarProps> = ({lightBackground, darkBackground}) => {
     const {active} = useContext(PlayerContext);
 
-    const transition = active ? 'transform 30s linear' : 'transform 0s linear'
-    const transform = active ? 'scaleX(1)' : 'scaleX(0)'
+    const transition = active ? 'transform 30s linear' : 'transform 0s linear';
+    const transform = active ? 'scaleX(1)' : 'scaleX(0)';
 
     return (
         <ProgressContainer 
@@ -21,7 +21,7 @@ const ProgressBar: FC<ProgressBarProps> = ({lightBackground, darkBackground}) =>
             lightBackground={lightBackground} 
             darkBackground={darkBackground} 
         />
-    )
-}
+    );
+};
 
-export default ProgressBar
+export default ProgressBar;

@@ -6,10 +6,10 @@ type ProgressContainerProps = {
     transform: string;
     lightBackground?: boolean;
     darkBackground?: boolean;
-}
+};
 
-const lightBackground = 'rgba(255, 255, 255, .2)'
-const darkBackground = 'rgba(0, 0, 0, .1)'
+const lightBackground = 'rgba(255, 255, 255, .2)';
+const darkBackground = 'rgba(0, 0, 0, .1)';
 
 export const ProgressContainer = styled.div<ProgressContainerProps>`
     position: absolute;
@@ -21,4 +21,4 @@ export const ProgressContainer = styled.div<ProgressContainerProps>`
     transform: ${props => props.transform};
     transition: ${props => props.transition};
     transform-origin: left;
-`
+`;

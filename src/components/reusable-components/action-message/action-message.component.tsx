@@ -10,10 +10,9 @@ type ActionMessageProps = {
     left?: string
     width?: string;
     children: string;
-}
+};
 
 const ActionMessage: FC<ActionMessageProps> = ({ position, bottom, right, top, left, width, children }) => {
-
     return (
         <ActionMessageContainer 
             position={position || 'unset'}
@@ -26,7 +25,7 @@ const ActionMessage: FC<ActionMessageProps> = ({ position, bottom, right, top, l
         >
             {children}
         </ActionMessageContainer>
-    )
-}
+    );
+};
 
-export default ActionMessage
+export default ActionMessage;

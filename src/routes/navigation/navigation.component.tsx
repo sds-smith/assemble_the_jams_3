@@ -1,26 +1,26 @@
-import { useContext } from "react"
+import { useContext } from "react";
 
-import SpotifyLogoWhite from '../../assets/icons/Spotify_Logo_RGB_White.png'
-import JamsLogo from "../../components/reusable-components/jams-logo/jams-logo.component"
+import SpotifyLogoWhite from '../../assets/icons/Spotify_Logo_RGB_White.png';
+import JamsLogo from "../../components/reusable-components/jams-logo/jams-logo.component";
 
-import { ResponsiveContext } from "../../contexts/responsive.context"
-import { AuthContext } from "../../contexts/auth.context"
-import { httpSignOutUser } from "../../utils/http.requests/auth"
+import { ResponsiveContext } from "../../contexts/responsive.context";
+import { AuthContext } from "../../contexts/auth.context";
+import { httpSignOutUser } from "../../utils/http.requests/auth";
 
-import { NavigationContainer, Header, SpotifyAttributor, SpotifyLogo, SignInButtonContainer, SignInButton } from "./navigation.styles"
+import { NavigationContainer, Header, SpotifyAttributor, SpotifyLogo, SignInButtonContainer, SignInButton } from "./navigation.styles";
 
 const Navigation = () => {
-    const { isMobile } = useContext(ResponsiveContext) 
+    const { isMobile } = useContext(ResponsiveContext);
     const { currentUserExists } = useContext(AuthContext);
 
-    const buttonText = currentUserExists ? 'SIGN OUT' : 'SIGN IN'
-    const buttonHref = currentUserExists ? '' : '/auth/spotify/authenticate-user'
+    const buttonText = currentUserExists ? 'SIGN OUT' : 'SIGN IN';
+    const buttonHref = currentUserExists ? '' : '/auth/spotify/authenticate-user';
 
     const userAction = () => {
       if (currentUserExists) {
-        httpSignOutUser()
-      } 
-    }
+        httpSignOutUser();
+      };
+    };
 
     return (
         <NavigationContainer isMobile={isMobile}>
@@ -41,7 +41,7 @@ const Navigation = () => {
                 </SignInButtonContainer>
             </Header>  
         </NavigationContainer>
-    )
-}
+    );
+};
 
-export default Navigation
+export default Navigation;

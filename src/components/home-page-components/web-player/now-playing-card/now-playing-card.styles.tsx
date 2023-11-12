@@ -2,13 +2,13 @@ import styled from "styled-components";
 
 type NowPlayingContainerProps = {
     isMobile: Boolean;
-}
+};
 
 type ProgressContainerProps = {
     backgroundColor: string;
     transform: string;
     transition: string;
-}
+};
 
 export const NowPlayingContainer = styled.div<NowPlayingContainerProps>`
     position: relative;
@@ -21,7 +21,7 @@ export const NowPlayingContainer = styled.div<NowPlayingContainerProps>`
     background-color: rgba(255, 255, 255, .6);
     padding: 20px;
     box-shadow: 2px;
-`
+`;
 
 export const SpotifyAttributor = styled.a`
     position: absolute;
@@ -41,19 +41,19 @@ export const SpotifyAttributor = styled.a`
             opacity: 0.5;
         }
     }
-`
+`;
 
 export const SpotifyLogo = styled.img`
     width: 21px;
     height: auto;
-`
+`;
 
 export const NowPlayingCover = styled.img`
     height: 150px;
     width: auto;
     margin-bottom: 1rem;
     z-index: 10;
-`
+`;
 
 export const NowPlayingLabel = styled.div`
     display: flex;
@@ -61,13 +61,13 @@ export const NowPlayingLabel = styled.div`
     align-items: center;
     color: black;
     z-index: 10;
-`
+`;
 
 export const TrackControls = styled.div`
     background-color: rgba(255, 255, 255, 0);
     display: flex;
     z-index: 10;
-`
+`;
 
 export const ProgressContainer = styled.div<ProgressContainerProps>`
     position: absolute;
@@ -79,7 +79,7 @@ export const ProgressContainer = styled.div<ProgressContainerProps>`
     transform: ${props => props.transform};
     transform-origin: left;
     transition: ${props => props.transition};
-`
+`;
 
 export const LikesMessage = styled.p`
     position: absolute;
@@ -96,4 +96,4 @@ export const LikesMessage = styled.p`
     &:empty {
       background-color: unset;
     }
-`
+`;

@@ -7,7 +7,7 @@ const JamsLogo = () => {
             <span>the</span>
             Jams
         </LogoContainer>
-    )
-}
+    );
+};
 
-export default JamsLogo
+export default JamsLogo;

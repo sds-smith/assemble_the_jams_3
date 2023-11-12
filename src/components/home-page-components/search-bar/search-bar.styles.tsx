@@ -8,7 +8,7 @@ export const SearchBarContainer = styled.div`
     align-items: center;
     padding-top: 1rem;
     z-index: 10;
-`
+`;
 
 export const SearchBarInput = styled.input`
     width: 287px;
@@ -23,7 +23,7 @@ export const SearchBarInput = styled.input`
     &:focus {
         outline: none;
       }
-`
+`;
 
 export const TermSelector = styled.div`
     position: absolute;
@@ -34,4 +34,4 @@ export const TermSelector = styled.div`
     margin-top: -1rem;
     margin-bottom: 1rem;
     background-color: rgb(255, 255, 255);
-`
+`;

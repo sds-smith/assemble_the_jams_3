@@ -3,7 +3,7 @@ import styled from "styled-components";
 export type CustomButtonProps = {
   isMobile: boolean;
   clicked: boolean;
-}
+};
 
 export const CustomButton = styled.button<CustomButtonProps>`
     position: relative;
@@ -29,4 +29,4 @@ export const CustomButton = styled.button<CustomButtonProps>`
           background-color: rgba(0, 128, 0, .6);
         }
     }
-`
+`;

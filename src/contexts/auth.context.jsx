@@ -14,14 +14,14 @@ export const AuthProvider = ({children}) => {
           if (!hasClientToken) {
             const { hasClientToken } = await httpGetClientToken();
             setHasClientToken(hasClientToken);
-          }
+          };
         })();
-      }, [])
+      }, []);
     
       useEffect(() => {
         (async () => {
           const { user } = await httpGetSession();
-          if (Boolean(user)) setAuthenticatedUser(user)
+          if (Boolean(user)) setAuthenticatedUser(user);
         })();
       },[]);
 
@@ -29,7 +29,7 @@ export const AuthProvider = ({children}) => {
         hasClientToken, setHasClientToken,
         authenticatedUser, setAuthenticatedUser,
         currentUserExists
-    }
+    };
 
-    return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
-}
+    return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+};

@@ -16,7 +16,6 @@ export const TrackProvider: FC<ProviderProps> = ({children}) => {
     const [playlistName, setPlaylistName] = useState(INITIAL_STATE.playlistName);
     const [searchLoading, setSearchLoading] = useState(INITIAL_STATE.searchLoading);
 
-
     const value = {
         searchResults, setSearchResults,
         playlistTracks, setPlaylistTracks,
@@ -24,5 +23,5 @@ export const TrackProvider: FC<ProviderProps> = ({children}) => {
         searchLoading, setSearchLoading
     };
 
-    return <TrackContext.Provider value={value}>{children}</TrackContext.Provider>
-}
+    return <TrackContext.Provider value={value}>{children}</TrackContext.Provider>;
+};

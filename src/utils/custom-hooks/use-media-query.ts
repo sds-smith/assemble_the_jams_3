@@ -16,5 +16,4 @@ export const useMediaQuery = (query: string): boolean => {
   }, [matches, query]);
 
   return matches;
-}
-
+};

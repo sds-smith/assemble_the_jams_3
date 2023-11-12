@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import { ButtonHTMLAttributes } from 'react'
+import { ButtonHTMLAttributes } from 'react';
 
 type TabProps = {
     isActiveLink: boolean;
-} & ButtonHTMLAttributes<HTMLButtonElement>
+} & ButtonHTMLAttributes<HTMLButtonElement>;
 
-export const footerHeight = '10vh'
+export const footerHeight = '10vh';
 
 export const FooterContainer = styled.div`
     position: fixed;
@@ -19,7 +19,7 @@ export const FooterContainer = styled.div`
     height: ${footerHeight};
     border-top: .5px solid white;
     z-index: 20;
-`
+`;
 
 export const Tab = styled.button<TabProps>`
     border: none;
@@ -37,4 +37,4 @@ export const Tab = styled.button<TabProps>`
         ) : (
          'border-bottom: 2px solid black'
         )};
-`
+`;

@@ -20,7 +20,7 @@ useEffect(() => {
   } else {
     audioPlayer();
   };
-}, [currentUserExists])
+}, [currentUserExists]);
 
   return (
     <ResponsiveProvider>

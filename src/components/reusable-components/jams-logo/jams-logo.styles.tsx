@@ -8,4 +8,4 @@ export const LogoContainer = styled.span`
     span {
         color: green;
     }
-`
+`;

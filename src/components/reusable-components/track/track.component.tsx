@@ -24,32 +24,32 @@ const Track: FC<TrackProps> = ({ track, trackType }) => {
   const trackCover = track.cover ? track.cover : ''
 
   return (
-      <TrackContainer >
-          <CoverContainer>
-            <TrackCover src={trackCover} alt='album cover'/>
-            <SpotifyLogo src={SpotifyLogoWhite} id='spotify-logo' alt='Spotify Logo'/>
-          </CoverContainer>
-          <TrackInformation >
-            <h3 >{track.name}</h3>
-            <p >{track.artist} | {track.album}</p>
-          </TrackInformation>
-          <TrackActionContainer>
-            <ActionMessage position='absolute' right='20px' >{message}</ActionMessage>
-            <TrackActionButton 
-              buttonType={isActiveTrack ? TRACK_ACTION_BUTTON_CLASSES.STOP_WHITE : TRACK_ACTION_BUTTON_CLASSES.PLAY} 
-              track={track}
-              setMessage={setMessage}
-            />
-            <TrackActionButton 
-              buttonType={trackType === 'playlist' ? TRACK_ACTION_BUTTON_CLASSES.REMOVE : TRACK_ACTION_BUTTON_CLASSES.ADD_WHITE} 
-              track={track}
-            />
-          </TrackActionContainer>
-          { isActiveTrack &&
-            <ProgressBar lightBackground />
-          }
-      </TrackContainer>    
-  )
-}
+    <TrackContainer >
+      <CoverContainer>
+        <TrackCover src={trackCover} alt='album cover'/>
+        <SpotifyLogo src={SpotifyLogoWhite} id='spotify-logo' alt='Spotify Logo'/>
+      </CoverContainer>
+      <TrackInformation >
+        <h3 >{track.name}</h3>
+        <p >{track.artist} | {track.album}</p>
+      </TrackInformation>
+      <TrackActionContainer>
+        <ActionMessage position='absolute' right='20px' >{message}</ActionMessage>
+        <TrackActionButton 
+          buttonType={isActiveTrack ? TRACK_ACTION_BUTTON_CLASSES.STOP_WHITE : TRACK_ACTION_BUTTON_CLASSES.PLAY} 
+          track={track}
+          setMessage={setMessage}
+        />
+        <TrackActionButton 
+          buttonType={trackType === 'playlist' ? TRACK_ACTION_BUTTON_CLASSES.REMOVE : TRACK_ACTION_BUTTON_CLASSES.ADD_WHITE} 
+          track={track}
+        />
+      </TrackActionContainer>
+      { isActiveTrack &&
+        <ProgressBar lightBackground />
+      }
+    </TrackContainer>    
+  );
+};
 
-export default Track
+export default Track;

@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 type WebPlayerContainerProps = {
     isMobile: boolean;
-}
+};
 
 export const WebPlayerContainer = styled.div<WebPlayerContainerProps>`
     display: ${props => props.isMobile ? 'none' : 'flex'};
@@ -12,4 +12,4 @@ export const WebPlayerContainer = styled.div<WebPlayerContainerProps>`
     justify-content: center;
     padding: 1rem 0;
     margin-bottom: 1rem;
-`
+`;

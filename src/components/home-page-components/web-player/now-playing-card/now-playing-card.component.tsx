@@ -1,48 +1,48 @@
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect, useContext } from 'react';
 
-import TrackActionButton from '../../../reusable-components/track-action-button/track-action-button.component'
-import ActionMessage from '../../../reusable-components/action-message/action-message.component'
-import ProgressBar from '../../../reusable-components/progress-bar/progress-bar.component'
+import TrackActionButton from '../../../reusable-components/track-action-button/track-action-button.component';
+import ActionMessage from '../../../reusable-components/action-message/action-message.component';
+import ProgressBar from '../../../reusable-components/progress-bar/progress-bar.component';
 
-import SpotifyIcon from '../../../../assets/icons/Spotify_Icon_RGB_Black.png'
+import SpotifyIcon from '../../../../assets/icons/Spotify_Icon_RGB_Black.png';
 
 
-import { TRACK_ACTION_BUTTON_CLASSES } from '../../../reusable-components/track-action-button/track-action-button.component'
+import { TRACK_ACTION_BUTTON_CLASSES } from '../../../reusable-components/track-action-button/track-action-button.component';
 
-import { useTrackControls } from '../../../../utils/custom-hooks/use-track-controls'
+import { useTrackControls } from '../../../../utils/custom-hooks/use-track-controls';
 
 import { ResponsiveContext } from '../../../../contexts/responsive.context';
 import { PlayerContext } from '../../../../contexts/player.context';
 
-import {NowPlayingContainer, SpotifyAttributor, SpotifyLogo, NowPlayingCover, NowPlayingLabel, TrackControls} from './now-playing-card.styles'
+import {NowPlayingContainer, SpotifyAttributor, SpotifyLogo, NowPlayingCover, NowPlayingLabel, TrackControls} from './now-playing-card.styles';
 
 const NowPlayingCard = () => {
-    const [likesMessage, setLikesMessage] = useState('')
+    const [likesMessage, setLikesMessage] = useState('');
 
-    const {nowPlaying} = useContext(PlayerContext);
-    const {track} = nowPlaying;
-    const { isMobile } = useContext(ResponsiveContext) 
-    const { stopPlayback } = useTrackControls(track)
+    const { nowPlaying } = useContext(PlayerContext);
+    const { track } = nowPlaying;
+    const { isMobile } = useContext(ResponsiveContext); 
+    const { stopPlayback } = useTrackControls(track);
 
-    const nowPlayingCover = track.cover || ''
+    const nowPlayingCover = track.cover || '';
 
     useEffect(() => {
-        const timer = setTimeout(() => stopPlayback(), 30000)
+        const timer = setTimeout(() => stopPlayback(), 30000);
         return () => {
-            clearTimeout(timer)
+            clearTimeout(timer);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, []);
 
     return (
         <NowPlayingContainer isMobile={isMobile} >
             <SpotifyAttributor href={`https://open.spotify.com/track/${nowPlaying.track.id}?play`} target='_blank' rel="noreferrer">
-                    <SpotifyLogo src={SpotifyIcon} id='spotify-icon' alt='spotify icon'/>
-                    <p>Listen on Spotify</p>
+                <SpotifyLogo src={SpotifyIcon} id='spotify-icon' alt='spotify icon'/>
+                <p>Listen on Spotify</p>
             </SpotifyAttributor>
             <NowPlayingCover  
                 src={nowPlayingCover} 
-                 alt="now playing cover art" 
+                alt="now playing cover art" 
             />
             <NowPlayingLabel>
                 <div >{nowPlaying.track.name}</div>
@@ -67,7 +67,7 @@ const NowPlayingCard = () => {
             <ActionMessage position='absolute' bottom='2.2rem' right='10px'>{likesMessage}</ActionMessage>
             <ProgressBar darkBackground />
         </NowPlayingContainer>
-    )
-}
+    );
+};
 
-export default NowPlayingCard
+export default NowPlayingCard;

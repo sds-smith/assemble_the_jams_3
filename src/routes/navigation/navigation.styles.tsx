@@ -3,24 +3,24 @@ import Button from "../../components/reusable-components/button/button.component
 
 type NavigationProps = {
   isMobile: boolean;
-}
+};
 
 type SignInButtonContainerProps = NavigationProps & {
   userExists: boolean;
-}
+};
 
-export const headerHeight = '100px'
+export const headerHeight = '100px';
 
 type NavigationContainerProps = {
   isMobile: boolean;
-}
+};
 
 export const NavigationContainer = styled.div<NavigationContainerProps>`
   position: ${props => props.isMobile ? 'fixed' : 'absolute'};
   top: 0px;
   left: 0px;
   width: 100%;
-`
+`;
 
 export const Header = styled.div`
     background-color: black;
@@ -41,7 +41,7 @@ export const Header = styled.div`
             color: green;
           }
       }
-`
+`;
 
 export const SignInButtonContainer = styled.div<SignInButtonContainerProps>`
   position: absolute;
@@ -54,11 +54,11 @@ export const SignInButtonContainer = styled.div<SignInButtonContainerProps>`
   align-items: center;
   justify-content: center;
   color: ${props => props.userExists ? 'black' : 'white'};
-`
+`;
 
 export const SignInButton = styled(Button)<NavigationProps>`
 ${props => props.isMobile && 'width: 80px; height: 35px; font-size: 8px'};
-`
+`;
 
 export const SpotifyAttributor = styled.a<NavigationProps>`
     position: absolute;
@@ -72,9 +72,9 @@ export const SpotifyAttributor = styled.a<NavigationProps>`
         padding-top: ${props => props.isMobile ? '0px' : '2px'};
         padding-left: ${props => props.isMobile ? '0px' : '21px'};
       }
-`
+`;
 
 export const SpotifyLogo = styled.img`
     width: 70px;
     height: 21px;
-`
+`;

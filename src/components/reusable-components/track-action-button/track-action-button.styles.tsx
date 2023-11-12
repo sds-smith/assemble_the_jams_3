@@ -4,7 +4,7 @@ type TrackActionProps = {
     isMobile: boolean;
     clicked: boolean;
     disabled: boolean;
-}
+};
 
 export const TrackAction = styled.button<TrackActionProps>`
     display: flex;
@@ -22,4 +22,4 @@ export const TrackAction = styled.button<TrackActionProps>`
     ${props => !props.isMobile && !props.disabled &&
         '&:hover {opacity: 0.5;}'
     }
-`
+`;

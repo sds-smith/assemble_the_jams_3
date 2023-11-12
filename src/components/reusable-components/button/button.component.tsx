@@ -1,15 +1,15 @@
-import { useState, useContext, FC, ButtonHTMLAttributes, MouseEvent, MouseEventHandler } from "react"
+import { useState, useContext, FC, ButtonHTMLAttributes, MouseEvent, MouseEventHandler } from "react";
 import { ResponsiveContext } from "../../../contexts/responsive.context";
-import { CustomButton } from "./button.styles"
+import { CustomButton } from "./button.styles";
 
 type ButtonProps = {
     children: string;
     onClick: MouseEventHandler<HTMLButtonElement>;
-} & ButtonHTMLAttributes<HTMLButtonElement>
+} & ButtonHTMLAttributes<HTMLButtonElement>;
 
 const Button: FC<ButtonProps> = ( {onClick, children, ...otherProps}) => {
-    const [clicked, setClicked] = useState<boolean>(false)
-    const { isMobile } = useContext(ResponsiveContext)
+    const [clicked, setClicked] = useState<boolean>(false);
+    const { isMobile } = useContext(ResponsiveContext);
     
     const click = (e: MouseEvent<HTMLButtonElement>) => {
         setClicked(true)
@@ -28,7 +28,7 @@ const Button: FC<ButtonProps> = ( {onClick, children, ...otherProps}) => {
         >
             {children}
         </CustomButton>
-    )
-}
+    );
+};
 
-export default Button
+export default Button;

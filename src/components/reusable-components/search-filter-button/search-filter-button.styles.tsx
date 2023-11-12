@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const FilterButtonContainer = styled.div`
     text-decoration: none;
     background-color: green;
-`
+`;
 
 export const FilterButton = styled.button`
     width: 100%;
@@ -26,5 +26,4 @@ export const FilterButton = styled.button`
             opacity: .5;
         }
     }
- 
-`
+`;

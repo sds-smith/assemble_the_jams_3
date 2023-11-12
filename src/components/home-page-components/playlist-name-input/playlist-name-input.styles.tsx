@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 type NameInputProps = {
   width: string;
-}
+};
 
 export const NameInput = styled.input<NameInputProps>`
     width: ${props => props.width};
@@ -17,4 +17,4 @@ export const NameInput = styled.input<NameInputProps>`
     &:focus {
         outline: none;
       }
-`
+`;
