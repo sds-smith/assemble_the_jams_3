@@ -1,6 +1,7 @@
 import {
     httpGetSession,
     httpSignOutUser,
+    httpToken
 } from './auth';
 
 import {
@@ -18,5 +19,6 @@ export {
     httpSearch,
     httpSavePlaylist,
     httpToggleLike,
-    httpGetLikeStatus
+    httpGetLikeStatus,
+    httpToken
 };

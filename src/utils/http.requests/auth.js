@@ -7,7 +7,7 @@ async function httpGetSession() {
 
 async function httpGetClientToken() {
   try {
-    const response = await fetch('/auth/spotify/get-client-token', {
+    const response = await fetch(`${AUTH_URL}/spotify/get-client-token`, {
       method: 'post',
       headers: {
         'Content-Type': 'application/json'
@@ -30,9 +30,14 @@ async function httpSignOutUser() {
   return jsonResponse;
 };
 
+async function httpToken() {
+  return await (await fetch(`${AUTH_URL}/spotify/token`)).json();
+}
+
 export {
     httpGetSession,
     httpGetClientToken,
     httpLoginWithSpotify,
     httpSignOutUser,
+    httpToken
 };

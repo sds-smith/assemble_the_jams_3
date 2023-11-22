@@ -43,7 +43,12 @@ spotifyAuthRouter.get('/callback',
         };
     });
 
-    module.exports = {
-        spotifyAuthStrategy, 
-        spotifyAuthRouter,
-    };
+spotifyAuthRouter.get('/token', (req, res) => {
+    const { user: { accessToken } } = req;
+    return res.status(200).json({ accessToken });
+});
+
+module.exports = {
+    spotifyAuthStrategy, 
+    spotifyAuthRouter,
+};

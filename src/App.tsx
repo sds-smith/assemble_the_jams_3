@@ -12,11 +12,11 @@ import './App.css';
 
 const App = () => {
   const { currentUserExists } = useContext(AuthContext);
-  const {audioPlayer} = useAudio();
+  const { audioPlayer, spotifyPlayer } = useAudio();
 
 useEffect(() => {
   if (currentUserExists) {
-    audioPlayer();
+    spotifyPlayer();
   } else {
     audioPlayer();
   };
@@ -29,7 +29,7 @@ useEffect(() => {
           <Home />
         </TrackProvider>
     </ResponsiveProvider> 
-  )
-}
+  );
+};
 
 export default App;

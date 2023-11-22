@@ -47,7 +47,7 @@ export const useTrackControls = (track: TrackType) => {
   const playTrack = async () => {
     if (currentPlayer) {
       if (track.id) {
-        if (!nowPlaying.hasTrack) {
+        if (!nowPlaying?.hasTrack) {
           const hasTrack = true;
           const isLike = await httpGetLikeStatus(track.id);
           const uri = `spotify:track:${track.id}`;
