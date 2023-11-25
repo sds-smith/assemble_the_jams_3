@@ -43,7 +43,7 @@ export enum TRACK_ACTION_BUTTON_CLASSES {
 const TrackActionButton: FC<TrackActionButtonProps> = ({buttonType, track, setMessage}) => {
     const [clicked, setClicked] = useState<boolean>(false);
     const { isMobile } = useContext(ResponsiveContext);
-    const {spotifyPlayerLoading, currentPlayer} =  useContext(PlayerContext);
+    const { currentPlayer} =  useContext(PlayerContext);
     const { addTrack, removeTrack, toggleLike, play, stopPlayback } = useTrackControls(track);
 
     const playTrack = async () => {
@@ -121,7 +121,6 @@ const TrackActionButton: FC<TrackActionButtonProps> = ({buttonType, track, setMe
     return (
         <TrackAction 
             onClick={click}
-            disabled={spotifyPlayerLoading}
             isMobile={isMobile}
             clicked={clicked}
         >

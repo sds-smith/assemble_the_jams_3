@@ -3,7 +3,6 @@ import styled from "styled-components";
 type TrackActionProps = {
     isMobile: boolean;
     clicked: boolean;
-    disabled: boolean;
 };
 
 export const TrackAction = styled.button<TrackActionProps>`
