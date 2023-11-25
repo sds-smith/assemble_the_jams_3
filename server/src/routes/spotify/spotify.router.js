@@ -1,5 +1,5 @@
 const express = require('express');
-const { httpsSearch, httpsSavePlaylist, httpsGetLikeStatus, httpsToggleLike } = require('../../models/spotify.model');
+const { httpsSearch, httpsSavePlaylist, httpsGetLikeStatus, httpsToggleLike } = require('../../controllers/spotify.controller');
 
 const spotifyRouter = express.Router();
 

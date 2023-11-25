@@ -4,9 +4,8 @@ require('dotenv').config();
 
 const SPOTIFY_API = 'https://api.spotify.com/v1/'
 
-async function httpsSearch(req, res) {
-    const { query } = req.query;
-    const { client_token: {token} } = req.session;
+async function search(reqObj) {
+    const { query, token } = reqObj;
     try {
         let endpoint = `${SPOTIFY_API}search?type=track&q=${query}&market=US`;
         const headers =  { Authorization : `Bearer ${token}` };
@@ -35,16 +34,25 @@ async function httpsSearch(req, res) {
           uri : track.uri,
           preview : track.preview_url
         }));
-        return res.status(200).json({searchResultsArray, recommendationsArray});
+        return {
+          status: 200,
+          message: 'search ok',
+          searchResultsArray,
+          recommendationsArray
+        };
     } catch(error) {
         console.log('error with search', error);
-        return res.status(400).json({searchResultsArray:[],recommendationsArray:[]});
+        return {
+          status: 400,
+          message: error.message,
+          searchResultsArray: [],
+          recommendationsArray: []
+        };
       };
 };
 
-async function httpsSavePlaylist(req, res) {
-  const { profile: { id }, accessToken } = req.user;
-  const { playlistName, trackURIs } = req.body;
+async function savePlaylist(reqObj) {
+  const { id, accessToken, playlistName, trackURIs } = reqObj;
 
   try {
     const playlistResponse = await fetch(`${SPOTIFY_API}users/${id}/playlists`, {
@@ -67,37 +75,47 @@ async function httpsSavePlaylist(req, res) {
       body: JSON.stringify({ uris : trackURIs })
     });
     
-    return res.status(200).json({
+    return {
+      status: 200,
       message: 'Playlist has been saved to your Spotify account',
-      playlistName: 'Name Your New Playlist',
+      playlist_name: 'Name Your New Playlist',
       playlistTracks: [],
       searchResults: []
-   });
+   };
   } catch(error) {
       console.log(error)
-      return res.status(400).json({error});
+      return {
+        status: 400,
+        message: error.message
+      };
   };
 };
 
-async function httpsGetLikeStatus(req, res) {
+async function getLikeStatus(reqObj) {
+  const { trackId, accessToken } = reqObj;
   try {
-    const { trackId } = req.body;
-    const { accessToken } = req.user;
 
     const headers = { Authorization : `Bearer ${accessToken}` };
     const response = await fetch(`https://api.spotify.com/v1/me/tracks/contains?ids=${trackId}`, { headers : headers });
     const status = (await response.json())[0];
     
-    return res.status(200).json({status});
+    return {
+      status: 200,
+      message: 'like status retrieved',
+      likeStatus: status
+    };
   } catch(error) {
       console.log({ error })
-      return res.status(400).json({error});
+      return {
+        status: 400,
+        message: error.message
+      };
   };
 };
 
-async function httpsToggleLike(req, res) {
-  const { trackId, isLike } = req.body;
-  const { accessToken } = req.user;
+async function toggleLike(reqObj) {
+  const { trackId, isLike, accessToken } = reqObj;
+
   const headers = { 
       'Content-Type' : 'application/json',
       'Authorization' : `Bearer ${accessToken}`,
@@ -110,19 +128,23 @@ async function httpsToggleLike(req, res) {
           headers : headers,
           method : method
       });
-      return res.status(200).json({
+      return {
+        status: 200,
         message,
-        isLike : !isLike
-    });
+        is_like: !isLike
+      };
   } catch(error) {
       console.log(error)
-      return res.status(400).json({error});
+      return {
+        status: 400,
+        message: error.message
+      };
   };
 };
 
 module.exports = {
-    httpsSearch,
-    httpsSavePlaylist,
-    httpsGetLikeStatus,
-    httpsToggleLike
+  search,
+  savePlaylist,
+  getLikeStatus,
+  toggleLike
 };
