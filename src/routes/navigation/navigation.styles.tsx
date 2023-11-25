@@ -16,7 +16,7 @@ type NavigationContainerProps = {
 };
 
 export const NavigationContainer = styled.div<NavigationContainerProps>`
-  position: ${props => props.isMobile ? 'fixed' : 'absolute'};
+  position: ${props => props.isMobile ? 'fixed' : 'unset'};
   top: 0px;
   left: 0px;
   width: 100%;
