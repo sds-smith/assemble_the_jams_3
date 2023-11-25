@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext, useRef, useCallback } from "react";
 import { PlayerContext } from "../../contexts/player.context";
 import { httpToken } from "../http.requests";
+import { nowPlayingInitialState } from "../types/player.types";
 
 export const useAudio = () => {
     const audioRef = useRef();
@@ -137,7 +138,7 @@ export const useAudio = () => {
 
     useEffect(() => {
         const audioPreview = audioRef.current;
-        if (nowPlaying?.hasTrack) {
+        if (nowPlaying.hasTrack()) {
             if (activeElement.audio) {
                 audioPreview.src = nowPlaying.track.preview;
                 audioPreview.load();
@@ -146,7 +147,7 @@ export const useAudio = () => {
                 audioPreview.onended = () => {
                     audioPreview.src = ''
                     setActive(false);
-                    setNowPlaying(null);
+                    setNowPlaying(nowPlayingInitialState);
                 };
             } else if (activeElement.spotify) {
                 playTrack();

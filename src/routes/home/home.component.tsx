@@ -46,7 +46,7 @@ const Home = () => {
         <ResultsContainer isMobile={isMobile} >
          { activeTab.playlist && <Playlist /> }
          { activeTab.search_results && <SearchResults /> } 
-         { !activeView.input && nowPlaying?.hasTrack && <NowPlayingCard/> }
+         { !activeView.input && nowPlaying.hasTrack() && <NowPlayingCard/> }
         </ResultsContainer>
       }
       {isMobile && <Footer />}

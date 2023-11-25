@@ -13,7 +13,7 @@ const WebPlayer = () => {
 
     return (
         <WebPlayerContainer isMobile={isMobile} >       
-            { nowPlaying?.hasTrack && <NowPlayingCard /> }    
+            { nowPlaying.hasTrack() && <NowPlayingCard /> }    
         </WebPlayerContainer>
     );
 };

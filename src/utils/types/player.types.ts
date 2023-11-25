@@ -15,8 +15,8 @@ export enum PLAYER_ACTION_TYPES {
 }
 
 export type NowPlaying = {
-    hasTrack: boolean;
-    isLike: boolean | null;
+    hasTrack: () => boolean;
+    isLike: boolean;
     track: TrackType;
 }
 
@@ -25,8 +25,7 @@ export type ActivePlayer = {
     audioElement: boolean;
 }
 
-export const nowPlayingInitialState = {
-    hasTrack: false,
+export const nowPlayingInitialState: NowPlaying = {
     track : {
       album: '',
       artist: '',
@@ -36,19 +35,13 @@ export const nowPlayingInitialState = {
       preview: '',
       uri: '',
     },
-    isLike : null
+    isLike : false,
+    hasTrack() { return Boolean(this.track.id) },
 }  
 
 export type PlayerState = {
-    readonly spotifyPlayerLoading: boolean;
-    readonly currentPlayer: Spotify.Player | null;
-    readonly browserBlocked: boolean;
-    readonly deviceId: string;
     readonly nowPlaying: NowPlaying;
     readonly active: boolean;
-    readonly activePlayer: ActivePlayer;
-    readonly nowPlayingInitialState: NowPlaying;
-    readonly playbackError: boolean;
 }
 
   export const defaultActivePlayer = {
@@ -57,13 +50,6 @@ export type PlayerState = {
   }
 
 export const INITIAL_STATE: PlayerState = {
-    spotifyPlayerLoading: false,
-    currentPlayer: null,
-    browserBlocked: false,
-    deviceId: '',
     nowPlaying: nowPlayingInitialState,
     active: false,
-    activePlayer: defaultActivePlayer,
-    nowPlayingInitialState,
-    playbackError : false
 }

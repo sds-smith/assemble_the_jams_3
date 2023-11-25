@@ -14,7 +14,7 @@ export type TrackType = {
     album : string;
     cover : string;
     uri : string;
-    preview : string | null;
+    preview : string;
 }
 
 export type TrackState = {

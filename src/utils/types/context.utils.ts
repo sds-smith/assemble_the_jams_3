@@ -1,5 +1,7 @@
 import { ReactNode } from "react";
 import { TrackType, TrackState } from "./track.types";
+import { NowPlaying } from "./player.types";
+
 
 export type ActiveTabType = {
     'playlist' : boolean;
@@ -30,6 +32,13 @@ export type TrackContextProps = {
     setPlaylistTracks(playlistTracks: TrackType[]): void;
     setPlaylistName(laylistName: string): void;
     setSearchLoading(searchLoading: boolean): void;
+}
+
+export type PlayerContextProps = {
+    nowPlaying: NowPlaying;
+    active: boolean;
+    setNowPlaying(nowPlaying: NowPlaying): void;
+    setActive(active: boolean): void;
 }
 
 export type ProviderProps = {
