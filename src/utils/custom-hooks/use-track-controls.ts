@@ -4,7 +4,6 @@ import { AuthContext } from "../../contexts/auth.context";
 import { TrackContext } from "../../contexts/track.context";
 import { PlayerContext } from "../../contexts/player.context";
 
-import { Spotify } from "../spotify";
 import { httpGetLikeStatus, httpToggleLike } from "../http.requests";
 import { TrackType } from "../types/track.types";
 import { nowPlayingInitialState } from "../types/player.types";
@@ -12,7 +11,7 @@ import { nowPlayingInitialState } from "../types/player.types";
 export const useTrackControls = (track: TrackType) => {
   const { currentUserExists } = useContext(AuthContext);
   const { playlistTracks, searchResults, setPlaylistTracks, setSearchResults } = useContext(TrackContext);
-  const { nowPlaying, deviceId, currentPlayer, setNowPlaying } = useContext(PlayerContext);
+  const { nowPlaying, setNowPlaying } = useContext(PlayerContext);
 
   const addTrack = async () => {
     let tracks = playlistTracks;
@@ -36,35 +35,22 @@ export const useTrackControls = (track: TrackType) => {
     if (!track?.preview) {
       return 'Please sign in with Spotify to preview this track';
     };
-    if (!nowPlaying?.hasTrack) {
-      const hasTrack = true;
-      const isLike = false;
-      setNowPlaying({hasTrack, track, isLike});
-    };  
+    const hasTrack = true;
+    const isLike = false;
+    setNowPlaying({hasTrack, track, isLike});
     return '';
   };
 
   const playTrack = async () => {
-    if (currentPlayer) {
-      if (track.id) {
-        if (!nowPlaying?.hasTrack) {
-          const hasTrack = true;
-          const isLike = await httpGetLikeStatus(track.id);
-          const uri = `spotify:track:${track.id}`;
-          console.log('setting nowPlaying');
-          console.log({hasTrack, track, isLike});
-          setNowPlaying({hasTrack, track, isLike});
-          Spotify.playTrack(deviceId, uri, currentPlayer) ;
-        };
-      };
-    };
+    const hasTrack = true;
+    const isLike = (await httpGetLikeStatus(track.id)).status;
+    setNowPlaying({hasTrack, track, isLike});
     return '';
   };
 
   const play = async () => {
     let message: string;
-    if (currentPlayer) {
-      await currentPlayer.activateElement();
+    if (currentUserExists) {
       message = await playTrack();
     } else {
       message = await playPreview();
@@ -85,11 +71,6 @@ export const useTrackControls = (track: TrackType) => {
   };
 
   const stopPlayback = async () => {
-    if (currentPlayer) {
-        console.log('currentPlayer.pause(), Spotify.stopPlayback');
-        await currentPlayer.pause();
-        await Spotify.stopPlayback(deviceId);
-    };
     setNowPlaying(nowPlayingInitialState);
   };
 

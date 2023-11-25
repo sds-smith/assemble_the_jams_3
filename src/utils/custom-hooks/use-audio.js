@@ -4,22 +4,22 @@ import { httpToken } from "../http.requests";
 
 export const useAudio = () => {
     const audioRef = useRef();
+    const spotifyRef = useRef();
 
     const {
         nowPlaying, 
-        setNowPlaying, 
+        setNowPlaying,
         active, 
-        setActive, 
-        setCurrentPlayer, 
-        setSpotifyPlayerLoading, 
-        setDeviceId, 
-        setBrowserBlocked
+        setActive
     } = useContext(PlayerContext);
 
     const [activeElement, setActiveElement] = useState({
         audio: false,
         spotify: false
     });
+    const [deviceId, setDeviceId] = useState('');
+    const [spotifyPlayerLoading, setSpotifyPlayerLoading] = useState(false);
+    const [browserBlocked, setBrowserBlocked] = useState(false);
 
     const loadSpotifyPlayer = () => {
         setSpotifyPlayerLoading(true)
@@ -29,12 +29,12 @@ export const useAudio = () => {
     
         document.body.appendChild(script);
         window.onSpotifyWebPlaybackSDKReady = () => {            
-            const player = new window.Spotify.Player({
+            spotifyRef.current = new window.Spotify.Player({
                 name: 'Assemble the Jams',
                 getOAuthToken: async cb => { cb((await httpToken()).accessToken); },
                 volume: 0.5
-            });            
-            setCurrentPlayer(player)
+            });         
+            const player = spotifyRef.current;   
 
             player.addListener('ready', ({ device_id }) => {
                 console.log('Ready with Device ID', device_id);
@@ -83,35 +83,81 @@ export const useAudio = () => {
         };            
     };
 
+    const spotifyPlay = (id, {
+        spotify_uri,
+        playerInstance: {
+          _options: {
+            getOAuthToken
+          }
+        }
+    }) => {
+        getOAuthToken(access_token => {
+          fetch(`https://api.spotify.com/v1/me/player/play?device_id=${id}`, {
+            method: 'PUT',
+            body: JSON.stringify({ uris: [spotify_uri], position_ms: 30000 }),
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${access_token}`
+            },
+          });
+        });
+    };
+
+    const playTrack = () => {
+        const uri = `spotify:track:${nowPlaying.track.id}`;
+        spotifyPlay(deviceId, {
+            spotify_uri: uri,
+            playerInstance: spotifyRef.current
+        });
+    };
+
+    const stopPlayback = () => {
+        const currentPlayer = spotifyRef.current;
+        currentPlayer.pause();
+        spotifyPlay(deviceId, {
+            spotify_uri: '',
+            playerInstance: currentPlayer
+        });
+    };
+
     useEffect(() => {
-        if (activeElement.audio) {
+        if (activeElement.audio && !audioRef.current) {
             audioRef.current = new Audio();
             const audioPreview = audioRef.current;
             audioPreview.volume = 0.5;
         } else {
-            audioRef.current = undefined;
+            if (audioRef.current) audioRef.current.src = '';
         }
         if (activeElement.spotify) {
             loadSpotifyPlayer();
+        } else {
+            if (spotifyRef.current) spotifyRef.current.src = '';
         };
     }, [activeElement]);
 
     useEffect(() => {
         const audioPreview = audioRef.current;
-        if (nowPlaying?.hasTrack && audioPreview) {
-            audioPreview.src = nowPlaying.track.preview;
-            audioPreview.load();
-            setActive(true);
-            audioPreview.play();
-            audioPreview.onended = () => {
-                setActive(false);
-                setNowPlaying(null);
-            };
+        if (nowPlaying?.hasTrack) {
+            if (activeElement.audio) {
+                audioPreview.src = nowPlaying.track.preview;
+                audioPreview.load();
+                setActive(true);
+                audioPreview.play();
+                audioPreview.onended = () => {
+                    audioPreview.src = ''
+                    setActive(false);
+                    setNowPlaying(null);
+                };
+            } else if (activeElement.spotify) {
+                playTrack();
+            }
         } else {
-            if (audioPreview) audioPreview.src = '';
-            setActive(false);
-        };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+            if (activeElement.audio) {
+                audioPreview.src = ''
+            } else if (activeElement.spotify) {
+                stopPlayback();
+            }
+        }
     }, [nowPlaying]);
 
     const audioPlayer =  useCallback(() => {
