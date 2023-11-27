@@ -8,7 +8,7 @@ import { expressMiddleware } from '@apollo/server/express4';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const schemaPath = path.join(__dirname, 'schema.graphql')
+const schemaPath = path.join(__dirname, 'schema/spotify.schema.graphql')
 const typeDefs = await readFile(schemaPath, 'utf8');
 
 async function getContext({ req }) {
