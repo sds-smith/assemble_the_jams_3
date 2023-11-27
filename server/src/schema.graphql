@@ -1,0 +1,23 @@
+type Query {
+  search(query: String): SearchResults
+  likeStatus(trackId: String): LikeStatus
+}
+
+type SearchResults {
+  searchResultsArray: [Track]
+  recommendationsArray: [Track]
+}
+
+type Track {
+  id: String
+  name: String
+  artist: String
+  album: String
+  cover: String
+  uri: String
+  preview: String
+}
+
+type LikeStatus {
+  status: Boolean
+}

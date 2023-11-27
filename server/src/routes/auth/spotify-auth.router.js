@@ -1,9 +1,10 @@
-const express = require('express')
-const passport = require('passport');
-const { getClientToken } = require('./client-token');
-const { Strategy } = require('passport-spotify');
+import express from 'express';
+import passport from 'passport';
+import { getClientToken } from './client-token.js';
+import { Strategy } from 'passport-spotify';
 
-require('dotenv').config();
+import dotenv from 'dotenv';
+dotenv.config();
 
 const config = {
     SPOTIFY_CLIENT_ID: process.env.SPOTIFY_CLIENT_ID,
@@ -48,7 +49,7 @@ spotifyAuthRouter.get('/token', (req, res) => {
     return res.status(200).json({ accessToken });
 });
 
-module.exports = {
+export {
     spotifyAuthStrategy, 
     spotifyAuthRouter,
 };

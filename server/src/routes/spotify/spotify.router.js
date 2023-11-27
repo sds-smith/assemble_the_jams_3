@@ -1,5 +1,5 @@
-const express = require('express');
-const { httpsSearch, httpsSavePlaylist, httpsGetLikeStatus, httpsToggleLike } = require('../../controllers/spotify.controller');
+import express from 'express';
+import { httpsSearch, httpsSavePlaylist, httpsGetLikeStatus, httpsToggleLike } from '../../controllers/spotify.controller.js';
 
 const spotifyRouter = express.Router();
 
@@ -8,4 +8,4 @@ spotifyRouter.use('/save_playlist', httpsSavePlaylist);
 spotifyRouter.use('/get_like_status', httpsGetLikeStatus);
 spotifyRouter.use('/toggle_like', httpsToggleLike);
 
-module.exports = spotifyRouter;
+export default spotifyRouter;

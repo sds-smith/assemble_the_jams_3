@@ -1,11 +1,12 @@
-const {
+import {
   search,
   savePlaylist,
   getLikeStatus,
   toggleLike
-} = require('../models/spotify.model');
+} from '../models/spotify.model.js';
 
-require('dotenv').config();
+import dotenv from 'dotenv';
+dotenv.config();
 
 async function httpsSearch(req, res) {
   const { query } = req.query;
@@ -55,7 +56,7 @@ async function httpsToggleLike(req, res) {
   })
 };
 
-module.exports = {
+export {
     httpsSearch,
     httpsSavePlaylist,
     httpsGetLikeStatus,

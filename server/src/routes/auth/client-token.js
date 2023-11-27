@@ -1,6 +1,7 @@
-const fetch = require('node-fetch');
+import fetch from 'node-fetch';
 
-require('dotenv').config();
+import dotenv from 'dotenv';
+dotenv.config();
 
 function base64urlencode(a) {
     return new Buffer.from(a).toString('base64');
@@ -37,6 +38,6 @@ async function getClientToken(req, res) {
     };
 };
 
-module.exports = {
+export {
     getClientToken
 };

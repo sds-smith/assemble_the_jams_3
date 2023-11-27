@@ -1,6 +1,7 @@
-const fetch = require('node-fetch');
+import fetch from 'node-fetch';
 
-require('dotenv').config();
+import dotenv from 'dotenv';
+dotenv.config();
 
 const SPOTIFY_API = 'https://api.spotify.com/v1/'
 
@@ -142,7 +143,7 @@ async function toggleLike(reqObj) {
   };
 };
 
-module.exports = {
+export {
   search,
   savePlaylist,
   getLikeStatus,

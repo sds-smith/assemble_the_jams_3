@@ -1,8 +1,8 @@
-const express = require('express');
-const spotifyRouter = require('./spotify/spotify.router');
+import express from 'express';
+import spotifyRouter from './spotify/spotify.router.js';
 
 const api = express.Router();
 
 api.use('/spotify', spotifyRouter);
 
-module.exports = api;
+export default api;

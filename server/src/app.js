@@ -1,10 +1,10 @@
-const path = require('path')
-const express = require('express');
-const cookieSession = require('cookie-session');
-const passport = require('passport');
-
-const authRouter = require('./routes/auth/auth.router');
-const api = require('./routes/api');
+import path from 'path';
+import express from 'express';
+import cookieSession from 'cookie-session';
+import passport from 'passport';
+import authRouter from './routes/auth/auth.router.js';
+import api from './routes/api.js';
+import { apolloMiddleware, __dirname } from './apollo.server.js';
 
 const config = {
     COOKIE_KEY_1: process.env.COOKIE_KEY_1,
@@ -21,11 +21,14 @@ const session = cookieSession({
 const app = express();
 
 app.use(express.json());
+
 app.use(express.static(path.join(__dirname, '..', '..', 'build')));
+
 app.use(session);
 app.use(passport.session());
 
 app.use('/auth', authRouter);
 app.use('/v1', api);
+app.use('/graphql', apolloMiddleware);
 
-module.exports = app;
+export default app;

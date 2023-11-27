@@ -1,8 +1,9 @@
-const express = require('express');
-const passport = require('passport');
-const { spotifyAuthStrategy, spotifyAuthRouter } = require('./spotify-auth.router');
+import express from 'express';
+import passport from 'passport';
+import { spotifyAuthStrategy, spotifyAuthRouter } from './spotify-auth.router.js';
 
-require('dotenv').config();
+import dotenv from 'dotenv';
+dotenv.config();
 
 passport.use(spotifyAuthStrategy);
 
@@ -44,4 +45,4 @@ authRouter.get('/logout', (_req, res) => {
     });
 });
 
-module.exports = authRouter;
+export default authRouter;
