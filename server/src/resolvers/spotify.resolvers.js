@@ -8,7 +8,7 @@ import {
 
 const spotifyResolvers = {
     Query: {
-        // searchString is destructured from 'args' and token from 'context'
+        // second argument is args, third argument is context
         search: async (_root, { searchString }, { token }) => {
             const {
                 status,
@@ -18,12 +18,9 @@ const spotifyResolvers = {
             } = await search({searchString, token});
             return { searchResultsArray, recommendationsArray }
         },
-        likeStatus: async (_root, {trackId}, {user}) => {
-            const { accessToken } = user;
+        likeStatus: async (_root, { trackId }, { accessToken }) => {
             const { likeStatus } = await getLikeStatus({trackId, accessToken});
-            return {
-                status: likeStatus
-            };
+            return likeStatus;
         },
     },
 

@@ -5,6 +5,7 @@ import { TrackContext } from "../../contexts/track.context";
 import { PlayerContext } from "../../contexts/player.context";
 
 import { httpGetLikeStatus, httpToggleLike } from "../http.requests";
+import { likeStatus } from "../graphql/queries";
 import { TrackType } from "../types/track.types";
 import { nowPlayingInitialState } from "../types/player.types";
 
@@ -43,7 +44,8 @@ export const useTrackControls = (track: TrackType) => {
   };
 
   const playTrack = async () => {
-    const isLike = (await httpGetLikeStatus(track.id)).status;
+    const isLike = await likeStatus(track.id) 
+    console.log({isLike})
     setNowPlaying({
       ...nowPlaying,
       track,

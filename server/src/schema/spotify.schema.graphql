@@ -1,6 +1,6 @@
 type Query {
   search(searchString: String): SearchResults
-  likeStatus(trackId: String): LikeStatus
+  likeStatus(trackId: ID): Boolean
 }
 
 type SearchResults {
@@ -16,8 +16,4 @@ type Track {
   cover: String
   uri: String
   preview: String
-}
-
-type LikeStatus {
-  status: Boolean
 }
