@@ -4,8 +4,7 @@ import { AuthContext } from "../../contexts/auth.context";
 import { TrackContext } from "../../contexts/track.context";
 import { PlayerContext } from "../../contexts/player.context";
 
-import { httpToggleLike } from "../http.requests";
-import { likeStatus } from "../graphql/queries";
+import { likeStatus, toggleLike as gqlToggleLike} from "../graphql/queries";
 import { TrackType } from "../types/track.types";
 import { nowPlayingInitialState } from "../types/player.types";
 
@@ -71,8 +70,11 @@ export const useTrackControls = (track: TrackType) => {
     if (!nowPlaying.hasTrack()) {
         return 'Could not find track id';
     };
-    const {message, isLike} = await httpToggleLike(nowPlaying);
-    setNowPlaying({...nowPlaying, isLike});
+    const {message, is_like} = await gqlToggleLike({
+      trackId: nowPlaying.track.id,
+      isLike: nowPlaying.isLike
+    });
+    setNowPlaying({...nowPlaying, isLike: is_like});
     return `${message} - ${track.name}`;
   };
 

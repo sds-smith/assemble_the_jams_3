@@ -6,13 +6,11 @@ import {
 
 import {
     httpSavePlaylist,
-    httpToggleLike,
 } from './api';
 
 export {
     httpGetSession,
     httpSignOutUser,
     httpSavePlaylist,
-    httpToggleLike,
     httpToken
 };

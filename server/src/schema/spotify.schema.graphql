@@ -3,6 +3,10 @@ type Query {
   likeStatus(trackId: ID): Boolean
 }
 
+type Mutation {
+  toggleLike(input: ToggleLikeInput!): ToggleResponse
+}
+
 type SearchResults {
   searchResultsArray: [Track]
   recommendationsArray: [Track]
@@ -16,4 +20,15 @@ type Track {
   cover: String
   uri: String
   preview: String
+}
+
+type ToggleResponse {
+  status: Int
+  message: String
+  is_like: Boolean
+}
+
+input ToggleLikeInput {
+  trackId: ID!
+  isLike: Boolean!
 }

@@ -56,3 +56,25 @@ import {
     });
     return data.likeStatus;
   }
+
+  export async function toggleLike({ trackId, isLike }) {
+    const mutation = gql`
+      mutation ToggleLike($input: ToggleLikeInput!) {
+        toggleResponse: toggleLike(input: $input) {
+          status
+          message
+          is_like
+        }
+      }
+    `;
+    console.log({isLike})
+    const { data } = await apolloClient.mutate({
+      mutation, 
+      variables: {
+        input: { trackId, isLike}
+      }
+    });
+    console.log({data})
+    return data.toggleResponse
+  };
+

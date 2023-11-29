@@ -24,16 +24,16 @@ const spotifyResolvers = {
         },
     },
 
-    // Mutation: {
-    //     savePlaylist: async (_root, payload, context) => {
-    //         const saveResponse = await savePlaylist();
-    //         return saveResponse;
-    //     },
-    //     toggleLike: async (_root, payload, context) => {
-    //         const toggleResponse = await toggleLike();
-    //         return toggleResponse;
-    //     }
-    // }
+    Mutation: {
+        // savePlaylist: async (_root, payload, { accessToken }) => {
+        //     const saveResponse = await savePlaylist();
+        //     return saveResponse;
+        // },
+        toggleLike: async (_root, {input: { trackId, isLike } }, { accessToken }) => {
+            const toggleResponse = await toggleLike({ trackId, isLike, accessToken });
+            return toggleResponse;
+        }
+    }
 };
 
-export { spotifyResolvers }
+export { spotifyResolvers };
