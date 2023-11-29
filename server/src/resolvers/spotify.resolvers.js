@@ -8,8 +8,8 @@ import {
 
 const spotifyResolvers = {
     Query: {
-        search: async (_root, { searchString }, context) => {
-            const { token } = context;
+        // searchString is destructured from 'args' and token from 'context'
+        search: async (_root, { searchString }, { token }) => {
             const {
                 status,
                 message,
