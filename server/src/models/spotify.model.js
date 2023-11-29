@@ -6,9 +6,9 @@ dotenv.config();
 const SPOTIFY_API = 'https://api.spotify.com/v1/'
 
 async function search(reqObj) {
-    const { query, token } = reqObj;
+    const { searchString, token } = reqObj;
     try {
-        let endpoint = `${SPOTIFY_API}search?type=track&q=${query}&market=US`;
+        let endpoint = `${SPOTIFY_API}search?type=track&q=${searchString}&market=US`;
         const headers =  { Authorization : `Bearer ${token}` };
         const response = await fetch(endpoint, {headers : headers});
         const { tracks } = await response.json();

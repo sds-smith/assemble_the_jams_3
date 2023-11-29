@@ -9,9 +9,9 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 async function httpsSearch(req, res) {
-  const { query } = req.query;
+  const searchString = req.query.query;
   const { client_token: {token} } = req.session;
-  const searchResponse = await search({ query, token });
+  const searchResponse = await search({ searchString, token });
   const { status, searchResultsArray, recommendationsArray } = searchResponse;
   return res.status(status).json({searchResultsArray, recommendationsArray});
 };

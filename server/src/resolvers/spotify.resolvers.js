@@ -8,14 +8,18 @@ import {
 
 const spotifyResolvers = {
     Query: {
-        search: async (_root, {query}, context) => {
+        greeting: () => 'Hello from Spotify Resolvers!',
+        greetingWPayload: (_root, {payload}) => `Hello ${payload}`,
+        search: async (_root, { searchString }, context) => {
             const { token } = context;
+            console.log({token})
             const {
                 status,
                 message,
                 searchResultsArray,
                 recommendationsArray
-            } = await search({query, token});
+            } = await search({searchString, token});
+            console.log({ searchResultsArray, recommendationsArray })
             return { searchResultsArray, recommendationsArray }
         },
         likeStatus: async (_root, {trackId}, {user}) => {

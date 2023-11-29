@@ -1,5 +1,7 @@
 type Query {
-  search(query: String): SearchResults
+  greeting: String
+  greetingWPayload(payload: String): String
+  search(searchString: String): SearchResults
   likeStatus(trackId: String): LikeStatus
 }
 
