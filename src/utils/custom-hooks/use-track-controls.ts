@@ -4,7 +4,7 @@ import { AuthContext } from "../../contexts/auth.context";
 import { TrackContext } from "../../contexts/track.context";
 import { PlayerContext } from "../../contexts/player.context";
 
-import { httpGetLikeStatus, httpToggleLike } from "../http.requests";
+import { httpToggleLike } from "../http.requests";
 import { likeStatus } from "../graphql/queries";
 import { TrackType } from "../types/track.types";
 import { nowPlayingInitialState } from "../types/player.types";
