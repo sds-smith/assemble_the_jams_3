@@ -12,16 +12,16 @@ const schemaPath = path.join(__dirname, 'schema/spotify.schema.graphql')
 const typeDefs = await readFile(schemaPath, 'utf8');
 
 async function getContext({ req }) {
-    const { client_token: {token} } = req.session;
-    const { user } = req;
+    const token = req?.session?.client_token?.token;
+    const accessToken = req?.session?.passport?.user?.accessToken;
     return {
         token,
-        user
+        accessToken
     };
 };
 
 const apolloServer = new ApolloServer({typeDefs, resolvers: spotifyResolvers});
 await apolloServer.start();
-const apolloMiddleware = expressMiddleware(apolloServer, { context: getContext })
+const apolloMiddleware = expressMiddleware(apolloServer, { context: getContext });
 
 export { apolloMiddleware, __dirname};
