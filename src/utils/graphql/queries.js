@@ -12,16 +12,6 @@ import {
     cache: new InMemoryCache()
   });
 
-  export async function greeting() {
-    const query = gql`
-      query Greeting {
-        greeting
-      }
-    `
-    const response = await apolloClient.query({ query })
-    console.log(response)
-  };
-
   export async function searchResults(searchString) {
     const query = gql`
     query Search($searchString: String) {

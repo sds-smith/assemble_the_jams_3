@@ -8,11 +8,8 @@ import {
 
 const spotifyResolvers = {
     Query: {
-        greeting: () => 'Hello from Spotify Resolvers!',
-        greetingWPayload: (_root, {payload}) => `Hello ${payload}`,
         search: async (_root, { searchString }, context) => {
             const { token } = context;
-            console.log({token})
             const {
                 status,
                 message,

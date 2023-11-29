@@ -1,6 +1,4 @@
 type Query {
-  greeting: String
-  greetingWPayload(payload: String): String
   search(searchString: String): SearchResults
   likeStatus(trackId: String): LikeStatus
 }
