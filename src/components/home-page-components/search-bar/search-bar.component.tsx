@@ -2,7 +2,6 @@ import { useState, useContext, FC, ChangeEvent } from "react"
 
 import SearchFilterButton from "../../reusable-components/search-filter-button/search-filter-button.component";
 
-import { httpSearch } from "../../../utils/http.requests";
 import { searchResults } from "../../../utils/graphql/queries";
 import { ResponsiveContext } from "../../../contexts/responsive.context";
 import { TrackContext } from "../../../contexts/track.context";
@@ -59,8 +58,7 @@ const SearchBar: FC = () => {
         setSearchLoading(true);
 
         const query = filter ? `${filter}:"${searchTerm}"` : searchTerm;
-        await searchResults(query)
-        const response = await httpSearch(query);
+        const response = await searchResults(query);
         if (response) {
             const {searchResultsArray, recommendationsArray} = response;
             setSearchTerm('');

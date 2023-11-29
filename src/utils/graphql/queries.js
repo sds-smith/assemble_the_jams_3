@@ -37,9 +37,9 @@ import {
       }
     }
   `
-  const response = await apolloClient.query({ 
+  const { data } = await apolloClient.query({ 
     query,
     variables: { searchString }
   })
-  console.log(response)
+  return data.search;
   }

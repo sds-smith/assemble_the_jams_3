@@ -16,7 +16,6 @@ const spotifyResolvers = {
                 searchResultsArray,
                 recommendationsArray
             } = await search({searchString, token});
-            console.log({ searchResultsArray, recommendationsArray })
             return { searchResultsArray, recommendationsArray }
         },
         likeStatus: async (_root, {trackId}, {user}) => {
