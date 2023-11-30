@@ -4,7 +4,7 @@ import { AuthContext } from "../../contexts/auth.context";
 import { TrackContext } from "../../contexts/track.context";
 import { PlayerContext } from "../../contexts/player.context";
 
-import { likeStatus, toggleLike as gqlToggleLike} from "../graphql/queries";
+import { likeStatus, toggleLike as gqlToggleLike } from "../graphql/queries";
 import { TrackType } from "../types/track.types";
 import { nowPlayingInitialState } from "../types/player.types";
 

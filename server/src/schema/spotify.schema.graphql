@@ -4,12 +4,27 @@ type Query {
 }
 
 type Mutation {
+  savePlaylist(input: SavePlaylistInput!): SavePlaylistResponse
   toggleLike(input: ToggleLikeInput!): ToggleResponse
 }
 
 type SearchResults {
   searchResultsArray: [Track]
   recommendationsArray: [Track]
+}
+
+type SavePlaylistResponse {
+  status: Int
+  message: String
+  playlistName: String
+  playlistTracks: [Track]
+  searchResults: [Track]
+}
+
+type ToggleResponse {
+  status: Int
+  message: String
+  is_like: Boolean
 }
 
 type Track {
@@ -22,10 +37,9 @@ type Track {
   preview: String
 }
 
-type ToggleResponse {
-  status: Int
-  message: String
-  is_like: Boolean
+input SavePlaylistInput {
+  playlistName: String!
+  trackURIs: [String]!
 }
 
 input ToggleLikeInput {

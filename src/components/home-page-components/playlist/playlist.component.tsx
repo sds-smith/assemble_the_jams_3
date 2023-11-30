@@ -9,6 +9,7 @@ import editIcon from '../../../assets/icons/edit_white24.png';
 import { ResponsiveContext } from "../../../contexts/responsive.context";
 import { AuthContext } from "../../../contexts/auth.context";
 import { TrackContext } from "../../../contexts/track.context";
+import { savePlaylist as gqlSavePlaylist } from "../../../utils/graphql/queries";
 import { httpSavePlaylist } from "../../../utils/http.requests";
 import { TrackType } from "../../../utils/types/track.types";
 import { PlaylistContainer, TitleContainer,  SaveToSpotifyButton } from './playlist.styles';
@@ -27,7 +28,7 @@ const Playlist = () => {
     } else {
       const trackURIs: string[] = playlistTracks.map((track: TrackType) => track.uri);
       try {
-        const response = await httpSavePlaylist(playlistName, trackURIs);
+        const response = await gqlSavePlaylist({playlistName, trackURIs});
         if (response.message === 'Playlist has been saved to your Spotify account') {
           setPlaylistName(response.playlistName);
           setPlaylistTracks(response.playlistTracks);
@@ -36,7 +37,7 @@ const Playlist = () => {
         setSavedMessage(response.message);
         setTimeout(() => setSavedMessage(''), 3000);
       } catch(error) {
-        console.log(error);
+        console.log(JSON.stringify(error, null, 2));
       };
     };
   };

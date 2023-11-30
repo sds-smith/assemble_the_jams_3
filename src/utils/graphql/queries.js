@@ -67,14 +67,32 @@ import {
         }
       }
     `;
-    console.log({isLike})
     const { data } = await apolloClient.mutate({
       mutation, 
       variables: {
         input: { trackId, isLike}
       }
     });
-    console.log({data})
     return data.toggleResponse
   };
 
+  export async function savePlaylist({ playlistName, trackURIs }) {
+    const mutation = gql`
+      mutation savePlaylist($input: SavePlaylistInput!) {
+        savePlaylistResponse: savePlaylist(input: $input) {
+          status
+          message
+          playlistName
+          playlistTracks {album}
+          searchResults {album}
+        }
+      }
+    `;
+    const { data } = await apolloClient.mutate({
+      mutation, 
+      variables: {
+        input: { playlistName, trackURIs }
+      }
+    });
+    return data.savePlaylistResponse
+  };

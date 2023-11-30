@@ -25,10 +25,10 @@ const spotifyResolvers = {
     },
 
     Mutation: {
-        // savePlaylist: async (_root, payload, { accessToken }) => {
-        //     const saveResponse = await savePlaylist();
-        //     return saveResponse;
-        // },
+        savePlaylist: async (_root, { input: { playlistName, trackURIs } }, { id, accessToken }) => {
+            const saveResponse = await savePlaylist({ id, accessToken, playlistName, trackURIs });
+            return { ...saveResponse, playlistName: saveResponse.playlist_name};
+        },
         toggleLike: async (_root, {input: { trackId, isLike } }, { accessToken }) => {
             const toggleResponse = await toggleLike({ trackId, isLike, accessToken });
             return toggleResponse;

@@ -14,9 +14,11 @@ const typeDefs = await readFile(schemaPath, 'utf8');
 async function getContext({ req }) {
     const token = req?.session?.client_token?.token;
     const accessToken = req?.session?.passport?.user?.accessToken;
+    const id = req?.session?.passport?.user?.profile?.id;
     return {
         token,
-        accessToken
+        accessToken,
+        id
     };
 };
 
