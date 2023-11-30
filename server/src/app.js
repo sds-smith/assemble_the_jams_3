@@ -3,7 +3,6 @@ import express from 'express';
 import cookieSession from 'cookie-session';
 import passport from 'passport';
 import authRouter from './routes/auth/auth.router.js';
-import api from './routes/api.js';
 import { apolloMiddleware, __dirname } from './apollo.server.js';
 
 const config = {
@@ -28,7 +27,6 @@ app.use(session);
 app.use(passport.session());
 
 app.use('/auth', authRouter);
-app.use('/v1', api);
 app.use('/graphql', apolloMiddleware);
 
 export default app;
