@@ -4,21 +4,21 @@ import { INITIAL_STATE } from "../utils/types/track.types";
 
 export const TrackContext = createContext<TrackContextProps>({
     ...INITIAL_STATE,
-    setSearchResults: () => {},
-    setPlaylistTracks: () => {},
+    setSearchResultsArray: () => {},
+    setRecommendationsArray: () => {},
     setPlaylistName: () => {},
     setSearchLoading: () => {},
 });
 
 export const TrackProvider: FC<ProviderProps> = ({children}) => {
-    const [searchResults, setSearchResults] = useState(INITIAL_STATE.searchResults);
-    const [playlistTracks, setPlaylistTracks] = useState(INITIAL_STATE.playlistTracks);
+    const [searchResultsArray, setSearchResultsArray] = useState(INITIAL_STATE.searchResultsArray);
+    const [recommendationsArray, setRecommendationsArray] = useState(INITIAL_STATE.recommendationsArray);
     const [playlistName, setPlaylistName] = useState(INITIAL_STATE.playlistName);
     const [searchLoading, setSearchLoading] = useState(INITIAL_STATE.searchLoading);
 
     const value = {
-        searchResults, setSearchResults,
-        playlistTracks, setPlaylistTracks,
+        searchResultsArray, setSearchResultsArray,
+        recommendationsArray, setRecommendationsArray,
         playlistName, setPlaylistName,
         searchLoading, setSearchLoading
     };

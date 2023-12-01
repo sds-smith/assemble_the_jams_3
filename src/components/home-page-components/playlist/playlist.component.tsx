@@ -18,20 +18,20 @@ const Playlist = () => {
 
   const { isMobile } = useContext(ResponsiveContext);
   const { currentUserExists } = useContext(AuthContext);
-  const { playlistTracks, playlistName, setPlaylistName, setPlaylistTracks, setSearchResults } = useContext(TrackContext);
+  const { recommendationsArray, playlistName, setPlaylistName, setRecommendationsArray, setSearchResultsArray } = useContext(TrackContext);
 
   const savePlaylist = async () => {
     if (!currentUserExists) {
       setSavedMessage("Please sign in with your Spotify Premium account")
       setTimeout(() => setSavedMessage(''), 3000);      
     } else {
-      const trackURIs: string[] = playlistTracks.map((track: TrackType) => track.uri);
+      const trackURIs: string[] = recommendationsArray.map((track: TrackType) => track.uri);
       try {
         const response = await gqlSavePlaylist({playlistName, trackURIs});
         if (response.message === 'Playlist has been saved to your Spotify account') {
           setPlaylistName(response.playlistName);
-          setPlaylistTracks(response.playlistTracks);
-          setSearchResults(response.searchResults);
+          setRecommendationsArray(response.recommendationsArray);
+          setSearchResultsArray(response.searchResultsArray);
         }
         setSavedMessage(response.message);
         setTimeout(() => setSavedMessage(''), 3000);

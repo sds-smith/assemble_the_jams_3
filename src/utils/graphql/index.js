@@ -1,5 +1,5 @@
 import {
-    searchResults,
+    searchResultsArray,
     likeStatus
 } from './queries';
 
@@ -9,7 +9,7 @@ import {
 } from './mutations';
 
 export {
-    searchResults,
+    searchResultsArray,
     likeStatus,
     toggleLike,
     savePlaylist

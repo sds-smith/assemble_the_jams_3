@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 import { apolloClient } from './apollo-client';
 
-export async function searchResults(searchString) {
+export async function searchResultsArray(searchString) {
   const query = gql`
     query Search($searchString: String) {
       search(searchString: $searchString) {

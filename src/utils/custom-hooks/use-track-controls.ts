@@ -10,24 +10,24 @@ import { nowPlayingInitialState } from "../types/player.types";
 
 export const useTrackControls = (track: TrackType) => {
   const { currentUserExists } = useContext(AuthContext);
-  const { playlistTracks, searchResults, setPlaylistTracks, setSearchResults } = useContext(TrackContext);
+  const { recommendationsArray, searchResultsArray, setRecommendationsArray, setSearchResultsArray } = useContext(TrackContext);
   const { nowPlaying, setNowPlaying } = useContext(PlayerContext);
 
   const addTrack = async () => {
-    let tracks = playlistTracks;
+    let tracks = recommendationsArray;
     if (tracks.find(savedTrack => savedTrack.id === track.id)) {
       return `${track.name} already exists in Playlist`;
     };
     tracks.push(track);
-    let searchTracks = searchResults.filter(savedTrack => savedTrack.id !== track.id);
-    setPlaylistTracks(tracks);
-    setSearchResults(searchTracks);
+    let searchTracks = searchResultsArray.filter(savedTrack => savedTrack.id !== track.id);
+    setRecommendationsArray(tracks);
+    setSearchResultsArray(searchTracks);
     return `${track.name} added to Playlist`;
   };
 
   const removeTrack = () => {
-    let newTracks = playlistTracks.filter(savedTrack => savedTrack.id !== track.id);
-    setPlaylistTracks(newTracks);
+    let newTracks = recommendationsArray.filter(savedTrack => savedTrack.id !== track.id);
+    setRecommendationsArray(newTracks);
     return 'track removed from playlist';
   };
 

@@ -24,12 +24,12 @@ export type ResponsiveContextProps = {
 };
 
 export type TrackContextProps = {
-    searchResults: TrackType[];
-    playlistTracks: TrackType[];
+    searchResultsArray: TrackType[];
+    recommendationsArray: TrackType[];
     playlistName: string;
     searchLoading: boolean;
-    setSearchResults(searchResults: TrackType[]): void;
-    setPlaylistTracks(playlistTracks: TrackType[]): void;
+    setSearchResultsArray(searchResultsArray: TrackType[]): void;
+    setRecommendationsArray(recommendationsArray: TrackType[]): void;
     setPlaylistName(laylistName: string): void;
     setSearchLoading(searchLoading: boolean): void;
 }

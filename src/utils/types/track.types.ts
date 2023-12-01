@@ -18,15 +18,15 @@ export type TrackType = {
 }
 
 export type TrackState = {
-    searchResults : TrackType[];
-    playlistTracks : TrackType[];
+    searchResultsArray : TrackType[];
+    recommendationsArray : TrackType[];
     playlistName : string;
     searchLoading : boolean;
 }
 
 export const INITIAL_STATE: TrackState = {
-    searchResults : [], 
-    playlistTracks : [], 
+    searchResultsArray : [], 
+    recommendationsArray : [], 
     playlistName : "Name Your New Playlist", 
     searchLoading : false, 
 }

@@ -17,8 +17,8 @@ type SavePlaylistResponse {
   status: Int
   message: String
   playlistName: String
-  playlistTracks: [Track]
-  searchResults: [Track]
+  recommendationsArray: [Track]
+  searchResultsArray: [Track]
 }
 
 type ToggleResponse {

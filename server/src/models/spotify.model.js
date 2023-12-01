@@ -80,8 +80,8 @@ async function savePlaylist(reqObj) {
       status: 200,
       message: 'Playlist has been saved to your Spotify account',
       playlist_name: 'Name Your New Playlist',
-      playlistTracks: [],
-      searchResults: []
+      recommendationsArray: [],
+      searchResultsArray: []
    };
   } catch(error) {
       console.log(error)

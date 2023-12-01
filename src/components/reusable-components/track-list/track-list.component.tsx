@@ -10,8 +10,8 @@ type TrackListProps = {
 };
 
 const TrackList: FC<TrackListProps> = ({ trackType }) => {
-    const { playlistTracks, searchResults } = useContext(TrackContext);
-    const tracks = trackType === 'playlist' ? playlistTracks : searchResults ;
+    const { recommendationsArray, searchResultsArray } = useContext(TrackContext);
+    const tracks = trackType === 'playlist' ? recommendationsArray : searchResultsArray ;
     const [trackList, setTrackList] = useState<ReactNode[]>([]);
 
     useEffect(() => {
@@ -24,7 +24,7 @@ const TrackList: FC<TrackListProps> = ({ trackType }) => {
             setTrackList(trackList);
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [playlistTracks, searchResults]);
+    }, [recommendationsArray, searchResultsArray]);
 
     return (
         <TrackListContainer>

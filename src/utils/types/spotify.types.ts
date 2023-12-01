@@ -15,8 +15,8 @@ type GetLikeStatus = (authSession: string, trackId: string) => Promise<boolean>
 type SaveResponse = { 
   message: string;
   playlistName: string;
-  playlistTracks: TrackType[];
-  searchResults: TrackType[];
+  recommendationsArray: TrackType[];
+  searchResultsArray: TrackType[];
 }
 type SavePlaylist = (authSession: string, currentUser: CurrentUserType, playlistName: string, trackURIs: string[]) => Promise<SaveResponse>
 type ToggleLike = (authSession: string, nowPlaying: NowPlaying) => Promise<{message: string, isLike: boolean}>

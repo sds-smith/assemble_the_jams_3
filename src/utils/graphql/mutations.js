@@ -27,8 +27,8 @@ export async function savePlaylist({ playlistName, trackURIs }) {
         status
         message
         playlistName
-        playlistTracks {album}
-        searchResults {album}
+        recommendationsArray {album}
+        searchResultsArray {album}
       }
     }
   `;

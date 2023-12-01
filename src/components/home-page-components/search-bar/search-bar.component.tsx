@@ -2,7 +2,7 @@ import { useState, useContext, FC, ChangeEvent } from "react"
 
 import SearchFilterButton from "../../reusable-components/search-filter-button/search-filter-button.component";
 
-import { searchResults } from "../../../utils/graphql";
+import { searchResultsArray } from "../../../utils/graphql";
 import { ResponsiveContext } from "../../../contexts/responsive.context";
 import { TrackContext } from "../../../contexts/track.context";
 
@@ -20,7 +20,7 @@ const SearchBar: FC = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [searchFocus, setSearchFocus] = useState(false);
     const { isMobile, setMobilePlaylist } = useContext(ResponsiveContext);
-    const { setSearchLoading, setSearchResults, setPlaylistTracks } = useContext(TrackContext);
+    const { setSearchLoading, setSearchResultsArray, setRecommendationsArray } = useContext(TrackContext);
 
     const filters: FilterObj[] = [
         {
@@ -58,12 +58,12 @@ const SearchBar: FC = () => {
         setSearchLoading(true);
 
         const query = filter ? `${filter}:"${searchTerm}"` : searchTerm;
-        const response = await searchResults(query);
+        const response = await searchResultsArray(query);
         if (response) {
             const {searchResultsArray, recommendationsArray} = response;
             setSearchTerm('');
-            setSearchResults(searchResultsArray);
-            setPlaylistTracks(recommendationsArray);
+            setSearchResultsArray(searchResultsArray);
+            setRecommendationsArray(recommendationsArray);
             setSearchLoading(false);
             isMobile && setMobilePlaylist();
         };
