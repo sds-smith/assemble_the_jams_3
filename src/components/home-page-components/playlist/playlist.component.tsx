@@ -28,7 +28,7 @@ const Playlist = () => {
       const trackURIs: string[] = recommendationsArray.map((track: TrackType) => track.uri);
       try {
         const response = await gqlSavePlaylist({playlistName, trackURIs});
-        if (response.message === 'Playlist has been saved to your Spotify account') {
+        if (response.message === `Playlist "${playlistName}" has been saved to your Spotify account`) {
           setPlaylistName(response.playlistName);
           setRecommendationsArray(response.recommendationsArray);
           setSearchResultsArray(response.searchResultsArray);

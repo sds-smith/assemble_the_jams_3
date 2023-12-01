@@ -4,21 +4,15 @@ type Query {
 }
 
 type Mutation {
-  savePlaylist(input: SavePlaylistInput!): SavePlaylistResponse
+  savePlaylist(input: SavePlaylistInput!): SearchResults
   toggleLike(input: ToggleLikeInput!): ToggleResponse
 }
 
 type SearchResults {
-  searchResultsArray: [Track]
-  recommendationsArray: [Track]
-}
-
-type SavePlaylistResponse {
-  status: Int
   message: String
   playlistName: String
-  recommendationsArray: [Track]
   searchResultsArray: [Track]
+  recommendationsArray: [Track]
 }
 
 type ToggleResponse {

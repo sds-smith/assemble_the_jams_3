@@ -1,33 +1,19 @@
 import { gql } from "@apollo/client";
 import { apolloClient } from './apollo-client';
+import { searchFragment } from "./fragments";
+
+export const searchResultsQuery = gql`
+  query Search($searchString: String) {
+    search(searchString: $searchString) {
+      ...searchDetail
+    }
+  }
+  ${searchFragment}
+`
 
 export async function searchResultsArray(searchString) {
-  const query = gql`
-    query Search($searchString: String) {
-      search(searchString: $searchString) {
-        searchResultsArray {
-            album
-            artist
-            name
-            cover
-            id
-            preview
-            uri
-        }
-        recommendationsArray {
-            album
-            artist
-            name
-            cover
-            id
-            preview
-            uri
-        }
-      }
-    }
-  `
   const { data } = await apolloClient.query({ 
-    query,
+    query: searchResultsQuery,
     variables: { searchString }
   });
   return data.search;

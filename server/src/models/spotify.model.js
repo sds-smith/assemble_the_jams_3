@@ -78,7 +78,7 @@ async function savePlaylist(reqObj) {
     
     return {
       status: 200,
-      message: 'Playlist has been saved to your Spotify account',
+      message: `Playlist "${playlistName}" has been saved to your Spotify account`,
       playlist_name: 'Name Your New Playlist',
       recommendationsArray: [],
       searchResultsArray: []
@@ -98,12 +98,12 @@ async function getLikeStatus(reqObj) {
 
     const headers = { Authorization : `Bearer ${accessToken}` };
     const response = await fetch(`https://api.spotify.com/v1/me/tracks/contains?ids=${trackId}`, { headers : headers });
-    const status = (await response.json())[0];
+    const likeStatus = (await response.json())[0];
     
     return {
       status: 200,
       message: 'like status retrieved',
-      likeStatus: status
+      likeStatus
     };
   } catch(error) {
       console.log({ error })

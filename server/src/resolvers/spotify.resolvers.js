@@ -16,18 +16,34 @@ const spotifyResolvers = {
                 searchResultsArray,
                 recommendationsArray
             } = await search({searchString, token});
-            return { searchResultsArray, recommendationsArray }
+            return { 
+                message,
+                searchResultsArray, 
+                recommendationsArray,
+                playlistName: ''
+            }
         },
         likeStatus: async (_root, { trackId }, { accessToken }) => {
-            const { likeStatus } = await getLikeStatus({trackId, accessToken});
+            const { likeStatus, message } = await getLikeStatus({trackId, accessToken});
             return likeStatus;
         },
     },
 
     Mutation: {
         savePlaylist: async (_root, { input: { playlistName, trackURIs } }, { id, accessToken }) => {
-            const saveResponse = await savePlaylist({ id, accessToken, playlistName, trackURIs });
-            return { ...saveResponse, playlistName: saveResponse.playlist_name};
+            const {
+                status,
+                message,
+                playlist_name,
+                searchResultsArray,
+                recommendationsArray
+            } = await savePlaylist({ id, accessToken, playlistName, trackURIs });
+            return { 
+                message,
+                searchResultsArray,
+                recommendationsArray,
+                playlistName: playlist_name
+            };
         },
         toggleLike: async (_root, {input: { trackId, isLike } }, { accessToken }) => {
             const toggleResponse = await toggleLike({ trackId, isLike, accessToken });
