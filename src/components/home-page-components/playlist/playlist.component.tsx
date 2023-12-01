@@ -9,7 +9,7 @@ import editIcon from '../../../assets/icons/edit_white24.png';
 import { ResponsiveContext } from "../../../contexts/responsive.context";
 import { AuthContext } from "../../../contexts/auth.context";
 import { TrackContext } from "../../../contexts/track.context";
-import { savePlaylist as gqlSavePlaylist } from "../../../utils/graphql/queries";
+import { savePlaylist as gqlSavePlaylist } from "../../../utils/graphql";
 import { TrackType } from "../../../utils/types/track.types";
 import { PlaylistContainer, TitleContainer,  SaveToSpotifyButton } from './playlist.styles';
 

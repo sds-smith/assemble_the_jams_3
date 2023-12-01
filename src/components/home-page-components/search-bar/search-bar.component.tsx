@@ -2,7 +2,7 @@ import { useState, useContext, FC, ChangeEvent } from "react"
 
 import SearchFilterButton from "../../reusable-components/search-filter-button/search-filter-button.component";
 
-import { searchResults } from "../../../utils/graphql/queries";
+import { searchResults } from "../../../utils/graphql";
 import { ResponsiveContext } from "../../../contexts/responsive.context";
 import { TrackContext } from "../../../contexts/track.context";
 
