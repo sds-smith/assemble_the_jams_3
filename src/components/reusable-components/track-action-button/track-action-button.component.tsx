@@ -42,7 +42,7 @@ export enum TRACK_ACTION_BUTTON_CLASSES {
 const TrackActionButton: FC<TrackActionButtonProps> = ({buttonType, track, setMessage}) => {
     const [clicked, setClicked] = useState<boolean>(false);
     const { isMobile } = useContext(ResponsiveContext);
-    const { addTrack, removeTrack, toggleLike, play, stopPlayback } = useTrackControls(track);
+    const { addTrack, removeTrack, handleToggleLike, play, stopPlayback } = useTrackControls(track);
 
     const playTrack = async () => {
         const playMessage = await play();
@@ -53,7 +53,7 @@ const TrackActionButton: FC<TrackActionButtonProps> = ({buttonType, track, setMe
     };
 
     const LikeAction = async () => {
-        const message = await toggleLike();
+        const message = await handleToggleLike();
         setMessage!(message);
         setTimeout(() => setMessage!(''), 3000);
     };

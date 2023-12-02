@@ -4,7 +4,7 @@ import { AuthContext } from "../../contexts/auth.context";
 import { TrackContext } from "../../contexts/track.context";
 import { PlayerContext } from "../../contexts/player.context";
 
-import { likeStatus, toggleLike as gqlToggleLike } from "../graphql";
+import { useLike } from "./apollo-hooks";
 import { TrackType } from "../types/track.types";
 import { nowPlayingInitialState } from "../types/player.types";
 
@@ -12,6 +12,8 @@ export const useTrackControls = (track: TrackType) => {
   const { currentUserExists } = useContext(AuthContext);
   const { recommendationsArray, searchResultsArray, setRecommendationsArray, setSearchResultsArray } = useContext(TrackContext);
   const { nowPlaying, setNowPlaying } = useContext(PlayerContext);
+
+  const { likeStatus, toggleLike } = useLike();
 
   const addTrack = async () => {
     let tracks = recommendationsArray;
@@ -63,14 +65,14 @@ export const useTrackControls = (track: TrackType) => {
     return message;
   };
 
-  const toggleLike = async () => {
+  const handleToggleLike = async () => {
     if (!currentUserExists) {
         return 'Please sign in with Spotify to use this feature';
     };
     if (!nowPlaying.hasTrack()) {
         return 'Could not find track id';
     };
-    const {message, is_like} = await gqlToggleLike({
+    const {message, is_like} = await toggleLike({
       trackId: nowPlaying.track.id,
       isLike: nowPlaying.isLike
     });
@@ -87,6 +89,6 @@ export const useTrackControls = (track: TrackType) => {
     stopPlayback, 
     addTrack, 
     removeTrack, 
-    toggleLike 
+    handleToggleLike 
   };
 };

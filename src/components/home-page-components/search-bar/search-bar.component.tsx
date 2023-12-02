@@ -2,7 +2,7 @@ import { useState, useContext, FC, ChangeEvent } from "react"
 
 import SearchFilterButton from "../../reusable-components/search-filter-button/search-filter-button.component";
 
-import { searchResultsArray } from "../../../utils/graphql";
+import { usePlaylist } from "../../../utils/custom-hooks/apollo-hooks";
 import { ResponsiveContext } from "../../../contexts/responsive.context";
 import { TrackContext } from "../../../contexts/track.context";
 
@@ -22,6 +22,7 @@ const SearchBar: FC = () => {
     const { isMobile, setMobilePlaylist } = useContext(ResponsiveContext);
     const { setSearchLoading, setSearchResultsArray, setRecommendationsArray } = useContext(TrackContext);
 
+    const { searchResults } = usePlaylist();
     const filters: FilterObj[] = [
         {
             id : 1,
@@ -53,12 +54,12 @@ const SearchBar: FC = () => {
         !searchTerm && setSearchFocus(false);
     };
 
-    const search: AsyncSearch = async (filter) => {
+    const handleSearch: AsyncSearch = async (filter) => {
         setSearchFocus(false);
         setSearchLoading(true);
 
         const query = filter ? `${filter}:"${searchTerm}"` : searchTerm;
-        const response = await searchResultsArray(query);
+        const response = await searchResults(query);
         if (response) {
             const {searchResultsArray, recommendationsArray} = response;
             setSearchTerm('');
@@ -70,7 +71,7 @@ const SearchBar: FC = () => {
     };
 
     const filteredSearch: Search = (filter) => {
-        search(filter);
+        handleSearch(filter);
     };
 
     const handleTermChange = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -78,7 +79,7 @@ const SearchBar: FC = () => {
     };
 
     return (
-        <SearchBarContainer onKeyPress={(e) => e.key === 'Enter' && search('')}>
+        <SearchBarContainer onKeyPress={(e) => e.key === 'Enter' && handleSearch('')}>
             <SearchBarInput 
                 placeholder="Enter A Song, Album, or Artist" 
                 onFocus={onFocus} 
