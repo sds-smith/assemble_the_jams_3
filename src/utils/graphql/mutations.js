@@ -3,38 +3,41 @@ import { apolloClient } from './apollo-client';
 import { searchFragment } from "./fragments";
 import { searchResultsQuery } from "./queries";
 
+
+const toggleLikeMutation = gql`
+  mutation ToggleLike($input: ToggleLikeInput!) {
+    toggleResponse: toggleLike(input: $input) {
+      status
+      message
+      is_like
+    }
+  }
+`;
+
 export async function toggleLike({ trackId, isLike }) {
-    const mutation = gql`
-      mutation ToggleLike($input: ToggleLikeInput!) {
-        toggleResponse: toggleLike(input: $input) {
-          status
-          message
-          is_like
-        }
-      }
-    `;
-    const { data } = await apolloClient.mutate({
-      mutation, 
-      variables: {
-        input: { trackId, isLike}
-      }
-    });
-    return data.toggleResponse
+  const { data } = await apolloClient.mutate({
+    mutation: toggleLikeMutation, 
+    variables: {
+      input: { trackId, isLike}
+    }
+  });
+  return data.toggleResponse;
 };
 
-export async function savePlaylist({ playlistName, trackURIs }) {
-  const mutation = gql`
-    mutation savePlaylist($input: SavePlaylistInput!) {
-      savePlaylistResponse: savePlaylist(input: $input) {
-        message
-        playlistName
-        ...searchDetail
-      }
+const savePlaylistMutation = gql`
+  mutation savePlaylist($input: SavePlaylistInput!) {
+    savePlaylistResponse: savePlaylist(input: $input) {
+      message
+      playlistName
+      ...searchDetail
     }
-    ${searchFragment}
-  `;
+  }
+  ${searchFragment}
+`;
+
+export async function savePlaylist({ playlistName, trackURIs }) {
   const { data } = await apolloClient.mutate({
-    mutation, 
+    mutation: savePlaylistMutation, 
     variables: {
       input: { playlistName, trackURIs }
     },

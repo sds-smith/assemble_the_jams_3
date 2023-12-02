@@ -19,14 +19,15 @@ export async function searchResultsArray(searchString) {
   return data.search;
 };
 
+const likeStatusQuery = gql`
+  query LikeStatus($trackId: ID) {
+    likeStatus(trackId: $trackId)
+  }
+`
+
 export async function likeStatus(trackId) {
-  const query = gql`
-    query LikeStatus($trackId: ID) {
-      likeStatus(trackId: $trackId)
-    }
-  `
   const { data } = await apolloClient.query({
-    query,
+    query: likeStatusQuery,
     variables: { trackId }
   });
   return data.likeStatus;
