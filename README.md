@@ -58,10 +58,10 @@ The authenticated user is also able to modify their Premium account in two ways:
 
 The app uses **three** protocols for engaging with Spotify:
 
-- Spotify web playback sdk for playing track previews with an authenticated user
-- Express Auth Router
+- **Spotify Web Playback SDK **for playing track previews with an authenticated user
+- **Express Auth Router**
   - Auth requests are sent to the Express server at `/auth`, where Client credentials are obtained via fetch request to Spotify and user credentials are obtained via Passport Spotify strategy.
-- GraphQL API
+- **GraphQL API**
   - Search, Save, and Like requests are sent via Apollo Client queries and mutations to the Express server at `/graphql` where the Apollo Server middleware invokes the appropriate resolver.
   - The api layer is made up of a graphql resolvers layer and a models layer. In the previous version (v3.1), the same models layer is used, but is invoked by a controller layer corresponding to REST API endpoints. This reuse of the models layer to engage with the Spotify API demonstrates the power and flexibility of this versionable approach.
 
