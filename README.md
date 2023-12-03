@@ -49,7 +49,7 @@ Two lists are populated in the UI on execution of a keyword search:
 
 Some, but not all, track objects returned from Spotify have a property `preview`, whose value is a url that can be passed into the `audioRef`. Otherwise, no preview is available to the un-authenticated user for that track.
 
-At any point, the user may use the 'LOGIN' button to authenticate with their Spotify Premium account. Once the user is authenticated, the `useEffect` in `App` invokes `spotifyPlayer()`, triggering `useAudio` to load a new `SpotifyPlayer()` on the window using the Spotify sdk and storing its referene in `spotifyRef`. All audio functionality will now be passed to `spotifyRef`, and the user is able to hear a preview of any track regardless of whether it has a `preview` url.
+At any point, the user may use the 'LOGIN' button to authenticate with their Spotify Premium account. Once the user is authenticated, the `useEffect` in `App` invokes `spotifyPlayer()`, triggering `useAudio` to load a new `SpotifyPlayer()` on the window using the Spotify sdk and storing its reference in `spotifyRef`. All audio functionality will now be passed to `spotifyRef`, and the user is able to hear a preview of any track regardless of whether it has a `preview` url.
 
 The authenticated user is also able to modify their Premium account in two ways:
 
@@ -59,11 +59,11 @@ The authenticated user is also able to modify their Premium account in two ways:
 The app uses **three** protocols for engaging with Spotify:
 
 - Spotify web playback sdk for playing track previews with an authenticated user
-- REST API
+- Express Auth Router
   - Auth requests are sent to the Express server at `/auth`, where Client credentials are obtained via fetch request to Spotify and user credentials are obtained via Passport Spotify strategy.
 - GraphQL API
-  - Search, Save, and Like requests are sent via Apollo Client queries and mutations to the Express server at `/graphql` where the Apollo Server middleware invokes the appriate resolver.
-  - The api layer is made up of a graphql resolvers layer and a models layer. In v3.1, the same models layer is used, but is invoked by a controller layer corresponding to REST API endpoints. This reuse of the models layer to engage with the Spotify API demonstrates the power and flexibility of this versionable approach.
+  - Search, Save, and Like requests are sent via Apollo Client queries and mutations to the Express server at `/graphql` where the Apollo Server middleware invokes the appropriate resolver.
+  - The api layer is made up of a graphql resolvers layer and a models layer. In the previous version (v3.1), the same models layer is used, but is invoked by a controller layer corresponding to REST API endpoints. This reuse of the models layer to engage with the Spotify API demonstrates the power and flexibility of this versionable approach.
 
 On the Client side, graphql queries and mutations are implemented in `usePlaylist` and `useLike` custom hooks which leverage `useLazyQuery` and `useMutation` hooks imported from Apollo Client.
 
