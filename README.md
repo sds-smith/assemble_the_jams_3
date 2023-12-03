@@ -58,7 +58,7 @@ The authenticated user is also able to modify their Premium account in two ways:
 
 The app uses **three** protocols for engaging with Spotify:
 
-- **Spotify Web Playback SDK **for playing track previews with an authenticated user
+- **Spotify Web Playback SDK** for playing track previews with an authenticated user
 - **Express Auth Router**
   - Auth requests are sent to the Express server at `/auth`, where Client credentials are obtained via fetch request to Spotify and user credentials are obtained via Passport Spotify strategy.
 - **GraphQL API**
