@@ -92,24 +92,27 @@ export const useAudio = () => {
           }
         }
     }) => {
-        getOAuthToken(access_token => {
-          fetch(`https://api.spotify.com/v1/me/player/play?device_id=${id}`, {
-            method: 'PUT',
-            body: JSON.stringify({ uris: [spotify_uri], position_ms: 30000 }),
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${access_token}`
-            },
-          });
+        getOAuthToken(async (access_token) => {
+            fetch(`https://api.spotify.com/v1/me/player/play?device_id=${id}`, {
+                method: 'PUT',
+                body: JSON.stringify({ uris: [spotify_uri], position_ms: 30000 }),
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${access_token}`
+                },
+            });
         });
     };
 
-    const playTrack = () => {
-        const uri = `spotify:track:${nowPlaying.track.id}`;
-        spotifyPlay(deviceId, {
-            spotify_uri: uri,
-            playerInstance: spotifyRef.current
-        });
+    const playTrack = async () => {
+        const playerState = await spotifyRef.current.getCurrentState();
+        if (!playerState || playerState?.position === 0 || playerState?.paused) {
+            const uri = `spotify:track:${nowPlaying.track.id}`;
+            spotifyPlay(deviceId, {
+                spotify_uri: uri,
+                playerInstance: spotifyRef.current
+            });
+        };
     };
 
     const stopPlayback = () => {
@@ -150,7 +153,7 @@ export const useAudio = () => {
                     setNowPlaying(nowPlayingInitialState);
                 };
             } else if (activeElement.spotify) {
-                playTrack();
+                (async () => {await playTrack()})();
             }
         } else {
             if (activeElement.audio) {

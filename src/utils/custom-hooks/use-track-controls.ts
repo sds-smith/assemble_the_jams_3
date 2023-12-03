@@ -46,7 +46,6 @@ export const useTrackControls = (track: TrackType) => {
 
   const playTrack = async () => {
     const isLike = await likeStatus(track.id) 
-    console.log({isLike})
     setNowPlaying({
       ...nowPlaying,
       track,
