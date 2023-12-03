@@ -5,7 +5,7 @@ A Playlist Generator [Progressive Web App](https://developer.mozilla.org/en-US/d
 This project serves as a personal playground where I can try out new things as I continue to explore and learn new technologies and skills.
 It has evolved through numerous iterations since its original development in February, 2022 and holds a special place in my heart as the Codecademy project from which it grew was my first exposure to React, OAuth2.0, and fetch requests.
 
-The main branch is up to date with branch v3.2_graphql.
+The main branch is up to date with branch [v3.2_graphql](https://github.com/sds-smith/assemble_the_jams_3/tree/v3.2_graphql).
 
 ## Primary Tech Stack
 
